@@ -13,49 +13,33 @@
 
 
 /*
-* This function will make final decisions about how to move.
+* This function will run functions necessary for the current state.
 */
-void navigate()
+void runState()
 {
-    /*
-    *SpecialMovementLogic indicates that it is ok to be near a wall/object
-    *such as when grabbing a person.
-    */
-    /*if (specialMovementLogic == FALSE)
+    switch(state)
     {
-        if (distanceLeft <= minDist)
-        {
-            moveAwayFromLeft();
-        }
-        else if ( distanceRight <= minDist)
-        {
-            moveAwayFromRight();
-        }
-        else if (distanceCenter <= minDist)
-        {
-            moveAwayFromFront();
-        }
+    case 0:
+        initialize();
+        break;
+    case 1:
+        retrievePerson1();
+        break;
+    case 2:
+        retrievePerson2();
+        break;
+    case 3:
+        retrievePerson3();
+        break;
+    case 4:
+        retrievePerson4();
+        break;
+    case 5:
+        terminate();
+        break;
+    default:
+        handleNonStandardMovement();
     }
-    else if (grabbingPerson == TRUE)
-    {
-        if (personInRange == TRUE)
-        {
-            grabPerson();
-            ReturnToBase == TRUE;
-        }
-        else
-        {
-            moveToPerson();
-        }
-    }
-    else if (ReturnToBase == TRUE)
-    {
-        ReturnToBaseMovementLogic();
-    }
-    else
-    {
-        HandleOtherSpecialMovement();
-    }*/
 }
 
 /*
