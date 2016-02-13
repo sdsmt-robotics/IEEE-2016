@@ -3,6 +3,7 @@ import subprocess
 import sys
 import time
 import os
+import datetime
 from gpiolib import *
 
 
@@ -62,14 +63,14 @@ def main(pin):
             filename = "logs/" + str(datetime.datetime.now()).split('.')[0] + ".log"
             with open(filename, 'w') as f:
                 f.write("==================================================\n")
-                f.write(time.strftime("%c"))
-                f.write("Process: " + ' '.join(args) + '\n')
+                #f.write(time.strftime("%c"))
+                f.write("Process: " + ' '.join(sys.argv[1:]) + '\n')
                 f.write("Began: " + then + '\n')
-                f.write("Took: " + str(delta) + " seconds to complete.\n")
+                #f.write("Took: " + str(delta) + " seconds to complete.\n")
                 f.write("==================================================\n")
                 f.write("Process output:\n")
                 f.write("==================================================\n")
-                f.write(output)
+                #f.write(output)
                 f.write("==================================================\n")
                 for line in proc.stdout:
                     sys.stdout.write(line)
