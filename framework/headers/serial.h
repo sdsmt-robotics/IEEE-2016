@@ -20,5 +20,6 @@ void clearPort(int port);
 
 void s_write( int port, int val, int bytes); // generic multipurpose write
 
+int s_read_until(int fd, char* buf, char until);
 
 #endif
