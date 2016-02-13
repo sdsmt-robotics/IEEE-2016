@@ -1,7 +1,4 @@
 #include "locomotion.h"
-#include "serial.h" //not necessarily needed for this.
-#include "robot_defines.h"
-
 
 void setWheelSpeed( int wheel, unsigned char speed, int serial_port )
 {
