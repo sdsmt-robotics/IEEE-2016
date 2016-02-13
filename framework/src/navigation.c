@@ -15,7 +15,7 @@
 /*
 * This function will run functions necessary for the current state.
 */
-void runState()
+void runState(int state)
 {
     switch(state)
     {
@@ -39,6 +39,63 @@ void runState()
         break;
     default:
         handleNonStandardMovement();
+    }
+}
+
+/*
+*This function will handle getting the robot to the reference point.
+*/
+void initialize()
+{
+    /*
+    *update distances, determine if the path is straight ahead or if the robot
+    *needs to turn.
+    */
+    update();
+    /*logic to determine which way the robot is facing when it starts.*/
+    
+    /*once the robot is facing out:*/
+    moveForward(startDistance);
+    turnLeft(90degrees);
+    moveForwardUntilWall();
+    turnRight(90degrees);
+    /*
+    *Robot should now be in the reference position facing away from the yellow
+    *hospital.
+    */
+}
+
+/*
+*This function will handle retrieving the first person, determining their color,
+*and returning them to the appropriate hospital.
+*/
+void retrievePerson1()
+{
+    /*This function should handle getting the robot to the person*/
+    /*TODO: Rewrite this to handle things without dead reckoning*/
+    /*TODO: This section will change depending on how we poll the sensors.*/
+    moveForward(firstPersonDistance/*approx 6ft*/);
+    approachPerson();
+    determineColor();
+    grabPerson();
+    turnRight(180degrees); /*Turn the robot around*/
+    if(color == yellow)
+    {
+        /*Rewrite to use return to reference point.*/
+        moveForwardUntilWall(); /*it shouldn't be necessary to know distance*/
+        dropOffPerson();
+        /*this function can use current location to determine how to get back.*/
+        returnToReferencePoint(yellowHospital);
+    }
+    else
+    {
+        /*get back to the reference point from where the first person is*/
+        returnToReferencePoint(firstPerson);
+        turnLeft(90degrees);
+        moveForwardUntilWall();
+        turnLeft(90degrees);
+        moveForwardUntilWall();
+        dropOffPerson();
     }
 }
 
