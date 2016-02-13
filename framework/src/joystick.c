@@ -2,13 +2,16 @@
 
 long map(long x, long in_min, long in_max, long out_min, long out_max)
 {
-  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    //does mappy things
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
 unsigned char map_stick(short input)
 {
-  //printf("%li", map(input, SHRT_MIN, SHRT_MAX, -127, 127));
-  return map(input, SHRT_MIN, SHRT_MAX, 0, 255); //centerpoint is at 127;
+    /*
+     * Maps a raw input to input our code knows how to work with.
+     */
+    return map(input, SHRT_MIN, SHRT_MAX, 0, 255); //centerpoint is at 127;
 }
 
 void button_update(struct js_event *jse, int *button_update_array)
@@ -25,7 +28,7 @@ void axis_update(struct js_event *jse, int *axis_update_array)
 
 int  send_button_updates(int *old_button_array, int *new_button_array, int serial_file)
 {
-	int i = 0;
+	int i;
 	for(i = 0; i < BUTTON_COUNT; i++)
 		if(new_button_array[i] != old_button_array[i])
 		{
@@ -46,7 +49,6 @@ int  send_axis_updates(int *old_axis_array, int *new_axis_array, int serial_port
 		}
 	return 0;
 }
-
 
 int update_button(int button, int button_state, int serial_port)
 {

@@ -12,6 +12,8 @@
 #include <sys/ioctl.h>
 #include <getopt.h>
 
+#include "robot_defines"
+
 int serial_init(const char* serialport, int baud);
 
 void clearPort(int port);

@@ -15,6 +15,6 @@
 #define ARDUINO_RECEIVED_BYTE 0x13
 
 //uselss defines
-#define USELESS "useless"
+#define USELESS "useless\0"
 
 #endif
