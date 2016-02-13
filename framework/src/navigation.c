@@ -66,8 +66,8 @@ void initialize()
 }
 
 /*
-*This function will handle retrieving the first person, determining their color,
-*and returning them to the appropriate hospital.
+*This function will handle retrieving the first person in the city, determining 
+*their color, and returning them to the appropriate hospital.
 */
 void retrievePerson1()
 {
@@ -96,6 +96,69 @@ void retrievePerson1()
         turnLeft(90degrees);
         moveForwardUntilWall();
         dropOffPerson();
+        returnToReferencePoint(redHospital);
+    }
+}
+
+/*
+*This function will handle getting the second city person.
+*/
+void retrievePerson2()
+{
+    /*This part is a bit dicey and needs to be tested before revisions are made*/
+    while(distanceLeft <= wallFollowDistance)
+    {
+        moveForward(); /*ideally works with while loop in this form*/
+    }
+    if(distanceLeft > wallFollowDistance && distanceRight <= wallFollowDistance
+       && distanceCenter > wallFollowDistance)
+    {
+       turnLeft(90degrees); /*the robot should be facing the grass area.*/
+    }
+    if (distanceLeft > wallFollowDistance 
+        && distanceRight > wallFollowDistance
+        && distanceCenter > wallFollowDistance)
+    {
+        moveForward(thirdRowDistance/*~1-2 feet*/);
+        turnLeft(90degrees);
+    }
+    moveForward(secondPersonDistance/*less than 3ft*/);
+    approachPerson();
+    determineColor();
+    grabPerson();
+    turnRight(180degrees);
+    /*consider placing this code in the returnToReferencePoint function*/
+    /*
+    while(distanceLeft <= wallFollowDistance 
+          && distanceRight <= wallFollowDistance)
+    {
+        moveForward();
+    }
+    turnRight(90degrees);
+    moveForwardUntilWall();
+    turnRight(90degrees);
+    moveForwardUntilWall();
+    */
+    returnToReferencePoint(secondPerson);
+    if (color == yellow)
+    {
+        /*
+        *assuming that the returnToReferencePoint function sets the robot
+        *facing away from yellowHospital
+        */
+        turnRight(180degrees); 
+        moveForwardUntilWall();
+        dropOffPerson();
+        returnToReferencePoint(yellowHospital);
+    }
+    else
+    {
+        turnRight(90degrees);
+        moveForwardUntilWall();
+        turnLeft(90degrees);
+        moveForwardUntilWall();
+        dropOffPerson();
+        returnToReferencePoint(redHospital);
     }
 }
 

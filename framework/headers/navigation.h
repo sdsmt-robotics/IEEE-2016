@@ -8,6 +8,7 @@
 void runState(int state);
 void initialize();
 void retrievePerson1();
+void retrievePerson2();
 
 /*
 *These functions will handle determining what distance the walls are from the
