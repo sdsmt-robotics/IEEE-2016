@@ -2,11 +2,10 @@
 #define __LOCOMOTION_DEFINES_
 
 /*Arduino locomotion wrapper*/
-typedef side int;
 
-side LEFT = 1;
-side RIGHT = 0;
+#define RIGHT 1
+#define LEFT 0
 
-void wheelSpeed( side wheel, int speed );
+void setWheelSpeed( side wheel, unsigned char speed, int serial_port );
 
 #endif
