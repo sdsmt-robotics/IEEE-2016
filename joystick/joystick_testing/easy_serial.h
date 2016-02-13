@@ -77,22 +77,22 @@ int serialport_read_until(int fd, char* buf, char until)
       int i = 0;
       int n = 0;
       buf[0] = '\0';
-      printf("Received: ");
+      //printf("Received: ");
 
       while(in != until)
       {
           n = read(fd, &in, 1);  // read a char at a time
           if( n==-1) 
           {
-             printf("Unable to read.");
+             perror("Unable to read from port\n");
              return -1;    // couldn't read
           }
 		  if( n==0 )
-			usleep( 10 * 1000 ); // wait 100 msec try again
+			usleep( 1 * 1000 ); // wait 1 msec try again
           if(n > 0)
 		  {
              buf[i] = in;
-             printf("|%#4x|", in);
+             //printf("|%#4x|", in);
              i++;
           }
       }
