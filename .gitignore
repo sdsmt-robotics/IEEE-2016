@@ -5,7 +5,11 @@
 *.out
 *.log
 logs/
+*.zip
 
+#############################
+#Default GitHub Python gitignore
+#############################
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

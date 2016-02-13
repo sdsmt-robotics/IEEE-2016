@@ -8,7 +8,7 @@ import datetime
 from gpiolib import *
 
 
-def log(args, proc, now):
+def log(args, proc, now, pin):
     if not os.path.exists("logs"):
         os.makedirs("logs")
     filename = "logs/" + str(datetime.datetime.now()).split('.')[0] + ".log"
@@ -41,13 +41,12 @@ def main(pin):
         print("Could not initialize. Must be run as root.")
         sys.exit()
 
-    pinMode(pin, INPUT)
     print "On pin", pin, "input, attempting to run: ", ' '.join(sys.argv[1:])
+    pinMode(pin, INPUT)
     while True:
-        # if `pin` is ON, call an executable given by commandline arguments
-        if digitalRead(pin):  # digitalRead(pin):
+        if digitalRead(pin):
             # sys.argv is ["./run.py", "./test", "arg1", "arg2"]
-            # [1:] strips off "./run.py"
+            # [1:] strips off "./run.py" (first argument)
             print "Running", ' '.join(sys.argv[1:])
             print "Changing script ownership to non-root."
             uid = pwd.getpwnam('odroid')[2]
@@ -60,7 +59,7 @@ def main(pin):
 
             print "==========================================================="
             # also prints STDOUT, STDERR to console
-            log(sys.argv[1:], proc, now)
+            log(sys.argv[1:], proc, now, pin)
             print "==========================================================="
             sys_clean()
             print "Exiting"
