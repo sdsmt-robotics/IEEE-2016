@@ -8,21 +8,25 @@ import datetime
 from gpiolib import *
 
 
-def log(args, output, then, delta):
-    timestamp = time.strftime("%c")
+def log(args, proc, now):
     if not os.path.exists("logs"):
         os.makedirs("logs")
-    filename = "logs/" + timestamp + ".log"
+    filename = "logs/" + str(datetime.datetime.now()).split('.')[0] + ".log"
     with open(filename, 'w') as f:
-        f.write("==========================================================\n")
-        f.write("Process: " + ' '.join(args) + '\n')
-        f.write("Began: " + then + '\n')
-        f.write("Took: " + str(delta) + " seconds to complete.\n")
-        f.write("==========================================================\n")
+        f.write("==================================================\n")
+        f.write("Running process '" + ' '.join(args) + "' on pin " +
+                str(pin) + " input.\n")
+        f.write("Began: " + time.strftime("%c") + '\n')
+        f.write("==================================================\n")
         f.write("Process output:\n")
-        f.write("==========================================================\n")
-        f.write(output)
-        f.write("==========================================================\n")
+        f.write("==================================================\n")
+        for line in proc.stdout:
+            sys.stdout.write(line)
+            f.write(line)
+            proc.wait()
+        f.write("==================================================\n")
+        f.write("Took: " + str(time.time() - now) + " seconds to complete.\n")
+        f.write("==================================================\n")
 
 
 def main(pin):
@@ -45,37 +49,19 @@ def main(pin):
             # sys.argv is ["./run.py", "./test", "arg1", "arg2"]
             # [1:] strips off "./run.py"
             print "Running", ' '.join(sys.argv[1:])
-            print "Changing script ownership."
-
-            print int(os.environ.get('SUDO_UID'))
-            print int(os.environ.get('SUDO_GID'))
+            print "Changing script ownership to non-root."
             uid = pwd.getpwnam('odroid')[2]
             os.setuid(uid)
-            # os.chown("./run.py", 1000, 1000)  # odroid uid and gid
 
             now = time.time()
-            # output = subprocess.check_output(sys.argv[1:])  # captures STDOUT
             proc = subprocess.Popen(sys.argv[1:],
                                     stdout=subprocess.PIPE,
                                     stderr=subprocess.STDOUT)
 
-            if not os.path.exists("logs"):
-                os.makedirs("logs")
-            filename = "logs/" + str(datetime.datetime.now()).split('.')[0] + ".log"
-            with open(filename, 'w') as f:
-                f.write("==================================================\n")
-                f.write("Running process '" + ' '.join(sys.argv[1:]) + "' on pin " + str(pin) + " input.\n")
-                f.write("Began: " + time.strftime("%c") + '\n')
-                f.write("==================================================\n")
-                f.write("Process output:\n")
-                f.write("==================================================\n")
-                for line in proc.stdout:
-                    sys.stdout.write(line)
-                    f.write(line)
-                    proc.wait()
-                f.write("==================================================\n")
-                f.write("Took: " + str(time.time() - now) + " seconds to complete.\n")
-                f.write("==================================================\n")
+            print "==========================================================="
+            # also prints STDOUT, STDERR to console
+            log(sys.argv[1:], proc, now)
+            print "==========================================================="
             sys_clean()
             print "Exiting"
             sys.exit()
@@ -84,4 +70,4 @@ def main(pin):
         time.sleep(0.1)  # 0.1 of a second
 
 if __name__ == '__main__':
-    main(27)
+    main(27)  # change this value to change the pin to monitor
