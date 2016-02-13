@@ -71,6 +71,36 @@ int serialport_init(const char* serialport, int baud)
     return fd;
 }
 
+int serialport_read_until(int fd, char* buf, char until)
+{
+      unsigned char in = 0;
+      int i = 0;
+      int n = 0;
+      buf[0] = '\0';
+      //printf("Received: ");
+
+      while(in != until)
+      {
+          n = read(fd, &in, 1);  // read a char at a time
+          if( n==-1) 
+          {
+             perror("Unable to read from port\n");
+             return -1;    // couldn't read
+          }
+		  if( n==0 )
+			usleep( 1 * 1000 ); // wait 1 msec try again
+          if(n > 0)
+		  {
+             buf[i] = in;
+             //printf("|%#4x|", in);
+             i++;
+          }
+      }
+  //printf("ending recevived. \n");
+  buf[i] = '\0';  // null terminate the string
+  return strlen(buf);
+}
+
 void clearPort(int port)
 {
     int n = 1;
