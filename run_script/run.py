@@ -46,10 +46,11 @@ def main(pin):
             print "Running", ' '.join(sys.argv[1:])
             print "Changing script ownership."
 
-            uid = int(os.environ.get('SUDO_UID'))
-            gid = int(os.environ.get('SUDO_GID'))
-
-            os.chown("run.py", 1000, 1000)  # odroid uid and gid
+            print int(os.environ.get('SUDO_UID'))
+            print int(os.environ.get('SUDO_GID'))
+            uid = pwd.getpwnam('odroid')[2]
+            os.setuid(uid)
+            # os.chown("./run.py", 1000, 1000)  # odroid uid and gid
 
             now = time.time()
             # output = subprocess.check_output(sys.argv[1:])  # captures STDOUT
