@@ -49,10 +49,9 @@ def main(pin):
             uid = int(os.environ.get('SUDO_UID'))
             gid = int(os.environ.get('SUDO_GID'))
 
-            os.chown("./run.py", uid, gid)
+            os.chown("run.py", uid, gid)
 
             now = time.time()
-            then = time.strftime("%c")
             # output = subprocess.check_output(sys.argv[1:])  # captures STDOUT
             proc = subprocess.Popen(sys.argv[1:],
                                     stdout=subprocess.PIPE,
@@ -63,20 +62,18 @@ def main(pin):
             filename = "logs/" + str(datetime.datetime.now()).split('.')[0] + ".log"
             with open(filename, 'w') as f:
                 f.write("==================================================\n")
-                #f.write(time.strftime("%c"))
-                f.write("Process: " + ' '.join(sys.argv[1:]) + '\n')
-                f.write("Began: " + then + '\n')
-                #f.write("Took: " + str(delta) + " seconds to complete.\n")
+                f.write("Running process '" + ' '.join(sys.argv[1:]) + "' on pin " + str(pin) + " input.\n")
+                f.write("Began: " + time.strftime("%c") + '\n')
                 f.write("==================================================\n")
                 f.write("Process output:\n")
-                f.write("==================================================\n")
-                #f.write(output)
                 f.write("==================================================\n")
                 for line in proc.stdout:
                     sys.stdout.write(line)
                     f.write(line)
                     proc.wait()
-            # log(sys.argv[1:], output, then, time.time() - now)
+                f.write("==================================================\n")
+                f.write("Took: " + str(time.time() - now) + " seconds to complete.\n")
+                f.write("==================================================\n")
             sys_clean()
             print "Exiting"
             sys.exit()
