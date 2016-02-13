@@ -1,5 +1,5 @@
 #ifndef __CONTROLLERMAP_H
-#define __CONTROLLER_H
+#define __CONTROLLERMAP_H
 
 
 // Input type definitions: stick, pad, and
