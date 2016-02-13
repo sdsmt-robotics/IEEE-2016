@@ -17,7 +17,45 @@
 */
 void navigate()
 {
-    
+    /*
+    *SpecialMovementLogic indicates that it is ok to be near a wall/object
+    *such as when grabbing a person.
+    */
+    /*if (specialMovementLogic == FALSE)
+    {
+        if (distanceLeft <= minDist)
+        {
+            moveAwayFromLeft();
+        }
+        else if ( distanceRight <= minDist)
+        {
+            moveAwayFromRight();
+        }
+        else if (distanceCenter <= minDist)
+        {
+            moveAwayFromFront();
+        }
+    }
+    else if (grabbingPerson == TRUE)
+    {
+        if (personInRange == TRUE)
+        {
+            grabPerson();
+            ReturnToBase == TRUE;
+        }
+        else
+        {
+            moveToPerson();
+        }
+    }
+    else if (ReturnToBase == TRUE)
+    {
+        ReturnToBaseMovementLogic();
+    }
+    else
+    {
+        HandleOtherSpecialMovement();
+    }*/
 }
 
 /*
