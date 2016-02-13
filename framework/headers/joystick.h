@@ -29,6 +29,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "locomotion.h"
+#include "robot_defines.h"
+
 #define JOYSTICK_DEVNAME "/dev/input/js0"
 
 #define JS_EVENT_BUTTON         0x01    /* button pressed/released */
