@@ -1,5 +1,5 @@
 #include <stdio.h>    /* Standard input/output definitions */
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <stdint.h>   /* Standard types */
 #include <string.h>   /* String function definitions */
 #include <unistd.h>   /* UNIX standard function definitions */
@@ -13,7 +13,7 @@ int serialport_init(const char* serialport, int baud)
 {
     struct termios toptions;
     int fd;
-    
+
     //fprintf(stderr,"init_serialport: opening port %s @ %d bps\n",
     //        serialport,baud);
 
@@ -22,7 +22,7 @@ int serialport_init(const char* serialport, int baud)
         perror("init_serialport: Unable to open port ");
         return -1;
     }
-    
+
     if (tcgetattr(fd, &toptions) < 0) {
         perror("init_serialport: Couldn't get term attributes");
         return -1;
@@ -50,6 +50,7 @@ int serialport_init(const char* serialport, int baud)
     toptions.c_cflag &= ~CSTOPB;
     toptions.c_cflag &= ~CSIZE;
     toptions.c_cflag |= CS8;
+
     // no flow control
     toptions.c_cflag &= ~CRTSCTS;
 
@@ -62,7 +63,7 @@ int serialport_init(const char* serialport, int baud)
     // see: http://unixwiz.net/techtips/termios-vmin-vtime.html
     toptions.c_cc[VMIN]  = 0;
     toptions.c_cc[VTIME] = 20;
-    
+
     if( tcsetattr(fd, TCSANOW, &toptions) < 0) {
         perror("init_serialport: Couldn't set term attributes");
         return -1;
@@ -82,19 +83,17 @@ int serialport_read_until(int fd, char* buf, char until)
       while(in != until)
       {
           n = read(fd, &in, 1);  // read a char at a time
-          if( n==-1) 
+          if( n==-1)
           {
              perror("Unable to read from port\n");
              return -1;    // couldn't read
           }
-		  if( n==0 )
-			usleep( 1 * 1000 ); // wait 1 msec try again
+    		  if( n==0 )
+    			   return -2; // Nonblocking return
+
           if(n > 0)
-		  {
-             buf[i] = in;
-             //printf("|%#4x|", in);
-             i++;
-          }
+            buf[i++] = in;
+            //printf("|%#4x|", in);
       }
   //printf("ending recevived. \n");
   buf[i] = '\0';  // null terminate the string
@@ -109,5 +108,3 @@ void clearPort(int port)
         n = read(port, &nothing, 1);
     return;
 }
-
-
