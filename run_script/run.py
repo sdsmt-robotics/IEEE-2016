@@ -18,6 +18,7 @@ def log(args, output, then, delta):
         f.write("Took: " + str(delta) + " seconds to complete.\n")
         f.write("==========================================================\n")
         f.write("Process output:\n")
+        f.write("==========================================================\n")
         f.write(output)
         f.write("==========================================================\n")
 
@@ -42,10 +43,39 @@ def main(pin):
             # sys.argv is ["./run.py", "./test", "arg1", "arg2"]
             # [1:] strips off "./run.py"
             print "Running", ' '.join(sys.argv[1:])
+            print "Changing script ownership."
+
+            uid = int(os.environ.get('SUDO_UID'))
+            gid = int(os.environ.get('SUDO_GID'))
+
+            os.chown("./run.py", uid, gid)
+
             now = time.time()
             then = time.strftime("%c")
-            output = subprocess.check_output(sys.argv[1:])  # captures STDOUT
-            log(sys.argv[1:], output, then, time.time() - now)
+            # output = subprocess.check_output(sys.argv[1:])  # captures STDOUT
+            proc = subprocess.Popen(sys.argv[1:],
+                                    stdout=subprocess.PIPE,
+                                    stderr=subprocess.STDOUT)
+
+            if not os.path.exists("logs"):
+                os.makedirs("logs")
+            filename = "logs/" + str(datetime.datetime.now()).split('.')[0] + ".log"
+            with open(filename, 'w') as f:
+                f.write("==================================================\n")
+                f.write(time.strftime("%c"))
+                f.write("Process: " + ' '.join(args) + '\n')
+                f.write("Began: " + then + '\n')
+                f.write("Took: " + str(delta) + " seconds to complete.\n")
+                f.write("==================================================\n")
+                f.write("Process output:\n")
+                f.write("==================================================\n")
+                f.write(output)
+                f.write("==================================================\n")
+                for line in proc.stdout:
+                    sys.stdout.write(line)
+                    f.write(line)
+                    proc.wait()
+            # log(sys.argv[1:], output, then, time.time() - now)
             sys_clean()
             print "Exiting"
             sys.exit()
