@@ -1,6 +1,6 @@
 #include "../include/main_loop.h"
 
-void main_loop( int &serial_port, int &joystick )
+void main_loop( int *serial_port, int *joystick )
 {
 
     int  update_received; // file IDs for the joystick, serial ports
@@ -41,7 +41,7 @@ void main_loop( int &serial_port, int &joystick )
         }
         // checks both the old and new button arrays for differences,
         // if it finds one then an update is sent
-        send_button_updates(old_button_values, new_button_values, serial_file);
-        send_axis_updates(old_axis_values, new_axis_values, serial_file);
+        send_button_updates(old_button_values, new_button_values, *serial_port);
+        send_axis_updates(old_axis_values, new_axis_values, *serial_port);
     }
 }
