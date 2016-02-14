@@ -1,6 +1,7 @@
 #include "../include/joystick.h"
 #include "../include/360_controller_map.h"
 #include <stdio.h>
+#include <limits.h>
 
 long map(long x, long in_min, long in_max, long out_min, long out_max)
 {
