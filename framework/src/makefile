@@ -13,13 +13,12 @@ DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 _OBJ = *.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
-SOURCES = *.c
 
 $(ODIR)/%.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 main: $(OBJ)
-	gcc -o $@ $^ $(CFLAGS) $(LIBS) $(SOURCES)
+	gcc -o $@ $^ $(CFLAGS)
 
 .PHONY: clean
 
