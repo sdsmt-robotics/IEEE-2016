@@ -25,9 +25,9 @@ void sys_init( int *serial_port, int *joystick )
 	}
 
     // default file. Get from commandline in the future.
-    *joy_file = open_joystick("/dev/input/js0");
+    *joystick = open_joystick("/dev/input/js0");
 
-    if ( *joy_file < 0 )
+    if ( *joystick < 0 )
     {
         printf("Can't open joystick file.\n");
         exit(-1);
