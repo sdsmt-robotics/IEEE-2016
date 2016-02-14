@@ -1,6 +1,6 @@
 IDIR =../includes
 CC=gcc
-CFLAGS=-I$(IDIR) -Wall -g
+CFLAGS=-I $(IDIR) -Wall -g
 
 ODIR=obj
 LDIR =../lib
@@ -13,12 +13,13 @@ DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 _OBJ = *.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
+SOURCES = *.c
 
 $(ODIR)/%.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 main: $(OBJ)
-	gcc -o $@ $^ $(CFLAGS) $(LIBS)
+	gcc -o $@ $^ $(CFLAGS) $(LIBS) $(SOURCES)
 
 .PHONY: clean
 
