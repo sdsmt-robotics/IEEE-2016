@@ -1,5 +1,7 @@
 #!/usr/bin/env python
+import time
 
-print "test1"
-print "test2"
-print "test3"
+print "0ish"
+print "1"
+print "2"
+print "0.2"
