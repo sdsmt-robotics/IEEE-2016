@@ -12,9 +12,7 @@
 #include <sys/ioctl.h>
 #include <getopt.h>
 
-#include "robot_defines.h"
 
-export setWheelSpeed;
 
 int serial_init(const char* serialport, int baud);
 

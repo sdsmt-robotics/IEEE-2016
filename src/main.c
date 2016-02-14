@@ -1,4 +1,9 @@
 #include "../include/main.h"
+#include "../include/main_loop.h"
+#include "../include/serial.h"
+#include "../include/robot_defines.h"
+#include "../include/joystick.h"
+#include <stdio.h>
 
 //Test drive robot with xbox 360 controller.
 int main( int argc, char* argv[] )

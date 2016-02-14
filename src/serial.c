@@ -1,4 +1,6 @@
 #include "../include/serial.h"
+#include <stdio.h>
+#include <unistd.h>
 
 void s_write( int port, int val, int bytes) // generic multipurpose write
 {

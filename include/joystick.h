@@ -29,8 +29,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "locomotion.h"
-#include "robot_defines.h"
 
 #define JOYSTICK_DEVNAME "/dev/input/js0"
 
@@ -56,76 +54,20 @@ struct wwvi_js_event {
 
 static int joystick_fd = -1;
 
-int open_joystick(char *joystick_location)
-{
-	joystick_fd = open(joystick_location, O_RDONLY | O_NONBLOCK); /* read write for force feedback? */
-	if (joystick_fd < 0)
-		return joystick_fd;
 
-	/* maybe ioctls to interrogate features here? */
 
-	return joystick_fd;
-}
+int update_axis(int axis, int axis_value, int serial_file);
+int update_button(int button, int button_state, int serial_port);
+int  send_axis_updates(int *old_axis_array, int *new_axis_array, int serial_port);
+int  send_button_updates(int *old_button_array, int *new_button_array, int serial_file);
+long map(long x, long in_min, long in_max, long out_min, long out_max);
+unsigned char map_stick(short input);
+void button_update(struct js_event *jse, int *button_update_array);
+void axis_update(struct js_event *jse, int *axis_update_array);
+int open_joystick(char *joystick_location);
+int read_joystick_event(struct js_event *jse);
+void close_joystick();
+int get_joystick_status(struct wwvi_js_event *wjse);
 
-int read_joystick_event(struct js_event *jse)
-{
-	int bytes;
-
-	bytes = read(joystick_fd, jse, sizeof(*jse));
-
-	if (bytes == -1)
-		return 0;
-
-	if (bytes == sizeof(*jse))
-		return 1;
-
-	printf("Unexpected bytes from joystick:%d\n", bytes);
-
-	return -1;
-}
-
-void close_joystick()
-{
-	close(joystick_fd);
-}
-
-int get_joystick_status(struct wwvi_js_event *wjse)
-{
-	int rc;
-	struct js_event jse;
-	if (joystick_fd < 0)
-		return -1;
-
-	// memset(wjse, 0, sizeof(*wjse));
-	while ((rc = read_joystick_event(&jse) == 1)) {
-		jse.type &= ~JS_EVENT_INIT; /* ignore synthetic events */
-		if (jse.type == JS_EVENT_AXIS) {
-			switch (jse.number) {
-			case 0: wjse->stick1_x = jse.value;
-				break;
-			case 1: wjse->stick1_y = jse.value;
-				break;
-			case 2: wjse->stick2_x = jse.value;
-				break;
-			case 3: wjse->stick2_y = jse.value;
-				break;
-			default:
-				break;
-			}
-		} else if (jse.type == JS_EVENT_BUTTON) {
-			if (jse.number < 10) {
-				switch (jse.value) {
-				case 0:
-				case 1: wjse->button[jse.number] = jse.value;
-					break;
-				default:
-					break;
-				}
-			}
-		}
-	}
-	// printf("%d\n", wjse->stick1_y);
-	return 0;
-}
 
 #endif

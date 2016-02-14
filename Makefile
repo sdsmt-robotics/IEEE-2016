@@ -9,7 +9,7 @@ CFLAGS = -g -O -Wall
 CXXFLAGS = -g -O -Wall
 
 # OpenGL/Mesa libraries for Linux:
-GL_LIBS = -lglut -lGLU -lGL -lm
+GL_LIBS = 
 
 VPATH = src
 
@@ -27,7 +27,7 @@ VPATH = src
 all:    test_joy
 
 # specific targets
-test_joy:	main.o joystick.o locomotion.o main_loop.o navigation.o serial.o
+test_joy:	main.o joystick.o locomotion.o main_loop.o serial.o
 	$(LINK) -o $@ $^ $(GL_LIBS)
 
 # generic C and C++ targets for OpenGL programs consisting of only one file

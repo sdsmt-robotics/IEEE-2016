@@ -7,9 +7,9 @@
 * Outputs: We will command the speed of the stepper-motors for two wheels.
 *
 * Requirements: We have to be able to handle driving straight ahead, turning
-* left and right in place, and driving in reverse.  
+* left and right in place, and driving in reverse.
 */
-#include "navigation.h"
+#include "../include/navigation.h"
 
 
 /*
@@ -53,7 +53,7 @@ void initialize()
     */
     update();
     /*logic to determine which way the robot is facing when it starts.*/
-    
+
     /*once the robot is facing out:*/
     moveForward(startDistance);
     turnLeft(90degrees);
@@ -66,7 +66,7 @@ void initialize()
 }
 
 /*
-*This function will handle retrieving the first person in the city, determining 
+*This function will handle retrieving the first person in the city, determining
 *their color, and returning them to the appropriate hospital.
 */
 void retrievePerson1()
@@ -115,7 +115,7 @@ void retrievePerson2()
     {
        turnLeft(90degrees); /*the robot should be facing the grass area.*/
     }
-    if (distanceLeft > wallFollowDistance 
+    if (distanceLeft > wallFollowDistance
         && distanceRight > wallFollowDistance
         && distanceCenter > wallFollowDistance)
     {
@@ -129,7 +129,7 @@ void retrievePerson2()
     turnRight(180degrees);
     /*consider placing this code in the returnToReferencePoint function*/
     /*
-    while(distanceLeft <= wallFollowDistance 
+    while(distanceLeft <= wallFollowDistance
           && distanceRight <= wallFollowDistance)
     {
         moveForward();
@@ -146,7 +146,7 @@ void retrievePerson2()
         *assuming that the returnToReferencePoint function sets the robot
         *facing away from yellowHospital
         */
-        turnRight(180degrees); 
+        turnRight(180degrees);
         moveForwardUntilWall();
         dropOffPerson();
         returnToReferencePoint(yellowHospital);

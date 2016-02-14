@@ -14,7 +14,4 @@
 #define ARDUINO_COMM_LOCATION "/dev/robot/arduino"
 #define ARDUINO_RECEIVED_BYTE 0x13
 
-//uselss defines
-#define USELESS "useless\0"
-
 #endif

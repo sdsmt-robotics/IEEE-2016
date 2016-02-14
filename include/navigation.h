@@ -1,7 +1,7 @@
 #ifndef __NAV_DEFINES_
 #define __NAV_DEFINES_
 
-#include "robot_defines.h"
+
 
 /*
 *These are the state proceedures, they are executed and in turn execute the code

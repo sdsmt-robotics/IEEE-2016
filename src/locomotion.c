@@ -1,4 +1,6 @@
 #include "../include/locomotion.h"
+#include <stdio.h>
+#include <unistd.h>
 
 void setWheelSpeed( int wheel, unsigned char speed, int serial_port )
 {

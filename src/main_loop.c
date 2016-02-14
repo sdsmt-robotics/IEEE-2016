@@ -1,4 +1,7 @@
 #include "../include/main_loop.h"
+#include "../include/360_controller_map.h"
+#include "../include/joystick.h"
+#include <stdio.h>
 
 void main_loop( int *serial_port, int *joystick )
 {
