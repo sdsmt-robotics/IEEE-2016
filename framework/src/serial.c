@@ -1,4 +1,4 @@
-#include "serial.h"
+#include "../include/serial.h"
 
 void s_write( int port, int val, int bytes) // generic multipurpose write
 {

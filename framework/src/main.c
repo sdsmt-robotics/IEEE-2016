@@ -1,4 +1,4 @@
-#include "main.h"
+#include "../include/main.h"
 
 //Test drive robot with xbox 360 controller.
 int main( int argc, char* argv[] )
@@ -34,5 +34,5 @@ void sys_init( int &serial_port, int &joystick )
     }
 
     clearPort(serial_port);
-    printf("Serial and Joystick successfully initialized\n")
+    printf("Serial and Joystick successfully initialized\n");
 }

@@ -1,4 +1,4 @@
-#include "locomotion.h"
+#include "../include/locomotion.h"
 
 void setWheelSpeed( int wheel, unsigned char speed, int serial_port )
 {
