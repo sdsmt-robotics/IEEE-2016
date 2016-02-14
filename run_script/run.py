@@ -23,7 +23,7 @@ def log(args, proc, now, pin):
         prev = time.time()
         for line in proc.stdout:
             curr = time.time()
-            sys.stdout.write("dT: " + str(curr - prev) + ":" + line)
+            sys.stdout.write("dT: " + str(curr - prev) + ": " + line)
             f.write(line)
             prev = time.time()
             proc.wait()
