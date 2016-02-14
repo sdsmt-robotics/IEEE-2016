@@ -20,13 +20,9 @@ def log(args, proc, now, pin):
         f.write("==================================================\n")
         f.write("Process output:\n")
         f.write("==================================================\n")
-        prev = time.time()
         for line in proc.stdout:
-            curr = time.time()
-            dT = "dT: " + str(curr - prev) + ": "
-            sys.stdout.write(dT + line)
-            f.write(dT + line)
-            prev = time.time()
+            sys.stdout.write(line)
+            f.write(line)
             proc.wait()
         f.write("==================================================\n")
         f.write("Took: " + str(time.time() - now) + " seconds to complete.\n")
