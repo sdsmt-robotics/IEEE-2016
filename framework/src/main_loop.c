@@ -18,14 +18,14 @@ void main_loop( int *serial_port, int *joystick )
     /*************************************************************************
      * Begin main loop.
      *************************************************************************/
-    while (true)
+    while (1)
     {
-        printf("Entering main loop.\n")
+        printf("Entering main loop.\n");
         // check for a joystick update
         update_received = read_joystick_event( &jse );
         // check for updates every 1ms
         usleep(1000);
-        if (update_recieved)
+        if (update_received == 1)
         {
             switch(jse.type)
             {

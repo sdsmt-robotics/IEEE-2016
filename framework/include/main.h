@@ -9,6 +9,8 @@
 #include "robot_defines.h"
 
 //functions
+export main_loop;
+
 void sys_init( int *serial_port, int *joystick );
 
 #endif

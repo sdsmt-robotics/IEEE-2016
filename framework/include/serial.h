@@ -14,6 +14,8 @@
 
 #include "robot_defines.h"
 
+export setWheelSpeed;
+
 int serial_init(const char* serialport, int baud);
 
 void clearPort(int port);
