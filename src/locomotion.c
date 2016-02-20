@@ -28,13 +28,13 @@ void setWheelSpeed( int wheel, unsigned char speed, int serial_port )
 
 }
 
-void driveWheelSteps( int wheel, int steps, unsigned char speed, int serial_port )
+void driveWheelSteps( int wheel, int steps, float speed, int serial_port )
 {
     printf("Driving %d wheel %d steps at %d speed\n", wheel, steps, speed);
     //TODO: implement this
 }
 
-void turn( int serial_port, unsigned char speed, float angle )
+void turn( int serial_port, float angle, float time )
 {
     double arc_length;
     int steps;
@@ -49,12 +49,11 @@ void turn( int serial_port, unsigned char speed, float angle )
 
      steps = round( STEPS_PER_MM * arc_length );
 
-
-     driveWheelSteps( RIGHT, -steps, speed, serial_port );
-     driveWheelSteps( LEFT, steps, speed, serial_port );
+     driveWheelSteps( RIGHT, -steps, time, serial_port );
+     driveWheelSteps( LEFT, steps, time, serial_port );
 }
 
-void drive( int serial_port, float distance, unsigned char speed )
+void drive( int serial_port, float distance, float time )
 {
     // Drives the robot forward at `speed` for `distance`, in cm.
 
@@ -62,6 +61,6 @@ void drive( int serial_port, float distance, unsigned char speed )
 
     steps = STEPS_PER_CM * distance;
 
-    driveWheelSteps( RIGHT, steps, speed, serial_port );
-    driveWheelSteps( LEFT, steps, speed, serial_port );
+    driveWheelSteps( RIGHT, steps, time, serial_port );
+    driveWheelSteps( LEFT, steps, time, serial_port );
 }

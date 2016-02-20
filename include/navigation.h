@@ -1,7 +1,11 @@
 #ifndef __NAV_DEFINES_
 #define __NAV_DEFINES_
 
-
+GetDistanceAhead();
+GetDistanceBehind();
+GetDistanceLeft(); //For going straight
+GetDistanceRight(); //For going straight
+//GetHeading(); // From IMU
 
 /*
 *These are the state proceedures, they are executed and in turn execute the code

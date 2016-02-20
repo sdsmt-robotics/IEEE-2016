@@ -34,7 +34,7 @@
 
 //Physical information
 #define WHEEL_BASE_MM 158.2
-#define STEP_PER_CM 26
-#define STEP_PER_MM 2.6
+#define STEPS_PER_CM 26
+#define STEPS_PER_MM 2.6
 
 #endif
