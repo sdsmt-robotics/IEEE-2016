@@ -2,6 +2,6 @@
 #define __MAINLOOP_DEFINES_
 
 
-void main_loop( int *serial_port, int *joystick );
+void main_loop( int *serial_port );
 
 #endif

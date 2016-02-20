@@ -5,6 +5,6 @@
 
 //our definitions
 
-void sys_init( int *serial_port, int *joystick );
+void sys_init( int *serial_port );
 
 #endif

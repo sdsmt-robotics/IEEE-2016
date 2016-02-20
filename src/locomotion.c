@@ -1,6 +1,7 @@
 #include "../include/locomotion.h"
-#include <stdio.h>
-#include <unistd.h>
+#include "../include/robot_defines.h"
+#include <stdio.h>  //printf()
+#include <unistd.h> //write()
 
 void setWheelSpeed( int wheel, unsigned char speed, int serial_port )
 {
