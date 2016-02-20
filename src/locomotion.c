@@ -1,7 +1,8 @@
 #include "../include/locomotion.h"
 #include "../include/robot_defines.h"
 #include <stdio.h>  //printf()
-#include <unistd.h> //write()
+#include <unistd.h>
+#include <math.h>
 
 void setWheelSpeed( int wheel, unsigned char speed, int serial_port )
 {
@@ -25,4 +26,42 @@ void setWheelSpeed( int wheel, unsigned char speed, int serial_port )
         printf("Can't write to a wheel that isn't there.\n");
     }
 
+}
+
+void driveWheelSteps( int wheel, int steps, unsigned char speed, int serial_port )
+{
+    printf("Driving %d wheel %d steps at %d speed\n", wheel, steps, speed);
+    //TODO: implement this
+}
+
+void turn( int serial_port, unsigned char speed, float angle )
+{
+    double arc_length;
+    int steps;
+    // arc length = 2 * PI * R * (theta/360)
+    arc_length = PI * WHEEL_BASE_MM * ( angle / 360.0 ); //in mm
+
+    /* 180 deg .. 400 steps
+     * 90 deg ... 200 steps
+     * 45 deg ... 100 steps
+     * 22.5 deg . 50 steps
+     */
+
+     steps = round( STEPS_PER_MM * arc_length );
+
+
+     driveWheelSteps( RIGHT, -steps, speed, serial_port );
+     driveWheelSteps( LEFT, steps, speed, serial_port );
+}
+
+void drive( int serial_port, float distance, unsigned char speed )
+{
+    // Drives the robot forward at `speed` for `distance`, in cm.
+
+    int steps;
+
+    steps = STEPS_PER_CM * distance;
+
+    driveWheelSteps( RIGHT, steps, speed, serial_port );
+    driveWheelSteps( LEFT, steps, speed, serial_port );
 }
