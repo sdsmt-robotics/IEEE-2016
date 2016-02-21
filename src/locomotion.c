@@ -1,5 +1,6 @@
 #include "../include/locomotion.h"
 #include "../include/robot_defines.h"
+#include "../include/localization.h"
 #include <stdio.h>  //printf()
 #include <unistd.h>
 #include <math.h>
@@ -34,7 +35,7 @@ void driveWheelSteps( int wheel, int steps, float speed, int serial_port )
     //TODO: implement this
 }
 
-void turn( int serial_port, float angle, float time )
+void turn( int serial_port, int angle, float time )
 {
     double arc_length;
     int steps;

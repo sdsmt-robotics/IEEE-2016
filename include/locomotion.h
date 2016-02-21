@@ -18,7 +18,7 @@ void setWheelSpeed( int wheel, unsigned char speed, int serial_port );
 void driveWheelSteps( int wheel, int steps, float time, int serial_port );
 // negative steps means driving backwards
 
-void turn( int serial_port, float angle, float time );
+void turn( int serial_port, int angle, float time );
 void drive( int serial_port, float distance, float time );
 //negative distance implies moving backwards
 
