@@ -1,3 +1,5 @@
+#ifndef LOCALIZATION_H
+#define LOCALIZATION_H
 typedef struct Point {
 	int x;
 	int y;
@@ -29,3 +31,5 @@ int CURR_HEADING = 0;
 //The left side of the robot points in the positive y direction
 //Initial heading is 0 degrees
 //Distance sensors will set CURR_LOC on startup
+#endif
+
