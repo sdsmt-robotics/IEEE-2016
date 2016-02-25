@@ -1,5 +1,6 @@
 #ifndef LOCALIZATION_H
 #define LOCALIZATION_H
+
 typedef struct Point {
 	int x;
 	int y;
