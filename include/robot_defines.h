@@ -5,6 +5,9 @@
 #define RIGHT 1
 #define LEFT 0
 
+#define TRUE 1
+#define FALSE 0
+
 // motor defines
 #define LEFT_MOTOR_FLAG  0x4C
 #define RIGHT_MOTOR_FLAG 0x52

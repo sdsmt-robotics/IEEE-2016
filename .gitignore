@@ -6,7 +6,8 @@
 *.log
 logs/
 *.zip
-
+*.txt
+test_locomote
 #############################
 #Default GitHub Python gitignore
 #############################

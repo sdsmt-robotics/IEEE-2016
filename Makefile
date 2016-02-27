@@ -24,10 +24,10 @@ VPATH = src
 # MAKE allows the use of "wildcards", to make writing compilation instructions
 # a bit easier. GNU make uses $@ for the target and $^ for the dependencies.
 
-all:    test_joy
+all:    test_locomote
 
 # specific targets
-test_joy:	main.o joystick.o locomotion.o main_loop.o serial.o
+test_locomote:	main.o locomotion.o main_loop.o serial.o logger.o
 	$(LINK) -o $@ $^ $(GL_LIBS)
 
 # generic C and C++ targets for OpenGL programs consisting of only one file

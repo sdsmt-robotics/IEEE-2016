@@ -2,14 +2,18 @@
 #include "../include/main_loop.h"
 #include "../include/serial.h"
 #include "../include/robot_defines.h"
+#include "../include/logger.h"
+
 #include <stdio.h>
+
+#define printf LOG //To log to logfile AND console
 
 //Test drive robot with xbox 360 controller.
 int main( int argc, char* argv[] )
 {
     int serial_port = 0;
 
-    sys_init( &serial_port );
+    //sys_init( &serial_port );
 
     //Check joystick for updates, and write those to the arduino.
     main_loop( &serial_port );

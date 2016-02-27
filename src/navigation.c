@@ -11,7 +11,6 @@
 */
 #include "../include/navigation.h"
 
-
 /*
 * This function will run functions necessary for the current state.
 */

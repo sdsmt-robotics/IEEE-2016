@@ -1,37 +1,43 @@
 #include "../include/locomotion.h"
 #include "../include/robot_defines.h"
 #include "../include/localization.h"
+#include "../include/logger.h"
+
 #include <stdio.h>  //printf()
 #include <unistd.h>
 #include <math.h>
+
+#define printf LOG
 
 void setWheelSpeed( int wheel, unsigned char speed, int serial_port )
 {
     unsigned char motor_flag = 0;
     unsigned char rate = speed;
+    int result = 0; // To make gcc shut up about ignoring the return value
 
     if ( wheel == RIGHT )
     {
         printf("Writing %d to right motor.\r", rate);
         motor_flag = RIGHT_MOTOR_FLAG;
-        write( serial_port, &motor_flag, 1 );
-        write( serial_port, &rate, 1 );
+        result = write( serial_port, &motor_flag, 1 );
+        result = write( serial_port, &rate, 1 );
     } else if ( wheel == LEFT )
     {
         printf("Writing %d to left motor.\r", rate);
         motor_flag = LEFT_MOTOR_FLAG;
-        write( serial_port, &motor_flag, 1 );
-        write( serial_port, &rate, 1 );
+        result = write( serial_port, &motor_flag, 1 );
+        result = write( serial_port, &rate, 1 );
     } else
     {
         printf("Can't write to a wheel that isn't there.\n");
+        printf("Hopefully you never see this line %d\n", result);
     }
 
 }
 
 void driveWheelSteps( int wheel, int steps, float speed, int serial_port )
 {
-    printf("Driving %d wheel %d steps at %d speed\n", wheel, steps, speed);
+    printf("Driving %d wheel %d steps at %f speed\n", wheel, steps, speed);
     //TODO: implement this
 }
 
@@ -40,7 +46,7 @@ void turn( int serial_port, int angle, float time )
     double arc_length;
     int steps;
     // arc length = 2 * PI * R * (theta/360)
-    arc_length = PI * WHEEL_BASE_MM * ( angle / 360.0 ); //in mm
+    arc_length = M_PI * WHEEL_BASE_MM * ( angle / 360.0 ); //in mm
 
     /* 180 deg .. 400 steps
      * 90 deg ... 200 steps

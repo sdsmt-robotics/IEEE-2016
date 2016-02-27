@@ -2,9 +2,14 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void s_write( int port, int val, int bytes) // generic multipurpose write
+void serial_write( int port, int val, int bytes) // generic multipurpose write
 {
-    write( port, &val, bytes );
+    if ( write( port, &val, bytes ) )
+    {
+        printf("%d written to port %d successfully", val, port );
+    } else {
+        printf("%d bytes of %d NOT written to port %d successfully", bytes, val, port );
+    }
 }
 
 void clearPort( int port )
