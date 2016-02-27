@@ -1,10 +1,10 @@
 #include "../include/main.h"
-#include "../include/main_loop.h"
 #include "../include/serial.h"
 #include "../include/robot_defines.h"
 #include "../include/logger.h"
 
 #include <stdio.h>
+#include <stdbool.h>
 
 #define printf LOG //To log to logfile AND console
 
@@ -13,10 +13,33 @@ int main( int argc, char* argv[] )
 {
     int serial_port = 0;
 
-    //sys_init( &serial_port );
+    sys_init( &serial_port );
 
-    //Check joystick for updates, and write those to the arduino.
-    main_loop( &serial_port );
+    // the following are defined in navigation.c
+    start_to_cp();
+
+    if ( !retreive_victim_1() )
+    {
+        get_to_cp();
+    }
+
+    if ( !retreive_victim_2() )
+    {
+        get_to_cp();
+    }
+
+    if ( !retreive_victim_3() )
+    {
+        get_to_cp();
+    }
+
+    if ( !retreive_victim_4() )
+    {
+        get_to_cp();
+    }
+
+    cp_to_start();
+    
 
     return 0;
 }

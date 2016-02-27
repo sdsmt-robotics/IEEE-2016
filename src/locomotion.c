@@ -3,7 +3,7 @@
 #include "../include/localization.h"
 #include "../include/logger.h"
 
-#include <stdio.h>  //printf()
+#include <stdio.h>
 #include <unistd.h>
 #include <math.h>
 
@@ -32,12 +32,11 @@ void setWheelSpeed( int wheel, unsigned char speed, int serial_port )
         printf("Can't write to a wheel that isn't there.\n");
         printf("Hopefully you never see this line %d\n", result);
     }
-
 }
 
-void driveWheelSteps( int wheel, int steps, float speed, int serial_port )
+void driveWheelSteps( int wheel, int steps, float time, int serial_port )
 {
-    printf("Driving %d wheel %d steps at %f speed\n", wheel, steps, speed);
+    printf("Driving %d wheel %d steps in %f seconds\n", wheel, steps, time);
     //TODO: implement this
 }
 
@@ -70,4 +69,14 @@ void drive( int serial_port, float distance, float time )
 
     driveWheelSteps( RIGHT, steps, time, serial_port );
     driveWheelSteps( LEFT, steps, time, serial_port );
+}
+
+void close_claws( int serial_port )
+{
+    printf("Closing claws. Crushing victim.\n");
+}
+
+void raise_claws( int serial_port )
+{
+    printf("Raising claws.\n");
 }

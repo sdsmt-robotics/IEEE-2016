@@ -2,6 +2,7 @@
 #define __ROBOT_DEFINES_
 
 //right/left defines
+#define BOTH 2
 #define RIGHT 1
 #define LEFT 0
 
