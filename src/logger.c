@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <time.h>
+#include <sys/stat.h>
+
 #include "../include/logger.h"
  
 FILE *fp ;
@@ -28,7 +30,15 @@ void log_print(char* filename, int line, char *fmt,...)
     char *p, *r;
     int e;
     float f;
+    int thing = mkdir("logs/", ACCESSPERMS);
     static char logfile[37] = "logs/";
+
+    
+
+    if (thing == 0)
+    {
+        printf("logs/ created successfully\n");
+    }
 
     if ( SESSION_TRACKER == 0 )
     {
