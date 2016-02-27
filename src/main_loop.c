@@ -5,7 +5,7 @@
 
 #include <stdio.h>
 
-#define printf LOG
+#define printf LOG //for logging goodness
 
 void main_loop( int *serial_port )
 {

@@ -1,5 +1,6 @@
 //logger.c
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <time.h>
@@ -27,11 +28,21 @@ void log_print(char* filename, int line, char *fmt,...)
     char *p, *r;
     int e;
     float f;
- 
+    static char logfile[37] = "logs/";
+
+    if ( SESSION_TRACKER == 0 )
+    {
+        //Get the filename the first time log_print() is called
+        //logfile = "logs/";
+        strcat(logfile, print_time());
+        strcat(logfile, ".log");
+        printf("logfile: %s\n", logfile);
+    }
+
     if(SESSION_TRACKER > 0)
-      fp = fopen ("log.txt","a+");
+      fp = fopen (logfile,"a+");
     else
-      fp = fopen ("log.txt","w");
+      fp = fopen (logfile,"w");
      
     fprintf(fp,"%s ",print_time());
     va_start( list, fmt );
