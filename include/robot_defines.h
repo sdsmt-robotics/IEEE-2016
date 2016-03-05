@@ -49,9 +49,9 @@
 #define STEPS_PER_MM 2.6
 
 //Sensor Stuff
-#define INF
-#define SIX_INCHES 
-#define ZERO
-#define TOLERANCE
+#define INF 1
+#define SIX_INCHES 1
+#define ZERO 0
+#define TOLERANCE 1
 
 #endif

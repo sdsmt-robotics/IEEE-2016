@@ -12,6 +12,7 @@
 #include "../include/navigation.h"
 #include "../include/locomotion.h"
 #include "../include/robot_defines.h"
+#include "../include/sensors.h"
 
 #include <stdbool.h>
 
@@ -71,7 +72,7 @@ void start_to_cp( int serial_port )
 
 /* ********** BEGIN FORWARD UNTIL 6 INCHES FROM WALL ********** */
 	steps = 10;
-	while (FORWARD_IR() > SIX_INCHES)
+	while (Forward_IR() > SIX_INCHES)
 	{
 		driveWheelSteps(BOTH, steps, time, serial_port );
 	}
