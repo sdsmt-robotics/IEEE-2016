@@ -54,14 +54,15 @@ void log_print(char* filename, int line, char *fmt,...)
     else
       fp = fopen (logfile,"w");
      
-    fprintf(fp,"%s ",print_time());
+    fprintf(fp,"[%s]",print_time());
+    fprintf(fp, "[%s][line: %d]: ", filename, line);
     va_start( list, fmt );
  
     for ( p = fmt ; *p ; ++p )
     {
         if ( *p != '%' )//If simple string
         {
-            fputc( *p,fp );
+            fputc( *p, fp );
             printf( "%c", *p );
         }
         else
@@ -105,8 +106,6 @@ void log_print(char* filename, int line, char *fmt,...)
         }
     }
     va_end( list );
-    fprintf(fp, "\t[%s][line: %d] ", filename, line);
-    fputc( '\n', fp );
     SESSION_TRACKER++;
     fclose(fp);
 }
