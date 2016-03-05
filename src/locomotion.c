@@ -9,30 +9,44 @@
 
 #define printf LOG
 
-/*void setWheelSpeed( int wheel, unsigned char speed, int serial_port )
+void setWheelSpeed( int wheel, unsigned char speed, int serial_port )
 {
     unsigned char motor_flag = 0;
-    unsigned char rate = speed;
-    int result = 0; // To make gcc shut up about ignoring the return value
+    int bytes = 0; // To make gcc shut up about ignoring the return value
 
     if ( wheel == RIGHT )
     {
-        printf("Writing %d to right motor.\r", rate);
+        printf("Writing %d to right motor.\n", speed);
         motor_flag = RIGHT_MOTOR_FLAG;
-        result = write( serial_port, &motor_flag, 1 );
-        result = write( serial_port, &rate, 1 );
+        bytes = bytes + write( serial_port, &motor_flag, 1 );
+        bytes = bytes + write( serial_port, &speed, 1 );
+        printf("wrote %d bytes to motor\n", bytes );
     } else if ( wheel == LEFT )
     {
-        printf("Writing %d to left motor.\r", rate);
+        printf("Writing %d to left motor.\n", speed);
         motor_flag = LEFT_MOTOR_FLAG;
-        result = write( serial_port, &motor_flag, 1 );
-        result = write( serial_port, &rate, 1 );
+        bytes = bytes + write( serial_port, &motor_flag, 1 );
+        bytes = bytes + write( serial_port, &speed, 1 );
+        printf("wrote %d bytes to motor\n", bytes );
+    } else if ( wheel == BOTH )
+    {
+        printf("Writing %d to right motor.\n", speed);
+        motor_flag = RIGHT_MOTOR_FLAG;
+        bytes = bytes + write( serial_port, &motor_flag, 1 );
+        bytes = bytes + write( serial_port, &speed, 1 );
+        printf("wrote %d bytes to motor\n", bytes );
+
+        printf("Writing %d to left motor.\n", speed);
+        motor_flag = LEFT_MOTOR_FLAG;
+        bytes = bytes + write( serial_port, &motor_flag, 1 );
+        bytes = bytes + write( serial_port, &speed, 1 );
+        printf("wrote %d bytes to motor\n", bytes );
     } else
     {
         printf("Can't write to a wheel that isn't there.\n");
         printf("Hopefully you never see this line %d\n", result);
     }
-}*/
+}
 
 void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //arduino will eventually expect milliseconds
 {
@@ -56,10 +70,24 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
         n = n + write( serial_port, &steps, sizeof(steps) );
         n = n + write( serial_port, &runtime, sizeof(runtime) );
         printf("%d bytes written to left wheel\n", n );
+    } else if ( wheel == BOTH )
+    {
+        printf("Writing to both motors.\n");
+        motor_flag = LEFT_MOTOR_STEPS_FLAG;
+        n = n + write( serial_port, &motor_flag, 1 );
+        n = n + write( serial_port, &steps, sizeof(steps) );
+        n = n + write( serial_port, &runtime, sizeof(runtime) );
+        printf("%d bytes written to left wheel\n", n );
+
+        motor_flag = RIGHT_MOTOR_STEPS_FLAG;
+        n = n + write( serial_port, &motor_flag, 1 );
+        n = n + write( serial_port, &steps, sizeof(steps) );
+        n = n + write( serial_port, &runtime, sizeof(runtime) );
+        printf("%d total bytes written to wheels\n", n );
     } else
     {
         printf("Can't write to a wheel that isn't there.\n");
-        printf("Hopefully you never see this line %d\n", n);
+        printf("Hopefully you never see this line. wheel: %d\n", wheel);
     }
 }
 

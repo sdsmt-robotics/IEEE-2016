@@ -24,7 +24,7 @@ char* print_time()
     return buf;
 }
 
-void log_print(char* filename, int line, char *fmt,...)
+void log_print(char* filename, int line, const char* function, char *fmt,...)
 {
     va_list list;
     char *p, *r;
@@ -55,7 +55,7 @@ void log_print(char* filename, int line, char *fmt,...)
       fp = fopen (logfile,"w");
      
     fprintf(fp,"[%s]",print_time());
-    fprintf(fp, "[%s][line: %d]: ", filename, line);
+    fprintf(fp, "[function %s() in %s][line: %d]: ", function, filename, line);
     va_start( list, fmt );
  
     for ( p = fmt ; *p ; ++p )
