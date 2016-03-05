@@ -19,72 +19,72 @@
 
 void start_to_cp( int serial_port )
 {
-	int steps;
-	int time;
+    int steps;
+    int runtime;
 
 
 
 /* ********** BEGIN FORWARD TO EDGE OF WALL ********** */
-	while (Left_IR() < SIX_INCHES)
-	{
-		// Fix time
-		time = 1;
-		steps = 10;
-		// We need to move left
-		if (Left_IR() > ZERO + TOLERANCE)
-		{
-			
-			driveWheelSteps(RIGHT, steps*2, time, serial_port );
-			driveWheelSteps(BOTH, steps, time, serial_port );
-			driveWheelSteps(LEFT, steps*2, time, serial_port );
-		}
-		else if (Left_IR() < ZERO - TOLERANCE)
-		{
-			driveWheelSteps(LEFT, steps*2, time, serial_port );
-			driveWheelSteps(BOTH, steps, time, serial_port );
-			driveWheelSteps(RIGHT, steps*2, time, serial_port );
-		}
-		else
-		{
-			driveWheelSteps(BOTH, steps, time, serial_port );
-		}
-	}
+    while (Left_IR() < SIX_INCHES)
+    {
+        // Fix time
+        time = 1;
+        steps = 10;
+        // We need to move left
+        if (Left_IR() > ZERO + TOLERANCE)
+        {
+            
+            driveWheelSteps(RIGHT, steps*2, runtime, serial_port );
+            driveWheelSteps(BOTH, steps, runtime, serial_port );
+            driveWheelSteps(LEFT, steps*2, runtime, serial_port );
+        }
+        else if (Left_IR() < ZERO - TOLERANCE)
+        {
+            driveWheelSteps(LEFT, steps*2, runtime, serial_port );
+            driveWheelSteps(BOTH, steps, runtime, serial_port );
+            driveWheelSteps(RIGHT, steps*2, runtime, serial_port );
+        }
+        else
+        {
+            driveWheelSteps(BOTH, steps, runtime, serial_port );
+        }
+    }
 /* ********** END FORWARD TO EDGE OF WALL ********** */
 
 
 
 /* ********** BEGIN FORWARD 6 INCHES ********** */
-	// 396 steps ~ 6 inches
-	driveWheelSteps(BOTH, 396, time, serial_port );
+    // 396 steps ~ 6 inches
+    driveWheelSteps(BOTH, 396, runtime, serial_port );
 /* ********** END FORWARD 6 INCHES ********** */
 
 
 
 /* ********** BEGIN LEFT 90 DEGREE ROTATION ********** */
 
-	steps = 200;
-	driveWheelSteps(LEFT, -steps, time, serial_port );
-	driveWheelSteps(RIGHT, steps, time, serial_port );
+    steps = 200;
+    driveWheelSteps(LEFT, -steps, runtime, serial_port );
+    driveWheelSteps(RIGHT, steps, runtime, serial_port );
 
 /* ********** END LEFT 90 DEGREE ROTATION ********** */
 
 
 
 /* ********** BEGIN FORWARD UNTIL 6 INCHES FROM WALL ********** */
-	steps = 10;
-	while (Forward_IR() > SIX_INCHES)
-	{
-		driveWheelSteps(BOTH, steps, time, serial_port );
-	}
+    steps = 10;
+    while (FORWARD_IR() > SIX_INCHES)
+    {
+        driveWheelSteps(BOTH, steps, runtime, serial_port );
+    }
 /* ********** END FORWARD UNTIL 6 INCHES FROM WALL ********** */
 
 
 
 /* ********** BEGIN RIGHT 90 DEGREE ROTATION ********** */
 
-	steps = 200;
-	driveWheelSteps(LEFT, steps, time, serial_port );
-	driveWheelSteps(RIGHT,-steps, time, serial_port );
+    steps = 200;
+    driveWheelSteps(LEFT, steps, runtime, serial_port );
+    driveWheelSteps(RIGHT,-steps, runtime, serial_port );
 
 
 /* ********** END RIGHT 90 DEGREE ROTATION ********** */
@@ -99,11 +99,88 @@ void get_to_cp( int serial_port )
 
 void cp_to_start( int serial_port )
 {
-    //rotate 90 deg
-    //forward 30 cm
-    //rotate 90 deg
-    //possibly open claws
-    //forward 31 cm
+    // Rotate right 90
+    // Drive till 6" from wall
+    // Rotate left 90
+    // Reverse until rear IR sensor reads 4 cm
+    int steps;
+    int runtime = 1;
+
+/* ********** BEGIN RIGHT 90 DEGREE ROTATION ********** */
+
+    steps = 200;
+    driveWheelSteps(LEFT, steps, runtime, serial_port );
+    driveWheelSteps(RIGHT,-steps, runtime, serial_port );
+
+
+/* ********** END RIGHT 90 DEGREE ROTATION ********** */
+
+
+
+/* ********** BEGIN FORWARD UNTIL 6 INCHES FROM WALL ********** */
+    steps = 10;
+    while (FORWARD_IR() > SIX_INCHES)
+    {
+        driveWheelSteps(BOTH, steps, runtime, serial_port );
+    }
+/* ********** END FORWARD UNTIL 6 INCHES FROM WALL ********** */
+
+
+
+/* ********** BEGIN LEFT 90 DEGREE ROTATION ********** */
+
+    steps = 200;
+    driveWheelSteps(LEFT, -steps, runtime, serial_port );
+    driveWheelSteps(RIGHT, steps, runtime, serial_port );
+
+/* ********** END LEFT 90 DEGREE ROTATION ********** */
+
+
+
+/* ********** BEGIN REVERSE TO 4cm FROM WALL ********** */
+
+    
+    // Reverse 6.5 inches
+    driveWheelSteps(BOTH, -430, runtime, serial_port );
+
+    steps = 10;
+    // While rear sensor reads further than 4cm
+    // Difference between this and left edge detect is the Backward_IR() and TOLERANCE
+    while (Backward_IR() > 4)
+    {
+        // Fix time
+        time = 1;
+        // We need to move left
+        if (Left_IR() > ZERO + TOLERANCE)
+        {
+            
+            driveWheelSteps(RIGHT, steps*2, runtime, serial_port );
+            driveWheelSteps(BOTH, steps, runtime, serial_port );
+            driveWheelSteps(LEFT, steps*2, runtime, serial_port );
+        }
+        else if (Left_IR() < ZERO - TOLERANCE)
+        {
+            driveWheelSteps(LEFT, steps*2, runtime, serial_port );
+            driveWheelSteps(BOTH, steps, runtime, serial_port );
+            driveWheelSteps(RIGHT, steps*2, runtime, serial_port );
+        }
+        else
+        {
+            driveWheelSteps(BOTH, steps, runtime, serial_port );
+        }
+    }
+    
+/* ********** END REVERSE TO 4cm FROM WALL ********** */
+
+
+
+/* ********** BEGIN CLAW OPEN ********** */
+    claw(serial_port, OPEN);
+/* ********** END CLAW OPEN ********** */
+
+
+
+    // We are now in the start location
 }
 
 void cp_to_red( int serial_port )
@@ -126,6 +203,49 @@ void cp_to_yellow( int serial_port )
     //open claws
     //reverse 15 cm
     //rotate 180
+
+/* ********** BEGIN RIGHT 180 DEGREE ROTATION ********** */
+
+    steps = 400;
+    driveWheelSteps(LEFT, steps, runtime, serial_port );
+    driveWheelSteps(RIGHT, -steps, runtime, serial_port );
+
+/* ********** END RIGHT 180 DEGREE ROTATION ********** */
+
+
+
+/* ********** BEGIN FORWARD 12 INCHES ********** */
+    // 791 steps ~ 12 inches
+    driveWheelSteps(BOTH, 791, runtime, serial_port );
+/* ********** END FORWARD 12 INCHES ********** */
+
+
+
+/* ********** BEGIN DROPOFF VICTIM ********** */
+    claw(serial_port, LOWER);
+    claw(serial_port, OPEN);
+    claw(serial_port, RAISE);
+    // Note: May have to reverse first!
+    claw(serial_port, CLOSE);
+/* ********** END DROPOFF VICTIM ********** */
+
+
+
+/* ********** BEGIN REVERSE 12 INCHES ********** */
+    // 791 steps ~ 12 inches
+    driveWheelSteps(BOTH, -791, runtime, serial_port );
+/* ********** END REVERSE 12 INCHES ********** */
+
+
+
+/* ********** BEGIN LEFT 180 DEGREE ROTATION ********** */
+
+    steps = 400;
+    driveWheelSteps(LEFT, -steps, runtime, serial_port );
+    driveWheelSteps(RIGHT, steps, runtime, serial_port );
+
+/* ********** END LEFT 180 DEGREE ROTATION ********** */
+
 }
 
 
@@ -170,4 +290,3 @@ bool retreive_victim_4( int serial_port )
 {
 
 }
-
