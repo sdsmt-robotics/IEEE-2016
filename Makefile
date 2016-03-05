@@ -1,43 +1,25 @@
-# GNU C/C++ compiler and linker:
+
+SRC = $(wildcard src/*.c)
+OBJ = $(SRC:.c=.o)
+
 CC = gcc
-CXX = g++
 LINK = g++
-
-# Turn on optimization and warnings (add -g for debugging with gdb):
-# CPPFLAGS = 		# preprocessor flags
-CFLAGS = -g -O -Wall
-CXXFLAGS = -g -O -Wall
-
-# OpenGL/Mesa libraries for Linux:
-GL_LIBS = 
 
 VPATH = src
 
-# OpenGL libraries for Windows (MinGW):
-# GL_LIBS = -lglut32 -lglu32 -lopengl32
+CFLAGS = -Wall -O -g
+CXXFLAGS = $(CFLAGS)
 
-# OpenGL libraries for Windows (MSVS):
-# GL_LIBS = opengl32.lib glu32.lib glut32.lib
+TARGET = test_locomote
 
-#-----------------------------------------------------------------------
+all: $(TARGET)
 
-# MAKE allows the use of "wildcards", to make writing compilation instructions
-# a bit easier. GNU make uses $@ for the target and $^ for the dependencies.
+$(TARGET): $(OBJ)
+	$(LINK) -o $@ $^
+	rm -rf src/*.o
 
-all:    test_locomote
-
-# specific targets
-test_locomote:	test.o locomotion.o serial.o logger.o navigation.o
-	$(LINK) -o $@ $^ $(GL_LIBS)
-
-# generic C and C++ targets for OpenGL programs consisting of only one file
-# type "make filename" (no extension) to build
 .c:
-	$(CC) -o $@ $@.c $(GL_LIBS)
+	$(CC) -o $@ $@.c
 
-.cpp:
-	$(CXX) -o $@ $@.cpp $(GL_LIBS)
-
-# utility targets
 clean:
-	rm -f *.o *~ core
+	rm -rf $(TARGET) src/*.o
