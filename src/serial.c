@@ -1,14 +1,18 @@
 #include "../include/serial.h"
+#include "../include/logger.h"
 #include <stdio.h>
 #include <unistd.h>
+
+#define printf LOG
+#define perror LOG
 
 void serial_write( int port, int val, int bytes) // generic multipurpose write
 {
     if ( write( port, &val, bytes ) )
     {
-        printf("%d written to port %d successfully", val, port );
+        printf("%d written to port %d successfully\n", val, port );
     } else {
-        printf("%d bytes of %d NOT written to port %d successfully", bytes, val, port );
+        printf("%d bytes of %d NOT written to port %d successfully\n", bytes, val, port );
     }
 }
 
@@ -31,12 +35,12 @@ int serial_init(const char* serialport, int baud)
 
     fd = open(serialport, O_RDWR | O_NOCTTY | O_NDELAY);
     if (fd == -1)  {
-        perror("init_serialport: Unable to open port ");
+        perror("init_serialport: Unable to open port\n");
         return -1;
     }
 
     if (tcgetattr(fd, &toptions) < 0) {
-        perror("init_serialport: Couldn't get term attributes");
+        perror("init_serialport: Couldn't get term attributes\n");
         return -1;
     }
     speed_t brate = baud; // let you override switch below if needed
@@ -76,7 +80,7 @@ int serial_init(const char* serialport, int baud)
     toptions.c_cc[VTIME] = 20;
 
     if( tcsetattr(fd, TCSANOW, &toptions) < 0) {
-        perror("init_serialport: Couldn't set term attributes");
+        perror("init_serialport: Couldn't set term attributes\n");
         return -1;
     }
 

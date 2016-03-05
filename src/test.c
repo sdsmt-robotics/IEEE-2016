@@ -13,9 +13,9 @@
 
 int main( int argc, char* argv[] )
 {
-    int serial_port = 0;
+    int serial_port = sys_init();
 
-    sys_init( &serial_port );
+    
 
     drive( serial_port, 20, 10 ); // drive forward 20cm in 10 seconds
     usleep(11 * 1000);
@@ -30,16 +30,18 @@ int main( int argc, char* argv[] )
     return 0;
 }
 
-void sys_init( int *serial_port )
+int sys_init( )
 {
-    *serial_port = serial_init(ARDUINO_COMM_LOCATION, ROBOT_BAUDRATE);
+    int serial_port = serial_init(ARDUINO_COMM_LOCATION, ROBOT_BAUDRATE);
 
-    if( *serial_port < 0 )
+    if( serial_port < 0 )
 	{
 		printf("Can't open serial port.\n");
 		exit(-1);
 	}
 
-    clearPort(*serial_port);
+    clearPort(serial_port);
     printf("Serial successfully initialized\n");
+
+    return serial_port;
 }

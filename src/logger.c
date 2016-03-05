@@ -106,6 +106,7 @@ void log_print(char* filename, int line, char *fmt,...)
         }
     }
     va_end( list );
+    //fprintf( fp, "\n" );
     SESSION_TRACKER++;
     fclose(fp);
 }

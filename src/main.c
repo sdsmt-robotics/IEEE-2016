@@ -12,9 +12,7 @@
 
 int main( int argc, char* argv[] )
 {
-    int serial_port = 0;
-
-    sys_init( &serial_port );
+    int serial_port = sys_init( serial_port );
 
     // the following are defined in navigation.c
     /*start_to_cp( serial_port );
@@ -51,16 +49,18 @@ int main( int argc, char* argv[] )
     return 0;
 }
 
-void sys_init( int *serial_port )
+int sys_init( )
 {
-    *serial_port = serial_init(ARDUINO_COMM_LOCATION, ROBOT_BAUDRATE);
+    int serial_port = serial_init(ARDUINO_COMM_LOCATION, ROBOT_BAUDRATE);
 
-    if( *serial_port < 0 )
-	{
-		printf("Can't open serial port.\n");
-		exit(-1);
-	}
+    if( serial_port < 0 )
+    {
+        printf("Can't open serial port.\n");
+        exit(-1);
+    }
 
-    clearPort(*serial_port);
+    clearPort(serial_port);
     printf("Serial successfully initialized\n");
+
+    return serial_port;
 }
