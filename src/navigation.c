@@ -33,19 +33,19 @@ void start_to_cp( int serial_port )
 		if (Left_IR() > ZERO + TOLERANCE)
 		{
 			
-			driveWheelSteps(RIGHT, steps*2, time, int serial_port );
-			driveWheelSteps(BOTH, steps, time, int serial_port );
-			driveWheelSteps(LEFT, steps*2, time, int serial_port );
+			driveWheelSteps(RIGHT, steps*2, time, serial_port );
+			driveWheelSteps(BOTH, steps, time, serial_port );
+			driveWheelSteps(LEFT, steps*2, time, serial_port );
 		}
 		else if (Left_IR() < ZERO - TOLERANCE)
 		{
-			driveWheelSteps(LEFT, steps*2, time, int serial_port );
-			driveWheelSteps(BOTH, steps, time, int serial_port );
-			driveWheelSteps(RIGHT, steps*2, time, int serial_port );
+			driveWheelSteps(LEFT, steps*2, time, serial_port );
+			driveWheelSteps(BOTH, steps, time, serial_port );
+			driveWheelSteps(RIGHT, steps*2, time, serial_port );
 		}
 		else
 		{
-			driveWheelSteps(BOTH, steps, time, int serial_port );
+			driveWheelSteps(BOTH, steps, time, serial_port );
 		}
 	}
 /* ********** END FORWARD TO EDGE OF WALL ********** */
@@ -54,7 +54,7 @@ void start_to_cp( int serial_port )
 
 /* ********** BEGIN FORWARD 6 INCHES ********** */
 	// 396 steps ~ 6 inches
-	driveWheelSteps(BOTH, 396, time, int serial_port );
+	driveWheelSteps(BOTH, 396, time, serial_port );
 /* ********** END FORWARD 6 INCHES ********** */
 
 
@@ -62,8 +62,8 @@ void start_to_cp( int serial_port )
 /* ********** BEGIN LEFT 90 DEGREE ROTATION ********** */
 
 	steps = 200;
-	driveWheelSteps(LEFT, -steps, time, int serial_port );
-	driveWheelSteps(RIGHT, steps, time, int serial_port );
+	driveWheelSteps(LEFT, -steps, time, serial_port );
+	driveWheelSteps(RIGHT, steps, time, serial_port );
 
 /* ********** END LEFT 90 DEGREE ROTATION ********** */
 
@@ -73,7 +73,7 @@ void start_to_cp( int serial_port )
 	steps = 10;
 	while (FORWARD_IR() > SIX_INCHES)
 	{
-		driveWheelSteps(BOTH, steps, time, int serial_port );
+		driveWheelSteps(BOTH, steps, time, serial_port );
 	}
 /* ********** END FORWARD UNTIL 6 INCHES FROM WALL ********** */
 
@@ -82,8 +82,8 @@ void start_to_cp( int serial_port )
 /* ********** BEGIN RIGHT 90 DEGREE ROTATION ********** */
 
 	steps = 200;
-	driveWheelSteps(LEFT, steps, time, int serial_port );
-	driveWheelSteps(RIGHT,-steps, time, int serial_port );
+	driveWheelSteps(LEFT, steps, time, serial_port );
+	driveWheelSteps(RIGHT,-steps, time, serial_port );
 
 
 /* ********** END RIGHT 90 DEGREE ROTATION ********** */
