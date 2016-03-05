@@ -15,7 +15,7 @@ int main( int argc, char* argv[] )
     int serial_port = sys_init( serial_port );
 
     // the following are defined in navigation.c
-    /*start_to_cp( serial_port );
+    start_to_cp( serial_port );
 
     if ( !retreive_victim_1( serial_port ) )
     {
@@ -38,13 +38,6 @@ int main( int argc, char* argv[] )
     }
 
     cp_to_start( serial_port );
-    */
-
-    drive( serial_port, 20, 10 ); // drive forward 20cm in 10 seconds
-    sleep(10);
-    drive( serial_port, -20, 10 );
-    sleep(5);
-    stop( serial_port );
 
     return 0;
 }
