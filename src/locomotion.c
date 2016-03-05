@@ -44,7 +44,7 @@ void setWheelSpeed( int wheel, unsigned char speed, int serial_port )
     } else
     {
         printf("Can't write to a wheel that isn't there.\n");
-        printf("Hopefully you never see this line %d\n", result);
+        printf("Hopefully you never see this line %d\n", wheel);
     }
 }
 
@@ -131,7 +131,7 @@ void stop( int serial_port )
     driveWheelSteps( LEFT, 0, 0, serial_port );
 }
 
-void claws( int serial_port, int state )
+void claw( int serial_port, int state )
 {
     unsigned char motor_flag;
     int bytes = 0;

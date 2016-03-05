@@ -23,8 +23,8 @@ void drive( int serial_port, float distance, int runtime );
 void stop( int serial_port );
 //negative distance implies moving backwards
 
-void close_claws( int serial_port );
-void raise_claws( int serial_port );
+void claw( int serial_port, int state );
+
 
 
 

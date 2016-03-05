@@ -184,7 +184,8 @@ void cp_to_red( int serial_port )
 
 /* ********** BEGIN RIGHT 90 DEGREE ROTATION ********** */
 
-    steps = 200;
+    int steps = 200;
+    int runtime = 5;
     driveWheelSteps(LEFT, steps, runtime, serial_port );
     driveWheelSteps(RIGHT,-steps, runtime, serial_port );
 
@@ -325,7 +326,8 @@ void cp_to_yellow( int serial_port )
 {
 /* ********** BEGIN RIGHT 180 DEGREE ROTATION ********** */
 
-    steps = 400;
+    int steps = 400;
+    int runtime = 5;
     driveWheelSteps(LEFT, steps, runtime, serial_port );
     driveWheelSteps(RIGHT, -steps, runtime, serial_port );
 
