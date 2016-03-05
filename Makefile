@@ -1,4 +1,4 @@
-#Any .c file in src/
+#find any .c file in src/
 SRC = $(wildcard src/*.c)
 #make an object file for every .c file
 OBJ = $(SRC:.c=.o)
@@ -7,7 +7,7 @@ CC = gcc
 #have to use g++ to link
 LINK = g++
 
-VPATH = src
+#VPATH = src
 
 CFLAGS = -Wall -O -g
 CXXFLAGS = $(CFLAGS)
