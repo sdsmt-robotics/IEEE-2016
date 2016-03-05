@@ -99,10 +99,6 @@ void get_to_cp( int serial_port )
 
 void cp_to_start( int serial_port )
 {
-    // Rotate right 90
-    // Drive till 6" from wall
-    // Rotate left 90
-    // Reverse until rear IR sensor reads 4 cm
     int steps;
     int runtime = 1;
 
@@ -174,9 +170,10 @@ void cp_to_start( int serial_port )
 
 
 
-/* ********** BEGIN CLAW OPEN ********** */
+/* ********** BEGIN CLAW OPEN & LOWER ********** */
     claw(serial_port, OPEN);
-/* ********** END CLAW OPEN ********** */
+    claw(serial_port, LOWER);
+/* ********** END CLAW OPEN & LOWER ********** */
 
 
 
