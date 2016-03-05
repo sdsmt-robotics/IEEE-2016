@@ -1,8 +1,10 @@
-
+#Any .c file in src/
 SRC = $(wildcard src/*.c)
+#make an object file for every .c file
 OBJ = $(SRC:.c=.o)
 
 CC = gcc
+#have to use g++ to link
 LINK = g++
 
 VPATH = src
@@ -16,7 +18,7 @@ all: $(TARGET)
 
 $(TARGET): $(OBJ)
 	$(LINK) -o $@ $^
-	rm -rf src/*.o
+#	rm -rf src/*.o
 
 .c:
 	$(CC) -o $@ $@.c
