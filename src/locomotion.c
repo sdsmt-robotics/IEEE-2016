@@ -43,7 +43,7 @@ void driveWheelSteps( int wheel, int steps, int time, int serial_port ) //arduin
     if ( wheel == RIGHT )
     {
         printf("Writing to right motor.\n");
-        motor_flag = RIGHT_MOTOR_FLAG;
+        motor_flag = RIGHT_MOTOR_STEPS_FLAG;
         n = n + write( serial_port, &motor_flag, 1 );
         n = n + write( serial_port, &steps, sizeof(steps) );
         n = n + write( serial_port, &time, sizeof(time) );
@@ -51,7 +51,7 @@ void driveWheelSteps( int wheel, int steps, int time, int serial_port ) //arduin
     } else if ( wheel == LEFT )
     {
         printf("Writing to left motor.\n");
-        motor_flag = LEFT_MOTOR_FLAG;
+        motor_flag = LEFT_MOTOR_STEPS_FLAG;
         n = n + write( serial_port, &motor_flag, 1 );
         n = n + write( serial_port, &steps, sizeof(steps) );
         n = n + write( serial_port, &time, sizeof(time) );
@@ -103,12 +103,46 @@ void stop( int serial_port )
     driveWheelSteps( LEFT, 0, 0, serial_port );
 }
 
-void close_claws( int serial_port )
+void claws( int serial_port, int state )
 {
-    printf("Closing claws. Crushing victim.\n");
-}
+    unsigned char motor_flag;
+    int bytes = 0;
+    unsigned char value;
 
-void raise_claws( int serial_port )
-{
-    printf("Raising claws.\n");
+    if ( state == RAISE )
+    {
+        value = RAISE_VAL;
+        printf("Raising claws. Victim begins to scream.\n");
+        motor_flag = SERVO_CLAW_RAISE_TAG;
+        bytes = write( serial_port, &motor_flag, 1 );
+        bytes = bytes + write( serial_port, &value, 1 );
+        printf("%d bytes written to claw servo\n", bytes );
+    } else if (state == LOWER )
+    {
+        value = LOWER_VAL;
+        printf("Lowering claws. Victim breathes a sigh of relief.\n");
+        motor_flag = SERVO_CLAW_RAISE_TAG;
+        bytes = write( serial_port, &motor_flag, 1 );
+        bytes = bytes + write( serial_port, &value, 1 );
+        printf("%d bytes written to claw servo\n", bytes );
+    } else if ( state == OPEN )
+    {
+        value = OPEN_VAL;
+        printf("Opening claws. Victim barely escapes with their life.\n");
+        motor_flag = SERVO_CLAW_CLOSE_TAG;
+        bytes = write( serial_port, &motor_flag, 1 );
+        bytes = bytes + write( serial_port, &value, 1 );
+        printf("%d bytes written to claw servo\n", bytes );
+    } else if ( state == CLOSE )
+    {
+        value = CLOSE_VAL;
+        printf("Closing claws. Crushing victim.\n");
+        motor_flag = SERVO_CLAW_CLOSE_TAG;
+        bytes = write( serial_port, &motor_flag, 1 );
+        bytes = bytes + write( serial_port, &value, 1 );
+        printf("%d bytes written to claw servo\n", bytes );
+    } else {
+        printf("I don't know what you mean by that.\n");
+        printf("Attempting to send state: %d\n", state );
+    }
 }

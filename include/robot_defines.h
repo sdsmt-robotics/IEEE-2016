@@ -6,20 +6,36 @@
 #define RIGHT 1
 #define LEFT 0
 
-#define TRUE 1
-#define FALSE 0
-
 // motor defines
 #define LEFT_MOTOR_FLAG  0x4C
 #define RIGHT_MOTOR_FLAG 0x52
 
- // Turn angle defines
- #define FULL_RIGHT_TURN 90
- #define FULL_LEFT_TURN -90
- #define HALF_RIGHT_TURN 45
- #define HALF_LEFT_TURN -45
- #define QUARTER_RIGHT_TURN 22.5
- #define QUARTER_LEFT_TURN -22.5
+#define LEFT_MOTOR_STEPS_FLAG  0x39
+#define RIGHT_MOTOR_STEPS_FLAG 0x40
+#define SERVO_CLAW_CLOSE_TAG   0x41
+#define SERVO_CLAW_RAISE_TAG   0x42
+
+//claw states. Doesn't really matter what these values are as long as they're unique
+#define OPEN 1
+#define CLOSE 2
+#define RAISE 3
+#define LOWER 4
+
+//claw opn/close/raise/lower values to send to arduino
+#define OPEN_VAL 0
+#define CLOSE_VAL 255
+#define RAISE_VAL 255
+#define LOWER_VAL 0
+
+// Turn angle defines
+#define FULL_RIGHT_TURN 90
+#define FULL_LEFT_TURN -90
+#define HALF_RIGHT_TURN 45
+#define HALF_LEFT_TURN -45
+//Possibility of needing to truncate the decimal point on these
+#define QUARTER_RIGHT_TURN 22.5
+//Possibility of needing to truncate the decimal point on these
+#define QUARTER_LEFT_TURN -22.5
 
 
 //communication defines
@@ -31,5 +47,11 @@
 #define WHEEL_BASE_MM 158.2
 #define STEPS_PER_CM 26
 #define STEPS_PER_MM 2.6
+
+//Sensor Stuff
+#define INF
+#define SIX_INCHES 
+#define ZERO
+#define TOLERANCE
 
 #endif
