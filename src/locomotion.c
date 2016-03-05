@@ -143,6 +143,6 @@ void claws( int serial_port, int state )
         printf("%d bytes written to claw servo\n", bytes );
     } else {
         printf("I don't know what you mean by that.\n");
-        printf("Attempting to send state: %d\n", state );
+        printf("Attempting to send state: %d defined in robot_defines under claw state.\n", state );
     }
 }
