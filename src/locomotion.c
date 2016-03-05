@@ -34,9 +34,9 @@
     }
 }*/
 
-void driveWheelSteps( int wheel, int steps, int time, int serial_port ) //arduino will eventually expect milliseconds
+void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //arduino will eventually expect milliseconds
 {
-    printf("Driving %d wheel %d steps in %d seconds\n", wheel, steps, time);
+    printf("Driving %d wheel %d steps in %d seconds\n", wheel, steps, runtime);
     int n = 0;
     unsigned char motor_flag = 0;
 
@@ -46,7 +46,7 @@ void driveWheelSteps( int wheel, int steps, int time, int serial_port ) //arduin
         motor_flag = RIGHT_MOTOR_STEPS_FLAG;
         n = n + write( serial_port, &motor_flag, 1 );
         n = n + write( serial_port, &steps, sizeof(steps) );
-        n = n + write( serial_port, &time, sizeof(time) );
+        n = n + write( serial_port, &runtime, sizeof(runtime) );
         printf("%d bytes written to right wheel\n", n );
     } else if ( wheel == LEFT )
     {
@@ -54,7 +54,7 @@ void driveWheelSteps( int wheel, int steps, int time, int serial_port ) //arduin
         motor_flag = LEFT_MOTOR_STEPS_FLAG;
         n = n + write( serial_port, &motor_flag, 1 );
         n = n + write( serial_port, &steps, sizeof(steps) );
-        n = n + write( serial_port, &time, sizeof(time) );
+        n = n + write( serial_port, &runtime, sizeof(runtime) );
         printf("%d bytes written to left wheel\n", n );
     } else
     {
@@ -63,7 +63,7 @@ void driveWheelSteps( int wheel, int steps, int time, int serial_port ) //arduin
     }
 }
 
-void turn( int serial_port, int angle, int time )
+void turn( int serial_port, int angle, int runtime )
 {
     double arc_length;
     int steps;
@@ -78,13 +78,13 @@ void turn( int serial_port, int angle, int time )
 
      steps = round( STEPS_PER_MM * arc_length );
 
-     printf("Turning %d degrees in %d seconds. arc length = %f and %d steps per wheel\n", angle, time, arc_length, steps );
+     printf("Turning %d degrees in %d seconds. arc length = %f and %d steps per wheel\n", angle, runtime, arc_length, steps );
 
-     driveWheelSteps( RIGHT, -steps, time, serial_port );
-     driveWheelSteps( LEFT, steps, time, serial_port );
+     driveWheelSteps( RIGHT, -steps, runtime, serial_port );
+     driveWheelSteps( LEFT, steps, runtime, serial_port );
 }
 
-void drive( int serial_port, float distance, int time )
+void drive( int serial_port, float distance, int runtime )
 {
     // Drives the robot forward at `speed` for `distance`, in cm.
 
@@ -93,8 +93,8 @@ void drive( int serial_port, float distance, int time )
     steps = round( STEPS_PER_CM * distance );
     printf("Driving straight %d steps\n", steps );
 
-    driveWheelSteps( RIGHT, steps, time, serial_port );
-    driveWheelSteps( LEFT, steps, time, serial_port );
+    driveWheelSteps( RIGHT, steps, runtime, serial_port );
+    driveWheelSteps( LEFT, steps, runtime, serial_port );
 }
 
 void stop( int serial_port )
