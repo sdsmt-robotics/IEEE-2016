@@ -11,16 +11,84 @@
 */
 #include "../include/navigation.h"
 #include "../include/locomotion.h"
+#include "../include/robot_defines.h"
 
 #include <stdbool.h>
 
 
 void start_to_cp( int serial_port )
 {
-    //forward 31 cm
-    //rotate -90 degree
-    //forward 30 cm
-    //rotate 90 deg
+	int steps;
+	int time;
+
+
+
+/* ********** BEGIN FORWARD TO EDGE OF WALL ********** */
+	while (Left_IR() < SIX_INCHES)
+	{
+		// Fix time
+		time = 1;
+		steps = 10;
+		// We need to move left
+		if (Left_IR() > ZERO + TOLERANCE)
+		{
+			
+			driveWheelSteps(RIGHT, steps*2, time, int serial_port );
+			driveWheelSteps(BOTH, steps, time, int serial_port );
+			driveWheelSteps(LEFT, steps*2, time, int serial_port );
+		}
+		else if (Left_IR() < ZERO - TOLERANCE)
+		{
+			driveWheelSteps(LEFT, steps*2, time, int serial_port );
+			driveWheelSteps(BOTH, steps, time, int serial_port );
+			driveWheelSteps(RIGHT, steps*2, time, int serial_port );
+		}
+		else
+		{
+			driveWheelSteps(BOTH, steps, time, int serial_port );
+		}
+	}
+/* ********** END FORWARD TO EDGE OF WALL ********** */
+
+
+
+/* ********** BEGIN FORWARD 6 INCHES ********** */
+	// 396 steps ~ 6 inches
+	driveWheelSteps(BOTH, 396, time, int serial_port );
+/* ********** END FORWARD 6 INCHES ********** */
+
+
+
+/* ********** BEGIN LEFT 90 DEGREE ROTATION ********** */
+
+	steps = 200;
+	driveWheelSteps(LEFT, -steps, time, int serial_port );
+	driveWheelSteps(RIGHT, steps, time, int serial_port );
+
+/* ********** END LEFT 90 DEGREE ROTATION ********** */
+
+
+
+/* ********** BEGIN FORWARD UNTIL 6 INCHES FROM WALL ********** */
+	steps = 10;
+	while (FORWARD_IR() > SIX_INCHES)
+	{
+		driveWheelSteps(BOTH, steps, time, int serial_port );
+	}
+/* ********** END FORWARD UNTIL 6 INCHES FROM WALL ********** */
+
+
+
+/* ********** BEGIN RIGHT 90 DEGREE ROTATION ********** */
+
+	steps = 200;
+	driveWheelSteps(LEFT, steps, time, int serial_port );
+	driveWheelSteps(RIGHT,-steps, time, int serial_port );
+
+
+/* ********** END RIGHT 90 DEGREE ROTATION ********** */
+
+// We are now in CP
 }
 
 void get_to_cp( int serial_port )
