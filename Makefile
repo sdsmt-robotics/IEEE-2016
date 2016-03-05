@@ -27,7 +27,7 @@ VPATH = src
 all:    test_locomote
 
 # specific targets
-test_locomote:	main.o locomotion.o main_loop.o serial.o logger.o
+test_locomote:	test.o locomotion.o serial.o logger.o navigation.o
 	$(LINK) -o $@ $^ $(GL_LIBS)
 
 # generic C and C++ targets for OpenGL programs consisting of only one file

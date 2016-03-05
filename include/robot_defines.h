@@ -13,15 +13,6 @@
 #define LEFT_MOTOR_FLAG  0x4C
 #define RIGHT_MOTOR_FLAG 0x52
 
-/* Speed defines
- * 127 is the center point. rate > 127 is forward. rate < 127 is reverse
- */
-#define ALL_STOP 127
-#define FULL_FORWARD 255
-#define FULL_REVERSE 0
-#define HALF_FORWARD 191
-#define HALF_REVERSE 64
-
  // Turn angle defines
  #define FULL_RIGHT_TURN 90
  #define FULL_LEFT_TURN -90

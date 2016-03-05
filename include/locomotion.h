@@ -14,12 +14,13 @@
 // time in seconds
 // STEPS_PER_CM is defined in robot_defines.h
 
-void setWheelSpeed( int wheel, unsigned char speed, int serial_port ); // TODO: Remove this function, arduino side will change soon
-void driveWheelSteps( int wheel, int steps, float time, int serial_port );
+//void setWheelSpeed( int wheel, unsigned char speed, int serial_port );
+void driveWheelSteps( int wheel, int steps, int time, int serial_port );
 // negative steps means driving backwards
 
-void turn( int serial_port, int angle, float time );
-void drive( int serial_port, float distance, float time );
+void turn( int serial_port, int angle, int time );
+void drive( int serial_port, float distance, int time );
+void stop( int serial_port );
 //negative distance implies moving backwards
 
 void close_claws( int serial_port );
