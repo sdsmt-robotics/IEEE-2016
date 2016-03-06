@@ -14,7 +14,7 @@
 // time in seconds
 // STEPS_PER_CM is defined in robot_defines.h
 
-//void setWheelSpeed( int wheel, unsigned char speed, int serial_port );
+void setWheelSpeed( int wheel, unsigned char speed, int serial_port );
 void driveWheelSteps( int wheel, int steps, int runtime, int serial_port );
 // negative steps means driving backwards
 

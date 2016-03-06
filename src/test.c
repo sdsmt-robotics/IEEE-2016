@@ -15,17 +15,11 @@ int main( int argc, char* argv[] )
 {
     int serial_port = sys_init();
 
-    
-
-    drive( serial_port, 20, 10 ); // drive forward 20cm in 10 seconds
+    setWheelSpeed( RIGHT, 255, serial_port );
     usleep(11000);
-    // drive( serial_port, -20, 10 ); // drive backwards 20cm in 10 seconds
-    // usleep(5 * 1000);
-    // stop( serial_port ); // stop robot after 5 seconds
-    // turn( serial_port, FULL_RIGHT_TURN, 5); // right in 5 seconds
-    // usleep(6 * 1000);
-    // turn(serial_port, FULL_LEFT_TURN, 5); // left in 5 seconds
-    // usleep(6 * 1000);
+    setWheelSpeed( RIGHT 127, serial_port );
+
+    
 
     return 0;
 }
