@@ -18,26 +18,25 @@ int main( int argc, char* argv[] )
     int val_steps = 400;
     int val_time = 1000;
     char buffer[512] = "";
-
-    printf("serial_port = %d\n", serial_port );
-
-    printf("Writing to right motor.\n");
-
-    unsigned char motor_flag = RIGHT_MOTOR_STEPS_FLAG;
-    int n = write( serial_port, &motor_flag, 1 );
-    n = n + write( serial_port, &val_steps, 4 );
-    n = n + write( serial_port, &val_time, 4 );
-
-    printf("%d bytes written to right wheel\n", n );
-
-    int m = read(serial_port, &buffer, sizeof(buffer));
-    if(m>0)
+    while (1)
     {
-        buffer[m] = '\0';
-        printf("\n-%s", buffer);
-        fflush(stdout);
+        printf("Writing to right motor.\n");
+
+        unsigned char motor_flag = RIGHT_MOTOR_STEPS_FLAG;
+        int n = write( serial_port, &motor_flag, 1 );
+        n = n + write( serial_port, &val_steps, 4 );
+        n = n + write( serial_port, &val_time, 4 );
+
+        printf("%d bytes written to right wheel\n", n );
+
+        int m = read(serial_port, &buffer, sizeof(buffer));
+        if(m>0)
+        {
+            buffer[m] = '\0';
+            printf("\n-%s", buffer);
+            fflush(stdout);
+        }
     }
-    
 
     return 0;
 }
@@ -53,7 +52,7 @@ int sys_init( )
 	}
 
     clearPort(serial_port);
-    printf("Serial successfully initialized\n");
+    printf("Serial successfully initialized. File handle: %d\n", serial_port );
 
     return serial_port;
 }
