@@ -9,13 +9,16 @@
 #include <stdbool.h>
 #include <unistd.h>
 
-#define printf LOG //To log to logfile AND console
+//#define printf LOG //To log to logfile AND console
 
 int main( int argc, char* argv[] )
 {
     int serial_port = sys_init();
+    printf("serial_port = %d\n", serial_port );
 
     driveWheelSteps( RIGHT, 200, 5, serial_port );
+    usleep(10000);
+    printf("usleep done\n");
 
     
 
