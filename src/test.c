@@ -14,21 +14,29 @@
 int main( int argc, char* argv[] )
 {
     int serial_port = sys_init();
-    int n = 0;
+
     int val_steps = 400;
     int val_time = 1000;
+    char buffer[512] = "";
 
     printf("serial_port = %d\n", serial_port );
 
     printf("Writing to right motor.\n");
 
     unsigned char motor_flag = RIGHT_MOTOR_STEPS_FLAG;
-    n = n + write( serial_port, &motor_flag, 1 );
-    n = n + write( serial_port, &val_steps, sizeof(val_steps) );
-    n = n + write( serial_port, &val_time, sizeof(val_time) );
+    int n = write( serial_port, &motor_flag, 1 );
+    n = n + write( serial_port, &val_steps, 4 );
+    n = n + write( serial_port, &val_time, 4 );
 
     printf("%d bytes written to right wheel\n", n );
 
+    int m = read(serial_port, &buffer, sizeof(buffer));
+    if(m>0)
+    {
+        buffer[m] = '\0';
+        printf("\n-%s", buffer);
+        fflush(stdout);
+    }
     
 
     return 0;
