@@ -53,36 +53,38 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
     printf("Driving wheel %d %d steps in %d seconds\n", wheel, steps, runtime);
     int n = 0;
     unsigned char motor_flag = 0;
+    int val_steps = steps;
+    int val_time = runtime;
 
     if ( wheel == RIGHT )
     {
         printf("Writing to right motor.\n");
         motor_flag = RIGHT_MOTOR_STEPS_FLAG;
         n = n + write( serial_port, &motor_flag, 1 );
-        n = n + write( serial_port, &steps, sizeof(steps) );
-        n = n + write( serial_port, &runtime, sizeof(runtime) );
+        n = n + write( serial_port, &val_steps, sizeof(val_steps) );
+        n = n + write( serial_port, &val_time, sizeof(val_time) );
         printf("%d bytes written to right wheel\n", n );
     } else if ( wheel == LEFT )
     {
         printf("Writing to left motor.\n");
         motor_flag = LEFT_MOTOR_STEPS_FLAG;
         n = n + write( serial_port, &motor_flag, 1 );
-        n = n + write( serial_port, &steps, sizeof(steps) );
-        n = n + write( serial_port, &runtime, sizeof(runtime) );
+        n = n + write( serial_port, &val_steps, sizeof(val_steps) );
+        n = n + write( serial_port, &val_time, sizeof(val_time) );
         printf("%d bytes written to left wheel\n", n );
     } else if ( wheel == BOTH )
     {
         printf("Writing to both motors.\n");
         motor_flag = LEFT_MOTOR_STEPS_FLAG;
         n = n + write( serial_port, &motor_flag, 1 );
-        n = n + write( serial_port, &steps, sizeof(steps) );
-        n = n + write( serial_port, &runtime, sizeof(runtime) );
+        n = n + write( serial_port, &val_steps, sizeof(val_steps) );
+        n = n + write( serial_port, &val_time, sizeof(val_time) );
         printf("%d bytes written to left wheel\n", n );
 
         motor_flag = RIGHT_MOTOR_STEPS_FLAG;
         n = n + write( serial_port, &motor_flag, 1 );
-        n = n + write( serial_port, &steps, sizeof(steps) );
-        n = n + write( serial_port, &runtime, sizeof(runtime) );
+        n = n + write( serial_port, &val_steps, sizeof(val_steps) );
+        n = n + write( serial_port, &val_time, sizeof(val_time) );
         printf("%d total bytes written to wheels\n", n );
     } else
     {
