@@ -13,7 +13,7 @@
 
 int main( int argc, char* argv[] )
 {
-    int serial_port = sys_init();
+    int serial_port = 0; //sys_init();
 
     
 

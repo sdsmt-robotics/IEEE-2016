@@ -50,7 +50,7 @@ void setWheelSpeed( int wheel, unsigned char speed, int serial_port )
 
 void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //arduino will eventually expect milliseconds
 {
-    printf("Driving %d wheel %d steps in %d seconds\n", wheel, steps, runtime);
+    printf("Driving wheel %d %d steps in %d seconds\n", wheel, steps, runtime);
     int n = 0;
     unsigned char motor_flag = 0;
 
