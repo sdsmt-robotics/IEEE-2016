@@ -30,8 +30,7 @@ int serial_init(const char* serialport, int baud)
     struct termios toptions;
     int fd;
 
-    //fprintf(stderr,"init_serialport: opening port %s @ %d bps\n",
-    //        serialport,baud);
+    fprintf(stderr,"init_serialport: opening port %s @ %d bps\n", serialport,baud);
 
     fd = open(serialport, O_RDWR | O_NOCTTY | O_NDELAY);
     if (fd == -1)  {
