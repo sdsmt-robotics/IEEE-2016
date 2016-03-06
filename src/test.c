@@ -21,10 +21,12 @@ int main( int argc, char* argv[] )
     printf("serial_port = %d\n", serial_port );
 
     printf("Writing to right motor.\n");
-    motor_flag = RIGHT_MOTOR_STEPS_FLAG;
+
+    unsigned char motor_flag = RIGHT_MOTOR_STEPS_FLAG;
     n = n + write( 4, &motor_flag, 1 );
     n = n + write( 4, &val_steps, sizeof(val_steps) );
     n = n + write( 4, &val_time, sizeof(val_time) );
+
     printf("%d bytes written to right wheel\n", n );
 
     
