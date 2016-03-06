@@ -14,11 +14,18 @@
 int main( int argc, char* argv[] )
 {
     int serial_port = sys_init();
+    int n = 0;
+    int val_steps = 400;
+    int val_time = 5;
+
     printf("serial_port = %d\n", serial_port );
 
-    driveWheelSteps( RIGHT, 200, 5, 4 );
-    usleep(10000);
-    printf("usleep done\n");
+    printf("Writing to right motor.\n");
+    motor_flag = RIGHT_MOTOR_STEPS_FLAG;
+    n = n + write( serial_port, &motor_flag, 1 );
+    n = n + write( serial_port, &val_steps, sizeof(val_steps) );
+    n = n + write( serial_port, &val_time, sizeof(val_time) );
+    printf("%d bytes written to right wheel\n", n );
 
     
 

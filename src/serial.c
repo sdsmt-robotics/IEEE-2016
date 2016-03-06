@@ -30,18 +30,19 @@ int serial_init(const char* serialport, int baud)
     struct termios toptions;
     int fd;
 
-    fprintf(stderr,"init_serialport: opening port %s @ %d bps\n", serialport,baud);
+    fprintf(stderr,"init_serialport: opening port %s @ %d bps\n", serialport, baud);
 
     fd = open(serialport, O_RDWR | O_NOCTTY | O_NDELAY);
     if (fd == -1)  {
-        perror("init_serialport: Unable to open port\n");
+        perror("init_serialport: Unable to open port./n");
         return -1;
     }
 
     if (tcgetattr(fd, &toptions) < 0) {
-        perror("init_serialport: Couldn't get term attributes\n");
+        perror("init_serialport: Couldn't get term attributes.\n");
         return -1;
     }
+
     speed_t brate = baud; // let you override switch below if needed
     switch(baud) {
     case 4800:   brate=B4800;   break;
