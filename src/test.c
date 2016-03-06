@@ -15,9 +15,9 @@ int main( int argc, char* argv[] )
 {
     int serial_port = sys_init();
 
-    setWheelSpeed( RIGHT, 255, serial_port );
-    usleep(11000);
-    setWheelSpeed( RIGHT, 127, serial_port );
+    setWheelSpeed( LEFT, 255, serial_port );
+    usleep(110000);
+    setWheelSpeed( LEFT, 127, serial_port );
 
     
 
