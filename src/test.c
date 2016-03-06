@@ -13,10 +13,22 @@
 
 int main( int argc, char* argv[] )
 {
-    int closed = close( 4 );
-    printf("closed = %d\n", closed);
     int serial_file = sys_init();
-    unsigned char flag = RIGHT_MOTOR_FLAG;
+    /* For some reason this is no longer working. It ran on the very first try and never since.
+     * What I think is happening is that serial_init() is no opening the correct file, because
+     * in the joystick test the serial_file is 4, and here's 3. I'm not sure it matter though,
+     * but that's the only difference I can find between the source code.
+     *
+     * The following segment of code is identical to what is found in joystick/full_featured_RC/odroid_test_analog.c,
+     * which works. (start and back buttons on the controller).
+     *
+     * This leads me to believe that the problem isn't in the following segment of code, but rather
+     * that it's in the serial initialization, which I know nothing about. Because the code ran on
+     * startup works as it should, I wonder if the serial file is being closed properly, and 
+     * we're trying to open and write to a file that's already open.
+     */
+
+    unsigned char flag = RIGHT_MOTOR_STEPS_FLAG;
     int steps = 400;
     int seconds = 2;
 

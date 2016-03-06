@@ -30,16 +30,16 @@ int serial_init(const char* serialport, int baud)
     struct termios toptions;
     int fd;
 
-    printf("init_serialport: opening port %s @ %d bps\n", serialport, baud);
+    printf("serial_init: opening port %s @ %d bps\n", serialport, baud);
 
     fd = open(serialport, O_RDWR | O_NOCTTY | O_NDELAY);
     if (fd == -1)  {
-        perror("init_serialport: Unable to open port./n");
+        perror("serial_init: Unable to open port./n");
         return -1;
     }
 
     if (tcgetattr(fd, &toptions) < 0) {
-        perror("init_serialport: Couldn't get term attributes.\n");
+        perror("serial_init: Couldn't get term attributes.\n");
         return -1;
     }
 
@@ -80,7 +80,7 @@ int serial_init(const char* serialport, int baud)
     toptions.c_cc[VTIME] = 20;
 
     if( tcsetattr(fd, TCSANOW, &toptions) < 0) {
-        perror("init_serialport: Couldn't set term attributes\n");
+        perror("serial_init: Couldn't set term attributes\n");
         return -1;
     }
 
@@ -89,29 +89,29 @@ int serial_init(const char* serialport, int baud)
 
 int s_read_until(int fd, char* buf, char until)
 {
-      unsigned char in = 0;
-      int i = 0;
-      int n = 0;
-      buf[0] = '\0';
-      //printf("Received: ");
+    unsigned char in = 0;
+    int i = 0;
+    int n = 0;
+    buf[0] = '\0';
+    //printf("Received: ");
 
-      while(in != until)
-      {
-          n = read(fd, &in, 1);  // read a char at a time
-          if( n==-1)
-          {
-             perror("Unable to read from port\n");
-             return -1;    // couldn't read
-          }
-		  if( n==0 )
-			usleep( 1 * 1000 ); // wait 1 msec try again
-          if(n > 0)
-		  {
-             buf[i] = in;
-             //printf("|%#4x|", in);
-             i++;
-          }
-      }
+    while(in != until)
+    {
+        n = read(fd, &in, 1);  // read a char at a time
+        if( n==-1)
+        {
+            perror("Unable to read from port\n");
+            return -1;    // couldn't read
+        }
+        if( n==0 )
+            usleep( 1 * 1000 ); // wait 1 msec try again
+        if(n > 0)
+        {
+            buf[i] = in;
+            //printf("|%#4x|", in);
+            i++;
+        }
+    }
   //printf("ending recevived. \n");
   buf[i] = '\0';  // null terminate the string
   return strlen(buf);
