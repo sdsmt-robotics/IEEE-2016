@@ -16,7 +16,7 @@ int main( int argc, char* argv[] )
     int closed = close( 4 );
     printf("closed = %d\n", closed);
     int serial_file = sys_init();
-    unsigned char flag = RIGHT_MOTOR_STEPS_FLAG;
+    unsigned char flag = RIGHT_MOTOR_FLAG;
     int steps = 400;
     int seconds = 2;
 
