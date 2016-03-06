@@ -9,7 +9,7 @@
 #include <stdbool.h>
 #include <unistd.h>
 
-//#define printf LOG //To log to logfile AND console
+#define printf LOG //To log to logfile AND console
 
 int main( int argc, char* argv[] )
 {
