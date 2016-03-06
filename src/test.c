@@ -18,11 +18,11 @@ int main( int argc, char* argv[] )
     int steps = 400;
     int seconds = 2;
 
-    printf("\nMoving %i(%x) steps in %i(%x) seconds.\n", steps, steps, seconds, seconds);
+    printf("\nMoving %d steps in %d seconds.\n", steps, seconds);
     int n = write(serial_file, &flag, 1);
     n = n + write(serial_file, &steps, sizeof(steps));
     n = n + write(serial_file, &seconds, sizeof(seconds));
-    printf("Wrote %i bytes.\n", n);
+    printf("Wrote %d bytes.\n", n);
 
     return 0;
 }
