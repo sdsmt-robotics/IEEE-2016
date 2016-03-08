@@ -27,32 +27,48 @@ int main( int argc, char* argv[] )
      * startup works as it should, I wonder if the serial file is being closed properly, and 
      * we're trying to open and write to a file that's already open.
      */
+    while (1)
+    {
+        sleep(1);
+        unsigned char flag = RIGHT_MOTOR_STEPS_FLAG;
+        int steps = 400;
+        int seconds = 2;
 
-    unsigned char flag = RIGHT_MOTOR_STEPS_FLAG;
-    int steps = 400;
-    int seconds = 2;
+        printf("\nMoving %d steps in %d seconds.\n", steps, seconds);
+        int n = write(serial_file, &flag, 1);
+        n = n + write(serial_file, &steps, sizeof(steps));
+        n = n + write(serial_file, &seconds, sizeof(seconds));
+        printf("Wrote %d bytes.\n", n);
 
-    printf("\nMoving %d steps in %d seconds.\n", steps, seconds);
-    int n = write(serial_file, &flag, 1);
-    n = n + write(serial_file, &steps, sizeof(steps));
-    n = n + write(serial_file, &seconds, sizeof(seconds));
-    printf("Wrote %d bytes.\n", n);
+        int n = read(serial_file, &buffer, sizeof(buffer));
+        if(n>0)
+        {
+            buffer[n] = '\0';
+            printf("\n-%s", buffer);
+            fflush(stdout);
+        }
+    }
+    
 
     return 0;
 }
 
 int sys_init( )
 {
-    int serial_port = serial_init(ARDUINO_COMM_LOCATION, ROBOT_BAUDRATE);
+    int serial_file = serialport_init(ARDUINO_COMM_LOCATION, ROBOT_BAUDRATE); // attempts to open the connection to the arduino with the BAUDRATE specified in the ROBOT_DEFINITIONS.h
+    
+    if(serial_file < 0)
+    {
+        while(serial_file < 0)
+        {
+            printf("Can't open serial port, trying again in 1 sec.\n"); // arduino not located, please stop breaking things
+            sleep(1);
+            serial_file = serialport_init(ARDUINO_COMM_LOCATION, ROBOT_BAUDRATE);
+        }
+    }
 
-    if( serial_port < 0 )
-	{
-		printf("Can't open serial port.\n");
-		exit(-1);
-	}
+    clearPort(serial_file);
+    printf("Serial successfully initialized. File handle: %d\n", serial_file );
 
-    clearPort(serial_port);
-    printf("Serial successfully initialized. File handle: %d\n", serial_port );
-
-    return serial_port;
+    return serial_file;
 }
