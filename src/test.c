@@ -8,14 +8,14 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <unistd.h>
-#include  <fcntl.h>
+//#include <fcntl.h>
 
 #define printf LOG //To log to logfile AND console
 
 int main( int argc, char* argv[] )
 {
     int serial_file = sys_init();
-    unsigned char buffer[512] = "";
+    char buffer[512] = "";
     int n = 0;
     
     while ( 1 )
@@ -23,9 +23,10 @@ int main( int argc, char* argv[] )
         driveWheelSteps( RIGHT, 400, 1, serial_file );
         sleep(1);
         driveWheelSteps( LEFT, 400, 1, serial_file );
+        sleep(1);
+
         n = read(serial_file, &buffer, sizeof(buffer));
         printf("num bytes read: %d\n", n);
-
         if( n > 0 )
         {
             
