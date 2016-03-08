@@ -14,6 +14,7 @@
 int main( int argc, char* argv[] )
 {
     int serial_file = sys_init();
+    char buffer[512] = "";
     /* For some reason this is no longer working. It ran on the very first try and never since.
      * What I think is happening is that serial_init() is no opening the correct file, because
      * in the joystick test the serial_file is 4, and here's 3. I'm not sure it matter though,
@@ -40,10 +41,10 @@ int main( int argc, char* argv[] )
         n = n + write(serial_file, &seconds, sizeof(seconds));
         printf("Wrote %d bytes.\n", n);
 
-        int n = read(serial_file, &buffer, sizeof(buffer));
-        if(n>0)
+        int m = read(serial_file, &buffer, sizeof(buffer));
+        if(m > 0)
         {
-            buffer[n] = '\0';
+            buffer[m] = '\0';
             printf("\n-%s", buffer);
             fflush(stdout);
         }
