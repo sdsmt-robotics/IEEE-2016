@@ -19,11 +19,12 @@ int main( int argc, char* argv[] )
     int n = 0;
     int steps = 400;
     int time = 1;
+    unsigned char motor_flag = LEFT_MOTOR_STEPS_FLAG;
     
     while ( 1 )
     {
-        motor_flag = RIGHT_MOTOR_STEPS_FLAG;
-        n = n + write( serial_port, &motor_flag, 1 );
+        
+        write( serial_file, &motor_flag, 1 );
         n = read(serial_file, &buffer, sizeof(buffer));
         printf("num bytes read: %d\n", n);
         if( n > 0 )
@@ -33,7 +34,7 @@ int main( int argc, char* argv[] )
             printf("buffer: %s\n", buffer);  // print the part of the buffer that had stuff in it
             fflush(stdout);
         }
-        n = n + write( serial_port, &steps, sizeof(steps) );
+        write( serial_file, &steps, sizeof(steps) );
         n = read(serial_file, &buffer, sizeof(buffer));
         printf("num bytes read: %d\n", n);
         if( n > 0 )
@@ -43,7 +44,7 @@ int main( int argc, char* argv[] )
             printf("buffer: %s\n", buffer);  // print the part of the buffer that had stuff in it
             fflush(stdout);
         }
-        n = n + write( serial_port, &time, sizeof(time) );
+        write( serial_file, &time, sizeof(time) );
         n = read(serial_file, &buffer, sizeof(buffer));
         printf("num bytes read: %d\n", n);
         if( n > 0 )
