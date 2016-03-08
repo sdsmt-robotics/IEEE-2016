@@ -16,7 +16,7 @@ int main( int argc, char* argv[] )
     int serial_file = sys_init();
     char buffer[512] = "";
     
-    driveWheelSteps( LEFT, 400, 1, serial_file );
+    //driveWheelSteps( LEFT, 400, 1, serial_file );
     driveWheelSteps( RIGHT, 400, 1, serial_file );
 
     int n = read(serial_file, &buffer, sizeof(buffer));
