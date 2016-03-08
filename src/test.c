@@ -15,7 +15,7 @@
 int main( int argc, char* argv[] )
 {
     int serial_file = sys_init();
-    unsigned char buffer[512] = "";
+    char buffer[512] = "";
     int n = 0;
     
     while ( 1 )
@@ -30,7 +30,7 @@ int main( int argc, char* argv[] )
         if( n > 0 )
         {
             
-            buffer[n] = '\0';
+            buffer[511] = '\0';
             printf("buffer: %s\n", buffer);  // print the part of the buffer that had stuff in it
             fflush(stdout);
         }
