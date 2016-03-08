@@ -22,8 +22,8 @@ int main( int argc, char* argv[] )
     {
         driveWheelSteps( RIGHT, 400, 1, serial_file );
         sleep(1);
-        driveWheelSteps( LEFT, 400, 1, serial_file );
-        sleep(1);
+        //driveWheelSteps( LEFT, 400, 1, serial_file );
+        //sleep(1);
 
         n = read(serial_file, &buffer, sizeof(buffer));
         printf("num bytes read: %d\n", n);
@@ -34,6 +34,7 @@ int main( int argc, char* argv[] )
             printf("buffer: %s\n", buffer);  // print the part of the buffer that had stuff in it
             fflush(stdout);
         }
+        fflush(stdout);
 
     }
     
