@@ -14,11 +14,26 @@
 int main( int argc, char* argv[] )
 {
     int serial_file = sys_init();
+    char buffer[512] = "";
     
+    while ( 1 )
+    {
 
-    driveWheelSteps( LEFT, 400, 1, serial_file );
+        driveWheelSteps( LEFT, 400, 1, serial_file );
+
+        int n = read(serial_file, &buffer, sizeof(buffer));
+        if( n > 0 )
+        {
+            buffer[n] = '\0';
+            printf("\n-%s", buffer);
+            fflush(stdout);
+        }
+
+        sleep(2);
+    }
+    
 //    driveWheelSteps( RIGHT, 400, 1, serial_file );
-    close( serial_file );
+    //close( serial_file );
     return 0;
 }
 
