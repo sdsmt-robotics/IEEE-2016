@@ -15,7 +15,7 @@
 int main( int argc, char* argv[] )
 {
     int serial_file = sys_init();
-    char buffer[512] = "";
+    unsigned char buffer[512] = "";
     int n = 0;
     
     while ( 1 )
