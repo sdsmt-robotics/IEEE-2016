@@ -17,7 +17,8 @@ int main( int argc, char* argv[] )
     
 
     driveWheelSteps( LEFT, 400, 1, serial_file );
-
+//    driveWheelSteps( RIGHT, 400, 1, serial_file );
+    close( serial_file );
     return 0;
 }
 
