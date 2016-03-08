@@ -17,24 +17,48 @@ int main( int argc, char* argv[] )
     int serial_file = sys_init();
     char buffer[512] = "";
     int n = 0;
+    int steps = 400;
+    int time = 1;
     
     while ( 1 )
     {
-        driveWheelSteps( RIGHT, 400, 1, serial_file );
-        sleep(1);
-        //driveWheelSteps( LEFT, 400, 1, serial_file );
-        //sleep(1);
-
+        motor_flag = RIGHT_MOTOR_STEPS_FLAG;
+        n = n + write( serial_port, &motor_flag, 1 );
         n = read(serial_file, &buffer, sizeof(buffer));
         printf("num bytes read: %d\n", n);
         if( n > 0 )
         {
             
-            buffer[511] = '\0';
+            buffer[n] = '\0';
             printf("buffer: %s\n", buffer);  // print the part of the buffer that had stuff in it
             fflush(stdout);
         }
-        fflush(stdout);
+        n = n + write( serial_port, &steps, sizeof(steps) );
+        n = read(serial_file, &buffer, sizeof(buffer));
+        printf("num bytes read: %d\n", n);
+        if( n > 0 )
+        {
+            
+            buffer[n] = '\0';
+            printf("buffer: %s\n", buffer);  // print the part of the buffer that had stuff in it
+            fflush(stdout);
+        }
+        n = n + write( serial_port, &time, sizeof(time) );
+        n = read(serial_file, &buffer, sizeof(buffer));
+        printf("num bytes read: %d\n", n);
+        if( n > 0 )
+        {
+            
+            buffer[n] = '\0';
+            printf("buffer: %s\n", buffer);  // print the part of the buffer that had stuff in it
+            fflush(stdout);
+        }
+        sleep(1);
+        //driveWheelSteps( RIGHT, 400, 1, serial_file );
+        //sleep(1);
+
+        
+
 
     }
     
