@@ -27,19 +27,17 @@ int main( int argc, char* argv[] )
      * startup works as it should, I wonder if the serial file is being closed properly, and 
      * we're trying to open and write to a file that's already open.
      */
-    while (1)
-    {
-        unsigned char flag = RIGHT_MOTOR_STEPS_FLAG;
-        int steps = 400;
-        int seconds = 2;
 
-        printf("\nMoving %d steps in %d seconds.\n", steps, seconds);
-        int n = write(serial_file, &flag, 1);
-        n = n + write(serial_file, &steps, sizeof(steps));
-        n = n + write(serial_file, &seconds, sizeof(seconds));
-        printf("Wrote %d bytes.\n", n);
-        break;
-    }
+    unsigned char flag = RIGHT_MOTOR_STEPS_FLAG;
+    int steps = 400;
+    int seconds = 2;
+
+    printf("\nMoving %d steps in %d seconds.\n", steps, seconds);
+    int n = write(serial_file, &flag, 1);
+    n = n + write(serial_file, &steps, sizeof(steps));
+    n = n + write(serial_file, &seconds, sizeof(seconds));
+    printf("Wrote %d bytes.\n", n);
+
     
 
     return 0;
