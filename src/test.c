@@ -20,8 +20,8 @@ int main( int argc, char* argv[] )
     
     while ( 1 )
     {
+        driveWheelSteps( RIGHT, 400, 1, serial_file );
         driveWheelSteps( LEFT, 400, 1, serial_file );
-
         n = read(serial_file, &buffer, sizeof(buffer));
         printf("num bytes read: %d\n", n);
 
