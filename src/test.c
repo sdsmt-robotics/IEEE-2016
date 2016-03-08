@@ -28,7 +28,7 @@ int main( int argc, char* argv[] )
         m = m + write( serial_file, &motor_flag, 1 );
         
         n = read(serial_file, &buffer, sizeof(buffer));
-        printf("num bytes read: %d\n", n);
+        printf("Motor Flag. Num bytes read: %d\n", n);
         if( n > 0 )
         {
             
@@ -41,7 +41,7 @@ int main( int argc, char* argv[] )
         m = m + write( serial_file, &steps, sizeof(steps) );
         
         n = read(serial_file, &buffer, sizeof(buffer));
-        printf("num bytes read: %d\n", n);
+        printf("Steps. Num bytes read: %d\n", n);
         if( n > 0 )
         {
             
@@ -54,7 +54,7 @@ int main( int argc, char* argv[] )
         m = m + write( serial_file, &time, sizeof(time) );
         
         n = read(serial_file, &buffer, sizeof(buffer));
-        printf("num bytes read: %d\n", n);
+        printf("Time. Num bytes read: %d\n", n);
         if( n > 0 )
         {
             
