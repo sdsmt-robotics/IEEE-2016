@@ -15,14 +15,14 @@ int main( int argc, char* argv[] )
 {
     int serial_file = sys_init();
     char buffer[512] = "";
-    int n;
+    int n = 0;
     
     while ( 1 )
     {
         //driveWheelSteps( LEFT, 400, 1, serial_file );
         driveWheelSteps( LEFT, 400, 1, serial_file );
 
-        n = read(serial_file, &buffer, sizeof(buffer));
+        //n = read(serial_file, &buffer, sizeof(buffer));
         printf("num bytes read: %d\n", n);
 
         if( n > 0 )
