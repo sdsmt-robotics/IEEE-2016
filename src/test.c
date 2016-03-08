@@ -16,16 +16,22 @@ int main( int argc, char* argv[] )
     int serial_file = sys_init();
     char buffer[512] = "";
     
-    //driveWheelSteps( LEFT, 400, 1, serial_file );
-    driveWheelSteps( LEFT, 400, 1, serial_file );
-
-    int n = read(serial_file, &buffer, sizeof(buffer));
-    if( n > 0 )
+    while ( 1 )
     {
-        buffer[n] = '\0';
-        printf("\n-%s", buffer);
-        fflush(stdout);
+        //driveWheelSteps( LEFT, 400, 1, serial_file );
+        driveWheelSteps( LEFT, 400, 1, serial_file );
+
+        int n = read(serial_file, &buffer, sizeof(buffer));
+        if( n > 0 )
+        {
+            buffer[n] = '\0';
+            printf("\n-%s", buffer);
+            fflush(stdout);
+        }
+
+        sleep(2);
     }
+    
 
 
     return 0;
