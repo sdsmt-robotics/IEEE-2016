@@ -33,7 +33,7 @@ int main( int argc, char* argv[] )
         {
             
             buffer[n] = '\0';
-            printf("buffer: %s\n", buffer);  // print the part of the buffer that had stuff in it
+            printf("buffer:\n%s\n", buffer);  // print the part of the buffer that had stuff in it
             printf("End of buffer\n");
             fflush(stdout);
         }
@@ -46,7 +46,7 @@ int main( int argc, char* argv[] )
         {
             
             buffer[n] = '\0';
-            printf("buffer: %s\n", buffer);  // print the part of the buffer that had stuff in it
+            printf("buffer:\n%s\n", buffer);  // print the part of the buffer that had stuff in it
             printf("End of buffer\n");
             fflush(stdout);
         }
@@ -59,7 +59,7 @@ int main( int argc, char* argv[] )
         {
             
             buffer[n] = '\0';
-            printf("buffer: %s\n", buffer);  // print the part of the buffer that had stuff in it
+            printf("buffer:\n%s\n", buffer);  // print the part of the buffer that had stuff in it
             printf("End of buffer\n");
             fflush(stdout);
         }
