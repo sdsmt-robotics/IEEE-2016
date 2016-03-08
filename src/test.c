@@ -40,7 +40,7 @@ int main( int argc, char* argv[] )
         n = n + write(serial_file, &steps, sizeof(steps));
         n = n + write(serial_file, &seconds, sizeof(seconds));
         printf("Wrote %d bytes.\n", n);
-
+/*
         int m = read(serial_file, &buffer, sizeof(buffer));
         if(m > 0)
         {
@@ -48,6 +48,7 @@ int main( int argc, char* argv[] )
             printf("\n-%s", buffer);
             fflush(stdout);
         }
+*/
     }
     
 
