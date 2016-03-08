@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <unistd.h>
+#include  <fcntl.h>
 
 #define printf LOG //To log to logfile AND console
 
@@ -19,10 +20,9 @@ int main( int argc, char* argv[] )
     
     while ( 1 )
     {
-        //driveWheelSteps( LEFT, 400, 1, serial_file );
         driveWheelSteps( LEFT, 400, 1, serial_file );
 
-        //n = read(serial_file, &buffer, sizeof(buffer));
+        n = read(serial_file, &buffer, sizeof(buffer));
         printf("num bytes read: %d\n", n);
 
         if( n > 0 )
