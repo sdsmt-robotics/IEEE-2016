@@ -15,12 +15,13 @@
 int main( int argc, char* argv[] )
 {
     int serial_file = sys_init();
-    char buffer[512] = "";
+    unsigned char buffer[512] = "";
     int n = 0;
     
     while ( 1 )
     {
         driveWheelSteps( RIGHT, 400, 1, serial_file );
+        sleep(1);
         driveWheelSteps( LEFT, 400, 1, serial_file );
         n = read(serial_file, &buffer, sizeof(buffer));
         printf("num bytes read: %d\n", n);
@@ -29,11 +30,10 @@ int main( int argc, char* argv[] )
         {
             
             buffer[n] = '\0';
-            printf("\n-%s", buffer);  // print the part of the buffer that had stuff in it
+            printf("buffer: %s\n", buffer);  // print the part of the buffer that had stuff in it
             fflush(stdout);
         }
 
-        sleep(1);
     }
     
 
