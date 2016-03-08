@@ -25,41 +25,42 @@ int main( int argc, char* argv[] )
     {
         
         write( serial_file, &motor_flag, 1 );
-        n = read(serial_file, &buffer, sizeof(buffer));
-        printf("num bytes read: %d\n", n);
-        if( n > 0 )
-        {
-            
-            buffer[n] = '\0';
-            printf("buffer: %s\n", buffer);  // print the part of the buffer that had stuff in it
-            fflush(stdout);
-        }
-        write( serial_file, &steps, sizeof(steps) );
-        n = read(serial_file, &buffer, sizeof(buffer));
-        printf("num bytes read: %d\n", n);
-        if( n > 0 )
-        {
-            
-            buffer[n] = '\0';
-            printf("buffer: %s\n", buffer);  // print the part of the buffer that had stuff in it
-            fflush(stdout);
-        }
-        write( serial_file, &time, sizeof(time) );
-        n = read(serial_file, &buffer, sizeof(buffer));
-        printf("num bytes read: %d\n", n);
-        if( n > 0 )
-        {
-            
-            buffer[n] = '\0';
-            printf("buffer: %s\n", buffer);  // print the part of the buffer that had stuff in it
-            fflush(stdout);
-        }
-        sleep(1);
-        //driveWheelSteps( RIGHT, 400, 1, serial_file );
-        //sleep(1);
-
         
-
+        n = read(serial_file, &buffer, sizeof(buffer));
+        printf("num bytes read: %d\n", n);
+        if( n > 0 )
+        {
+            
+            buffer[n+1] = '\0';
+            printf("buffer: %s\n", buffer);  // print the part of the buffer that had stuff in it
+            fflush(stdout);
+        }
+        
+        write( serial_file, &steps, sizeof(steps) );
+        
+        n = read(serial_file, &buffer, sizeof(buffer));
+        printf("num bytes read: %d\n", n);
+        if( n > 0 )
+        {
+            
+            buffer[n+1] = '\0';
+            printf("buffer: %s\n", buffer);  // print the part of the buffer that had stuff in it
+            fflush(stdout);
+        }
+        
+        write( serial_file, &time, sizeof(time) );
+        
+        n = read(serial_file, &buffer, sizeof(buffer));
+        printf("num bytes read: %d\n", n);
+        if( n > 0 )
+        {
+            
+            buffer[n+1] = '\0';
+            printf("buffer: %s\n", buffer);  // print the part of the buffer that had stuff in it
+            fflush(stdout);
+        }
+        
+        sleep(1);
 
     }
     
