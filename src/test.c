@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <unistd.h>
-//#include <fcntl.h>
 
 #define printf LOG //To log to logfile AND console
 
