@@ -15,8 +15,12 @@ int main( int argc, char* argv[] )
 {
     int serial_port = sys_init();
 
-    driveWheelSteps( BOTH, -400, 5, serial_port );
-    sleep(5);
+    while ( 1 )
+    {
+        driveWheelSteps( BOTH, -400, 1, serial_port );
+        sleep(2);
+    }
+    
 
     return 0;
 }
