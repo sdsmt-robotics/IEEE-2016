@@ -68,7 +68,7 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
         printf("%d bytes written to right wheel\n", n );
 
         m = read(serial_port, &buffer, sizeof(buffer));
-        printf("buffer bytes read: %d\n", n);
+        printf("buffer bytes read: %d\n", m);
         if( m > 0 )
         {
             buffer[m] = '\0';
@@ -85,7 +85,7 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
         printf("%d bytes written to left wheel\n", n );
 
         m = read(serial_port, &buffer, sizeof(buffer));
-        printf("buffer bytes read: %d\n", n);
+        printf("buffer bytes read: %d\n", m);
         if( m > 0 )
         {
             buffer[m] = '\0';
@@ -102,7 +102,7 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
         printf("%d bytes written to left wheel\n", n );
 
         m = read(serial_port, &buffer, sizeof(buffer));
-        printf("buffer bytes read: %d\n", n);
+        printf("buffer bytes read: %d\n", m);
         if( m > 0 )
         {
             buffer[m] = '\0';
@@ -116,8 +116,8 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
         n = n + write( serial_port, &val_time, sizeof(val_time) );
         printf("%d total bytes written to wheels\n", n );
 
-        m = read(serial_file, &buffer, sizeof(buffer));
-        printf("buffer bytes read: %d\n", n);
+        m = read(serial_port, &buffer, sizeof(buffer));
+        printf("buffer bytes read: %d\n", m);
         if( m > 0 )
         {
             buffer[m] = '\0';
