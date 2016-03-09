@@ -15,10 +15,7 @@ int main( int argc, char* argv[] )
 {
     int serial_port = sys_init();
 
-    drive( serial_port, 10, 5 );
-    sleep(5);
-
-    var_turn( serial_port, 90, 5 );
+    driveWheelSteps( BOTH, -400, 5, serial_port );
     sleep(5);
 
     return 0;
