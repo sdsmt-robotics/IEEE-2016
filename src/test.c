@@ -32,7 +32,7 @@ int main( int argc, char* argv[] )
 
 int sys_init( )
 {
-    int serial_file = serialport_init(ARDUINO_COMM_LOCATION, ROBOT_BAUDRATE); // attempts to open the connection to the arduino with the BAUDRATE specified in the ROBOT_DEFINITIONS.h
+    int serial_file = serial_init(ARDUINO_COMM_LOCATION, ROBOT_BAUDRATE); // attempts to open the connection to the arduino with the BAUDRATE specified in the ROBOT_DEFINITIONS.h
     
     if(serial_file < 0)
     {
@@ -40,7 +40,7 @@ int sys_init( )
         {
             printf("Can't open serial port, trying again in 1 sec.\n"); // arduino not located, please stop breaking things
             sleep(1);
-            serial_file = serialport_init(ARDUINO_COMM_LOCATION, ROBOT_BAUDRATE);
+            serial_file = serial_init(ARDUINO_COMM_LOCATION, ROBOT_BAUDRATE);
         }
     }
 

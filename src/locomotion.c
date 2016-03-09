@@ -2,6 +2,7 @@
 #include "../include/robot_defines.h"
 //#include "../include/localization.h"
 #include "../include/logger.h"
+#include "../include/serial.h"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -56,7 +57,6 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
     int val_steps = steps;
     int val_time = runtime;
     char buffer[512] = "";
-    int m = 0;
 
     if ( wheel == RIGHT )
     {
@@ -66,15 +66,9 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
         n = n + write( serial_port, &val_steps, sizeof(val_steps) );
         n = n + write( serial_port, &val_time, sizeof(val_time) );
         printf("%d bytes written to right wheel\n", n );
+        get_buffer( serial_port, buffer );
+        print_buffer( buffer );
 
-        m = read(serial_port, &buffer, sizeof(buffer));
-        printf("buffer bytes read: %d\n", m);
-        if( m > 0 )
-        {
-            buffer[m] = '\0';
-            printf("buffer:\n======\n%s\n======\n", buffer);  // print the part of the buffer that had stuff in it
-            fflush(stdout);
-        }
     } else if ( wheel == LEFT )
     {
         printf("Writing to left motor.\n");
@@ -83,15 +77,9 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
         n = n + write( serial_port, &val_steps, sizeof(val_steps) );
         n = n + write( serial_port, &val_time, sizeof(val_time) );
         printf("%d bytes written to left wheel\n", n );
+        get_buffer( serial_port, buffer );
+        print_buffer( buffer );
 
-        m = read(serial_port, &buffer, sizeof(buffer));
-        printf("buffer bytes read: %d\n", m);
-        if( m > 0 )
-        {
-            buffer[m] = '\0';
-            printf("buffer:\n======\n%s\n======\n", buffer);  // print the part of the buffer that had stuff in it
-            fflush(stdout);
-        }
     } else if ( wheel == BOTH )
     {
         printf("Writing to both motors.\n");
@@ -100,30 +88,18 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
         n = n + write( serial_port, &val_steps, sizeof(val_steps) );
         n = n + write( serial_port, &val_time, sizeof(val_time) );
         printf("%d bytes written to left wheel\n", n );
+        get_buffer( serial_port, buffer );
+        print_buffer( buffer );
 
-        m = read(serial_port, &buffer, sizeof(buffer));
-        printf("buffer bytes read: %d\n", m);
-        if( m > 0 )
-        {
-            buffer[m] = '\0';
-            printf("buffer:\n======\n%s\n======\n", buffer);  // print the part of the buffer that had stuff in it
-            fflush(stdout);
-        }
 
         motor_flag = RIGHT_MOTOR_STEPS_FLAG;
         n = n + write( serial_port, &motor_flag, 1 );
         n = n + write( serial_port, &val_steps, sizeof(val_steps) );
         n = n + write( serial_port, &val_time, sizeof(val_time) );
         printf("%d total bytes written to wheels\n", n );
+        get_buffer( serial_port, buffer );
+        print_buffer( buffer );
 
-        m = read(serial_port, &buffer, sizeof(buffer));
-        printf("buffer bytes read: %d\n", m);
-        if( m > 0 )
-        {
-            buffer[m] = '\0';
-            printf("buffer:\n======\n%s\n======\n", buffer);  // print the part of the buffer that had stuff in it
-            fflush(stdout);
-        }
     } else
     {
         printf("Can't write to a wheel that isn't there.\n");
