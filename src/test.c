@@ -26,41 +26,15 @@ int main( int argc, char* argv[] )
     {
         
         m = m + write( serial_file, &motor_flag, 1 );
-        
-        n = read(serial_file, &buffer, sizeof(buffer));
-        printf("Motor Flag. Num bytes read: %d\n", n);
-        if( n > 0 )
-        {
-            
-            buffer[n] = '\0';
-            printf("buffer:\n%s\n", buffer);  // print the part of the buffer that had stuff in it
-            printf("End of buffer\n");
-            fflush(stdout);
-        }
-
         m = m + write( serial_file, &steps, sizeof(steps) );
-        
-        n = read(serial_file, &buffer, sizeof(buffer));
-        printf("Steps. Num bytes read: %d\n", n);
-        if( n > 0 )
-        {
-            
-            buffer[n] = '\0';
-            printf("buffer:\n%s\n", buffer);  // print the part of the buffer that had stuff in it
-            printf("End of buffer\n");
-            fflush(stdout);
-        }
-
         m = m + write( serial_file, &time, sizeof(time) );
         
         n = read(serial_file, &buffer, sizeof(buffer));
-        printf("Time. Num bytes read: %d\n", n);
+        printf("buffer bytes read: %d\n", n);
         if( n > 0 )
         {
-            
             buffer[n] = '\0';
-            printf("buffer:\n%s\n", buffer);  // print the part of the buffer that had stuff in it
-            printf("End of buffer\n");
+            printf("buffer:\n======\n%s\n======\n", buffer);  // print the part of the buffer that had stuff in it
             fflush(stdout);
         }
 
