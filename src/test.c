@@ -23,7 +23,7 @@ int main( int argc, char* argv[] )
 
         sleep(2);
 
-        driveWheelSteps( LEFT, 400, 1, serial_port)
+        driveWheelSteps( LEFT, 400, 1, serial_port );
 
     }
     
