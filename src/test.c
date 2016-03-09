@@ -19,8 +19,9 @@ int main( int argc, char* argv[] )
     while ( 1 )
     {
         driveWheelSteps( RIGHT, 400, 1, serial_port );
-        sleep(2);
-        driveWheelSteps( LEFT, -400, 1, serial_port );
+        sleep(1);
+        driveWheelSteps( LEFT, 400, 1, serial_port );
+        sleep(1);
     }
     
 
