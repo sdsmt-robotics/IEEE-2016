@@ -1,10 +1,5 @@
-Break field into two loops. One for city, one for rural.
-
 four victims, six possible locations.
 
-separate function for each victim
-	`bool retrieve_victim_n()` would take care of retreiving the victim from start to finish.
-	If it fails, return to central point.
 
 No real need for an actual loop
 
@@ -21,4 +16,6 @@ claws closed only when they're holding a victim
 
 victim 4 we rotate on the right wheel ONLY
 
-Should be able to detect the side of a wall fairly accurately.
+Look into using a mouse for localization. Would work great for city portion, depends on the mouse for rural.
+
+Look into replacing steppers with geared motors with encoders. Cheap dual motor drivers exist.
