@@ -96,34 +96,8 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
     } else if ( wheel == BOTH )
     {
         printf("Writing to both motors.\n");
-        motor_flag = LEFT_MOTOR_STEPS_FLAG;
-        n = n + write( serial_port, &motor_flag, 1 );
-        n = n + write( serial_port, &steps, sizeof(steps) );
-        n = n + write( serial_port, &runtime, sizeof(runtime) );
-        printf("%d bytes written to left wheel\n", n );
-        m = read(serial_port, &buffer, sizeof(buffer));
-
-        if( m > 0 )
-        {
-            buffer[m] = '\0';
-            printf("buffer (%d):\n======\n%s\n======\n", m, buffer);  // print the part of the buffer that had stuff in it
-            fflush(stdout);
-        } 
-
-
-        motor_flag = RIGHT_MOTOR_STEPS_FLAG;
-        n = n + write( serial_port, &motor_flag, 1 );
-        n = n + write( serial_port, &steps, sizeof(steps) );
-        n = n + write( serial_port, &runtime, sizeof(runtime) );
-        printf("%d total bytes written to wheels\n", n );
-        m = read(serial_port, &buffer, sizeof(buffer));
-
-        if( m > 0 )
-        {
-            buffer[m] = '\0';
-            printf("buffer (%d):\n======\n%s\n======\n", m, buffer);  // print the part of the buffer that had stuff in it
-            fflush(stdout);
-        } 
+        driveWheelSteps( RIGHT, steps, runtime, serial_port );
+        driveWheelSteps( LEFT, steps, runtime, serial_port );
 
     } else
     {

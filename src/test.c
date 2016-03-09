@@ -20,8 +20,8 @@ int main( int argc, char* argv[] )
     {
         counter++;
         printf("counter: %d\n", counter );
-        driveWheelSteps( LEFT, 400, 1, serial_port );
-        driveWheelSteps( RIGHT, 400, 1, serial_port );
+        driveWheelSteps( BOTH, 400, 1, serial_port );
+        //driveWheelSteps( RIGHT, 400, 1, serial_port );
         sleep(2);
     }
     
