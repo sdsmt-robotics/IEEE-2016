@@ -55,8 +55,6 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
     int n = 0;
     int m = 0;
     unsigned char motor_flag = 0;
-    int val_steps = steps;
-    int val_time = runtime;
     char buffer[512] = "";
 
     if ( wheel == RIGHT )
@@ -64,8 +62,8 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
         printf("Writing to right motor.\n");
         motor_flag = RIGHT_MOTOR_STEPS_FLAG;
         n = n + write( serial_port, &motor_flag, 1 );
-        n = n + write( serial_port, &val_steps, sizeof(val_steps) );
-        n = n + write( serial_port, &val_time, sizeof(val_time) );
+        n = n + write( serial_port, &steps, sizeof(steps) );
+        n = n + write( serial_port, &runtime, sizeof(runtime) );
         printf("%d bytes written to right wheel\n", n );
         
         m = read(serial_port, &buffer, sizeof(buffer));
@@ -83,8 +81,8 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
         printf("Writing to left motor.\n");
         motor_flag = LEFT_MOTOR_STEPS_FLAG;
         n = n + write( serial_port, &motor_flag, 1 );
-        n = n + write( serial_port, &val_steps, sizeof(val_steps) );
-        n = n + write( serial_port, &val_time, sizeof(val_time) );
+        n = n + write( serial_port, &steps, sizeof(steps) );
+        n = n + write( serial_port, &runtime, sizeof(runtime) );
         printf("%d bytes written to left wheel\n", n );
         m = read(serial_port, &buffer, sizeof(buffer));
 
@@ -100,8 +98,8 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
         printf("Writing to both motors.\n");
         motor_flag = LEFT_MOTOR_STEPS_FLAG;
         n = n + write( serial_port, &motor_flag, 1 );
-        n = n + write( serial_port, &val_steps, sizeof(val_steps) );
-        n = n + write( serial_port, &val_time, sizeof(val_time) );
+        n = n + write( serial_port, &steps, sizeof(steps) );
+        n = n + write( serial_port, &runtime, sizeof(runtime) );
         printf("%d bytes written to left wheel\n", n );
         m = read(serial_port, &buffer, sizeof(buffer));
 
@@ -115,8 +113,8 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
 
         motor_flag = RIGHT_MOTOR_STEPS_FLAG;
         n = n + write( serial_port, &motor_flag, 1 );
-        n = n + write( serial_port, &val_steps, sizeof(val_steps) );
-        n = n + write( serial_port, &val_time, sizeof(val_time) );
+        n = n + write( serial_port, &steps, sizeof(steps) );
+        n = n + write( serial_port, &runtime, sizeof(runtime) );
         printf("%d total bytes written to wheels\n", n );
         m = read(serial_port, &buffer, sizeof(buffer));
 
