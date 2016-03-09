@@ -136,14 +136,14 @@ void drive( int serial_port, float distance, int runtime )
     steps = round( STEPS_PER_CM * distance );
     printf("Driving straight %d steps\n", steps );
 
-    driveWheelSteps( RIGHT, steps, runtime, serial_port );
-    driveWheelSteps( LEFT, steps, runtime, serial_port );
+    driveWheelSteps( BOTH, steps, runtime, serial_port );
+    //driveWheelSteps( LEFT, steps, runtime, serial_port );
 }
 
 void stop( int serial_port )
 {
-    driveWheelSteps( RIGHT, 0, 0, serial_port );
-    driveWheelSteps( LEFT, 0, 0, serial_port );
+    driveWheelSteps( BOTH, 0, 0, serial_port );
+    //driveWheelSteps( LEFT, 0, 0, serial_port );
 }
 
 void claw( int serial_port, int state )
