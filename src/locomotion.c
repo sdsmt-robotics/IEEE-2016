@@ -73,7 +73,7 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
         if( m > 0 )
         {
             buffer[m] = '\0';
-            printf("buffer:\n======\n%s\n======\n", buffer);  // print the part of the buffer that had stuff in it
+            printf("buffer (%d):\n======\n%s\n======\n", m, buffer);  // print the part of the buffer that had stuff in it
             fflush(stdout);
         }    
 
@@ -91,7 +91,7 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
         if( m > 0 )
         {
             buffer[m] = '\0';
-            printf("buffer:\n======\n%s\n======\n", buffer);  // print the part of the buffer that had stuff in it
+            printf("buffer (%d):\n======\n%s\n======\n", m, buffer);  // print the part of the buffer that had stuff in it
             fflush(stdout);
         } 
 
@@ -108,7 +108,7 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
         if( m > 0 )
         {
             buffer[m] = '\0';
-            printf("buffer:\n======\n%s\n======\n", buffer);  // print the part of the buffer that had stuff in it
+            printf("buffer (%d):\n======\n%s\n======\n", m, buffer);  // print the part of the buffer that had stuff in it
             fflush(stdout);
         } 
 
@@ -123,7 +123,7 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
         if( m > 0 )
         {
             buffer[m] = '\0';
-            printf("buffer:\n======\n%s\n======\n", buffer);  // print the part of the buffer that had stuff in it
+            printf("buffer (%d):\n======\n%s\n======\n", m, buffer);  // print the part of the buffer that had stuff in it
             fflush(stdout);
         } 
 
