@@ -22,6 +22,12 @@ int main( int argc, char* argv[] )
         driveWheelSteps( BOTH, 400, 1, serial_port );
         //driveWheelSteps( RIGHT, 400, 1, serial_port );
         sleep(2);
+
+        counter++;
+        printf("counter: %d\n", counter );
+        driveWheelSteps( BOTH, 400, 1, serial_port );
+        //driveWheelSteps( RIGHT, 400, 1, serial_port );
+        sleep(2);
     
 
 
