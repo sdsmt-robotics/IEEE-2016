@@ -15,20 +15,10 @@
 int main( int argc, char* argv[] )
 {
     int serial_port = sys_init();
-    int counter = 0;
 
-    sleep(1);
-    driveWheelSteps( BOTH, 400, 1, serial_port );
-    sleep(2);
 
-    driveWheelSteps( BOTH, 400, 1, serial_port );
-    sleep(2);
-
-    driveWheelSteps( BOTH, 400, 1, serial_port );
-    sleep(2);
-
-    driveWheelSteps( BOTH, 400, 1, serial_port );
-    sleep(2);
+    
+    drive( serial_port, 10, 5 );
 
         
     
@@ -53,6 +43,6 @@ int sys_init( )
 
     clearPort(serial_port);
     printf("Serial successfully initialized. File handle: %d\n", serial_port );
-
+    sleep(1); // because Arduino ignores the very first write
     return serial_port;
 }
