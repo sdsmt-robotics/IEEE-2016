@@ -18,7 +18,6 @@ int serial_init(const char* serialport, int baud);
 void clearPort(int port);
 void s_write( int port, int val, int bytes); // generic multipurpose write
 int s_read_until(int fd, char* buf, char until);
-void get_buffer( int serial_port, char *buffer );
-void print_buffer( char *buffer );
+
 
 #endif

@@ -66,8 +66,16 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
         n = n + write( serial_port, &val_steps, sizeof(val_steps) );
         n = n + write( serial_port, &val_time, sizeof(val_time) );
         printf("%d bytes written to right wheel\n", n );
-        get_buffer( serial_port, buffer );
-        print_buffer( buffer );
+        
+        int m = read(serial_port, &buffer, sizeof(buffer));
+
+        if( m > 0 )
+        {
+            buffer[m] = '\0';
+            printf("buffer:\n======\n%s\n======\n", buffer);  // print the part of the buffer that had stuff in it
+            fflush(stdout);
+        }    
+
 
     } else if ( wheel == LEFT )
     {
@@ -77,8 +85,14 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
         n = n + write( serial_port, &val_steps, sizeof(val_steps) );
         n = n + write( serial_port, &val_time, sizeof(val_time) );
         printf("%d bytes written to left wheel\n", n );
-        get_buffer( serial_port, buffer );
-        print_buffer( buffer );
+        int m = read(serial_port, &buffer, sizeof(buffer));
+
+        if( m > 0 )
+        {
+            buffer[m] = '\0';
+            printf("buffer:\n======\n%s\n======\n", buffer);  // print the part of the buffer that had stuff in it
+            fflush(stdout);
+        } 
 
     } else if ( wheel == BOTH )
     {
@@ -88,8 +102,14 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
         n = n + write( serial_port, &val_steps, sizeof(val_steps) );
         n = n + write( serial_port, &val_time, sizeof(val_time) );
         printf("%d bytes written to left wheel\n", n );
-        get_buffer( serial_port, buffer );
-        print_buffer( buffer );
+        int m = read(serial_port, &buffer, sizeof(buffer));
+
+        if( m > 0 )
+        {
+            buffer[m] = '\0';
+            printf("buffer:\n======\n%s\n======\n", buffer);  // print the part of the buffer that had stuff in it
+            fflush(stdout);
+        } 
 
 
         motor_flag = RIGHT_MOTOR_STEPS_FLAG;
@@ -97,8 +117,14 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
         n = n + write( serial_port, &val_steps, sizeof(val_steps) );
         n = n + write( serial_port, &val_time, sizeof(val_time) );
         printf("%d total bytes written to wheels\n", n );
-        get_buffer( serial_port, buffer );
-        print_buffer( buffer );
+        int m = read(serial_port, &buffer, sizeof(buffer));
+
+        if( m > 0 )
+        {
+            buffer[m] = '\0';
+            printf("buffer:\n======\n%s\n======\n", buffer);  // print the part of the buffer that had stuff in it
+            fflush(stdout);
+        } 
 
     } else
     {

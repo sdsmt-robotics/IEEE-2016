@@ -117,16 +117,3 @@ int s_read_until(int fd, char* buf, char until)
   return strlen(buf);
 }
 
-void get_buffer( int serial_port, char *buffer )
-{
-    int m = read(serial_port, &buffer, sizeof(buffer));
-
-    if( m > 0 )
-        buffer[m] = '\0';
-}
-
-void print_buffer( char *buffer )
-{
-    printf("buffer:\n======\n%s\n======\n", buffer);  // print the part of the buffer that had stuff in it
-    fflush(stdout);
-}
