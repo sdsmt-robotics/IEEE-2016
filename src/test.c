@@ -15,28 +15,11 @@
 int main( int argc, char* argv[] )
 {
     int serial_file = sys_init();
-    char buffer[512] = "";
-    int n = 0;
-    int steps = 400;
-    int time = 1;
-    unsigned char motor_flag = RIGHT_MOTOR_STEPS_FLAG;
-    int m = 0;
-    
+
     while ( 1 )
     {
         
-        m = m + write( serial_file, &motor_flag, 1 );
-        m = m + write( serial_file, &steps, sizeof(steps) );
-        m = m + write( serial_file, &time, sizeof(time) );
-        
-        n = read(serial_file, &buffer, sizeof(buffer));
-        printf("buffer bytes read: %d\n", n);
-        if( n > 0 )
-        {
-            buffer[n] = '\0';
-            printf("buffer:\n======\n%s\n======\n", buffer);  // print the part of the buffer that had stuff in it
-            fflush(stdout);
-        }
+        driveWheelSteps( RIGHT, 400, 1, serial_file );
 
         sleep(2);
 
