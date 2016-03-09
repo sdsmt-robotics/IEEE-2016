@@ -19,6 +19,10 @@ int main( int argc, char* argv[] )
 
     
     drive( serial_port, 10, 5 );
+    sleep(5);
+
+    var_turn( serial_port, 90, 5 );
+    sleep(5);
 
         
     

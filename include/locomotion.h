@@ -25,6 +25,8 @@ void stop( int serial_port );
 
 void claw( int serial_port, int state );
 
+void var_turn( int serial_port, int angle, int runtime )
+
 
 
 

@@ -119,12 +119,12 @@ void turn( int serial_port, int angle, int runtime )
      * 22.5 deg . 50 steps
      */
 
-     steps = round( STEPS_PER_MM * arc_length );
+    steps = round( STEPS_PER_MM * arc_length );
 
-     printf("Turning %d degrees in %d seconds. arc length = %f and %d steps per wheel\n", angle, runtime, arc_length, steps );
+    printf("Turning %d degrees in %d seconds. arc length = %f and %d steps per wheel\n", angle, runtime, arc_length, steps );
 
-     driveWheelSteps( RIGHT, -steps, runtime, serial_port );
-     driveWheelSteps( LEFT, steps, runtime, serial_port );
+    driveWheelSteps( RIGHT, -steps, runtime, serial_port );
+    driveWheelSteps( LEFT, steps, runtime, serial_port );
 }
 
 void drive( int serial_port, float distance, int runtime )
@@ -187,5 +187,29 @@ void claw( int serial_port, int state )
     } else {
         printf("I don't know what you mean by that.\n");
         printf("Attempting to send state: %d defined in robot_defines under claw state.\n", state );
+    }
+}
+
+void var_turn( int serial_port, int angle, int runtime )
+{
+    //pivots on one wheel. If turning right, pivot on right wheel, etc
+    double arc_length;
+    unsigned int steps;
+    // arc length = 2 * PI * R * (theta/360)
+    arc_length = 2 * M_PI * WHEEL_BASE_MM * ( angle / 360.0 ); //in mm
+
+    steps = round( STEPS_PER_MM * arc_length );
+
+    printf("Turning %d degrees in %d seconds. arc length = %f and %d steps.\n", angle, runtime, arc_length, steps );
+
+    if ( angle < 0 ) // turning left
+    {
+        driveWheelSteps( RIGHT, steps, runtime, serial_port );
+    } else if ( angle > 0 ) // turning right
+    {
+        driveWheelSteps( LEFT, steps, runtime, serial_port );
+    } else
+    {
+        stop( serial_port );
     }
 }
