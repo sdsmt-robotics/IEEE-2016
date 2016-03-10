@@ -75,6 +75,7 @@ int extract_sensor_data( int serial_port, int sensor )
     int nothing = write( serial_port, &flag, 1);
     usleep(10000);
     n = read( serial_port, &buffer, sizeof(buffer) );
+    printf("buffer:\n%s\n", buffer );
 
     char *token = strtok(buffer, (char *) IR_PACKET_END);
     printf("token: %s", token );
