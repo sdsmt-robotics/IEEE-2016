@@ -16,7 +16,7 @@
 int main( int argc, char* argv[] )
 {
     int serial_port = sys_init();
-    printf("%s", IS_LITTLE_ENDIAN );
+    printf("%c", IS_LITTLE_ENDIAN );
     while ( 1 )
     {
         temporary_sensor_request( serial_port );
