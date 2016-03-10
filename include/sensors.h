@@ -8,5 +8,6 @@ int Front_Right_IR();
 int Front_Left_IR();
 int Backward_IR();
 
+void temporary_sensor_request( int serial_port );
 
 #endif

@@ -42,6 +42,7 @@
 #define ROBOT_BAUDRATE 115200
 #define ARDUINO_COMM_LOCATION "/dev/robot/arduino"
 #define ARDUINO_RECEIVED_BYTE 0x13
+#define SENSOR_REQUEST 0x37
 
 //Physical information
 #define WHEEL_BASE_MM 158.2
