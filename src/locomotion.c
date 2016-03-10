@@ -53,6 +53,7 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
 {
     printf("Driving wheel %d %d steps in %d seconds\n", wheel, steps, runtime);
     int n = 0;
+    int m = 0;
     unsigned char motor_flag = 0;
     char buffer[512] = "";
 
@@ -65,8 +66,14 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
         n = n + write( serial_port, &runtime, sizeof(runtime) );
         printf("%d bytes written to right wheel\n", n );
         
-        get_buffer( serial_port, buffer );
-        print_buffer( buffer );
+        m = read( serial_port, &buffer, sizeof(buffer) );
+
+        if( m > 0 )
+        {
+            buffer[m] = '\0';
+            printf( "Buffer:\n=======\n%s\n=======\n", buffer );
+            fflush(stdout);
+        }
 
     } else if ( wheel == LEFT )
     {
@@ -77,8 +84,14 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
         n = n + write( serial_port, &runtime, sizeof(runtime) );
         printf("%d bytes written to left wheel\n", n );
         
-        get_buffer( serial_port, buffer );
-        print_buffer( buffer );
+        m = read( serial_port, &buffer, sizeof(buffer) );
+
+        if( m > 0 )
+        {
+            buffer[m] = '\0';
+            printf( "Buffer:\n=======\n%s\n=======\n", buffer );
+            fflush(stdout);
+        }
 
     } else if ( wheel == BOTH )
     {

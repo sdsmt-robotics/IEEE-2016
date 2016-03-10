@@ -42,6 +42,12 @@ void temporary_sensor_request( int serial_port )
     //request sensor input, will worry about what to do with it once I get some sleep and some food.
     int nothing = write( serial_port, &flag, 1 );
 
-    get_buffer( serial_port, buffer );
-    print_buffer( buffer );
+    int m = read( serial_port, &buffer, sizeof(buffer) );
+
+    if( m > 0 )
+    {
+        buffer[m] = '\0';
+        printf( "Buffer:\n=======\n%s\n=======\n", buffer );
+        fflush(stdout);
+    }
 }
