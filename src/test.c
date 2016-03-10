@@ -17,10 +17,8 @@ int main( int argc, char* argv[] )
 
     while ( 1 )
     {
-        turn( serial_port, 90, 3);
-        sleep(4);
-        turn( serial_port, -90, 3);
-        sleep(4);
+        driveWheelSteps( RIGHT, 400, 1, serial_port );
+        driveWheelSteps( LEFT, 400, 1, serial_port );
     }
     
 

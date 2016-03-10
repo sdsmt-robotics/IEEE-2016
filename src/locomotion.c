@@ -71,7 +71,7 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
         if( m > 0 )
         {
             buffer[m] = '\0';
-            printf( "Buffer:\n=======\n%s\n=======\n", buffer );
+            printf( "Buffer (%d bytes):\n=======\n%s\n=======\n", m, buffer );
             fflush(stdout);
         }
 
@@ -89,7 +89,7 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //ard
         if( m > 0 )
         {
             buffer[m] = '\0';
-            printf( "Buffer:\n=======\n%s\n=======\n", buffer );
+            printf( "Buffer (%d bytes):\n=======\n%s\n=======\n", m, buffer );
             fflush(stdout);
         }
 
