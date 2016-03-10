@@ -19,6 +19,7 @@ int main( int argc, char* argv[] )
     {
         driveWheelSteps( RIGHT, 400, 1, serial_port );
         driveWheelSteps( LEFT, 400, 1, serial_port );
+        sleep(2);
     }
     
 
