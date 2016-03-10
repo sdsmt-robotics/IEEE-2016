@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#define printf LOG
+//#define printf LOG
 
 
 
@@ -76,7 +76,7 @@ int extract_sensor_data( int serial_port, int sensor )
     usleep(10000);
     n = read( serial_port, &buffer, sizeof(buffer) );
     printf("buffer:\n%s\n", buffer );
-
+    printf("IR_PACKET_END: %c", IR_PACKET_END );
     char *token = strtok(buffer, (char *) IR_PACKET_END);
     printf("token: %s", token );
     strcpy( left, token );
