@@ -77,26 +77,26 @@ int extract_sensor_data( int serial_port, int sensor )
     int nothing = write( serial_port, &flag, 1);
     usleep(10000);
     n = read( serial_port, &buffer, sizeof(buffer) );
-    printf( "buffer (%d bytes):\n%s\n", n, buffer );
+    //printf( "buffer (%d bytes):\n%s\n", n, buffer );
 
     //Odroid is little-Endian as well.
     left_byte = (unsigned char) buffer[0];
     right_byte = (unsigned char) buffer[1];
-    left = left | right_byte;
-    left = left << 4;
     left = left | left_byte;
+    left = left << 4;
+    left = left | right_byte;
 
     left_byte = (unsigned char) buffer[2];
     right_byte = (unsigned char) buffer[3];
-    right = right | right_byte;
-    right = right << 4;
     right = right | left_byte;
+    right = right << 4;
+    right = right | right_byte;
 
     left_byte = (unsigned char) buffer[4];
     right_byte = (unsigned char) buffer[5];
-    front = front | right_byte;
-    front = front << 4;
     front = front | left_byte;
+    front = front << 4;
+    front = front | right_byte;
 
     if ( sensor == LEFT )
     {
