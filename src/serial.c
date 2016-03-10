@@ -118,24 +118,24 @@ int s_read_until(int fd, char* buf, char until)
   return strlen(buf);
 }
 
-void get_buffer( int serial_port, char **buffer )
+void get_buffer( int serial_port, char *buffer )
 {
     //because `buffer` is now a god damn address.
-    int n = read( serial_port, buffer, sizeof(*buffer) );
+    int n = read( serial_port, &buffer, sizeof(buffer) );
 
     if( n > 0 )
     {
-        *buffer[n] = '\0';
+        buffer[n] = '\0';
     }
     else
     {
-        *buffer[0] = '\0';
+        buffer[0] = '\0';
     }
 }
 
-void print_buffer( char **buffer )
+void print_buffer( char *buffer )
 {
-    printf( "Buffer:\n=======\n%s\n=======\n", *buffer );
+    printf( "Buffer:\n=======\n%s\n=======\n", buffer );
     fflush(stdout);
 }
 
