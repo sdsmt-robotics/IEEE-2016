@@ -66,7 +66,6 @@ int extract_sensor_data( int serial_port, int sensor )
     char buffer[200] = "";
     unsigned char flag = SENSOR_REQUEST;
     int n = 0;
-    int count = 0;
 
     char left[4] = "";
     char right[4] = "";
@@ -75,38 +74,7 @@ int extract_sensor_data( int serial_port, int sensor )
     int nothing = write( serial_port, &flag, 1);
     usleep(10000);
     n = read( serial_port, &buffer, sizeof(buffer) );
-    printf("buffer:\n%s\n", buffer );
-    printf("IR_PACKET_END: %s\n", (char *) IR_PACKET_END );
-    char *token = strtok(buffer, (char *) IR_PACKET_END);
-    printf("token: %s", token );
-    strcpy( left, token );
-    while(token) {
-        token = strtok(NULL, (char *) IR_PACKET_END);
-        count++;
-        printf("token: %s", token );
-        switch (count)
-        {
-            case 1:
-            {
-                strcpy( right, token );
-                break;
-            }
-            case 2:
-            {
-                strcpy( front, token );
-                break;
-            }
-            default:
-            {
-                break;
-            }
-        }
-
-    }
-    //make sure they're null terminated :(
-    left[3] = '\0';
-    right[3] = '\0';
-    front[3] = '\0';
+    printf("buffer (%d bytes):\n%s\n", n, buffer );
 
     if ( sensor == LEFT )
     {
