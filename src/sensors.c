@@ -44,7 +44,7 @@ void temporary_sensor_request( int serial_port )
     int m = 0;
 
     int nothing = write( serial_port, &flag, 1 );
-    usleep(10000);
+    printf("wrote %d bytes\n", nothing );
     m = read( serial_port, &buffer, sizeof(buffer) );
 
     if( m > 0 )
