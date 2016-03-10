@@ -1,5 +1,6 @@
 #include "../include/serial.h"
 #include "../include/logger.h"
+
 #include <stdio.h>
 #include <unistd.h>
 
@@ -115,5 +116,26 @@ int s_read_until(int fd, char* buf, char until)
   //printf("ending recevived. \n");
   buf[i] = '\0';  // null terminate the string
   return strlen(buf);
+}
+
+void get_buffer( int serial_port, char **buffer )
+{
+    //because `buffer` is now a god damn address.
+    int n = read( serial_port, buffer, sizeof(*buffer) );
+
+    if( n > 0 )
+    {
+        *buffer[n] = '\0';
+    }
+    else
+    {
+        *buffer[0] = '\0';
+    }
+}
+
+void print_buffer( char **buffer )
+{
+    printf( "Buffer:\n=======\n%s\n=======\n", *buffer );
+    fflush(stdout);
 }
 
