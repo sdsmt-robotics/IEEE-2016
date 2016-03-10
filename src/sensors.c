@@ -45,7 +45,7 @@ void temporary_sensor_request( int serial_port )
 
     int nothing = write( serial_port, &flag, 1 );
     printf("wrote %d bytes\n", nothing );
-    usleep(1000);
+    usleep(10000); // wait 10 ms for Arduino to receive flag and send back sensor input
     m = read( serial_port, &buffer, sizeof(buffer) );
     printf("received %d bytes\n", m );
     if( m > 0 )
