@@ -77,11 +77,12 @@ int extract_sensor_data( int serial_port, int sensor )
     n = read( serial_port, &buffer, sizeof(buffer) );
 
     char *token = strtok(buffer, (char *) IR_PACKET_END);
+    printf("token: %s", token );
     strcpy( left, token );
     while(token) {
         token = strtok(NULL, (char *) IR_PACKET_END);
         count++;
-
+        printf("token: %s", token );
         switch (count)
         {
             case 1:
@@ -101,6 +102,10 @@ int extract_sensor_data( int serial_port, int sensor )
         }
 
     }
+    //make sure they're null terminated :(
+    left[3] = '\0';
+    right[3] = '\0';
+    front[3] = '\0';
 
     if ( sensor == LEFT )
     {
