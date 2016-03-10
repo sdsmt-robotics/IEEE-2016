@@ -56,6 +56,7 @@
 #define STEPS_PER_MM 2.6
 
 //Sensor Stuff
+#define NUM_SENSORS 3
 #define INF 1
 #define SIX_INCHES 1
 #define ZERO 0

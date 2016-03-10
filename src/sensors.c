@@ -63,23 +63,44 @@ void temporary_sensor_request( int serial_port )
 int extract_sensor_data( int serial_port, int sensor )
 {
     //Arduino Mega is little-Endian
-    char right[4] = "";
-    char left[4] = "";
-    char front[4] = "";
+    char buffer[12] = "";
     unsigned char flag = SENSOR_REQUEST;
+    int n = 0;
+    int count = 0;
 
+    char left[4] = "";
+    char right[4] = "";
+    char front[4] = "";
 
-    int l = 0;
-    int r = 0;
-    int f = 0;
+    int nothing = write( serial_port, &flag, 1);
+    usleep(10000);
+    n = read( serial_port, &buffer, sizeof(buffer) );
 
-    write( serial_port, &flag, 1);
-    l = s_read_until( serial_port, left, IR_PACKET_END );
-    left[l] = '\0';
-    r = s_read_until( serial_port, right, IR_PACKET_END );
-    right[r] = '\0';
-    f = s_read_until( serial_port, front, IR_PACKET_END );
-    front[f] = '\0';
+    char *token = strtok(buffer, (char *) IR_PACKET_END);
+    strcpy( left, token );
+    while(token) {
+        token = strtok(NULL, (char *) IR_PACKET_END);
+        count++;
+
+        switch (count)
+        {
+            case 1:
+            {
+                strcpy( right, token );
+                break;
+            }
+            case 2:
+            {
+                strcpy( front, token );
+                break;
+            }
+            default:
+            {
+                break;
+            }
+        }
+
+    }
 
     if ( sensor == LEFT )
     {
