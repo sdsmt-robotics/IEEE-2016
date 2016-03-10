@@ -4,6 +4,7 @@
 #include "../include/logger.h"
 #include "../include/navigation.h"
 #include "../include/locomotion.h"
+#include "../include/sensors.h"
 
 #include <stdio.h>
 #include <stdbool.h>
@@ -17,8 +18,7 @@ int main( int argc, char* argv[] )
 
     while ( 1 )
     {
-        driveWheelSteps( RIGHT, 400, 1, serial_port );
-        driveWheelSteps( LEFT, 400, 1, serial_port );
+        temporary_sensor_request( serial_port );
         sleep(2);
     }
     
