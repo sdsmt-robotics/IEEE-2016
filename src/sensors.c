@@ -63,7 +63,7 @@ void temporary_sensor_request( int serial_port )
 int extract_sensor_data( int serial_port, int sensor )
 {
     //Arduino Mega is little-Endian
-    char buffer[12] = "";
+    char buffer[200] = "";
     unsigned char flag = SENSOR_REQUEST;
     int n = 0;
     int count = 0;
