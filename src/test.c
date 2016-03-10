@@ -19,7 +19,7 @@ int main( int argc, char* argv[] )
     while ( 1 )
     {
         temporary_sensor_request( serial_port );
-        sleep(2);
+        sleep(1);
     }
     
 
@@ -42,6 +42,6 @@ int sys_init( )
 
     clearPort(serial_port);
     printf("Serial successfully initialized. File handle: %d\n", serial_port );
-    sleep(1); // because Arduino ignores the very first write
+    sleep(1); // because Arduino ignores the very first write, wait for serial to initialize properly
     return serial_port;
 }
