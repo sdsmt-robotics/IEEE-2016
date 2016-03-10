@@ -1,9 +1,11 @@
 #include "../include/sensors.h"
 #include "../include/robot_defines.h"
-#include "../include/serial.h"
+#include "../include/logger.h"
 
 #include <stdio.h>
 #include <unistd.h>
+
+#define printf LOG
 
 int Left_IR()
 {
