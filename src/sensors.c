@@ -39,15 +39,16 @@ void temporary_sensor_request( int serial_port )
 {
     unsigned char flag = SENSOR_REQUEST;
     char buffer[512] = "";
-    //request sensor input, will worry about what to do with it once I get some sleep and some food.
-    int nothing = write( serial_port, &flag, 1 );
+    int m = 0;
 
-    int m = read( serial_port, &buffer, sizeof(buffer) );
+    int nothing = write( serial_port, &flag, 1 );
+    sleep(1);
+    m = read( serial_port, &buffer, sizeof(buffer) );
 
     if( m > 0 )
     {
         buffer[m] = '\0';
-        printf( "Buffer:\n=======\n%s\n=======\n", buffer );
+        printf( "Buffer (%d bytes):\n=======\n%s\n=======\n", m, buffer );
         fflush(stdout);
     }
 }
