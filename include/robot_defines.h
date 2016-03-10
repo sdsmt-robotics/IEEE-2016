@@ -5,6 +5,7 @@
 #define BOTH 2
 #define RIGHT 1
 #define LEFT 0
+#define FRONT 3
 
 // motor defines
 #define LEFT_MOTOR_FLAG  0x4C
@@ -43,6 +44,11 @@
 #define ARDUINO_COMM_LOCATION "/dev/robot/arduino"
 #define ARDUINO_RECEIVED_BYTE 0x13
 #define SENSOR_REQUEST 0x37
+
+#define IR_RIGHT_TAG  0x80
+#define IR_FRONT_TAG 0x86
+#define IR_LEFT_TAG   0x88
+#define IR_PACKET_END 0x70
 
 //Physical information
 #define WHEEL_BASE_MM 158.2

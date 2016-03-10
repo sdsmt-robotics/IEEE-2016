@@ -1,6 +1,7 @@
 #include "../include/sensors.h"
 #include "../include/robot_defines.h"
 #include "../include/logger.h"
+#include "../include/serial.h"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -59,19 +60,37 @@ void temporary_sensor_request( int serial_port )
     }
 }
 
-int assemble_int( unsigned char *input, int byte_offset )
+int extract_sensor_data( int serial_port, int sensor )
 {
     //Arduino Mega is little-Endian
-    unsigned char inBytes[4] = {0}; //zeroes the storage array
-    int num = 0;
-    for(int i = 0; i < 4; i++) //grab the first four bytes starting at the index
+    char right[4] = "";
+    char left[4] = "";
+    char front[4] = "";
+
+
+    int l = 0;
+    int r = 0;
+    int f = 0;
+
+    l = s_read_until( serial_port, left, IR_PACKET_END );
+    left[l] = '\0';
+    r = s_read_until( serial_port, right, IR_PACKET_END );
+    right[r] = '\0';
+    f = s_read_until( serial_port, front, IR_PACKET_END );
+    front[f] = '\0';
+
+    if ( sensor == LEFT )
     {
-        inBytes[i] = input[byte_offset + i];
-    }
-    for(int i = 3; i > -1; i--) //assemble the bytes into an "int" in arduino (long errywhere else)
+        return atoi( left );
+    } else if ( sensor == RIGHT )
     {
-        num = num << 8;
-        num = num | inBytes[i];
+        return atoi( right );
+    } else if ( sensor == FRONT )
+    {
+        return atoi( front );
+    } else
+    {
+        return -1;
     }
-    return num;
+
 }

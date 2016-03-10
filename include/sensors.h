@@ -9,6 +9,6 @@ int Front_Left_IR();
 int Backward_IR();
 
 void temporary_sensor_request( int serial_port );
-int assemble_int( unsigned char *input, int byte_offset );
+int extract_sensor_data( int serial_port, int sensor );
 
 #endif

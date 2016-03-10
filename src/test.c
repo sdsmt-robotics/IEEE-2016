@@ -11,15 +11,25 @@
 #include <unistd.h>
 
 #define printf LOG //To log to logfile AND console
-#define IS_LITTLE_ENDIAN (1 == *(unsigned char *)&(const int){1})
+//#define IS_LITTLE_ENDIAN (1 == *(unsigned char *)&(const int){1})
 
 int main( int argc, char* argv[] )
 {
     int serial_port = sys_init();
-    printf("%c", IS_LITTLE_ENDIAN );
+    int n = 0;
+    //printf("%c", IS_LITTLE_ENDIAN );
     while ( 1 )
     {
-        temporary_sensor_request( serial_port );
+        n = extract_sensor_data( serial_port, LEFT );
+        printf( "LEFT: %d\n", n );
+        sleep(1);
+
+        n = extract_sensor_data( serial_port, RIGHT );
+        printf( "RIGHT: %d\n", n );
+        sleep(1);
+
+        n = extract_sensor_data( serial_port, FRONT );
+        printf( "FRONT: %d\n", n );
         sleep(1);
     }
     
