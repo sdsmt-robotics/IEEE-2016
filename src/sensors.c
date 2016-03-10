@@ -63,28 +63,50 @@ void temporary_sensor_request( int serial_port )
 int extract_sensor_data( int serial_port, int sensor )
 {
     //Arduino Mega is little-Endian
-    char buffer[200] = "";
+    char buffer[7] = "";
     unsigned char flag = SENSOR_REQUEST;
     int n = 0;
 
-    char left[4] = "";
-    char right[4] = "";
-    char front[4] = "";
+    unsigned short left = 0;
+    unsigned short right = 0;
+    unsigned short front = 0;
+
+    unsigned char left_byte = 0;
+    unsigned char right_byte = 0;
 
     int nothing = write( serial_port, &flag, 1);
     usleep(10000);
     n = read( serial_port, &buffer, sizeof(buffer) );
-    printf("buffer (%d bytes):\n%s\n", n, buffer );
+    printf( "buffer (%d bytes):\n%s\n", n, buffer );
+
+    //Odroid is little-Endian as well.
+    left_byte = (unsigned char) buffer[0];
+    right_byte = (unsigned char) buffer[1];
+    left = left | left_byte;
+    left = left << 4;
+    left = left | right_byte;
+
+    left_byte = (unsigned char) buffer[2];
+    right_byte = (unsigned char) buffer[3];
+    right = right | left_byte;
+    right = right << 4;
+    right = right | right_byte;
+
+    left_byte = (unsigned char) buffer[4];
+    right_byte = (unsigned char) buffer[5];
+    front = front | left_byte;
+    front = front << 4;
+    front = front | right_byte;
 
     if ( sensor == LEFT )
     {
-        return atoi( left );
+        return left;
     } else if ( sensor == RIGHT )
     {
-        return atoi( right );
+        return right;
     } else if ( sensor == FRONT )
     {
-        return atoi( front );
+        return front;
     } else
     {
         return -1;
