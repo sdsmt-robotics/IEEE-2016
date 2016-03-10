@@ -9,7 +9,7 @@ LINK = g++
 
 #VPATH = src
 
-CFLAGS = -Wall -O -g
+CFLAGS = -Wall -O -g -std=gnu99
 CXXFLAGS = $(CFLAGS)
 
 TARGET = test_locomote
