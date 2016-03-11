@@ -52,11 +52,16 @@
 
 //Physical information
 #define WHEEL_BASE_MM 158.2
-#define STEPS_PER_CM 26
-#define STEPS_PER_MM 2.6
+
+//Blue Wheels:
+//#define STEPS_PER_CM 26
+//#define STEPS_PER_MM 2.6
+
+//Green Wheels:
+#define STEPS_PER_CM 35
+#define STEPS_PER_MM 3.5
 
 //Sensor Stuff
-#define NUM_SENSORS 3
 #define INF 1
 #define SIX_INCHES 1
 #define ZERO 0
