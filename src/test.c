@@ -16,7 +16,6 @@
 int main( int argc, char* argv[] )
 {
     int serial_port = sys_init();
-    int n = 0;
     int right = 0;
     int left = 0;
     int front = 0;
@@ -36,13 +35,13 @@ int main( int argc, char* argv[] )
         sleep(1);*/
         //sleep(2);
 
-        right = extract_sensor_data( serial_port, RIGHT );
+        right = poll_sensors( serial_port, RIGHT );
         printf("right: %d\n", right );
         usleep(10000);
-        left = extract_sensor_data( serial_port, LEFT );
+        left = poll_sensors( serial_port, LEFT );
         printf("left : %d\n", left  );
         usleep(10000);
-        front = extract_sensor_data( serial_port, FRONT );
+        front = poll_sensors( serial_port, FRONT );
         printf("front: %d\n", front );
         sleep(1);
     }
