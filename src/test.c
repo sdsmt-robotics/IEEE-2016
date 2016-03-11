@@ -20,8 +20,7 @@ int main( int argc, char* argv[] )
 
     while ( 1 )
     {
-        drive( serial_port, 10, 2 );
-        sleep(2);
+
         turn( serial_port, FULL_RIGHT_TURN, 1 );
         /*sleep(1);
         drive( serial_port, -10, 2 );
@@ -32,7 +31,7 @@ int main( int argc, char* argv[] )
         sleep(2);
         turn( serial_port, FULL_RIGHT_TURN, 1 );
         sleep(1);*/
-        sleep(5);
+        sleep(2);
     }
     
 
