@@ -5,8 +5,7 @@
 
 #include <stdio.h>
 #include <unistd.h>
-
-#define printf LOG
+2#define printf LOG
 
 
 
@@ -53,7 +52,7 @@ void temporary_sensor_request( int serial_port )
 int poll_sensors( int serial_port, int sensor )
 {
     //Arduino Mega is little-Endian
-    char buffer[9] = "";
+    char buffer[8] = "";
     unsigned char flag = SENSOR_REQUEST;
 
     unsigned short left = 0;
@@ -67,7 +66,6 @@ int poll_sensors( int serial_port, int sensor )
     int nothing = write( serial_port, &flag, 1);
     usleep(SENSOR_PROC_DELAY_US);
     int n = read( serial_port, &buffer, sizeof(buffer) );
-    //printf( "buffer (%d bytes):\n%s\n", n, buffer );
 
     //Odroid is little-Endian as well.
     left_byte = (unsigned char) buffer[0];
@@ -115,7 +113,7 @@ int poll_sensors( int serial_port, int sensor )
 int poll_left_sensor( int serial_port )
 {
     unsigned char request_flag = LEFT_SENSOR_REQUEST;
-    char buffer[3] = "";
+    char buffer[2] = "";
     int n = 0;
 
     unsigned short value = 0;
@@ -145,7 +143,7 @@ int poll_left_sensor( int serial_port )
 int poll_right_sensor( int serial_port )
 {
     unsigned char request_flag = RIGHT_SENSOR_REQUEST;
-    char buffer[3] = "";
+    char buffer[2] = "";
     int n = 0;
 
     unsigned short value = 0;
@@ -175,7 +173,7 @@ int poll_right_sensor( int serial_port )
 int poll_front_sensor( int serial_port )
 {
     unsigned char request_flag = FRONT_SENSOR_REQUEST;
-    char buffer[3] = "";
+    char buffer[2] = "";
     int n = 0;
 
     unsigned short value = 0;
@@ -205,7 +203,7 @@ int poll_front_sensor( int serial_port )
 int poll_back_sensor( int serial_port )
 {
     unsigned char request_flag = BACK_SENSOR_REQUEST;
-    char buffer[3] = "";
+    char buffer[2] = "";
     int n = 0;
 
     unsigned short value = 0;
