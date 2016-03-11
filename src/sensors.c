@@ -5,7 +5,7 @@
 
 #include <stdio.h>
 #include <unistd.h>
-2#define printf LOG
+#define printf LOG
 
 
 
