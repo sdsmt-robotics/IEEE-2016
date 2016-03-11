@@ -57,7 +57,7 @@
 #define IR_LEFT_TAG   0x73
 #define IR_PACKET_END 0x74
 
-#define SENSOR_PROC_DELAY_US 2500
+#define SENSOR_PROC_DELAY_US 4000
 
 //Physical information
 //#define WHEEL_BASE_MM 158.2
