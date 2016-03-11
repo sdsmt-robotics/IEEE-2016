@@ -23,7 +23,7 @@ int main( int argc, char* argv[] )
         drive( serial_port, 10, 2 );
         sleep(2);
         turn( serial_port, FULL_RIGHT_TURN, 1 );
-        sleep(1);
+        /*sleep(1);
         drive( serial_port, -10, 2 );
         sleep(2);
         turn( serial_port, RIGHT_180, 2 );
@@ -31,7 +31,8 @@ int main( int argc, char* argv[] )
         drive( serial_port, 10, 2 );
         sleep(2);
         turn( serial_port, FULL_RIGHT_TURN, 1 );
-        sleep(1);
+        sleep(1);*/
+        sleep(5);
     }
     
 
