@@ -55,7 +55,7 @@
 //Physical information
 //#define WHEEL_BASE_MM 158.2
 //with camber:
-#define WHEEL_BASE_MM 141.6
+#define WHEEL_BASE_MM 149
 
 //Blue Wheels:
 //#define STEPS_PER_CM 26
