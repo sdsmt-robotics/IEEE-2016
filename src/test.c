@@ -19,6 +19,7 @@ int main( int argc, char* argv[] )
     int right = 0;
     int left = 0;
     int front = 0;
+    int back = 0;
 
     while ( 1 )
     {
@@ -35,14 +36,19 @@ int main( int argc, char* argv[] )
         sleep(1);*/
         //sleep(2);
 
-        right = poll_sensors( serial_port, RIGHT );
+        right = poll_right_sensor( serial_port );
         printf("right: %d\n", right );
-        usleep(10000);
-        left = poll_sensors( serial_port, LEFT );
+
+        left = poll_left_sensor( serial_port );
         printf("left : %d\n", left  );
-        usleep(10000);
-        front = poll_sensors( serial_port, FRONT );
+
+        front = poll_front_sensor( serial_port );
         printf("front: %d\n", front );
+
+        back = poll_back_sensor( serial_port );
+        printf("back: %d\n", back );
+
+        printf("===========\n");
         sleep(1);
     }
     
