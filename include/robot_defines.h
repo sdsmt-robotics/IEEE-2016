@@ -53,7 +53,9 @@
 #define IR_PACKET_END 0x70
 
 //Physical information
-#define WHEEL_BASE_MM 158.2
+//#define WHEEL_BASE_MM 158.2
+//with camber:
+#define WHEEL_BASE_MM 141.6
 
 //Blue Wheels:
 //#define STEPS_PER_CM 26
