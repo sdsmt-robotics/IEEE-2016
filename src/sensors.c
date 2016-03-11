@@ -83,19 +83,19 @@ int extract_sensor_data( int serial_port, int sensor )
     left_byte = (unsigned char) buffer[0];
     right_byte = (unsigned char) buffer[1];
     left = left | left_byte;
-    left = left << 4;
+    left = left << 8;
     left = left | right_byte;
 
     left_byte = (unsigned char) buffer[2];
     right_byte = (unsigned char) buffer[3];
     right = right | left_byte;
-    right = right << 4;
+    right = right << 8;
     right = right | right_byte;
 
     left_byte = (unsigned char) buffer[4];
     right_byte = (unsigned char) buffer[5];
     front = front | left_byte;
-    front = front << 4;
+    front = front << 8;
     front = front | right_byte;
 
     if ( sensor == LEFT )
