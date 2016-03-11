@@ -45,8 +45,8 @@ int main( int argc, char* argv[] )
         front = poll_front_sensor( serial_port );
         printf("front: %d\n", front );
 
-        back = poll_back_sensor( serial_port );
-        printf("back: %d\n", back );
+        //back = poll_back_sensor( serial_port );
+        //printf("back: %d\n", back );
 
         printf("===========\n");
         sleep(1);
