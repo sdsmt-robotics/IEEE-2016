@@ -37,6 +37,8 @@
 #define QUARTER_RIGHT_TURN 22.5
 //Possibility of needing to truncate the decimal point on these
 #define QUARTER_LEFT_TURN -22.5
+#define RIGHT_180 180
+#define LEFT_180 -180
 
 
 //communication defines

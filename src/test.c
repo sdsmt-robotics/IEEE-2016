@@ -20,16 +20,17 @@ int main( int argc, char* argv[] )
 
     while ( 1 )
     {
-        n = extract_sensor_data( serial_port, LEFT );
-        printf( "LEFT: %d\n", n );
+        drive( serial_port, 10, 2 );
+        sleep(2);
+        turn( serial_port, FULL_RIGHT_TURN, 1 );
         sleep(1);
-
-        n = extract_sensor_data( serial_port, RIGHT );
-        printf( "RIGHT: %d\n", n );
-        sleep(1);
-
-        n = extract_sensor_data( serial_port, FRONT );
-        printf( "FRONT: %d\n", n );
+        drive( serial_port, -10, 2 );
+        sleep(2);
+        turn( serial_port, RIGHT_180, 2 );
+        sleep(2);
+        drive( serial_port, 10, 2 );
+        sleep(2);
+        turn( serial_port, FULL_RIGHT_TURN, 1 );
         sleep(1);
     }
     
