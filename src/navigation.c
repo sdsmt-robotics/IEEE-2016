@@ -32,6 +32,7 @@ void start_to_cp( int serial_port )
     //wall follow until left sensor reading goes high
     while ( left_sensor() < SIX_INCHES )
     {
+        printf("loop!\n");
         // We need to move left
         if (left_sensor() > WALL_FOLLOW_TARGET + WALL_FOLLOW_TOLERANCE)
         {
@@ -52,6 +53,7 @@ void start_to_cp( int serial_port )
             usleep(1000*runtime);
             driveWheelSteps(RIGHT, steps*2, runtime, serial_port );
             usleep(1000*runtime);
+            printf("exiting thing\n");
         }
         else
         {
