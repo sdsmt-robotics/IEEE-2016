@@ -17,8 +17,12 @@ int main( int argc, char* argv[] )
 {
     int serial_port = sys_init();
     
-
-    start_to_cp( serial_port );
+    while ( 1 )
+    {
+        printf("left: %d", left_sensor( serial_port ));
+        sleep(1);
+    }
+    //start_to_cp( serial_port );
     
 
     return 0;
