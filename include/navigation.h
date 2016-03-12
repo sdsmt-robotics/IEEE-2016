@@ -28,14 +28,14 @@ void update (int sensor1, int sensor2, int sensor2);
 int sensorInputToDistance(int input);
 */
 
-void start_to_cp( int serial_port );
-void get_to_cp( int serial_port );
-void cp_to_start( int serial_port );
+void start_to_cp();
+void get_to_cp();
+void cp_to_start();
 
-bool retreive_victim_1( int serial_port );
-bool retreive_victim_2( int serial_port );
-bool retreive_victim_3( int serial_port );
-bool retreive_victim_4( int serial_port );
+bool retreive_victim_1();
+bool retreive_victim_2();
+bool retreive_victim_3();
+bool retreive_victim_4();
 
 
 #endif

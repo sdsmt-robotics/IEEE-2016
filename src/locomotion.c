@@ -1,6 +1,5 @@
 #include "../include/locomotion.h"
 #include "../include/robot_defines.h"
-//#include "../include/localization.h"
 #include "../include/logger.h"
 
 #include <stdio.h>
@@ -9,7 +8,7 @@
 
 #define printf LOG
 
-void setWheelSpeed( int wheel, unsigned char speed, int serial_port )
+void setWheelSpeed( int wheel, unsigned char speed )
 {
     unsigned char motor_flag = 0;
     int bytes = 0; // To make gcc shut up about ignoring the return value
@@ -49,7 +48,7 @@ void setWheelSpeed( int wheel, unsigned char speed, int serial_port )
     }
 }
 
-void driveWheelSteps( int wheel, int steps, int runtime, int serial_port )
+void driveWheelSteps( int wheel, int steps, int runtime )
 {
     printf("Driving wheel %d %d steps in %d seconds\n", wheel, steps, runtime);
     int n = 0;
@@ -96,8 +95,8 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port )
     } else if ( wheel == BOTH )
     {
         printf("Writing to both motors.\n");
-        driveWheelSteps( RIGHT, steps, runtime, serial_port );
-        driveWheelSteps( LEFT, steps, runtime, serial_port );
+        driveWheelSteps( RIGHT, steps, runtime );
+        driveWheelSteps( LEFT, steps, runtime );
 
     } else
     {
@@ -106,7 +105,7 @@ void driveWheelSteps( int wheel, int steps, int runtime, int serial_port )
     }
 }
 
-void turn( int serial_port, int angle, int runtime )
+void turn( int angle, int runtime )
 {
     double arc_length;
     int steps;
@@ -117,11 +116,11 @@ void turn( int serial_port, int angle, int runtime )
 
     printf("Turning %d degrees in %d seconds. arc length = %f and %d steps per wheel\n", angle, runtime, arc_length, steps );
 
-    driveWheelSteps( RIGHT, -steps, runtime, serial_port );
-    driveWheelSteps( LEFT, steps, runtime, serial_port );
+    driveWheelSteps( RIGHT, -steps, runtime );
+    driveWheelSteps( LEFT, steps, runtime );
 }
 
-void drive( int serial_port, float distance, int runtime )
+void drive( float distance, int runtime )
 {
     // Drives the robot forward at `speed` for `distance`, in cm.
 
@@ -130,15 +129,15 @@ void drive( int serial_port, float distance, int runtime )
     steps = round( STEPS_PER_CM * distance );
     printf("Driving straight %d steps\n", steps );
 
-    driveWheelSteps( BOTH, steps, runtime, serial_port );
+    driveWheelSteps( BOTH, steps, runtime );
 }
 
-void stop( int serial_port )
+void stop()
 {
-    setWheelSpeed( BOTH, 127, serial_port );
+    setWheelSpeed( BOTH, 127 );
 }
 
-void claw( int serial_port, int state )
+void claw( int state )
 {
     unsigned char motor_flag;
     int bytes = 0;
@@ -182,7 +181,7 @@ void claw( int serial_port, int state )
     }
 }
 
-void var_turn( int serial_port, int angle, int runtime )
+void var_turn( int angle, int runtime )
 {
     //pivots on one wheel. If turning right, pivot on right wheel, etc
     double arc_length;
@@ -196,12 +195,12 @@ void var_turn( int serial_port, int angle, int runtime )
 
     if ( angle < 0 ) // turning left
     {
-        driveWheelSteps( RIGHT, steps, runtime, serial_port );
+        driveWheelSteps( RIGHT, steps, runtime );
     } else if ( angle > 0 ) // turning right
     {
-        driveWheelSteps( LEFT, steps, runtime, serial_port );
+        driveWheelSteps( LEFT, steps, runtime );
     } else
     {
-        stop( serial_port );
+        stop(  );
     }
 }

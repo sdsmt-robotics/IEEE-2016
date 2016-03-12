@@ -15,29 +15,27 @@ double map_voltage_to_distance( int voltage )
     return IR_DISTANCE_SCALAR * ( (6787.0)/(voltage - 3.0) - 4.0 );
 }
 
-double left_sensor( int serial_port )
+double left_sensor(  )
 {
-    int voltage = poll_left_sensor( serial_port );
-    double distance = map_voltage_to_distance( voltage );
-    return distance;
+    return map_voltage_to_distance( poll_left_sensor() );
 }
 
-double right_sensor( int serial_port )
+double right_sensor(  )
 {
-    return map_voltage_to_distance( poll_right_sensor( serial_port ) );
+    return map_voltage_to_distance( poll_right_sensor() );
 }
 
-double front_sensor( int serial_port )
+double front_sensor(  )
 {
-    return map_voltage_to_distance( poll_front_sensor( serial_port ) );
+    return map_voltage_to_distance( poll_front_sensor() );
 }
 
-double back_sensor( int serial_port )
+double back_sensor(  )
 {
-    return map_voltage_to_distance( poll_back_sensor( serial_port ) );
+    return map_voltage_to_distance( poll_back_sensor() );
 }
 
-void temporary_sensor_request( int serial_port )
+void temporary_sensor_request(  )
 {
     unsigned char flag = SENSOR_REQUEST;
     char buffer[512] = "";
@@ -57,7 +55,7 @@ void temporary_sensor_request( int serial_port )
     }
 }
 
-int poll_sensors( int serial_port, int sensor )
+int poll_sensors( int sensor )
 {
     //Arduino Mega is little-Endian
     char buffer[8] = "";
@@ -118,7 +116,7 @@ int poll_sensors( int serial_port, int sensor )
     }
 }
 
-int poll_left_sensor( int serial_port )
+int poll_left_sensor(  )
 {
     unsigned char request_flag = LEFT_SENSOR_REQUEST;
     char buffer[2] = "";
@@ -151,7 +149,7 @@ int poll_left_sensor( int serial_port )
     }
 }
 
-int poll_right_sensor( int serial_port )
+int poll_right_sensor(  )
 {
     unsigned char request_flag = RIGHT_SENSOR_REQUEST;
     char buffer[2] = "";
@@ -181,7 +179,7 @@ int poll_right_sensor( int serial_port )
     }
 }
 
-int poll_front_sensor( int serial_port )
+int poll_front_sensor(  )
 {
     unsigned char request_flag = FRONT_SENSOR_REQUEST;
     char buffer[2] = "";
@@ -211,7 +209,7 @@ int poll_front_sensor( int serial_port )
     }
 }
 
-int poll_back_sensor( int serial_port )
+int poll_back_sensor(  )
 {
     unsigned char request_flag = BACK_SENSOR_REQUEST;
     char buffer[2] = "";

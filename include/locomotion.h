@@ -3,19 +3,19 @@
 
 #include "robot_defines.h"
 
-void setWheelSpeed( int wheel, unsigned char speed, int serial_port );
-void driveWheelSteps( int wheel, int steps, int runtime, int serial_port );
+void setWheelSpeed( int wheel, unsigned char speed );
+void driveWheelSteps( int wheel, int steps, int runtime );
 // negative steps means driving backwards
 //negative distance implies moving backwards
 
-void turn( int serial_port, int angle, int runtime );
-void drive( int serial_port, float distance, int runtime );
-void stop( int serial_port );
+void turn( int angle, int runtime );
+void drive( float distance, int runtime );
+void stop( );
 
 
-void claw( int serial_port, int state );
+void claw( int state );
 
-void var_turn( int serial_port, int angle, int runtime );
+void var_turn( int angle, int runtime );
 
 
 

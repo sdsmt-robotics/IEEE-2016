@@ -1,5 +1,6 @@
 #include "../include/serial.h"
 #include "../include/logger.h"
+#include "../include/robot_defines.h"
 
 #include <stdio.h>
 #include <unistd.h>
