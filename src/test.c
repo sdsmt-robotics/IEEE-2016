@@ -18,7 +18,10 @@ int main( int argc, char* argv[] )
     int serial_port = sys_init();
     
 
-    start_to_cp( serial_port );
+    //start_to_cp( serial_port );
+    setWheelSpeed( LEFT, 200, serial_port );
+    sleep(5);
+    setWheelSpeed( LEFT, 100, serial_port );
     
 
     return 0;
