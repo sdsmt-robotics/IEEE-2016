@@ -16,32 +16,32 @@ void setWheelSpeed( int wheel, unsigned char speed, int serial_port )
 
     if ( wheel == RIGHT )
     {
-        printf("Writing %d to right motor.\n", speed);
+        //printf("Writing %d to right motor.\n", speed);
         motor_flag = RIGHT_MOTOR_FLAG;
         bytes = bytes + write( serial_port, &motor_flag, 1 );
         bytes = bytes + write( serial_port, &speed, 1 );
-        printf("wrote %d bytes to motor\n", bytes );
+        //printf("wrote %d bytes to motor\n", bytes );
     } else if ( wheel == LEFT )
     {
-        printf("Writing %d to left motor.\n", speed);
+        //printf("Writing %d to left motor.\n", speed);
         motor_flag = LEFT_MOTOR_FLAG;
         bytes = bytes + write( serial_port, &motor_flag, 1 );
         bytes = bytes + write( serial_port, &speed, 1 );
-        printf("wrote %d bytes to motor\n", bytes );
+        //printf("wrote %d bytes to motor\n", bytes );
     } else if ( wheel == BOTH )
     {
-        printf("Writing %d to both motors.\n", speed);
-        printf("Writing %d to right motor.\n", speed);
+        //printf("Writing %d to both motors.\n", speed);
+        //printf("Writing %d to right motor.\n", speed);
         motor_flag = RIGHT_MOTOR_FLAG;
         bytes = bytes + write( serial_port, &motor_flag, 1 );
         bytes = bytes + write( serial_port, &speed, 1 );
-        printf("wrote %d bytes to motor\n", bytes );
+        //printf("wrote %d bytes to motor\n", bytes );
 
-        printf("Writing %d to left motor.\n", speed);
+        //printf("Writing %d to left motor.\n", speed);
         motor_flag = LEFT_MOTOR_FLAG;
         bytes = write( serial_port, &motor_flag, 1 );
         bytes = bytes + write( serial_port, &speed, 1 );
-        printf("wrote %d bytes to left motor\n", bytes );
+        //printf("wrote %d bytes to left motor\n", bytes );
     } else
     {
         printf("Can't write to a wheel that isn't there.\n");
