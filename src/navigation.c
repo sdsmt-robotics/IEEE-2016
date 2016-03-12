@@ -16,6 +16,7 @@
 
 #include <stdbool.h>
 #include <unistd.h>
+#include <stdio.h>
 
 
 void start_to_cp( int serial_port )
@@ -34,7 +35,7 @@ void start_to_cp( int serial_port )
         // We need to move left
         if (left_sensor() > WALL_FOLLOW_TARGET + WALL_FOLLOW_TOLERANCE)
         {
-            
+            printf("Too far awway from wall.\n");
             driveWheelSteps(RIGHT, steps*2, runtime, serial_port );
             usleep(1000*runtime);
             driveWheelSteps(BOTH, steps, runtime, serial_port );
@@ -44,6 +45,7 @@ void start_to_cp( int serial_port )
         }
         else if (left_sensor() < WALL_FOLLOW_TARGET - WALL_FOLLOW_TOLERANCE)
         {
+            printf("Too close to wall.\n");
             driveWheelSteps(LEFT, steps*2, runtime, serial_port );
             usleep(1000*runtime);
             driveWheelSteps(BOTH, steps, runtime, serial_port );
@@ -53,6 +55,7 @@ void start_to_cp( int serial_port )
         }
         else
         {
+            printf("No correction needed.\n");
             driveWheelSteps(BOTH, steps, runtime, serial_port );
             usleep(1000*runtime);
         }
