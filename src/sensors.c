@@ -11,7 +11,7 @@
 int map_voltage_to_distance( int voltage )
 {
     // https://acroname.com/articles/linearizing-sharp-ranger-data
-    return ( (6787)/(voltage - 3) - 4 );
+    return IR_SENSOR_SCALAR * ( (6787)/(voltage - 3) - 4 );
 }
 
 int left_sensor( int serial_port )

@@ -58,6 +58,8 @@
 #define IR_PACKET_END 0x74
 
 #define SENSOR_PROC_DELAY_US 10000
+//For blue paint
+#define IR_DISTANCE_SCALAR 0.5
 
 //Physical information
 //#define WHEEL_BASE_MM 158.2
