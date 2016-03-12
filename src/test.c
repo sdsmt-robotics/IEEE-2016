@@ -19,7 +19,7 @@ int main( int argc, char* argv[] )
     
     while ( 1 )
     {
-        printf("left: %d", left_sensor( serial_port ));
+        printf("left: %d\n", left_sensor( serial_port ));
         sleep(1);
     }
     //start_to_cp( serial_port );

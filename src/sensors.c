@@ -17,7 +17,9 @@ double map_voltage_to_distance( int voltage )
 
 double left_sensor( int serial_port )
 {
-    return map_voltage_to_distance( poll_left_sensor( serial_port ) );
+    int voltage = poll_left_sensor( serial_port );
+    double distance = map_voltage_to_distance( voltage );
+    return distance;
 }
 
 double right_sensor( int serial_port )
