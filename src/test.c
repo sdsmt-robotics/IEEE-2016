@@ -44,6 +44,6 @@ int sys_init( )
 
     clearPort(serial_port);
     printf("Serial successfully initialized. File handle: %d\n", serial_port );
-    sleep(1); // because Arduino ignores the very first write, wait for serial to initialize properly
+    sleep(2); // because Arduino ignores the very first write, wait for serial to initialize properly
     return serial_port;
 }
