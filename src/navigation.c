@@ -45,8 +45,10 @@ void start_to_cp( int serial_port )
             printf("Goldilocks land.\n");
             setWheelSpeed( BOTH, 180, serial_port );
         }
-        usleep( 20 * 1000 ); //20 mS
+        printf("bottom of loop\n");
+        sleep( 1 );
     }
+    printf("we've exited.\n");
 /* ********** END FORWARD TO EDGE OF WALL ********** */
     stop( serial_port );
 
