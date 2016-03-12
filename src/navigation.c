@@ -21,46 +21,25 @@
 
 void start_to_cp( int serial_port )
 {
-    int steps;
-    int runtime;
-
-
-
 /* ********** BEGIN FORWARD TO EDGE OF WALL ********** */
-    runtime = 2000; // mS
-    steps = 400;
     //wall follow until left sensor reading goes high
     while ( left_sensor() < SIX_INCHES )
     {
-        printf("loop!\n");
-        // We need to move left
         if (left_sensor() > WALL_FOLLOW_TARGET + WALL_FOLLOW_TOLERANCE)
         {
-            printf("Too far awway from wall.\n");
-            driveWheelSteps(RIGHT, steps*2, runtime, serial_port );
-            usleep(1000*runtime);
-            driveWheelSteps(BOTH, steps, runtime, serial_port );
-            usleep(1000*runtime);
-            driveWheelSteps(LEFT, steps*2, runtime, serial_port );
-            usleep(1000*runtime);
+            printf("Too far away from wall.\n");
+            setWheelSpeed( RIGHT, 200, serial_port );
         }
         else if (left_sensor() < WALL_FOLLOW_TARGET - WALL_FOLLOW_TOLERANCE)
         {
             printf("Too close to wall.\n");
-            driveWheelSteps(LEFT, steps*2, runtime, serial_port );
-            usleep(1000*runtime);
-            driveWheelSteps(BOTH, steps, runtime, serial_port );
-            usleep(1000*runtime);
-            driveWheelSteps(RIGHT, steps*2, runtime, serial_port );
-            usleep(1000*runtime);
-            printf("exiting thing\n");
+            setWheelSpeed( LEFT, 200, serial_port );
         }
         else
         {
-            printf("No correction needed.\n");
-            driveWheelSteps(BOTH, steps, runtime, serial_port );
-            usleep(1000*runtime);
+            setWheelSpeed( BOTH, 180, serial_port );
         }
+        usleep( 20 * 1000 ); //20 mS
     }
 /* ********** END FORWARD TO EDGE OF WALL ********** */
     stop( serial_port );
