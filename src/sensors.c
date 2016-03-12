@@ -131,7 +131,7 @@ int poll_left_sensor( int serial_port )
 
     n = write( serial_port, &request_flag, 1 );
     printf("Wrote %d bytes\n", n);
-    usleep(SENSOR_PROC_DELAY_US);
+    //usleep(SENSOR_PROC_DELAY_US);
     n = read( serial_port, &buffer, sizeof(buffer) );
     printf("Read %d bytes\n", n);
 
