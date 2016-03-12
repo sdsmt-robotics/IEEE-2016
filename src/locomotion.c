@@ -39,7 +39,7 @@ void setWheelSpeed( int wheel, unsigned char speed, int serial_port )
 
         printf("Writing %d to left motor.\n", speed);
         motor_flag = LEFT_MOTOR_FLAG;
-        bytes = bytes + write( serial_port, &motor_flag, 1 );
+        bytes = write( serial_port, &motor_flag, 1 );
         bytes = bytes + write( serial_port, &speed, 1 );
         printf("wrote %d bytes to left motor\n", bytes );
     } else
