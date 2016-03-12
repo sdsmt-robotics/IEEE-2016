@@ -2,12 +2,12 @@
 #define SENSORS_H
 
 //return approximate distance
-float left_sensor();
-float right_sensor();
-float front_sensor();
-float back_sensor();
+double left_sensor();
+double right_sensor();
+double front_sensor();
+double back_sensor();
 
-float map_voltage_to_distance( int voltage );
+double map_voltage_to_distance( int voltage );
 
 void temporary_sensor_request( int serial_port );
 int poll_sensors( int serial_port, int sensor );
