@@ -22,6 +22,7 @@ int main( int argc, char* argv[] )
         int voltage = poll_left_sensor( serial_port );
         double distance = map_voltage_to_distance( voltage );
         printf("distance: %f voltage: %d\n", distance, voltage );
+        printf("hanging here?\n");
         printf("left_sensor(): %f\n", left_sensor() );
         sleep(1);
     }
