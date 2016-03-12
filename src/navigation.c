@@ -26,7 +26,7 @@ void start_to_cp( int serial_port )
     setWheelSpeed( BOTH, 180, serial_port );
     while ( left_sensor() < SIX_INCHES )
     {
-
+        printf("loop\n");
         if (left_sensor() > WALL_FOLLOW_TARGET + WALL_FOLLOW_TOLERANCE)
         {
             printf("Too far away from wall.\n");
@@ -39,6 +39,7 @@ void start_to_cp( int serial_port )
         }
         else
         {
+            printf("Goldilocks land.\n");
             setWheelSpeed( BOTH, 180, serial_port );
         }
         usleep( 20 * 1000 ); //20 mS

@@ -30,6 +30,7 @@ void setWheelSpeed( int wheel, unsigned char speed, int serial_port )
         printf("wrote %d bytes to motor\n", bytes );
     } else if ( wheel == BOTH )
     {
+        printf("Writing %d to both motors.\n", speed);
         printf("Writing %d to right motor.\n", speed);
         motor_flag = RIGHT_MOTOR_FLAG;
         bytes = bytes + write( serial_port, &motor_flag, 1 );
@@ -40,7 +41,7 @@ void setWheelSpeed( int wheel, unsigned char speed, int serial_port )
         motor_flag = LEFT_MOTOR_FLAG;
         bytes = bytes + write( serial_port, &motor_flag, 1 );
         bytes = bytes + write( serial_port, &speed, 1 );
-        printf("wrote %d bytes to motor\n", bytes );
+        printf("wrote %d bytes to left motor\n", bytes );
     } else
     {
         printf("Can't write to a wheel that isn't there.\n");
@@ -134,7 +135,7 @@ void drive( int serial_port, float distance, int runtime )
 
 void stop( int serial_port )
 {
-    driveWheelSteps( BOTH, 0, 0, serial_port );
+    setWheelSpeed( BOTH, 127, serial_port );
 }
 
 void claw( int serial_port, int state )
