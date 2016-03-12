@@ -2,10 +2,10 @@
 #define SENSORS_H
 
 //return approximate distance
-int left_sensor();
-int right_sensor();
-int front_sensor();
-int back_sensor();
+float left_sensor();
+float right_sensor();
+float front_sensor();
+float back_sensor();
 
 float map_voltage_to_distance( int voltage );
 
