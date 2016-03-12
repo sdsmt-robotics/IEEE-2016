@@ -23,8 +23,10 @@ void start_to_cp( int serial_port )
 {
 /* ********** BEGIN FORWARD TO EDGE OF WALL ********** */
     //wall follow until left sensor reading goes high
+    setWheelSpeed( BOTH, 180, serial_port );
     while ( left_sensor() < SIX_INCHES )
     {
+
         if (left_sensor() > WALL_FOLLOW_TARGET + WALL_FOLLOW_TOLERANCE)
         {
             printf("Too far away from wall.\n");

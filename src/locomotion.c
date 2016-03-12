@@ -50,7 +50,7 @@ void setWheelSpeed( int wheel, unsigned char speed, int serial_port )
 
 void driveWheelSteps( int wheel, int steps, int runtime, int serial_port )
 {
-    printf("Driving wheel %d %d steps in %d milliseconds\n", wheel, steps, runtime);
+    printf("Driving wheel %d %d steps in %d seconds\n", wheel, steps, runtime);
     int n = 0;
     int m = 0;
     unsigned char motor_flag = 0;
@@ -114,7 +114,7 @@ void turn( int serial_port, int angle, int runtime )
 
     steps = round( STEPS_PER_MM * arc_length );
 
-    printf("Turning %d degrees in %d milliseconds. arc length = %f and %d steps per wheel\n", angle, runtime, arc_length, steps );
+    printf("Turning %d degrees in %d seconds. arc length = %f and %d steps per wheel\n", angle, runtime, arc_length, steps );
 
     driveWheelSteps( RIGHT, -steps, runtime, serial_port );
     driveWheelSteps( LEFT, steps, runtime, serial_port );
@@ -191,7 +191,7 @@ void var_turn( int serial_port, int angle, int runtime )
 
     steps = round( STEPS_PER_MM * arc_length );
 
-    printf("Turning %d degrees in %d milliseconds. arc length = %f and %d steps.\n", angle, runtime, arc_length, steps );
+    printf("Turning %d degrees in %d seconds. arc length = %f and %d steps.\n", angle, runtime, arc_length, steps );
 
     if ( angle < 0 ) // turning left
     {
