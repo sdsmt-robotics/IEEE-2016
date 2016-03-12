@@ -27,6 +27,7 @@ void start_to_cp( int serial_port )
     printf("outside loop.\n");
     while ( left_sensor() < SIX_INCHES )
     {
+        printf("left sensor: %d\n", left_sensor() );
         printf("loop\n");
         if (left_sensor() > WALL_FOLLOW_TARGET + WALL_FOLLOW_TOLERANCE)
         {
