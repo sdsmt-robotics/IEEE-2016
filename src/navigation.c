@@ -15,6 +15,7 @@
 #include "../include/sensors.h"
 
 #include <stdbool.h>
+#include <unistd.h>
 
 
 void start_to_cp( int serial_port )
@@ -25,63 +26,72 @@ void start_to_cp( int serial_port )
 
 
 /* ********** BEGIN FORWARD TO EDGE OF WALL ********** */
-    runtime = 1;
+    runtime = 10; // mS
     steps = 10;
-    while (left_sensor() < SIX_INCHES)
+    //wall follow until left sensor reading goes high
+    while ( left_sensor() < SIX_INCHES )
     {
         // We need to move left
-        if (left_sensor() > ZERO + TOLERANCE)
+        if (left_sensor() > WALL_FOLLOW_TARGET + WALL_FOLLOW_TOLERANCE)
         {
             
             driveWheelSteps(RIGHT, steps*2, runtime, serial_port );
+            usleep(1000*runtime);
             driveWheelSteps(BOTH, steps, runtime, serial_port );
+            usleep(1000*runtime);
             driveWheelSteps(LEFT, steps*2, runtime, serial_port );
+            usleep(1000*runtime);
         }
-        else if (left_sensor() < ZERO - TOLERANCE)
+        else if (left_sensor() < WALL_FOLLOW_TARGET - WALL_FOLLOW_TOLERANCE)
         {
             driveWheelSteps(LEFT, steps*2, runtime, serial_port );
+            usleep(1000*runtime);
             driveWheelSteps(BOTH, steps, runtime, serial_port );
+            usleep(1000*runtime);
             driveWheelSteps(RIGHT, steps*2, runtime, serial_port );
+            usleep(1000*runtime);
         }
         else
         {
             driveWheelSteps(BOTH, steps, runtime, serial_port );
+            usleep(1000*runtime);
         }
     }
 /* ********** END FORWARD TO EDGE OF WALL ********** */
+    stop( serial_port );
+
+
+// /* ********** BEGIN FORWARD 6 INCHES ********** */
+//     drive( serial_port, 15.24, 2 ); // drive forward 15.24 cm in 2 seconds
+// /* ********** END FORWARD 6 INCHES ********** */
 
 
 
-/* ********** BEGIN FORWARD 6 INCHES ********** */
-    drive( serial_port, 15.24, 2 ); // drive forward 15.24 cm in 2 seconds
-/* ********** END FORWARD 6 INCHES ********** */
+// /* ********** BEGIN LEFT 90 DEGREE ROTATION ********** */
+
+//     turn( serial_port, FULL_LEFT_TURN, 2 ); // 2 seconds
+
+// /* ********** END LEFT 90 DEGREE ROTATION ********** */
 
 
 
-/* ********** BEGIN LEFT 90 DEGREE ROTATION ********** */
-
-    turn( serial_port, FULL_LEFT_TURN, 2 ); // 2 seconds
-
-/* ********** END LEFT 90 DEGREE ROTATION ********** */
-
-
-
-/* ********** BEGIN FORWARD UNTIL 6 INCHES FROM WALL ********** */
-    steps = 10;
-    while (front_sensor() > SIX_INCHES)
-    {
-        driveWheelSteps(BOTH, steps, runtime, serial_port );
-    }
-/* ********** END FORWARD UNTIL 6 INCHES FROM WALL ********** */
+//  ********** BEGIN FORWARD UNTIL 6 INCHES FROM WALL ********** 
+//     steps = 10;
+//     while (front_sensor() > SIX_INCHES)
+//     {
+//         driveWheelSteps(BOTH, steps, runtime, serial_port );
+//         usleep(1000*runtime);
+//     }
+// /* ********** END FORWARD UNTIL 6 INCHES FROM WALL ********** */
 
 
 
-/* ********** BEGIN RIGHT 90 DEGREE ROTATION ********** */
+// /* ********** BEGIN RIGHT 90 DEGREE ROTATION ********** */
 
-    turn( serial_port, FULL_RIGHT_TURN, 2 ); // 2 seconds
+//     turn( serial_port, FULL_RIGHT_TURN, 2000 ); // 2 seconds
 
 
-/* ********** END RIGHT 90 DEGREE ROTATION ********** */
+// /* ********** END RIGHT 90 DEGREE ROTATION ********** */
 
 // We are now in CP
 }
@@ -134,18 +144,18 @@ void cp_to_start( int serial_port )
 
     steps = 10;
     // While rear sensor reads further than 4cm
-    // Difference between this and left edge detect is the Backward_IR() and TOLERANCE
+    // Difference between this and left edge detect is the Backward_IR() and WALL_FOLLOW_TOLERANCE
     while (back_sensor() > 4)
     {
         // We need to move left
-        if (left_sensor() > ZERO + TOLERANCE)
+        if (left_sensor() > WALL_FOLLOW_TARGET + WALL_FOLLOW_TOLERANCE)
         {
             
             driveWheelSteps(RIGHT, steps*2, runtime, serial_port );
             driveWheelSteps(BOTH, steps, runtime, serial_port );
             driveWheelSteps(LEFT, steps*2, runtime, serial_port );
         }
-        else if (left_sensor() < ZERO - TOLERANCE)
+        else if (left_sensor() < WALL_FOLLOW_TARGET - WALL_FOLLOW_TOLERANCE)
         {
             driveWheelSteps(LEFT, steps*2, runtime, serial_port );
             driveWheelSteps(BOTH, steps, runtime, serial_port );
@@ -214,14 +224,14 @@ void cp_to_red( int serial_port )
     while (front_sensor() < SIX_INCHES)
     {
         // We need to move left
-        if (left_sensor() > ZERO + TOLERANCE)
+        if (left_sensor() > WALL_FOLLOW_TARGET + WALL_FOLLOW_TOLERANCE)
         {
             
             driveWheelSteps(RIGHT, steps*2, runtime, serial_port );
             driveWheelSteps(BOTH, steps, runtime, serial_port );
             driveWheelSteps(LEFT, steps*2, runtime, serial_port );
         }
-        else if (left_sensor() < ZERO - TOLERANCE)
+        else if (left_sensor() < WALL_FOLLOW_TARGET - WALL_FOLLOW_TOLERANCE)
         {
             driveWheelSteps(LEFT, steps*2, runtime, serial_port );
             driveWheelSteps(BOTH, steps, runtime, serial_port );
@@ -251,14 +261,14 @@ void cp_to_red( int serial_port )
     while (left_sensor() < SIX_INCHES)
     {
         // We need to move left
-        if (left_sensor() > ZERO + TOLERANCE)
+        if (left_sensor() > WALL_FOLLOW_TARGET + WALL_FOLLOW_TOLERANCE)
         {
             
             driveWheelSteps(RIGHT, steps*2, runtime, serial_port );
             driveWheelSteps(BOTH, steps, runtime, serial_port );
             driveWheelSteps(LEFT, steps*2, runtime, serial_port );
         }
-        else if (left_sensor() < ZERO - TOLERANCE)
+        else if (left_sensor() < WALL_FOLLOW_TARGET - WALL_FOLLOW_TOLERANCE)
         {
             driveWheelSteps(LEFT, steps*2, runtime, serial_port );
             driveWheelSteps(BOTH, steps, runtime, serial_port );

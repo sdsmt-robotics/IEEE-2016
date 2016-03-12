@@ -16,41 +16,9 @@
 int main( int argc, char* argv[] )
 {
     int serial_port = sys_init();
-    int right = 0;
-    int left = 0;
-    int front = 0;
-    int back = 0;
+    
 
-    while ( 1 )
-    {
-
-        //turn( serial_port, FULL_RIGHT_TURN, 1 );
-        /*sleep(1);
-        drive( serial_port, -10, 2 );
-        sleep(2);
-        turn( serial_port, RIGHT_180, 2 );
-        sleep(2);
-        drive( serial_port, 10, 2 );
-        sleep(2);
-        turn( serial_port, FULL_RIGHT_TURN, 1 );
-        sleep(1);*/
-        //sleep(2);
-
-        right = poll_right_sensor( serial_port );
-        printf("right: %d\n", right );
-
-        left = poll_left_sensor( serial_port );
-        printf("left : %d\n", left  );
-
-        front = poll_front_sensor( serial_port );
-        printf("front: %d\n", front );
-
-        //back = poll_back_sensor( serial_port );
-        //printf("back: %d\n", back );
-
-        printf("===========\n");
-        sleep(1);
-    }
+    start_to_cp( serial_port );
     
 
     return 0;

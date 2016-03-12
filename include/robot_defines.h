@@ -76,8 +76,11 @@
 
 //Sensor Stuff
 #define INF 1
-#define SIX_INCHES 1
-#define ZERO 0
-#define TOLERANCE 1
+#define SIX_INCHES 15
+//want to be 4 cm away from wall
+#define WALL_FOLLOW_TARGET 4
+//3 cm
+#define BLACK_SIX_IN_TOLERANCE 3
+#define WALL_FOLLOW_TOLERANCE 1
 
 #endif
