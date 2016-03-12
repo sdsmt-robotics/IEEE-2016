@@ -17,16 +17,17 @@ int main( int argc, char* argv[] )
 {
     int serial_port = sys_init();
     
-    while ( 1 )
-    {
-        int voltage = poll_left_sensor( serial_port );
-        double distance = map_voltage_to_distance( voltage );
-        printf("distance: %f voltage: %d\n", distance, voltage );
-        printf("hanging here?\n");
-        printf("left_sensor(): %f\n", left_sensor() );
-        sleep(1);
-    }
-    //start_to_cp( serial_port );
+    // while ( 1 )
+    // {
+    //     int voltage = poll_left_sensor( serial_port );
+    //     double distance = map_voltage_to_distance( voltage );
+    //     printf("distance: %f voltage: %d\n", distance, voltage );
+    //     sleep(1);
+    //     printf("left_sensor(): %f\n", left_sensor( serial_port ) );
+    //     printf("=============\n");
+    //     sleep(1);
+    // }
+    start_to_cp( serial_port );
 
     
 

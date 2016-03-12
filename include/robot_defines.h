@@ -57,7 +57,7 @@
 #define IR_LEFT_TAG   0x73
 #define IR_PACKET_END 0x74
 
-#define SENSOR_PROC_DELAY_US 10000
+#define SENSOR_PROC_DELAY_US 100000
 //For blue paint
 #define IR_DISTANCE_SCALAR 0.5
 
@@ -78,9 +78,11 @@
 #define INF 1
 #define SIX_INCHES 15
 //want to be 4 cm away from wall
-#define WALL_FOLLOW_TARGET 4
+#define WALL_FOLLOW_TARGET 5
+#define WALL_FOLLOW_TOLERANCE 0.1
+
 //3 cm
 #define BLACK_SIX_IN_TOLERANCE 3
-#define WALL_FOLLOW_TOLERANCE 1
+
 
 #endif

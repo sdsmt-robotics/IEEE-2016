@@ -130,11 +130,11 @@ int poll_left_sensor( int serial_port )
     unsigned char right_byte = 0;
 
     n = write( serial_port, &request_flag, 1 );
-    printf("Wrote %d bytes\n", n);
+    //printf("Wrote %d bytes\n", n);
     usleep(SENSOR_PROC_DELAY_US);
-    printf("Reading from the serial port\n");
+    //printf("Reading from the serial port\n");
     n = read( serial_port, &buffer, sizeof(buffer) );
-    printf("Read %d bytes\n", n);
+    //printf("Read %d bytes\n", n);
 
     left_byte = (unsigned char) buffer[0];
     right_byte = (unsigned char) buffer[1];
