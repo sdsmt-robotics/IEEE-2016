@@ -27,8 +27,8 @@ void start_to_cp( int serial_port )
 
 
 /* ********** BEGIN FORWARD TO EDGE OF WALL ********** */
-    runtime = 200; // mS
-    steps = 10;
+    runtime = 2000; // mS
+    steps = 400;
     //wall follow until left sensor reading goes high
     while ( left_sensor() < SIX_INCHES )
     {
