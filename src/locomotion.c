@@ -48,9 +48,9 @@ void setWheelSpeed( int wheel, unsigned char speed, int serial_port )
     }
 }
 
-void driveWheelSteps( int wheel, int steps, int runtime, int serial_port ) //arduino will eventually expect milliseconds
+void driveWheelSteps( int wheel, int steps, int runtime, int serial_port )
 {
-    printf("Driving wheel %d %d steps in %d seconds\n", wheel, steps, runtime);
+    printf("Driving wheel %d %d steps in %d milliseconds\n", wheel, steps, runtime);
     int n = 0;
     int m = 0;
     unsigned char motor_flag = 0;
@@ -110,17 +110,11 @@ void turn( int serial_port, int angle, int runtime )
     double arc_length;
     int steps;
     // arc length = 2 * PI * R * (theta/360)
-    arc_length = M_PI * WHEEL_BASE_MM * ( angle / 360.0 ); //in mm
-
-    /* 180 deg .. 400 steps
-     * 90 deg ... 200 steps
-     * 45 deg ... 100 steps
-     * 22.5 deg . 50 steps
-     */
+    arc_length = M_PI * WHEEL_BASE_MM * ( angle / 360.0 );
 
     steps = round( STEPS_PER_MM * arc_length );
 
-    printf("Turning %d degrees in %d seconds. arc length = %f and %d steps per wheel\n", angle, runtime, arc_length, steps );
+    printf("Turning %d degrees in %d milliseconds. arc length = %f and %d steps per wheel\n", angle, runtime, arc_length, steps );
 
     driveWheelSteps( RIGHT, -steps, runtime, serial_port );
     driveWheelSteps( LEFT, steps, runtime, serial_port );
@@ -136,13 +130,11 @@ void drive( int serial_port, float distance, int runtime )
     printf("Driving straight %d steps\n", steps );
 
     driveWheelSteps( BOTH, steps, runtime, serial_port );
-    //driveWheelSteps( LEFT, steps, runtime, serial_port );
 }
 
 void stop( int serial_port )
 {
     driveWheelSteps( BOTH, 0, 0, serial_port );
-    //driveWheelSteps( LEFT, 0, 0, serial_port );
 }
 
 void claw( int serial_port, int state )
@@ -199,7 +191,7 @@ void var_turn( int serial_port, int angle, int runtime )
 
     steps = round( STEPS_PER_MM * arc_length );
 
-    printf("Turning %d degrees in %d seconds. arc length = %f and %d steps.\n", angle, runtime, arc_length, steps );
+    printf("Turning %d degrees in %d milliseconds. arc length = %f and %d steps.\n", angle, runtime, arc_length, steps );
 
     if ( angle < 0 ) // turning left
     {
