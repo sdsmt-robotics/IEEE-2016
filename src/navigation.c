@@ -23,7 +23,7 @@ void start_to_cp( int serial_port )
 {
 /* ********** BEGIN FORWARD TO EDGE OF WALL ********** */
     //wall follow until left sensor reading goes high
-    setWheelSpeed( BOTH, 90, serial_port );
+    setWheelSpeed( BOTH, 127, serial_port );
     printf("outside loop.\n");
     while ( left_sensor() < SIX_INCHES )
     {
