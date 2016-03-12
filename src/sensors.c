@@ -8,25 +8,30 @@
 #define printf LOG
 
 
-
-int Left_IR()
+int map_voltage_to_distance( int voltage )
 {
-    return 0;
+    // https://acroname.com/articles/linearizing-sharp-ranger-data
+    return ( (6787)/(voltage - 3) - 4 );
 }
 
-int Right_IR()
+int left_sensor( int serial_port )
 {
-    return 0;
+    return map_voltage_to_distance( poll_left_sensor( serial_port ) );
 }
 
-int Forward_IR()
+int right_sensor( int serial_port )
 {
-    return 0;
+    return map_voltage_to_distance( poll_right_sensor( serial_port ) );
 }
 
-int Backward_IR()
+int front_sensor( int serial_port )
 {
-    return 0;
+    return map_voltage_to_distance( poll_front_sensor( serial_port ) );
+}
+
+int back_sensor( int serial_port )
+{
+    return map_voltage_to_distance( poll_back_sensor( serial_port ) );
 }
 
 void temporary_sensor_request( int serial_port )
