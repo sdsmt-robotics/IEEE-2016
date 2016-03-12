@@ -11,25 +11,26 @@
 float map_voltage_to_distance( int voltage )
 {
     // https://acroname.com/articles/linearizing-sharp-ranger-data
+    printf("voltage: %d\n", voltage );
     return IR_DISTANCE_SCALAR * ( (6787.0)/(voltage - 3.0) - 4.0 );
 }
 
-int left_sensor( int serial_port )
+float left_sensor( int serial_port )
 {
     return map_voltage_to_distance( poll_left_sensor( serial_port ) );
 }
 
-int right_sensor( int serial_port )
+float right_sensor( int serial_port )
 {
     return map_voltage_to_distance( poll_right_sensor( serial_port ) );
 }
 
-int front_sensor( int serial_port )
+float front_sensor( int serial_port )
 {
     return map_voltage_to_distance( poll_front_sensor( serial_port ) );
 }
 
-int back_sensor( int serial_port )
+float back_sensor( int serial_port )
 {
     return map_voltage_to_distance( poll_back_sensor( serial_port ) );
 }
