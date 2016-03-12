@@ -11,7 +11,7 @@
 double map_voltage_to_distance( int voltage )
 {
     // https://acroname.com/articles/linearizing-sharp-ranger-data
-    printf("voltage: %d\n", voltage );
+    //printf("voltage: %d\n", voltage );
     return IR_DISTANCE_SCALAR * ( (6787.0)/(voltage - 3.0) - 4.0 );
 }
 
