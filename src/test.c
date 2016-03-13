@@ -18,43 +18,53 @@ int main( int argc, char* argv[] )
 {
     serial_port = sys_init();
     
-    // while ( 1 )
+    follow_left_wall_until_obstacle( 220 );
+
+    sleep(1);
+
+    drive( -30, 4 );
+
+    sleep(5);
+
+    turn( RIGHT_180, 4 );
+
+    sleep(4);
+
+    follow_right_wall_until_end( 220 );
+
+    drive( 35, 4 );
+
+    sleep(4);
+
+    printf("we didn't blow up.\n");
+
+
+
+    // while( 1 )
     // {
-    //     int voltage = poll_left_sensor();
-    //     double distance = map_voltage_to_distance( voltage );
-    //     printf("distance: %f voltage: %d\n", distance, voltage );
-    //     sleep(1);
-    //     printf("left_sensor(): %f\n", left_sensor() );
-    //     printf("=============\n");
-    //     sleep(1);
-    // }
-    //follow_right_wall_until_end();
+    //     // turn( FULL_RIGHT_TURN, 4 );
+    //     // sleep(6);
+    //     // turn( FULL_LEFT_TURN, 4 );
+    //     // sleep(6);
 
-    while( 1 )
-    {
-        // turn( FULL_RIGHT_TURN, 4 );
-        // sleep(6);
-        // turn( FULL_LEFT_TURN, 4 );
-        // sleep(6);
+    //     // var_turn( FULL_RIGHT_TURN, 4 );
+    //     // sleep(5);
+    //     // var_turn( FULL_LEFT_TURN, 4 );
+    //     // sleep(5);
 
-        // var_turn( FULL_RIGHT_TURN, 4 );
-        // sleep(5);
-        // var_turn( FULL_LEFT_TURN, 4 );
-        // sleep(5);
-
-        // drive( 10, 4 );
-        // sleep(6);
-        // drive( -10, 4 );
-        // sleep(6);
+    //     // drive( 10, 4 );
+    //     // sleep(6);
+    //     // drive( -10, 4 );
+    //     // sleep(6);
 
         
-        claw( CLOSE );
-        claw( RAISE );
-        sleep(1);
-        claw( OPEN );
-        claw( LOWER );
-        sleep(1);
-    }
+    //     // claw( CLOSE );
+    //     // claw( RAISE );
+    //     // sleep(1);
+    //     // claw( OPEN );
+    //     // claw( LOWER );
+    //     // sleep(1);
+    // }
     
 
     

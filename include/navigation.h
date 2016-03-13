@@ -28,6 +28,11 @@ void update (int sensor1, int sensor2, int sensor2);
 int sensorInputToDistance(int input);
 */
 
+void follow_left_wall_until_end( unsigned char speed );
+void follow_right_wall_until_end( unsigned char speed );
+void follow_left_wall_until_obstacle( unsigned char speed );
+void follow_right_wall_until_obstacle( unsigned char speed );
+
 void start_to_cp();
 void get_to_cp();
 void cp_to_start();

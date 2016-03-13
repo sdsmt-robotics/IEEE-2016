@@ -18,72 +18,124 @@
 #include <unistd.h>
 #include <stdio.h>
 
-void follow_left_wall_until_end()
+void follow_left_wall_until_end( unsigned char speed )
 {
-    setWheelSpeed( BOTH, 190 );
-    int left_value = 0;
+    setWheelSpeed( BOTH, speed );
+    double left_value = 0;
     while ( left_value < INF_DISTANCE )
     {
         left_value = left_sensor();
         if ( left_value > WALL_FOLLOW_TARGET + WALL_FOLLOW_TOLERANCE)
         {
             printf("Too far away from wall.\n");
-            setWheelSpeed( RIGHT, 195 );
-            //setWheelSpeed( LEFT, 180 );
+            setWheelSpeed( RIGHT, speed + (speed/10 - 9) );
         }
         else if ( left_value < WALL_FOLLOW_TARGET - WALL_FOLLOW_TOLERANCE)
         {
             printf("Too close to wall.\n");
-            //setWheelSpeed( LEFT, 200 );
-            setWheelSpeed( RIGHT, 185 );
+            setWheelSpeed( RIGHT, speed - (speed/10 - 9) );
         }
         else
         {
             printf("Goldilocks zone.\n");
-            setWheelSpeed( BOTH, 190 );
+            setWheelSpeed( BOTH, speed );
         }
         usleep( 10*1000 ); // 10 mS
     }
     stop();
 }
 
-void follow_right_wall_until_end()
+void follow_right_wall_until_end( unsigned char speed )
 {
-    setWheelSpeed( BOTH, 190 );
-    int right_value = 0;
+    setWheelSpeed( BOTH, speed );
+    double right_value = 0;
     while ( right_value < INF_DISTANCE )
     {
         right_value = right_sensor(); // has 10 mS delay inside
         if ( right_value > WALL_FOLLOW_TARGET + WALL_FOLLOW_TOLERANCE)
         {
             printf("Too far away from wall.\n");
-            setWheelSpeed( LEFT, 195 );
+            setWheelSpeed( LEFT, speed + (speed/10 - 9) );
+        }
+        else if ( right_value < WALL_FOLLOW_TARGET - WALL_FOLLOW_TOLERANCE)
+        {
+            printf("Too close to wall.\n");
+            setWheelSpeed( LEFT, speed - (speed/10 - 9) );
+        }
+        else
+        {
+            printf("Goldilocks zone.\n");
+            setWheelSpeed( BOTH, speed );
+        }
+        usleep( 10*1000 ); // 10 mS
+    }
+    stop();
+}
+
+void follow_left_wall_until_obstacle( unsigned char speed )
+{
+    setWheelSpeed( BOTH, speed );
+    double left_value = 0;
+    double front_value = 200;
+
+    while ( front_value > SIX_INCHES + FRONT_STOPPING_TOLERANCE )
+    {
+        front_value = front_sensor();
+        // printf("front: %f\n", front_value );
+        left_value = left_sensor();
+        if ( left_value > WALL_FOLLOW_TARGET + WALL_FOLLOW_TOLERANCE)
+        {
+            printf("Too far away from wall.\n");
+            setWheelSpeed( RIGHT, speed + (speed/10 - 9) );
+            //setWheelSpeed( LEFT, 180 );
+        }
+        else if ( left_value < WALL_FOLLOW_TARGET - WALL_FOLLOW_TOLERANCE)
+        {
+            printf("Too close to wall.\n");
+            //setWheelSpeed( LEFT, 200 );
+            setWheelSpeed( RIGHT, speed - (speed/10 - 9) );
+        }
+        else
+        {
+            printf("Goldilocks zone.\n");
+            setWheelSpeed( BOTH, speed );
+        }
+        usleep( 10*1000 ); // 10 mS
+    }
+    stop();
+}
+
+void follow_right_wall_until_obstacle( unsigned char speed )
+{
+    setWheelSpeed( BOTH, speed );
+    double right_value = 0;
+    double front_value = 200;
+
+    while ( front_value > SIX_INCHES + FRONT_STOPPING_TOLERANCE )
+    {
+        front_value = front_sensor();
+        // printf("front: %f\n", front_value );
+        right_value = right_sensor(); // has 10 mS delay inside
+        if ( right_value > WALL_FOLLOW_TARGET + WALL_FOLLOW_TOLERANCE)
+        {
+            printf("Too far away from wall.\n");
+            setWheelSpeed( LEFT, speed + (speed/10 - 9) );
             //setWheelSpeed( RIGHT, 180 );
         }
         else if ( right_value < WALL_FOLLOW_TARGET - WALL_FOLLOW_TOLERANCE)
         {
             printf("Too close to wall.\n");
             //setWheelSpeed( RIGHT, 200 );
-            setWheelSpeed( LEFT, 185 );
+            setWheelSpeed( LEFT, speed - (speed/10 - 9) );
         }
         else
         {
             printf("Goldilocks zone.\n");
-            setWheelSpeed( BOTH, 190 );
+            setWheelSpeed( BOTH, speed );
         }
-        usleep( 20*1000 ); // 10 mS
+        usleep( 10*1000 ); // 10 mS
     }
     stop();
-}
-
-void follow_left_wall_until_obstacle()
-{
-
-}
-
-void follow_right_wall_until_obstacle()
-{
-
 }
 
 void start_to_cp( )
