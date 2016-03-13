@@ -17,27 +17,33 @@ int serial_port;
 int main( int argc, char* argv[] )
 {
     serial_port = sys_init();
-    
-    follow_left_wall_until_obstacle( 220 );
 
-    sleep(1);
+    // drive( 55, 6 );
+    // sleep(7);
+    // follow_left_wall_until_obstacle( 220 );
+    // sleep(1);
+    // drive( -30, 4 );
+    // sleep(5);
+    // turn( LEFT_180, 4 );
+    // sleep(4);
+    // follow_right_wall_until_end( 220 );
+    // drive( 35, 4 );
+    // sleep(4);
+    // printf("we didn't blow up.\n");
 
-    drive( -30, 4 );
+    //claw( RAISE );
 
+    forward_until_left_end(200);
+    drive( 15, 3 );
+    sleep(4);
+    turn( FULL_LEFT_TURN, 3 );
+    sleep(4);
+    forward_until_obstacle(200);
+    turn( FULL_RIGHT_TURN, 4 );
     sleep(5);
-
-    turn( RIGHT_180, 4 );
-
+    drive( 15, 3 );
     sleep(4);
-
-    follow_right_wall_until_end( 220 );
-
-    drive( 35, 4 );
-
-    sleep(4);
-
-    printf("we didn't blow up.\n");
-
+    follow_right_wall_until_obstacle( 200 );
 
 
     // while( 1 )
@@ -66,6 +72,14 @@ int main( int argc, char* argv[] )
     //     // sleep(1);
     // }
     
+    // while ( 1 )
+    // {
+    //     printf("right: %f\n", right_sensor() );
+    //     printf("left: %f\n", left_sensor() );
+    //     printf("front: %f\n", front_sensor() );
+    //     printf("=============\n");
+    //     sleep(1);
+    // }
 
     
 

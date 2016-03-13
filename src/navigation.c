@@ -18,6 +18,50 @@
 #include <unistd.h>
 #include <stdio.h>
 
+void forward_until_obstacle( unsigned char speed )
+{
+    setWheelSpeed( BOTH, speed );
+    double front_value = 200;
+
+    while ( front_value > SIX_INCHES + FRONT_STOPPING_TOLERANCE )
+    {
+        front_value = front_sensor();
+        printf("Not hitting wall yet.\n");
+        printf("front: %f\n", front_value );
+        
+        usleep( 10*1000 );
+    }
+    stop();
+}
+
+void forward_until_left_end( unsigned char speed )
+{
+    setWheelSpeed( BOTH, speed );
+    double left_value = 0;
+
+    while ( left_value < INF_DISTANCE )
+    {
+        printf("Not infinite distance yet.\n");
+        left_value = left_sensor();
+        usleep( 10*1000 );
+    }
+    stop();
+}
+
+void forward_until_right_end( unsigned char speed )
+{
+    setWheelSpeed( BOTH, speed );
+    double right_value = 0;
+
+    while ( right_value < INF_DISTANCE )
+    {
+        printf("Not infinite distance yet.\n");
+        right_value = right_sensor();
+        usleep( 10*1000 );
+    }
+    stop();
+}
+
 void follow_left_wall_until_end( unsigned char speed )
 {
     setWheelSpeed( BOTH, speed );
