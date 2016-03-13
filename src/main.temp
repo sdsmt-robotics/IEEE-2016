@@ -4,56 +4,67 @@
 #include "../include/logger.h"
 #include "../include/navigation.h"
 #include "../include/locomotion.h"
+#include "../include/sensors.h"
 
 #include <stdio.h>
 #include <stdbool.h>
+#include <unistd.h>
 
 #define printf LOG //To log to logfile AND console
 
+int serial_port;
+
 int main( int argc, char* argv[] )
 {
-    int serial_port = sys_init( serial_port );
+    serial_port = sys_init();
 
     // the following are defined in navigation.c
-    start_to_cp( serial_port );
+    start_to_cp();
 
-    if ( !retreive_victim_1( serial_port ) )
+    if ( !retreive_victim_1() )
     {
-        get_to_cp( serial_port );
+        get_to_cp();
     }
 
-    if ( !retreive_victim_2( serial_port ) )
+    if ( !retreive_victim_2() )
     {
-        get_to_cp( serial_port );
+        get_to_cp();
     }
 
-    if ( !retreive_victim_3( serial_port ) )
+    if ( !retreive_victim_3() )
     {
-        get_to_cp( serial_port );
+        get_to_cp();
     }
 
-    if ( !retreive_victim_4( serial_port ) )
+    if ( !retreive_victim_4() )
     {
-        get_to_cp( serial_port );
+        get_to_cp();
     }
 
-    cp_to_start( serial_port );
+    cp_to_start();
 
     return 0;
 }
 
-int sys_init( )
+int sys_init()
 {
-    int serial_port = serial_init(ARDUINO_COMM_LOCATION, ROBOT_BAUDRATE);
+    int serial_file = serial_init(ARDUINO_COMM_LOCATION, ROBOT_BAUDRATE);
+    // attempts to open the connection to the arduino with the BAUDRATE specified in the ROBOT_DEFINITIONS.h
 
-    if( serial_port < 0 )
+    if(serial_file < 0)
     {
-        printf("Can't open serial port.\n");
-        exit(-1);
+        while(serial_file < 0)
+        {
+            printf("Can't open serial port, trying again in 1 sec.\n");
+            // arduino not located, please stop breaking things
+            sleep(1);
+            serial_file = serial_init(ARDUINO_COMM_LOCATION, ROBOT_BAUDRATE);
+        }
     }
 
-    clearPort(serial_port);
-    printf("Serial successfully initialized\n");
-
-    return serial_port;
+    clearPort(serial_file);
+    printf("Serial successfully initialized. File handle: %d\n", serial_file );
+    sleep(2);
+    // wait for serial to initialize properly
+    return serial_file;
 }

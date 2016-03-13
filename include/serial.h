@@ -12,8 +12,6 @@
 #include <sys/ioctl.h>
 #include <getopt.h>
 
-
-
 int serial_init(const char* serialport, int baud);
 void clearPort(int port);
 void s_write( int port, int val, int bytes); // generic multipurpose write

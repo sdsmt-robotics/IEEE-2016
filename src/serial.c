@@ -118,5 +118,3 @@ int s_read_until(int fd, char* buf, char until)
   buf[i] = '\0';  // null terminate the string
   return strlen(buf);
 }
-
-

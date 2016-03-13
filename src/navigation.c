@@ -27,8 +27,7 @@ void forward_until_obstacle( unsigned char speed )
     {
         front_value = front_sensor();
         printf("Not hitting wall yet.\n");
-        printf("front: %f\n", front_value );
-        
+        //printf("front: %f\n", front_value );
         usleep( 10*1000 );
     }
     stop();
@@ -41,7 +40,7 @@ void forward_until_left_end( unsigned char speed )
 
     while ( left_value < INF_DISTANCE )
     {
-        printf("Not infinite distance yet.\n");
+        printf("Following left wall.\n");
         left_value = left_sensor();
         usleep( 10*1000 );
     }
@@ -55,7 +54,7 @@ void forward_until_right_end( unsigned char speed )
 
     while ( right_value < INF_DISTANCE )
     {
-        printf("Not infinite distance yet.\n");
+        printf("Following right wall.\n");
         right_value = right_sensor();
         usleep( 10*1000 );
     }
@@ -125,18 +124,15 @@ void follow_left_wall_until_obstacle( unsigned char speed )
     while ( front_value > SIX_INCHES + FRONT_STOPPING_TOLERANCE )
     {
         front_value = front_sensor();
-        // printf("front: %f\n", front_value );
         left_value = left_sensor();
         if ( left_value > WALL_FOLLOW_TARGET + WALL_FOLLOW_TOLERANCE)
         {
             printf("Too far away from wall.\n");
             setWheelSpeed( RIGHT, speed + (speed/10 - 9) );
-            //setWheelSpeed( LEFT, 180 );
         }
         else if ( left_value < WALL_FOLLOW_TARGET - WALL_FOLLOW_TOLERANCE)
         {
             printf("Too close to wall.\n");
-            //setWheelSpeed( LEFT, 200 );
             setWheelSpeed( RIGHT, speed - (speed/10 - 9) );
         }
         else
@@ -158,18 +154,15 @@ void follow_right_wall_until_obstacle( unsigned char speed )
     while ( front_value > SIX_INCHES + FRONT_STOPPING_TOLERANCE )
     {
         front_value = front_sensor();
-        // printf("front: %f\n", front_value );
-        right_value = right_sensor(); // has 10 mS delay inside
+        right_value = right_sensor();
         if ( right_value > WALL_FOLLOW_TARGET + WALL_FOLLOW_TOLERANCE)
         {
             printf("Too far away from wall.\n");
             setWheelSpeed( LEFT, speed + (speed/10 - 9) );
-            //setWheelSpeed( RIGHT, 180 );
         }
         else if ( right_value < WALL_FOLLOW_TARGET - WALL_FOLLOW_TOLERANCE)
         {
             printf("Too close to wall.\n");
-            //setWheelSpeed( RIGHT, 200 );
             setWheelSpeed( LEFT, speed - (speed/10 - 9) );
         }
         else
@@ -184,322 +177,94 @@ void follow_right_wall_until_obstacle( unsigned char speed )
 
 void start_to_cp( )
 {
-/* ********** BEGIN FORWARD TO EDGE OF WALL ********** */
-    //wall follow until left sensor reading goes high
-    
-
-
-// /* ********** BEGIN FORWARD 6 INCHES ********** */
-//     drive( , 15.24, 2 ); // drive forward 15.24 cm in 2 seconds
-// /* ********** END FORWARD 6 INCHES ********** */
-
-
-
-// /* ********** BEGIN LEFT 90 DEGREE ROTATION ********** */
-
-//     turn( , FULL_LEFT_TURN, 2 ); // 2 seconds
-
-// /* ********** END LEFT 90 DEGREE ROTATION ********** */
-
-
-
-//  ********** BEGIN FORWARD UNTIL 6 INCHES FROM WALL ********** 
-//     steps = 10;
-//     while (front_sensor() > SIX_INCHES)
-//     {
-//         driveWheelSteps(BOTH, steps, runtime,  );
-//         usleep(1000*runtime);
-//     }
-// /* ********** END FORWARD UNTIL 6 INCHES FROM WALL ********** */
-
-
-
-// /* ********** BEGIN RIGHT 90 DEGREE ROTATION ********** */
-
-//     turn( , FULL_RIGHT_TURN, 2000 ); // 2 seconds
-
-
-// /* ********** END RIGHT 90 DEGREE ROTATION ********** */
-
-// We are now in CP
+    follow_left_wall_until_end( 190 );
+    drive( SIX_INCHES, 2 ); // drive forward six inches in 2 seconds
+    sleep(3);
+    turn( FULL_LEFT_TURN, 2 );
+    sleep(3);
+    forward_until_obstacle( 190 );
+    turn( FULL_RIGHT_TURN, 2 );
+    sleep(3);
 }
-
-
-
-
-
 
 void cp_to_start()
 {
-    int steps;
-    int runtime = 1;
+    turn( FULL_RIGHT_TURN, 2 );
+    sleep(3);
+    forward_until_obstacle( 190 );
 
-/* ********** BEGIN RIGHT 90 DEGREE ROTATION ********** */
+    turn( FULL_LEFT_TURN, 2 );
+    sleep(3);
 
-    steps = 200;
-    driveWheelSteps(LEFT, steps, runtime  );
-    driveWheelSteps(RIGHT,-steps, runtime  );
-
-/* ********** END RIGHT 90 DEGREE ROTATION ********** */
-
-
-
-/* ********** BEGIN FORWARD UNTIL 6 INCHES FROM WALL ********** */
-    steps = 10;
-    while (front_sensor() > SIX_INCHES)
-    {
-        driveWheelSteps(BOTH, steps, runtime  );
-    }
-/* ********** END FORWARD UNTIL 6 INCHES FROM WALL ********** */
-
-
-
-/* ********** BEGIN LEFT 90 DEGREE ROTATION ********** */
-
-    steps = 200;
-    driveWheelSteps(LEFT, -steps, runtime );
-    driveWheelSteps(RIGHT, steps, runtime );
-
-/* ********** END LEFT 90 DEGREE ROTATION ********** */
-
-
-
-/* ********** BEGIN REVERSE TO 4cm FROM WALL ********** */
-
-    
     // Reverse 6.5 inches
-    driveWheelSteps(BOTH, -430, runtime  );
+    drive( -18, 2 );
+    sleep(3);
 
-    steps = 10;
-    // While rear sensor reads further than 4cm
-    // Difference between this and left edge detect is the Backward_IR() and WALL_FOLLOW_TOLERANCE
-    while (back_sensor() > 4)
-    {
-        // We need to move left
-        if (left_sensor() > WALL_FOLLOW_TARGET + WALL_FOLLOW_TOLERANCE)
-        {
-            
-            driveWheelSteps(RIGHT, steps*2, runtime  );
-            driveWheelSteps(BOTH, steps, runtime  );
-            driveWheelSteps(LEFT, steps*2, runtime  );
-        }
-        else if (left_sensor() < WALL_FOLLOW_TARGET - WALL_FOLLOW_TOLERANCE)
-        {
-            driveWheelSteps(LEFT, steps*2, runtime  );
-            driveWheelSteps(BOTH, steps, runtime  );
-            driveWheelSteps(RIGHT, steps*2, runtime  );
-        }
-        else
-        {
-            driveWheelSteps(BOTH, steps, runtime  );
-        }
-    }
-    
-/* ********** END REVERSE TO 4cm FROM WALL ********** */
+    claw( OPEN );
+    claw( LOWER );
 
-
-
-/* ********** BEGIN CLAW OPEN & LOWER ********** */
-    claw( OPEN);
-    claw( LOWER);
-/* ********** END CLAW OPEN & LOWER ********** */
-
-    // We are now in the start location
 }
-
-
-
-
 
 
 void cp_to_red()
 {
+    turn( FULL_RIGHT_TURN, 2 );
+    sleep(3);
 
-/* ********** BEGIN RIGHT 90 DEGREE ROTATION ********** */
+    forward_until_obstacle( 190 );
 
-    int steps = 200;
-    int runtime = 5;
-    driveWheelSteps(LEFT, steps, runtime  );
-    driveWheelSteps(RIGHT,-steps, runtime  );
+    turn( FULL_LEFT_TURN, 2 );
+    sleep(3);
+    follow_left_wall_until_obstacle( 190 );
 
-/* ********** END RIGHT 90 DEGREE ROTATION ********** */
-
-
-
-/* ********** BEGIN FORWARD UNTIL 6 INCHES FROM WALL ********** */
-    steps = 10;
-    while (front_sensor() > SIX_INCHES)
-    {
-        driveWheelSteps(BOTH, steps, runtime  );
-    }
-/* ********** END FORWARD UNTIL 6 INCHES FROM WALL ********** */
-
-
-
-/* ********** BEGIN LEFT 90 DEGREE ROTATION ********** */
-
-    steps = 200;
-    driveWheelSteps(LEFT, -steps, runtime  );
-    driveWheelSteps(RIGHT, steps, runtime  );
-
-/* ********** END LEFT 90 DEGREE ROTATION ********** */
-
-
-
-/* ********** BEGIN FORWARD TO RED HOSPITAL ********** */
-
-    steps = 10;
-    while (front_sensor() < SIX_INCHES)
-    {
-        // We need to move left
-        if (left_sensor() > WALL_FOLLOW_TARGET + WALL_FOLLOW_TOLERANCE)
-        {
-            
-            driveWheelSteps(RIGHT, steps*2, runtime  );
-            driveWheelSteps(BOTH, steps, runtime  );
-            driveWheelSteps(LEFT, steps*2, runtime  );
-        }
-        else if (left_sensor() < WALL_FOLLOW_TARGET - WALL_FOLLOW_TOLERANCE)
-        {
-            driveWheelSteps(LEFT, steps*2, runtime  );
-            driveWheelSteps(BOTH, steps, runtime  );
-            driveWheelSteps(RIGHT, steps*2, runtime  );
-        }
-        else
-        {
-            driveWheelSteps(BOTH, steps, runtime  );
-        }
-    }
-/* ********** END FORWARD TO RED HOSPITAL ********** */
-
-
-
-/* ********** BEGIN DROPOFF VICTIM ********** */
     claw(LOWER);
     claw(OPEN);
+    sleep(1);
     claw(RAISE);
+    sleep(1);
     // Note: May have to reverse first!
     claw(CLOSE);
-/* ********** END DROPOFF VICTIM ********** */
 
+    sleep(1);
 
+    drive( -35, 3 );
+    sleep(4);
+    turn( RIGHT_180, 3 );
+    sleep(4);
 
-/* ********** BEGIN REVERSE TO EDGE OF WALL ********** */
-    steps = -10;
-    while (left_sensor() < SIX_INCHES)
-    {
-        // We need to move left
-        if (left_sensor() > WALL_FOLLOW_TARGET + WALL_FOLLOW_TOLERANCE)
-        {
-            
-            driveWheelSteps(RIGHT, steps*2, runtime  );
-            driveWheelSteps(BOTH, steps, runtime  );
-            driveWheelSteps(LEFT, steps*2, runtime  );
-        }
-        else if (left_sensor() < WALL_FOLLOW_TARGET - WALL_FOLLOW_TOLERANCE)
-        {
-            driveWheelSteps(LEFT, steps*2, runtime  );
-            driveWheelSteps(BOTH, steps, runtime  );
-            driveWheelSteps(RIGHT, steps*2, runtime  );
-        }
-        else
-        {
-            driveWheelSteps(BOTH, steps, runtime  );
-        }
-    }
-/* ********** END REVERSE TO EDGE OF WALL ********** */
+    follow_right_wall_until_end( 190 );
 
+    drive( SIX_INCHES, 2 );
+    sleep(3);
 
+    turn( FULL_RIGHT_TURN, 2 );
+    sleep(3);
 
-/* ********** BEGIN REVERSE 6 INCHES ********** */
-    // 396 steps ~ 6 inches
-    driveWheelSteps(BOTH, -396, runtime  );
-/* ********** END REVERSE 6 INCHES ********** */
-
-
-
-/* ********** BEGIN RIGHT 90 DEGREE ROTATION ********** */
-
-    steps = 200;
-    driveWheelSteps(LEFT, steps, runtime  );
-    driveWheelSteps(RIGHT,-steps, runtime  );
-
-/* ********** END RIGHT 90 DEGREE ROTATION ********** */
-
-
-
-/* ********** BEGIN REVERSE TO 4cm FROM WALL ********** */
-
-    while (back_sensor() > 4)
-    {
-        driveWheelSteps(BOTH, steps, runtime  );
-    }
-    
-/* ********** END REVERSE TO 4cm FROM WALL ********** */
-
-
-
-/* ********** BEGIN LEFT 90 DEGREE ROTATION ********** */
-
-    steps = 200;
-    driveWheelSteps(LEFT, -steps, runtime  );
-    driveWheelSteps(RIGHT,steps, runtime  );
-
-/* ********** END LEFT 90 DEGREE ROTATION ********** */
-
-    // We are now at CP
+    forward_until_obstacle( 190 );
+    turn( FULL_RIGHT_TURN, 2 );
+    sleep(3);
 }
-
-
-
-
 
 
 void cp_to_yellow( )
 {
-/* ********** BEGIN RIGHT 180 DEGREE ROTATION ********** */
+    turn( RIGHT_180, 4 );
+    sleep(5);
 
-    int steps = 400;
-    int runtime = 5;
-    driveWheelSteps(LEFT, steps, runtime  );
-    driveWheelSteps(RIGHT, -steps, runtime  );
+    forward_until_obstacle( 190 );
+    sleep(1);
 
-/* ********** END RIGHT 180 DEGREE ROTATION ********** */
-
-
-
-/* ********** BEGIN FORWARD 12 INCHES ********** */
-    // 791 steps ~ 12 inches
-    driveWheelSteps(BOTH, 791, runtime  );
-/* ********** END FORWARD 12 INCHES ********** */
-
-
-
-/* ********** BEGIN DROPOFF VICTIM ********** */
     claw(LOWER);
     claw(OPEN);
     claw(RAISE);
     // Note: May have to reverse first!
     claw(CLOSE);
-/* ********** END DROPOFF VICTIM ********** */
 
+    drive( -2*SIX_INCHES, 4 );
+    sleep(5);
 
-
-/* ********** BEGIN REVERSE 12 INCHES ********** */
-    // 791 steps ~ 12 inches
-    driveWheelSteps(BOTH, -791, runtime);
-/* ********** END REVERSE 12 INCHES ********** */
-
-
-
-/* ********** BEGIN LEFT 180 DEGREE ROTATION ********** */
-
-    steps = 400;
-    driveWheelSteps(LEFT, -steps, runtime);
-    driveWheelSteps(RIGHT, steps, runtime);
-
-/* ********** END LEFT 180 DEGREE ROTATION ********** */
-    // We are now at CP
+    turn( LEFT_180, 4 );
+    sleep(5);
 }
 
 
@@ -511,7 +276,7 @@ bool retreive_victim_1(   )
 {
     //open claws
     //forward 183.5cm
-    
+
     //grab victim
 
     //reverse 183.5 cm

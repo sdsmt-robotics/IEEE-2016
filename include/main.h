@@ -3,8 +3,6 @@
 
 #include <stdio.h>
 
-//our definitions
-
 int sys_init();
 
 #endif

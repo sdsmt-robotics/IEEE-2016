@@ -7,20 +7,20 @@
 #include <sys/stat.h>
 
 #include "../include/logger.h"
- 
+
 FILE *fp ;
 static int SESSION_TRACKER; //Keeps track of session
- 
+
 char* print_time()
 {
     time_t t;
     char *buf;
-     
+
     time(&t);
     buf = (char*) malloc( strlen( ctime(&t) ) + 1 );
-     
+
     snprintf(buf, strlen(ctime(&t)), "%s ", ctime(&t));
-    
+
     return buf;
 }
 
@@ -32,8 +32,6 @@ void log_print(char* filename, int line, const char* function, char *fmt,...)
     float f;
     int thing = mkdir("logs/", ACCESSPERMS);
     static char logfile[37] = "logs/";
-
-    
 
     if (thing == 0)
     {
@@ -53,11 +51,11 @@ void log_print(char* filename, int line, const char* function, char *fmt,...)
       fp = fopen (logfile,"a+");
     else
       fp = fopen (logfile,"w");
-     
+
     fprintf(fp,"[%s]",print_time());
     fprintf(fp, "[function %s() in %s][line: %d]: ", function, filename, line);
     va_start( list, fmt );
- 
+
     for ( p = fmt ; *p ; ++p )
     {
         if ( *p != '%' )//If simple string
@@ -78,12 +76,12 @@ void log_print(char* filename, int line, const char* function, char *fmt,...)
                 printf( "%s", r );
                 continue;
             }
- 
+
             /* integer */
             case 'd':
             {
                 e = va_arg( list, int );
- 
+
                 fprintf(fp,"%d", e);
                 printf( "%d", e );
                 continue;
@@ -96,7 +94,7 @@ void log_print(char* filename, int line, const char* function, char *fmt,...)
                 printf( "%f", f );
                 continue;
             }
- 
+
             default:
                 fprintf( fp, "\n\tLogger doesn't support the \%%c format specifier yet.", *p);
                 printf("\n\t\tLogger doesn't support the \%%c format specifier yet", *p);

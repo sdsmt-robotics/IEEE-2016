@@ -1,10 +1,10 @@
 #ifndef __ROBOT_DEFINES_
 #define __ROBOT_DEFINES_
 
-//right/left defines
-#define BOTH 2
-#define RIGHT 1
+// right/left defines. Doesn't matter what these values are as long as they're unique
 #define LEFT 0
+#define RIGHT 1
+#define BOTH 2
 #define FRONT 3
 #define BACK 4
 
@@ -34,19 +34,15 @@
 #define FULL_LEFT_TURN -90
 #define HALF_RIGHT_TURN 45
 #define HALF_LEFT_TURN -45
-//Possibility of needing to truncate the decimal point on these
-#define QUARTER_RIGHT_TURN 22.5
-//Possibility of needing to truncate the decimal point on these
-#define QUARTER_LEFT_TURN -22.5
 #define RIGHT_180 180
 #define LEFT_180 -180
-
 
 //communication defines
 #define ROBOT_BAUDRATE 115200
 #define ARDUINO_COMM_LOCATION "/dev/robot/arduino"
 #define SENSORS_COMM_LOCATION "/dev/robot/sensors"
 #define ARDUINO_RECEIVED_BYTE 0x13
+
 #define SENSOR_REQUEST 0x60
 #define LEFT_SENSOR_REQUEST 0x61
 #define RIGHT_SENSOR_REQUEST 0x62
@@ -64,8 +60,6 @@
 
 //Physical information
 #define WHEEL_BASE_MM 151.0
-//with camber:
-//#define WHEEL_BASE_MM 149
 
 //Blue Wheels:
 #define STEPS_PER_CM 26
@@ -78,14 +72,16 @@
 //Sensor Stuff
 #define INF_DISTANCE 15.0
 #define SIX_INCHES 15.0
+//Stopping tolerance depends on paint color
 #define FRONT_STOPPING_TOLERANCE 0
-//want to be 4 cm away from wall
+//want to be 6 cm away from wall
 #define WALL_FOLLOW_TARGET 6.0
 #define WALL_FOLLOW_TOLERANCE 0.05
 
-//3 cm
-#define BLACK_SIX_IN_TOLERANCE 3
-
+//global serial port variable so we can avoid hours of pain when we forget
+//to pass this to a function and wonder wtf is happening.
+//Also, why does `gcc -Wall` compile function calls that don't have the
+//correct number of arguments? Seriouslly, wtf?
 extern int serial_port;
 
 #endif
