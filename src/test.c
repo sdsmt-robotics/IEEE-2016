@@ -28,7 +28,34 @@ int main( int argc, char* argv[] )
     //     printf("=============\n");
     //     sleep(1);
     // }
-    follow_right_wall_until_end();
+    //follow_right_wall_until_end();
+
+    while( 1 )
+    {
+        // turn( FULL_RIGHT_TURN, 4 );
+        // sleep(6);
+        // turn( FULL_LEFT_TURN, 4 );
+        // sleep(6);
+
+        // var_turn( FULL_RIGHT_TURN, 4 );
+        // sleep(5);
+        // var_turn( FULL_LEFT_TURN, 4 );
+        // sleep(5);
+
+        // drive( 10, 4 );
+        // sleep(6);
+        // drive( -10, 4 );
+        // sleep(6);
+
+        
+        claw( CLOSE );
+        claw( RAISE );
+        sleep(1);
+        claw( OPEN );
+        claw( LOWER );
+        sleep(1);
+    }
+    
 
     
 

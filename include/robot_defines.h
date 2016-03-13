@@ -63,17 +63,17 @@
 #define IR_DISTANCE_SCALAR 0.5
 
 //Physical information
-//#define WHEEL_BASE_MM 158.2
+#define WHEEL_BASE_MM 151.0
 //with camber:
-#define WHEEL_BASE_MM 149
+//#define WHEEL_BASE_MM 149
 
 //Blue Wheels:
-//#define STEPS_PER_CM 26
-//#define STEPS_PER_MM 2.6
+#define STEPS_PER_CM 26
+#define STEPS_PER_MM 2.6
 
 //Green Wheels:
-#define STEPS_PER_CM 35
-#define STEPS_PER_MM 3.5
+//#define STEPS_PER_CM 35
+//#define STEPS_PER_MM 3.5
 
 //Sensor Stuff
 #define INF_DISTANCE 20.0
