@@ -10,7 +10,7 @@
 #include <stdbool.h>
 #include <unistd.h>
 
-#define printf LOG //To log to logfile AND console
+//#define printf LOG //To log to logfile AND console
 
 int serial_port;
 
@@ -18,19 +18,12 @@ int main( int argc, char* argv[] )
 {
     serial_port = sys_init();
 
-    forward_until_left_end(200);
-    drive( 15, 3 );
-    sleep(4);
-    turn( FULL_LEFT_TURN, 3 );
-    sleep(4);
-    forward_until_obstacle(200);
-    turn( FULL_RIGHT_TURN, 4 );
-    sleep(5);
-    drive( 15, 3 );
-    sleep(4);
-    follow_right_wall_until_obstacle( 200 );
+    //follow_right_wall_until_obstacle( 200, WALL_FOLLOW_TARGET, 10 );
 
+    //retreive_victim_1();
 
+    follow_left_wall_until_end( 200, WALL_FOLLOW_TARGET );
+    
     // while( 1 )
     // {
     //     turn( FULL_RIGHT_TURN, 4 );
@@ -56,11 +49,11 @@ int main( int argc, char* argv[] )
     //     claw( LOWER );
     //     sleep(1);
     //
-    //         printf("right: %f\n", right_sensor() );
-    //         printf("left: %f\n", left_sensor() );
-    //         printf("front: %f\n", front_sensor() );
-    //         printf("=============\n");
-    //         sleep(1);
+    //     printf("right: %.2f\n", right_sensor() );
+    //     printf("left: %.2f\n", left_sensor() );
+    //     printf("front: %.2f\n", front_sensor() );
+    //     printf("=============\n");
+    //     sleep(1);
     // }
 
     return 0;

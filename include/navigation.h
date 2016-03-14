@@ -3,14 +3,14 @@
 
 #include <stdbool.h>
 
-void forward_until_obstacle( unsigned char speed );
 void forward_until_left_end( unsigned char speed );
 void forward_until_right_end( unsigned char speed );
+void forward_until_obstacle( unsigned char speed, int tolerance );
 
-void follow_left_wall_until_end( unsigned char speed );
-void follow_right_wall_until_end( unsigned char speed );
-void follow_left_wall_until_obstacle( unsigned char speed );
-void follow_right_wall_until_obstacle( unsigned char speed );
+void follow_left_wall_until_end( unsigned char speed, int target );
+void follow_right_wall_until_end( unsigned char speed, int target );
+void follow_left_wall_until_obstacle( unsigned char speed, int target, int tolerance );
+void follow_right_wall_until_obstacle( unsigned char speed, int target, int tolerance );
 
 void start_to_cp();
 void get_to_cp();

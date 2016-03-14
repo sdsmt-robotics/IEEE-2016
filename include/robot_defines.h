@@ -54,7 +54,7 @@
 #define IR_LEFT_TAG   0x73
 #define IR_PACKET_END 0x74
 
-#define SENSOR_PROC_DELAY_US 50000
+#define SENSOR_PROC_DELAY_US 100000
 //For blue paint
 #define IR_DISTANCE_SCALAR 0.5
 

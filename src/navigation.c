@@ -18,19 +18,18 @@
 #include <unistd.h>
 #include <stdio.h>
 
-void forward_until_obstacle( unsigned char speed )
+void forward_until_obstacle( unsigned char speed, int tolerance )
 {
     setWheelSpeed( BOTH, speed );
     double front_value = 200;
 
-    while ( front_value > SIX_INCHES + FRONT_STOPPING_TOLERANCE )
+    while ( front_value > SIX_INCHES + tolerance )
     {
         front_value = front_sensor();
         printf("Not hitting wall yet.\n");
-        //printf("front: %f\n", front_value );
-        usleep( 10*1000 );
+        printf("front: %.2f\n", front_value );
+        usleep( 20*1000 );
     }
-    stop();
 }
 
 void forward_until_left_end( unsigned char speed )
@@ -42,9 +41,8 @@ void forward_until_left_end( unsigned char speed )
     {
         printf("Following left wall.\n");
         left_value = left_sensor();
-        usleep( 10*1000 );
+        usleep( 20*1000 );
     }
-    stop();
 }
 
 void forward_until_right_end( unsigned char speed )
@@ -56,51 +54,53 @@ void forward_until_right_end( unsigned char speed )
     {
         printf("Following right wall.\n");
         right_value = right_sensor();
-        usleep( 10*1000 );
+        usleep( 20*1000 );
     }
     stop();
 }
 
-void follow_left_wall_until_end( unsigned char speed )
+void follow_left_wall_until_end( unsigned char speed, int target )
 {
     setWheelSpeed( BOTH, speed );
     double left_value = 0;
     while ( left_value < INF_DISTANCE )
     {
         left_value = left_sensor();
-        if ( left_value > WALL_FOLLOW_TARGET + WALL_FOLLOW_TOLERANCE)
+        printf("left: %.2f\n", left_value );
+        if ( left_value > target + WALL_FOLLOW_TOLERANCE )
         {
             printf("Too far away from wall.\n");
-            setWheelSpeed( RIGHT, speed + (speed/10 - 9) );
+            setWheelSpeed( RIGHT, speed + (speed/10.0 - 9) );
         }
-        else if ( left_value < WALL_FOLLOW_TARGET - WALL_FOLLOW_TOLERANCE)
+        else if ( left_value < target - WALL_FOLLOW_TOLERANCE )
         {
             printf("Too close to wall.\n");
-            setWheelSpeed( RIGHT, speed - (speed/10 - 9) );
+            setWheelSpeed( RIGHT, speed - (speed/10.0 - 9) );
         }
         else
         {
             printf("Goldilocks zone.\n");
             setWheelSpeed( BOTH, speed );
         }
-        usleep( 10*1000 ); // 10 mS
+        usleep( 20*1000 ); // 10 mS
     }
     stop();
 }
 
-void follow_right_wall_until_end( unsigned char speed )
+void follow_right_wall_until_end( unsigned char speed, int target )
 {
     setWheelSpeed( BOTH, speed );
     double right_value = 0;
     while ( right_value < INF_DISTANCE )
     {
         right_value = right_sensor(); // has 10 mS delay inside
-        if ( right_value > WALL_FOLLOW_TARGET + WALL_FOLLOW_TOLERANCE)
+        printf("right: %.2f\n", right_value);
+        if ( right_value > target + WALL_FOLLOW_TOLERANCE )
         {
             printf("Too far away from wall.\n");
             setWheelSpeed( LEFT, speed + (speed/10 - 9) );
         }
-        else if ( right_value < WALL_FOLLOW_TARGET - WALL_FOLLOW_TOLERANCE)
+        else if ( right_value < target - WALL_FOLLOW_TOLERANCE )
         {
             printf("Too close to wall.\n");
             setWheelSpeed( LEFT, speed - (speed/10 - 9) );
@@ -110,27 +110,30 @@ void follow_right_wall_until_end( unsigned char speed )
             printf("Goldilocks zone.\n");
             setWheelSpeed( BOTH, speed );
         }
-        usleep( 10*1000 ); // 10 mS
+        usleep( 20*1000 ); // 10 mS
     }
     stop();
 }
 
-void follow_left_wall_until_obstacle( unsigned char speed )
+void follow_left_wall_until_obstacle( unsigned char speed, int target, int tolerance )
 {
     setWheelSpeed( BOTH, speed );
     double left_value = 0;
     double front_value = 200;
 
-    while ( front_value > SIX_INCHES + FRONT_STOPPING_TOLERANCE )
+    while ( front_value > SIX_INCHES + tolerance )
     {
         front_value = front_sensor();
         left_value = left_sensor();
-        if ( left_value > WALL_FOLLOW_TARGET + WALL_FOLLOW_TOLERANCE)
+
+        printf("front_value: %.2f\n", front_value);
+        printf("left_value: %.2f\n", left_value);
+        if ( left_value > target + WALL_FOLLOW_TOLERANCE)
         {
             printf("Too far away from wall.\n");
             setWheelSpeed( RIGHT, speed + (speed/10 - 9) );
         }
-        else if ( left_value < WALL_FOLLOW_TARGET - WALL_FOLLOW_TOLERANCE)
+        else if ( left_value < target - WALL_FOLLOW_TOLERANCE)
         {
             printf("Too close to wall.\n");
             setWheelSpeed( RIGHT, speed - (speed/10 - 9) );
@@ -140,49 +143,53 @@ void follow_left_wall_until_obstacle( unsigned char speed )
             printf("Goldilocks zone.\n");
             setWheelSpeed( BOTH, speed );
         }
-        usleep( 10*1000 ); // 10 mS
+        usleep( 20*1000 );
     }
     stop();
 }
 
-void follow_right_wall_until_obstacle( unsigned char speed )
+void follow_right_wall_until_obstacle( unsigned char speed, int target, int tolerance )
 {
     setWheelSpeed( BOTH, speed );
     double right_value = 0;
     double front_value = 200;
 
-    while ( front_value > SIX_INCHES + FRONT_STOPPING_TOLERANCE )
+    while ( front_value > SIX_INCHES + tolerance )
     {
         front_value = front_sensor();
         right_value = right_sensor();
-        if ( right_value > WALL_FOLLOW_TARGET + WALL_FOLLOW_TOLERANCE)
+
+        printf("front: %.2f\n", front_value );
+        printf("right: %.2f\n", right_value );
+
+        if ( right_value > target + WALL_FOLLOW_TOLERANCE)
         {
             printf("Too far away from wall.\n");
-            setWheelSpeed( LEFT, speed + (speed/10 - 9) );
+            setWheelSpeed( LEFT, speed + (speed/10.0 - 9) );
         }
-        else if ( right_value < WALL_FOLLOW_TARGET - WALL_FOLLOW_TOLERANCE)
+        else if ( right_value < target - WALL_FOLLOW_TOLERANCE)
         {
             printf("Too close to wall.\n");
-            setWheelSpeed( LEFT, speed - (speed/10 - 9) );
+            setWheelSpeed( LEFT, speed - (speed/10.0 - 9) );
         }
         else
         {
             printf("Goldilocks zone.\n");
             setWheelSpeed( BOTH, speed );
         }
-        usleep( 10*1000 ); // 10 mS
+        usleep( 20*1000 );
     }
     stop();
 }
 
 void start_to_cp( )
 {
-    follow_left_wall_until_end( 190 );
+    follow_left_wall_until_end( 190, WALL_FOLLOW_TARGET );
     drive( SIX_INCHES, 2 ); // drive forward six inches in 2 seconds
     sleep(3);
     turn( FULL_LEFT_TURN, 2 );
     sleep(3);
-    forward_until_obstacle( 190 );
+    forward_until_obstacle( 190, 1 );
     turn( FULL_RIGHT_TURN, 2 );
     sleep(3);
 }
@@ -191,7 +198,7 @@ void cp_to_start()
 {
     turn( FULL_RIGHT_TURN, 2 );
     sleep(3);
-    forward_until_obstacle( 190 );
+    forward_until_obstacle( 190, 1 );
 
     turn( FULL_LEFT_TURN, 2 );
     sleep(3);
@@ -211,11 +218,11 @@ void cp_to_red()
     turn( FULL_RIGHT_TURN, 2 );
     sleep(3);
 
-    forward_until_obstacle( 190 );
+    forward_until_obstacle( 190, 0 );
 
     turn( FULL_LEFT_TURN, 2 );
     sleep(3);
-    follow_left_wall_until_obstacle( 190 );
+    follow_left_wall_until_obstacle( 190, 0, WALL_FOLLOW_TARGET );
 
     claw(LOWER);
     claw(OPEN);
@@ -232,7 +239,7 @@ void cp_to_red()
     turn( RIGHT_180, 3 );
     sleep(4);
 
-    follow_right_wall_until_end( 190 );
+    follow_right_wall_until_end( 190, WALL_FOLLOW_TARGET );
 
     drive( SIX_INCHES, 2 );
     sleep(3);
@@ -240,7 +247,7 @@ void cp_to_red()
     turn( FULL_RIGHT_TURN, 2 );
     sleep(3);
 
-    forward_until_obstacle( 190 );
+    forward_until_obstacle( 190, 0 );
     turn( FULL_RIGHT_TURN, 2 );
     sleep(3);
 }
@@ -251,7 +258,7 @@ void cp_to_yellow( )
     turn( RIGHT_180, 4 );
     sleep(5);
 
-    forward_until_obstacle( 190 );
+    forward_until_obstacle( 190, 0 );
     sleep(1);
 
     claw(LOWER);
@@ -267,25 +274,40 @@ void cp_to_yellow( )
     sleep(5);
 }
 
-
-
-
-
-
-bool retreive_victim_1(   )
+bool retreive_victim_1()
 {
-    //open claws
-    //forward 183.5cm
+    claw( OPEN );
+    start_to_cp();
+    sleep(1);
+    follow_left_wall_until_end( 210, 10 );
+    follow_right_wall_until_obstacle( 210, 5.0, 10 );
+    claw( CLOSE );
+    sleep(1);
+    claw( RAISE );
+    turn( LEFT_180, 4 );
+    sleep(5);
+    follow_left_wall_until_end( 210, 5.0 );
+    claw( LOWER );
+    sleep(1);
+    forward_until_obstacle( 190, 0 );
+    claw( OPEN );
+    drive( -1.8*SIX_INCHES, 3 );
+    sleep(4);
+    turn( LEFT_180, 4 );
+    claw( CLOSE );
+    sleep(1);
+    claw( OPEN );
+    sleep(1);
+    claw( CLOSE );
+    sleep(1);
+    claw( OPEN );
+    sleep(1);
+    claw( CLOSE );
 
-    //grab victim
-
-    //reverse 183.5 cm
-    //call appropriate cp_to_hospital() (Peeks at glocal color variable, or status struct)
-    //return to cp
-    return false;
+    return true;
 }
 
-bool retreive_victim_2(   )
+bool retreive_victim_2()
 {
     //get to person 2:
         //62cm from cp
@@ -300,7 +322,7 @@ bool retreive_victim_2(   )
     return false;
 }
 
-bool retreive_victim_3(   )
+bool retreive_victim_3()
 {
     //forward 24 in
     //rotate -90
@@ -312,7 +334,7 @@ bool retreive_victim_3(   )
     return false;
 }
 
-bool retreive_victim_4(   )
+bool retreive_victim_4()
 {
 
     return false;
