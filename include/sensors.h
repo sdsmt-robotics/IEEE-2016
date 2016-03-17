@@ -10,7 +10,7 @@ double back_sensor();
 double map_voltage_to_distance( int voltage );
 
 void temporary_sensor_request();
-int poll_sensors( int sensor );
+void poll_sensors();
 
 //return average voltage, in units that are really hard to work with.
 //0 to 1023 "steps" to represent 0 to 5 volts. That corresponds to

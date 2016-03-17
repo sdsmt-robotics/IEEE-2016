@@ -19,40 +19,14 @@ int main( int argc, char* argv[] )
     serial_port = sys_init();
 
     //follow_right_wall_until_obstacle( 200, WALL_FOLLOW_TARGET, 10 );
+    // follow_left_wall_until_end( 200, WALL_FOLLOW_TARGET );
 
     retreive_victim_1();
 
-    // follow_left_wall_until_end( 200, WALL_FOLLOW_TARGET );
-    
     // while( 1 )
     // {
-    //     turn( FULL_RIGHT_TURN, 4 );
-    //     sleep(6);
-    //     turn( FULL_LEFT_TURN, 4 );
-    //     sleep(6);
     //
-    //     var_turn( FULL_RIGHT_TURN, 4 );
-    //     sleep(5);
-    //     var_turn( FULL_LEFT_TURN, 4 );
-    //     sleep(5);
-    //
-    //     drive( 10, 4 );
-    //     sleep(6);
-    //     drive( -10, 4 );
-    //     sleep(6);
-    //
-    //
-    //     claw( CLOSE );
-    //     claw( RAISE );
-    //     sleep(1);
-    //     claw( OPEN );
-    //     claw( LOWER );
-    //     sleep(1);
-    //
-    //     printf("right: %.2f\n", right_sensor() );
-    //     printf("left: %.2f\n", left_sensor() );
-    //     printf("front: %.2f\n", front_sensor() );
-    //     printf("=============\n");
+    //     poll_sensors();
     //     sleep(1);
     // }
 

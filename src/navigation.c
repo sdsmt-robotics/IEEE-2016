@@ -61,14 +61,13 @@ void forward_until_right_end( unsigned char speed )
 
 void follow_left_wall_until_end( unsigned char speed, int target )
 {
-    stop();
-    sleep(1);
     setWheelSpeed( BOTH, speed );
     double left_value = 0;
     while ( left_value < INF_DISTANCE )
     {
         left_value = left_sensor();
-        printf("left: %.2f\n", left_value );
+        poll_sensors();
+        printf("follow_left_wall_until_end() left (cm): %.1f\n", left_value );
         if ( left_value > target + WALL_FOLLOW_TOLERANCE )
         {
             printf("Too far away from wall.\n");
