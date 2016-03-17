@@ -67,7 +67,9 @@ void follow_left_wall_until_end( unsigned char speed, int target )
     {
         left_value = left_sensor();
         poll_sensors();
-        printf("follow_left_wall_until_end() left (cm): %.1f\n", left_value );
+        printf("======\n");
+        printf("left: %.1f\n", left_value );
+        printf("======\n");
         if ( left_value > target + WALL_FOLLOW_TOLERANCE )
         {
             printf("Too far away from wall.\n");
@@ -275,21 +277,28 @@ void cp_to_yellow( )
     sleep(5);
 }
 
-bool retreive_victim_1()
+bool pick_up_victim_1()
 {
     claw( OPEN );
     start_to_cp();
     sleep(1);
-    follow_left_wall_until_end( 190, 10 );
-    follow_right_wall_until_obstacle( 210, 5.0, 10 );
+    // follow_left_wall_until_end( 190, 10 );
+    drive( 18, 3 );
+    sleep(4);
+    follow_right_wall_until_obstacle( 210, 6.0, 10 );
     claw( CLOSE );
     sleep(1);
     claw( RAISE );
     turn( LEFT_180, 4 );
     sleep(5);
     stop();
-    follow_left_wall_until_obstacle( 180, 5.0, 10 );
-    stop();
+
+    return true;
+}
+
+bool drop_off_victim_1()
+{
+    follow_left_wall_until_end( 180, 5.0 );
     claw( LOWER );
     sleep(1);
     forward_until_obstacle( 190, 0 );
