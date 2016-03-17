@@ -61,6 +61,8 @@ void forward_until_right_end( unsigned char speed )
 
 void follow_left_wall_until_end( unsigned char speed, int target )
 {
+    stop();
+    sleep(1);
     setWheelSpeed( BOTH, speed );
     double left_value = 0;
     while ( left_value < INF_DISTANCE )
@@ -279,14 +281,16 @@ bool retreive_victim_1()
     claw( OPEN );
     start_to_cp();
     sleep(1);
-    follow_left_wall_until_end( 210, 10 );
+    follow_left_wall_until_end( 190, 10 );
     follow_right_wall_until_obstacle( 210, 5.0, 10 );
     claw( CLOSE );
     sleep(1);
     claw( RAISE );
     turn( LEFT_180, 4 );
     sleep(5);
-    follow_left_wall_until_end( 210, 5.0 );
+    stop();
+    follow_left_wall_until_obstacle( 180, 5.0, 10 );
+    stop();
     claw( LOWER );
     sleep(1);
     forward_until_obstacle( 190, 0 );

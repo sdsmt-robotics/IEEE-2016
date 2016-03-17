@@ -20,9 +20,9 @@ int main( int argc, char* argv[] )
 
     //follow_right_wall_until_obstacle( 200, WALL_FOLLOW_TARGET, 10 );
 
-    //retreive_victim_1();
+    retreive_victim_1();
 
-    follow_left_wall_until_end( 200, WALL_FOLLOW_TARGET );
+    // follow_left_wall_until_end( 200, WALL_FOLLOW_TARGET );
     
     // while( 1 )
     // {
