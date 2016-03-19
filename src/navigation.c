@@ -59,6 +59,7 @@ void forward_until_right_end( unsigned char speed )
     stop();
 }
 
+/*  I commented out the original (Kyle)
 void follow_left_wall_until_end( unsigned char speed, int target )
 {
     setWheelSpeed( BOTH, speed );
@@ -81,6 +82,45 @@ void follow_left_wall_until_end( unsigned char speed, int target )
             setWheelSpeed( RIGHT, speed - (speed/10.0 - 9) );
         }
         else
+        {
+            printf("Goldilocks zone.\n");
+            setWheelSpeed( BOTH, speed );
+        }
+        usleep( 20*1000 ); // 10 mS
+    }
+    stop();
+}*/
+
+
+void follow_left_wall_until_end( unsigned char speed, int target )
+{
+    setWheelSpeed( BOTH, speed );
+    double left_value = 0;
+    while ( left_value < INF_DISTANCE )
+    {
+        // We need to ensure we're not adjusting for a wall that's not there
+        // added " && left_value < INF_DISTANCE )" to each conditional check
+
+        // It may have been turning itself towards the wall and reading again,
+        // seeing the wall still (since it pointed itself at the wall).
+        left_value = left_sensor();
+        poll_sensors();
+        printf("======\n");
+        printf("left: %.1f\n", left_value );
+        printf("======\n");
+        if ( left_value > target + WALL_FOLLOW_TOLERANCE &&
+             left_value < INF_DISTANCE )
+        {
+            printf("Too far away from wall.\n");
+            setWheelSpeed( RIGHT, speed + (speed/10.0 - 9) );
+        }
+        else if ( left_value < target - WALL_FOLLOW_TOLERANCE &&
+                  left_value < INF_DISTANCE )
+        {
+            printf("Too close to wall.\n");
+            setWheelSpeed( RIGHT, speed - (speed/10.0 - 9) );
+        }
+        else if (left_value < INF_DISTANCE)
         {
             printf("Goldilocks zone.\n");
             setWheelSpeed( BOTH, speed );
@@ -187,7 +227,7 @@ void follow_right_wall_until_obstacle( unsigned char speed, int target, int tole
 
 void start_to_cp( )
 {
-    follow_left_wall_until_end( 190, WALL_FOLLOW_TARGET );
+    follow_left_wall_until_end( 190, WALL_FOLLOW_TARGET );  // This is 6, below it is 5???
     drive( SIX_INCHES, 2 ); // drive forward six inches in 2 seconds
     sleep(3);
     turn( FULL_LEFT_TURN, 2 );
@@ -298,7 +338,7 @@ bool pick_up_victim_1()
 
 bool drop_off_victim_1()
 {
-    follow_left_wall_until_end( 180, 5.0 );
+    follow_left_wall_until_end( 180, 5.0 );     // Should this be 5 or 6???
     claw( LOWER );
     sleep(1);
     forward_until_obstacle( 190, 0 );
