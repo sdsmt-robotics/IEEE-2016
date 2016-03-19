@@ -16,8 +16,7 @@ void start_to_cp();
 void get_to_cp();
 void cp_to_start();
 
-bool pick_up_victim_1();
-bool drop_off_victim_1();
+bool retrieve_victim_1();
 bool retreive_victim_2();
 bool retreive_victim_3();
 bool retreive_victim_4();

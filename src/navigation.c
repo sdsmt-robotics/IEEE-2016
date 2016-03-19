@@ -21,15 +21,17 @@
 void forward_until_obstacle( unsigned char speed, int tolerance )
 {
     setWheelSpeed( BOTH, speed );
-    double front_value = 200;
+    double front_value = front_sensor();
 
     while ( front_value > SIX_INCHES + tolerance )
     {
-        front_value = front_sensor();
+        
         printf("Not hitting wall yet.\n");
         printf("front: %.2f\n", front_value );
         usleep( TWENTY_MS );
+        front_value = front_sensor();
     }
+    stop();
 }
 
 void forward_until_left_end( unsigned char speed )
@@ -43,6 +45,7 @@ void forward_until_left_end( unsigned char speed )
         left_value = left_sensor();
         usleep( TWENTY_MS );
     }
+    stop();
 }
 
 void forward_until_right_end( unsigned char speed )
@@ -59,94 +62,73 @@ void forward_until_right_end( unsigned char speed )
     stop();
 }
 
-/*  I commented out the original (Kyle)
+
 void follow_left_wall_until_end( unsigned char speed, int target )
 {
     setWheelSpeed( BOTH, speed );
-    double left_value = 0;
-    while ( left_value < INF_DISTANCE )
+    double left_value = left_sensor();
+    char buffer[512] = "";
+
+
+    while ( left_value < 6.5 )
     {
-        left_value = left_sensor();
-        poll_sensors();
-        printf("======\n");
-        printf("left: %.1f\n", left_value );
-        printf("======\n");
+        // We need to ensure we're not adjusting for a wall that's not there.
+        // It may have been turning itself towards the wall and reading again,
+        // seeing the wall still (since it pointed itself at the wall).
+
+        
+        // poll_sensors();     // Why is this here??
+
         if ( left_value > target + WALL_FOLLOW_TOLERANCE )
         {
-            printf("Too far away from wall.\n");
+            printf("Too far away from left wall.\n");
             setWheelSpeed( RIGHT, speed + (speed/10.0 - 9) );
+
+            // // Actually move towards the wall a little
+            // usleep( TEN_MS );
+            // setWheelSpeed( BOTH, speed + (speed/10.0 - 9) );
+
+            // // Correct orientation
+            // usleep( TEN_MS ); 
+            // setWheelSpeed( RIGHT, speed - (speed/10.0 - 9) );
+            // usleep( TEN_MS ); 
+
         }
         else if ( left_value < target - WALL_FOLLOW_TOLERANCE )
         {
-            printf("Too close to wall.\n");
+            printf("Too close to left wall.\n");
             setWheelSpeed( RIGHT, speed - (speed/10.0 - 9) );
+
+            // // Actually move towards the wall a little
+            // usleep( TEN_MS ); 
+            // setWheelSpeed( BOTH, speed + (speed/10.0 - 9) );
+            
+            // // Correct orientation
+            // usleep( TEN_MS ); 
+            // setWheelSpeed( RIGHT, speed + (speed/10.0 - 9) );
+            // usleep( TEN_MS ); 
         }
         else
         {
             printf("Goldilocks zone.\n");
             setWheelSpeed( BOTH, speed );
         }
-        usleep( 20*1000 ); // 10 mS
-    }
-    stop();
-}*/
-
-
-void follow_left_wall_until_end( unsigned char speed, int target )
-{
-    setWheelSpeed( BOTH, speed );
-    double left_value = left_sensor();
-
-    while ( left_value < INF_DISTANCE )
-    {
-        // We need to ensure we're not adjusting for a wall that's not there.
-        // It may have been turning itself towards the wall and reading again,
-        // seeing the wall still (since it pointed itself at the wall).
         
-        poll_sensors();     // Why is this here??
-        printf("======\n");
-        printf("left: %.1f\n", left_value );
-        printf("======\n");
-        if ( left_value > target + WALL_FOLLOW_TOLERANCE )
-        {
-            printf("Too far away from wall.\n");
-            setWheelSpeed( RIGHT, speed + (speed/10.0 - 9) );
-
-            // Actually move towards the wall a little
-            usleep( TEN_MS ); 
-            setWheelSpeed( BOTH, speed + (speed/10.0 - 9) );
-
-            // Correct orientation
-            usleep( TEN_MS ); 
-            setWheelSpeed( RIGHT, speed - (speed/10.0 - 9) );
-            usleep( TEN_MS ); 
-
-        }
-        else if ( left_value < target - WALL_FOLLOW_TOLERANCE )
-        {
-            printf("Too close to wall.\n");
-            setWheelSpeed( RIGHT, speed - (speed/10.0 - 9) );
-
-            // Actually move towards the wall a little
-            usleep( TEN_MS ); 
-            setWheelSpeed( BOTH, speed + (speed/10.0 - 9) );
-            
-            // Correct orientation
-            usleep( TEN_MS ); 
-            setWheelSpeed( RIGHT, speed + (speed/10.0 - 9) );
-            usleep( TEN_MS ); 
-        }
-        else
-        {
-            printf("Goldilocks zone.\n");
-            //setWheelSpeed( BOTH, speed );
-        }
-        setWheelSpeed( BOTH, speed );
-        usleep( TWENTY_MS );
+        usleep( TEN_MS );
         left_value = left_sensor();
+        printf("Sensor value: %.2f.\n",left_value);
         // You could instead check the sensor here
+
     }
+    setWheelSpeed( BOTH, speed );
     stop();
+    int bytes = read( serial_port, &buffer, sizeof(buffer) );
+    if ( bytes > 0 )
+    {
+        buffer[bytes] = '\0';
+        printf("buffer (%d bytes): %s\n", bytes, buffer );
+        fflush(stdout);
+    }
 }
 
 void follow_right_wall_until_end( unsigned char speed, int target )
@@ -246,9 +228,8 @@ void follow_right_wall_until_obstacle( unsigned char speed, int target, int tole
 
 void start_to_cp( )
 {
-    follow_left_wall_until_end( 190, WALL_FOLLOW_TARGET );  // This is 6, below it is 5???
-    drive( SIX_INCHES, 2 ); // drive forward six inches in 2 seconds
-    sleep(3);
+    drive( 32, 4 );
+    sleep(5);
     turn( FULL_LEFT_TURN, 2 );
     sleep(3);
     forward_until_obstacle( 190, 1 );
@@ -336,27 +317,19 @@ void cp_to_yellow( )
     sleep(5);
 }
 
-bool pick_up_victim_1()
+bool retrieve_victim_1()
 {
     claw( OPEN );
     start_to_cp();
     sleep(1);
-    // follow_left_wall_until_end( 190, 10 );
     drive( 18, 3 );
     sleep(4);
-    follow_right_wall_until_obstacle( 210, 6.0, 10 );
+    follow_right_wall_until_obstacle( 210, 7.0, 10 );
     claw( CLOSE );
     sleep(1);
     claw( RAISE );
     turn( LEFT_180, 4 );
     sleep(5);
-    stop();
-
-    return true;
-}
-
-bool drop_off_victim_1()
-{
     follow_left_wall_until_end( 180, 5.0 );     // Should this be 5 or 6???
     claw( LOWER );
     sleep(1);

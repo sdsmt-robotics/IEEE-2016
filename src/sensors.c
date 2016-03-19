@@ -106,6 +106,7 @@ void poll_sensors()
     printf("back (V): %d back (cm): %.1f\n", back, map_voltage_to_distance(back) );
     printf("left (V): %d left (cm): %.1f\n", left, map_voltage_to_distance(left) );
     printf("right (V): %d right (cm): %.1f\n", right, map_voltage_to_distance(right) );
+    printf("===========================\n");
    
 }
 
