@@ -78,6 +78,12 @@
 #define WALL_FOLLOW_TARGET 6.0
 #define WALL_FOLLOW_TOLERANCE 0.05
 
+//Timing delays
+#define TEN_MS 10000
+#define TWENTY_MS 20000
+
+
+
 //global serial port variable so we can avoid hours of pain when we forget
 //to pass this to a function and wonder wtf is happening.
 //Also, why does `gcc -Wall` compile function calls that don't have the

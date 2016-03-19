@@ -28,7 +28,7 @@ void forward_until_obstacle( unsigned char speed, int tolerance )
         front_value = front_sensor();
         printf("Not hitting wall yet.\n");
         printf("front: %.2f\n", front_value );
-        usleep( 20*1000 );
+        usleep( TWENTY_MS );
     }
 }
 
@@ -41,7 +41,7 @@ void forward_until_left_end( unsigned char speed )
     {
         printf("Following left wall.\n");
         left_value = left_sensor();
-        usleep( 20*1000 );
+        usleep( TWENTY_MS );
     }
 }
 
@@ -54,7 +54,7 @@ void forward_until_right_end( unsigned char speed )
     {
         printf("Following right wall.\n");
         right_value = right_sensor();
-        usleep( 20*1000 );
+        usleep( TWENTY_MS );
     }
     stop();
 }
@@ -111,11 +111,13 @@ void follow_left_wall_until_end( unsigned char speed, int target )
         {
             printf("Too far away from wall.\n");
             setWheelSpeed( RIGHT, speed + (speed/10.0 - 9) );
+            
             // Actually move towards the wall a little
-            usleep( 20*1000 ); // 10 mS
+            usleep( TEN_MS ); 
             setWheelSpeed( BOTH, speed + (speed/10.0 - 9) );
+
             // Correct orientation
-            usleep( 20*1000 ); // 10 mS
+            usleep( TEN_MS ); 
             setWheelSpeed( RIGHT, speed - (speed/10.0 - 9) );
 
         }
@@ -123,11 +125,13 @@ void follow_left_wall_until_end( unsigned char speed, int target )
         {
             printf("Too close to wall.\n");
             setWheelSpeed( RIGHT, speed - (speed/10.0 - 9) );
+
             // Actually move towards the wall a little
-            usleep( 20*1000 ); // 10 mS
+            usleep( TEN_MS ); 
             setWheelSpeed( BOTH, speed + (speed/10.0 - 9) );
+            
             // Correct orientation
-            usleep( 20*1000 ); // 10 mS
+            usleep( TWENTY_MS );
             setWheelSpeed( RIGHT, speed + (speed/10.0 - 9) );
         }
         else
@@ -135,7 +139,7 @@ void follow_left_wall_until_end( unsigned char speed, int target )
             printf("Goldilocks zone.\n");
             setWheelSpeed( BOTH, speed );
         }
-        usleep( 20*1000 ); // 10 mS
+        usleep( TWENTY_MS );
         left_value = left_sensor();
         // You could instead check the sensor here
     }
@@ -165,7 +169,7 @@ void follow_right_wall_until_end( unsigned char speed, int target )
             printf("Goldilocks zone.\n");
             setWheelSpeed( BOTH, speed );
         }
-        usleep( 20*1000 ); // 10 mS
+        usleep( TWENTY_MS ); // 10 mS
     }
     stop();
 }
@@ -198,7 +202,7 @@ void follow_left_wall_until_obstacle( unsigned char speed, int target, int toler
             printf("Goldilocks zone.\n");
             setWheelSpeed( BOTH, speed );
         }
-        usleep( 20*1000 );
+        usleep( TWENTY_MS );
     }
     stop();
 }
@@ -232,7 +236,7 @@ void follow_right_wall_until_obstacle( unsigned char speed, int target, int tole
             printf("Goldilocks zone.\n");
             setWheelSpeed( BOTH, speed );
         }
-        usleep( 20*1000 );
+        usleep( TWENTY_MS );
     }
     stop();
 }
