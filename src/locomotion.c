@@ -190,7 +190,7 @@ void var_turn( int angle, int runtime )
     steps = round( STEPS_PER_MM * arc_length );
 
     //printf("Turning %d degrees in %d seconds. arc length = %f and %d steps.\n", angle, runtime, arc_length, steps );
-
+    stop();
     if ( angle < 0 ) // turning left
     {
         driveWheelSteps( RIGHT, steps, runtime );
@@ -201,4 +201,5 @@ void var_turn( int angle, int runtime )
     {
         stop();
     }
+    stop();
 }

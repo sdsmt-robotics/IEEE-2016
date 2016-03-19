@@ -1,12 +1,17 @@
 #ifndef __ROBOT_DEFINES_
 #define __ROBOT_DEFINES_
 
+#include <stdbool.h>
+
 // right/left defines. Doesn't matter what these values are as long as they're unique
 #define LEFT 0
 #define RIGHT 1
 #define BOTH 2
 #define FRONT 3
 #define BACK 4
+
+#define YELLOW true
+#define RED false
 
 // motor defines
 #define LEFT_MOTOR_FLAG  0x4C
@@ -89,5 +94,6 @@
 //Also, why does `gcc -Wall` compile function calls that don't have the
 //correct number of arguments? Seriouslly, wtf?
 extern int serial_port;
+extern bool victim_color;
 
 #endif

@@ -70,7 +70,7 @@ void follow_left_wall_until_end( unsigned char speed, int target )
     char buffer[512] = "";
 
 
-    while ( left_value < 6.5 )
+    while ( left_value < 6.75 )
     {
         // We need to ensure we're not adjusting for a wall that's not there.
         // It may have been turning itself towards the wall and reading again,
@@ -114,7 +114,7 @@ void follow_left_wall_until_end( unsigned char speed, int target )
             setWheelSpeed( BOTH, speed );
         }
         
-        usleep( TEN_MS );
+        // usleep( TEN_MS );
         left_value = left_sensor();
         printf("Sensor value: %.2f.\n",left_value);
         // You could instead check the sensor here
@@ -134,10 +134,12 @@ void follow_left_wall_until_end( unsigned char speed, int target )
 void follow_right_wall_until_end( unsigned char speed, int target )
 {
     setWheelSpeed( BOTH, speed );
-    double right_value = 0;
-    while ( right_value < INF_DISTANCE )
+    double right_value = right_sensor();
+    char buffer[512] = "";
+
+    while ( right_value < 10.0 )
     {
-        right_value = right_sensor(); // has 10 mS delay inside
+       
         printf("right: %.2f\n", right_value);
         if ( right_value > target + WALL_FOLLOW_TOLERANCE )
         {
@@ -154,22 +156,28 @@ void follow_right_wall_until_end( unsigned char speed, int target )
             printf("Goldilocks zone.\n");
             setWheelSpeed( BOTH, speed );
         }
-        usleep( TWENTY_MS ); // 10 mS
+        // usleep( 5*1000 ); // 10 mS
+        right_value = right_sensor();
     }
     stop();
+    int bytes = read( serial_port, &buffer, sizeof(buffer) );
+    if ( bytes > 0 )
+    {
+        buffer[bytes] = '\0';
+        printf("buffer (%d bytes): %s\n", bytes, buffer );
+        fflush(stdout);
+    }
 }
 
 void follow_left_wall_until_obstacle( unsigned char speed, int target, int tolerance )
 {
     setWheelSpeed( BOTH, speed );
-    double left_value = 0;
-    double front_value = 200;
+    double front_value = front_sensor();
+    double left_value = left_sensor();
+    char buffer[512] = "";
 
     while ( front_value > SIX_INCHES + tolerance )
     {
-        front_value = front_sensor();
-        left_value = left_sensor();
-
         printf("front_value: %.2f\n", front_value);
         printf("left_value: %.2f\n", left_value);
         if ( left_value > target + WALL_FOLLOW_TOLERANCE)
@@ -187,22 +195,29 @@ void follow_left_wall_until_obstacle( unsigned char speed, int target, int toler
             printf("Goldilocks zone.\n");
             setWheelSpeed( BOTH, speed );
         }
-        usleep( TWENTY_MS );
+        front_value = front_sensor();
+        left_value = left_sensor();
+        // usleep( TWENTY_MS );
     }
     stop();
+    int bytes = read( serial_port, &buffer, sizeof(buffer) );
+    if ( bytes > 0 )
+    {
+        buffer[bytes] = '\0';
+        printf("buffer (%d bytes): %s\n", bytes, buffer );
+        fflush(stdout);
+    }
 }
 
 void follow_right_wall_until_obstacle( unsigned char speed, int target, int tolerance )
 {
     setWheelSpeed( BOTH, speed );
-    double right_value = 0;
-    double front_value = 200;
+    double front_value = front_sensor();
+    double right_value = right_sensor();
+    char buffer[512] = "";
 
     while ( front_value > SIX_INCHES + tolerance )
     {
-        front_value = front_sensor();
-        right_value = right_sensor();
-
         printf("front: %.2f\n", front_value );
         printf("right: %.2f\n", right_value );
 
@@ -221,9 +236,17 @@ void follow_right_wall_until_obstacle( unsigned char speed, int target, int tole
             printf("Goldilocks zone.\n");
             setWheelSpeed( BOTH, speed );
         }
-        usleep( TWENTY_MS );
+        front_value = front_sensor();
+        right_value = right_sensor();
     }
     stop();
+    int bytes = read( serial_port, &buffer, sizeof(buffer) );
+    if ( bytes > 0 )
+    {
+        buffer[bytes] = '\0';
+        printf("buffer (%d bytes): %s\n", bytes, buffer );
+        fflush(stdout);
+    }
 }
 
 void start_to_cp( )
@@ -258,96 +281,99 @@ void cp_to_start()
 
 void cp_to_red()
 {
-    turn( FULL_RIGHT_TURN, 2 );
-    sleep(3);
+    //drive forward 17 cm then turn
+    drive( 15, 2 );
+    sleep(2);
+    turn( FULL_LEFT_TURN, 2 );
+    sleep(2);
 
-    forward_until_obstacle( 190, 0 );
+    drive( 35, 3);
+    sleep(3);
+    forward_until_obstacle( 210, 8 );
 
     turn( FULL_LEFT_TURN, 2 );
+    sleep(2);
+
+    drive( 20, 3 );
     sleep(3);
-    follow_left_wall_until_obstacle( 190, 0, WALL_FOLLOW_TARGET );
+    follow_left_wall_until_obstacle( 210, 5.5, 4 );
 
-    claw(LOWER);
     claw(OPEN);
-    sleep(1);
     claw(RAISE);
-    sleep(1);
-    // Note: May have to reverse first!
-    claw(CLOSE);
-
-    sleep(1);
 
     drive( -35, 3 );
-    sleep(4);
-    turn( RIGHT_180, 3 );
-    sleep(4);
+    sleep(3);
+    claw(CLOSE);
 
-    follow_right_wall_until_end( 190, WALL_FOLLOW_TARGET );
+    var_turn( FULL_RIGHT_TURN, 3 );
+    sleep(3);
+    turn( FULL_RIGHT_TURN, 2 );
+    sleep(2);
+
+    follow_right_wall_until_end( 210, 6.0 );
 
     drive( SIX_INCHES, 2 );
-    sleep(3);
+    sleep(2);
 
     turn( FULL_RIGHT_TURN, 2 );
-    sleep(3);
+    sleep(2);
 
-    forward_until_obstacle( 190, 0 );
+    drive( SIX_INCHES, 2);
+    sleep(2);
+    forward_until_obstacle( 210, 0 );
     turn( FULL_RIGHT_TURN, 2 );
-    sleep(3);
+    sleep(2);
 }
 
 
-void cp_to_yellow( )
+void cp_to_yellow()
 {
-    turn( RIGHT_180, 4 );
-    sleep(5);
-
-    forward_until_obstacle( 190, 0 );
-    sleep(1);
-
-    claw(LOWER);
-    claw(OPEN);
-    claw(RAISE);
-    // Note: May have to reverse first!
-    claw(CLOSE);
-
-    drive( -2*SIX_INCHES, 4 );
-    sleep(5);
-
+    drive( 34, 3 );
+    sleep(3);
+    claw( OPEN );
+    claw( RAISE );
+    drive( -25, 3 );
+    sleep(3);
     turn( LEFT_180, 4 );
-    sleep(5);
+    claw( CLOSE );
+    sleep(1); //these sleeps add to 4
+    claw( OPEN );
+    sleep(1);
+    claw( CLOSE );
+    sleep(1);
+    claw( OPEN );
+    sleep(1);
+    claw( CLOSE );
 }
 
 bool retrieve_victim_1()
 {
     claw( OPEN );
     start_to_cp();
-    sleep(1);
     drive( 18, 3 );
-    sleep(4);
-    follow_right_wall_until_obstacle( 210, 7.0, 10 );
+    sleep(3);
+    follow_right_wall_until_obstacle( 210, 6.0, 6 );
     claw( CLOSE );
-    sleep(1);
+    usleep(500*1000); //0.5 sec
     claw( RAISE );
     turn( LEFT_180, 4 );
-    sleep(5);
-    follow_left_wall_until_end( 180, 5.0 );     // Should this be 5 or 6???
-    claw( LOWER );
-    sleep(1);
-    forward_until_obstacle( 190, 0 );
-    claw( OPEN );
-    drive( -1.8*SIX_INCHES, 3 );
     sleep(4);
-    turn( LEFT_180, 4 );
-    claw( CLOSE );
-    sleep(1);
-    claw( OPEN );
-    sleep(1);
-    claw( CLOSE );
-    sleep(1);
-    claw( OPEN );
-    sleep(1);
-    claw( CLOSE );
+    follow_left_wall_until_end( 210, 5.0 );
+    claw( LOWER );
+    stop();
 
+    if ( victim_color == YELLOW )
+    {
+        // cp_to_yellow();
+    } else if ( victim_color == RED )
+    {
+        // cp_to_red();
+    } else 
+    {
+        printf("crap\n");
+    }
+    stop();
+   
     return true;
 }
 
