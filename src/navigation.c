@@ -111,7 +111,7 @@ void follow_left_wall_until_end( unsigned char speed, int target )
         {
             printf("Too far away from wall.\n");
             setWheelSpeed( RIGHT, speed + (speed/10.0 - 9) );
-            
+
             // Actually move towards the wall a little
             usleep( TEN_MS ); 
             setWheelSpeed( BOTH, speed + (speed/10.0 - 9) );
@@ -137,8 +137,9 @@ void follow_left_wall_until_end( unsigned char speed, int target )
         else
         {
             printf("Goldilocks zone.\n");
-            setWheelSpeed( BOTH, speed );
+            //setWheelSpeed( BOTH, speed );
         }
+        setWheelSpeed( BOTH, speed );
         usleep( TWENTY_MS );
         left_value = left_sensor();
         // You could instead check the sensor here
