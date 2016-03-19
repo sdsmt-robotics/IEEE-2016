@@ -95,7 +95,8 @@ void follow_left_wall_until_end( unsigned char speed, int target )
 void follow_left_wall_until_end( unsigned char speed, int target )
 {
     setWheelSpeed( BOTH, speed );
-    double left_value = 0;
+    double left_value = left_sensor();
+
     while ( left_value < INF_DISTANCE )
     {
         // We need to ensure we're not adjusting for a wall that's not there
@@ -103,29 +104,30 @@ void follow_left_wall_until_end( unsigned char speed, int target )
 
         // It may have been turning itself towards the wall and reading again,
         // seeing the wall still (since it pointed itself at the wall).
-        left_value = left_sensor();
-        poll_sensors();
+        
+        poll_sensors();     // Why is this here??
         printf("======\n");
         printf("left: %.1f\n", left_value );
         printf("======\n");
-        if ( left_value > target + WALL_FOLLOW_TOLERANCE &&
-             left_value < INF_DISTANCE )
+        if ( left_value > target + WALL_FOLLOW_TOLERANCE )
         {
             printf("Too far away from wall.\n");
             setWheelSpeed( RIGHT, speed + (speed/10.0 - 9) );
         }
-        else if ( left_value < target - WALL_FOLLOW_TOLERANCE &&
-                  left_value < INF_DISTANCE )
+        else if ( left_value < target - WALL_FOLLOW_TOLERANCE )
         {
             printf("Too close to wall.\n");
             setWheelSpeed( RIGHT, speed - (speed/10.0 - 9) );
         }
-        else if (left_value < INF_DISTANCE)
+        else
         {
             printf("Goldilocks zone.\n");
             setWheelSpeed( BOTH, speed );
         }
         usleep( 20*1000 ); // 10 mS
+        left_value = left_sensor();
+        // You could instead check the sensor again here rather than
+        // the " && left_value < INF_DISTANCE )" on each statement.
     }
     stop();
 }
