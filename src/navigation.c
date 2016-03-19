@@ -99,9 +99,7 @@ void follow_left_wall_until_end( unsigned char speed, int target )
 
     while ( left_value < INF_DISTANCE )
     {
-        // We need to ensure we're not adjusting for a wall that's not there
-        // added " && left_value < INF_DISTANCE )" to each conditional check
-
+        // We need to ensure we're not adjusting for a wall that's not there.
         // It may have been turning itself towards the wall and reading again,
         // seeing the wall still (since it pointed itself at the wall).
         
@@ -126,8 +124,7 @@ void follow_left_wall_until_end( unsigned char speed, int target )
         }
         usleep( 20*1000 ); // 10 mS
         left_value = left_sensor();
-        // You could instead check the sensor again here rather than
-        // the " && left_value < INF_DISTANCE )" on each statement.
+        // You could instead check the sensor here
     }
     stop();
 }
