@@ -18,23 +18,19 @@ int main( int argc, char* argv[] )
 {
     serial_port = sys_init();
 
-    // claw( OPEN );
-    // follow_left_wall_until_end( 200, 9.0 );
-    // follow_right_wall_until_obstacle( 200, WALL_FOLLOW_TARGET, 10 );
-    // claw( CLOSE );
-    // claw( RAISE );
-    // sleep(1);
-    // turn( LEFT_180, 4 );
-    // sleep(5);
-    // follow_left_wall_until_end( 200, WALL_FOLLOW_TARGET );
+    claw( OPEN );
+    follow_left_wall_until_end( 200, 6.0 );
+    sleep(2);
+    follow_right_wall_until_end( 200, 6.0 );
+    sleep(2);
+    follow_left_wall_until_end( 200, 6.0 );
 
 
-    pick_up_victim_1();
-    drop_off_victim_1();
+    // pick_up_victim_1();
+    // drop_off_victim_1();
 
     // while( 1 )
     // {
-    //
     //     poll_sensors();
     //     sleep(1);
     // }
