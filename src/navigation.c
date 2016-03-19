@@ -111,11 +111,24 @@ void follow_left_wall_until_end( unsigned char speed, int target )
         {
             printf("Too far away from wall.\n");
             setWheelSpeed( RIGHT, speed + (speed/10.0 - 9) );
+            // Actually move towards the wall a little
+            usleep( 20*1000 ); // 10 mS
+            setWheelSpeed( BOTH, speed + (speed/10.0 - 9) );
+            // Correct orientation
+            usleep( 20*1000 ); // 10 mS
+            setWheelSpeed( RIGHT, speed - (speed/10.0 - 9) );
+
         }
         else if ( left_value < target - WALL_FOLLOW_TOLERANCE )
         {
             printf("Too close to wall.\n");
             setWheelSpeed( RIGHT, speed - (speed/10.0 - 9) );
+            // Actually move towards the wall a little
+            usleep( 20*1000 ); // 10 mS
+            setWheelSpeed( BOTH, speed + (speed/10.0 - 9) );
+            // Correct orientation
+            usleep( 20*1000 ); // 10 mS
+            setWheelSpeed( RIGHT, speed + (speed/10.0 - 9) );
         }
         else
         {
