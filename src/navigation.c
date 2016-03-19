@@ -119,6 +119,7 @@ void follow_left_wall_until_end( unsigned char speed, int target )
             // Correct orientation
             usleep( TEN_MS ); 
             setWheelSpeed( RIGHT, speed - (speed/10.0 - 9) );
+            usleep( TEN_MS ); 
 
         }
         else if ( left_value < target - WALL_FOLLOW_TOLERANCE )
@@ -131,8 +132,9 @@ void follow_left_wall_until_end( unsigned char speed, int target )
             setWheelSpeed( BOTH, speed + (speed/10.0 - 9) );
             
             // Correct orientation
-            usleep( TWENTY_MS );
+            usleep( TEN_MS ); 
             setWheelSpeed( RIGHT, speed + (speed/10.0 - 9) );
+            usleep( TEN_MS ); 
         }
         else
         {
