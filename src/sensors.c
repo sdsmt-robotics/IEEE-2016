@@ -40,12 +40,12 @@ void temporary_sensor_request()
     char buffer[512] = "";
     int n = 0;
 
-    int nothing = write( serial_port, &flag, 1);
+    int nothing = write( send_port, &flag, 1);
     nothing += 1;
     while ( n <= 6 )
     {
         usleep(SENSOR_PROC_DELAY_US);
-        n = read( serial_port, &buffer, sizeof(buffer) );
+        n = read( receive_port, &buffer, sizeof(buffer) );
     }
 
     if( n > 0 )
@@ -71,12 +71,12 @@ void poll_sensors()
     unsigned char left_byte = 0;
     unsigned char right_byte = 0;
 
-    int nothing = write( serial_port, &flag, 1);
+    int nothing = write( send_port, &flag, 1);
     nothing += 1;
     while ( n < 6 )
     {
         usleep(SENSOR_PROC_DELAY_US);
-        n = read( serial_port, &buffer, sizeof(buffer) );
+        n = read( receive_port, &buffer, sizeof(buffer) );
     }
 
     //Odroid is little-Endian as well.
@@ -104,10 +104,10 @@ void poll_sensors()
     back = back << 8;
     back = back | right_byte;
 
-    printf("front (V): %d front (cm): %.1f\n", front, map_voltage_to_distance(front) );
-    printf("back (V): %d back (cm): %.1f\n", back, map_voltage_to_distance(back) );
-    printf("left (V): %d left (cm): %.1f\n", left, map_voltage_to_distance(left) );
-    printf("right (V): %d right (cm): %.1f\n", right, map_voltage_to_distance(right) );
+    printf("front (V): %02x front (cm): %.1f\n", front, map_voltage_to_distance(front) );
+    printf("back (V): %02x back (cm): %.1f\n", back, map_voltage_to_distance(back) );
+    printf("left (V): %02x left (cm): %.1f\n", left, map_voltage_to_distance(left) );
+    printf("right (V): %02x right (cm): %.1f\n", right, map_voltage_to_distance(right) );
     printf("===========================\n");
    
 }
@@ -122,12 +122,12 @@ int poll_left_sensor()
     unsigned char left_byte = 0;
     unsigned char right_byte = 0;
 
-    int nothing = write( serial_port, &request_flag, 1 );
+    int nothing = write( send_port, &request_flag, 1 );
     nothing += 1;
     while ( n < 2 )
     {
         usleep(SENSOR_PROC_DELAY_US);
-        n = read( serial_port, &buffer, sizeof(buffer) );
+        n = read( receive_port, &buffer, sizeof(buffer) );
     }
 
     left_byte = (unsigned char) buffer[0];
@@ -149,13 +149,13 @@ int poll_right_sensor()
     unsigned char left_byte = 0;
     unsigned char right_byte = 0;
 
-    int nothing = write( serial_port, &request_flag, 1 );
+    int nothing = write( send_port, &request_flag, 1 );
     nothing += 1;
 
     while ( n < 2 )
     {
         usleep(SENSOR_PROC_DELAY_US);
-        n = read( serial_port, &buffer, sizeof(buffer) );
+        n = read( receive_port, &buffer, sizeof(buffer) );
         
     }
 
@@ -178,12 +178,12 @@ int poll_front_sensor()
     unsigned char left_byte = 0;
     unsigned char right_byte = 0;
 
-    int nothing = write( serial_port, &request_flag, 1 );
+    int nothing = write( send_port, &request_flag, 1 );
     nothing += 1;
     while ( n < 2 )
     {
         usleep(SENSOR_PROC_DELAY_US);
-        n = read( serial_port, &buffer, sizeof(buffer) );
+        n = read( receive_port, &buffer, sizeof(buffer) );
     }
 
     left_byte = (unsigned char) buffer[0];
@@ -205,12 +205,12 @@ int poll_back_sensor()
     unsigned char left_byte = 0;
     unsigned char right_byte = 0;
 
-    int nothing = write( serial_port, &request_flag, 1 );
+    int nothing = write( send_port, &request_flag, 1 );
     nothing += 1;
     while ( n < 2 )
     {
         usleep(SENSOR_PROC_DELAY_US);
-        n = read( serial_port, &buffer, sizeof(buffer) );
+        n = read( receive_port, &buffer, sizeof(buffer) );
     }
 
     left_byte = (unsigned char) buffer[0];

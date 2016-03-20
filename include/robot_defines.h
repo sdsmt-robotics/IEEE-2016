@@ -43,7 +43,7 @@
 #define LEFT_180 -180
 
 //communication defines
-#define ROBOT_BAUDRATE 115200
+#define ROBOT_BAUDRATE 57600
 #define ARDUINO_COMM_LOCATION "/dev/robot/arduino"
 #define SENSORS_COMM_LOCATION "/dev/robot/sensors"
 #define ARDUINO_RECEIVED_BYTE 0x13
@@ -93,7 +93,8 @@
 //to pass this to a function and wonder wtf is happening.
 //Also, why does `gcc -Wall` compile function calls that don't have the
 //correct number of arguments? Seriouslly, wtf?
-extern int serial_port;
+extern int send_port;
+extern int receive_port;
 extern bool victim_color;
 
 #endif

@@ -12,12 +12,14 @@
 
 //#define printf LOG //To log to logfile AND console
 
-int serial_port;
+int send_port;
+int receive_port;
 bool victim_color;
 
 int main( int argc, char* argv[] )
 {
-    serial_port = sys_init();
+    send_port = send_init();
+    receive_port = receive_init();
     victim_color = YELLOW;
 
     // claw(CLOSE);
@@ -33,16 +35,15 @@ int main( int argc, char* argv[] )
 
     // retrieve_victim_1();
 
-    while( 1 )
+    while ( 1 )
     {
-        poll_sensors();
+        printf("left: %.1f\n", left_sensor() );
         sleep(1);
     }
-
     return 0;
 }
 
-int sys_init()
+int send_init()
 {
     int serial_file = serial_init(ARDUINO_COMM_LOCATION, ROBOT_BAUDRATE); // attempts to open the connection to the arduino with the BAUDRATE specified in the ROBOT_DEFINITIONS.h
 
@@ -53,6 +54,26 @@ int sys_init()
             printf("Can't open serial port, trying again in 1 sec.\n"); // arduino not located, please stop breaking things
             sleep(1);
             serial_file = serial_init(ARDUINO_COMM_LOCATION, ROBOT_BAUDRATE);
+        }
+    }
+
+    clearPort(serial_file);
+    printf("Serial successfully initialized. File handle: %d\n", serial_file );
+    sleep(2); //wait for serial to initialize properly
+    return serial_file;
+}
+
+int receive_init()
+{
+    int serial_file = serial_init(SENSORS_COMM_LOCATION, ROBOT_BAUDRATE); // attempts to open the connection to the arduino with the BAUDRATE specified in the ROBOT_DEFINITIONS.h
+
+    if(serial_file < 0)
+    {
+        while(serial_file < 0)
+        {
+            printf("Can't open serial port, trying again in 1 sec.\n"); // arduino not located, please stop breaking things
+            sleep(1);
+            serial_file = serial_init(SENSORS_COMM_LOCATION, ROBOT_BAUDRATE);
         }
     }
 

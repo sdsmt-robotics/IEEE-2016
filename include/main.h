@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 
-int sys_init();
+int send_init();
+int receive_init();
 
 #endif

@@ -18,29 +18,29 @@ void setWheelSpeed( int wheel, unsigned char speed )
     {
         //printf("Writing %d to right motor.\n", speed);
         motor_flag = RIGHT_MOTOR_FLAG;
-        bytes = bytes + write( serial_port, &motor_flag, 1 );
-        bytes = bytes + write( serial_port, &speed, 1 );
+        bytes = bytes + write( send_port, &motor_flag, 1 );
+        bytes = bytes + write( send_port, &speed, 1 );
         //printf("wrote %d bytes to motor\n", bytes );
     } else if ( wheel == LEFT )
     {
         //printf("Writing %d to left motor.\n", speed);
         motor_flag = LEFT_MOTOR_FLAG;
-        bytes = bytes + write( serial_port, &motor_flag, 1 );
-        bytes = bytes + write( serial_port, &speed, 1 );
+        bytes = bytes + write( send_port, &motor_flag, 1 );
+        bytes = bytes + write( send_port, &speed, 1 );
         //printf("wrote %d bytes to motor\n", bytes );
     } else if ( wheel == BOTH )
     {
         //printf("Writing %d to both motors.\n", speed);
         //printf("Writing %d to right motor.\n", speed);
         motor_flag = RIGHT_MOTOR_FLAG;
-        bytes = bytes + write( serial_port, &motor_flag, 1 );
-        bytes = bytes + write( serial_port, &speed, 1 );
+        bytes = bytes + write( send_port, &motor_flag, 1 );
+        bytes = bytes + write( send_port, &speed, 1 );
         //printf("wrote %d bytes to motor\n", bytes );
 
         //printf("Writing %d to left motor.\n", speed);
         motor_flag = LEFT_MOTOR_FLAG;
-        bytes = write( serial_port, &motor_flag, 1 );
-        bytes = bytes + write( serial_port, &speed, 1 );
+        bytes = write( send_port, &motor_flag, 1 );
+        bytes = bytes + write( send_port, &speed, 1 );
         //printf("wrote %d bytes to left motor\n", bytes );
     } else
     {
@@ -61,16 +61,16 @@ void driveWheelSteps( int wheel, int steps, int runtime )
     {
         //printf("Writing to right motor.\n");
         motor_flag = RIGHT_MOTOR_STEPS_FLAG;
-        n = n + write( serial_port, &motor_flag, 1 );
-        n = n + write( serial_port, &steps, sizeof(steps) );
-        n = n + write( serial_port, &runtime, sizeof(runtime) );
+        n = n + write( send_port, &motor_flag, 1 );
+        n = n + write( send_port, &steps, sizeof(steps) );
+        n = n + write( send_port, &runtime, sizeof(runtime) );
     } else if ( wheel == LEFT )
     {
         //printf("Writing to left motor.\n");
         motor_flag = LEFT_MOTOR_STEPS_FLAG;
-        n = n + write( serial_port, &motor_flag, 1 );
-        n = n + write( serial_port, &steps, sizeof(steps) );
-        n = n + write( serial_port, &runtime, sizeof(runtime) );
+        n = n + write( send_port, &motor_flag, 1 );
+        n = n + write( send_port, &steps, sizeof(steps) );
+        n = n + write( send_port, &runtime, sizeof(runtime) );
     } else if ( wheel == BOTH )
     {
         //printf("Writing to both motors.\n");
@@ -140,29 +140,29 @@ void claw( int state )
         value = RAISE_VAL;
         printf("Raising claws. Victim begins to scream.\n");
         motor_flag = SERVO_CLAW_RAISE_TAG;
-        bytes = write( serial_port, &motor_flag, 1 );
-        bytes = bytes + write( serial_port, &value, 1 );
+        bytes = write( send_port, &motor_flag, 1 );
+        bytes = bytes + write( send_port, &value, 1 );
     } else if (state == LOWER )
     {
         value = LOWER_VAL;
         printf("Lowering claws. Victim breathes a sigh of relief.\n");
         motor_flag = SERVO_CLAW_RAISE_TAG;
-        bytes = write( serial_port, &motor_flag, 1 );
-        bytes = bytes + write( serial_port, &value, 1 );
+        bytes = write( send_port, &motor_flag, 1 );
+        bytes = bytes + write( send_port, &value, 1 );
     } else if ( state == OPEN )
     {
         value = OPEN_VAL;
         printf("Opening claws. Victim barely escapes with their life.\n");
         motor_flag = SERVO_CLAW_CLOSE_TAG;
-        bytes = write( serial_port, &motor_flag, 1 );
-        bytes = bytes + write( serial_port, &value, 1 );
+        bytes = write( send_port, &motor_flag, 1 );
+        bytes = bytes + write( send_port, &value, 1 );
     } else if ( state == CLOSE )
     {
         value = CLOSE_VAL;
         printf("Closing claws. Crushing victim.\n");
         motor_flag = SERVO_CLAW_CLOSE_TAG;
-        bytes = write( serial_port, &motor_flag, 1 );
-        bytes = bytes + write( serial_port, &value, 1 );
+        bytes = write( send_port, &motor_flag, 1 );
+        bytes = bytes + write( send_port, &value, 1 );
     } else {
         printf("I don't know what you mean by that.\n");
         printf("Attempting to send state: %d defined in robot_defines under claw state.\n", state );
@@ -240,7 +240,7 @@ void follow_left_wall_until_end( unsigned char speed, int target )
     }
     setWheelSpeed( BOTH, speed );
     stop();
-    int bytes = read( serial_port, &buffer, sizeof(buffer) );
+    int bytes = read( receive_port, &buffer, sizeof(buffer) );
     if ( bytes > 0 )
     {
         buffer[bytes] = '\0';
@@ -277,7 +277,7 @@ void follow_right_wall_until_end( unsigned char speed, int target )
         printf("right: %.2f\n", right_value);
     }
     stop();
-    int bytes = read( serial_port, &buffer, sizeof(buffer) );
+    int bytes = read( receive_port, &buffer, sizeof(buffer) );
     if ( bytes > 0 )
     {
         buffer[bytes] = '\0';
@@ -317,7 +317,7 @@ void follow_left_wall_until_obstacle( unsigned char speed, int target, int toler
         printf("left_value: %.2f\n", left_value);
     }
     stop();
-    int bytes = read( serial_port, &buffer, sizeof(buffer) );
+    int bytes = read( receive_port, &buffer, sizeof(buffer) );
     if ( bytes > 0 )
     {
         buffer[bytes] = '\0';
@@ -357,7 +357,7 @@ void follow_right_wall_until_obstacle( unsigned char speed, int target, int tole
         printf("right: %.2f\n", right_value );
     }
     stop();
-    int bytes = read( serial_port, &buffer, sizeof(buffer) );
+    int bytes = read( receive_port, &buffer, sizeof(buffer) );
     if ( bytes > 0 )
     {
         buffer[bytes] = '\0';
@@ -406,7 +406,7 @@ void test_follow_left_wall_until_end (unsigned char speed, int target)
     setWheelSpeed( BOTH, speed );
     stop();
 
-    bytes_read = read( serial_port, &buffer, sizeof(buffer) );
+    bytes_read = read( receive_port, &buffer, sizeof(buffer) );
     if ( bytes_read > 0 )
     {
         buffer[bytes_read] = '\0';
