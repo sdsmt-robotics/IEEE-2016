@@ -20,30 +20,24 @@ int main( int argc, char* argv[] )
     serial_port = sys_init();
     victim_color = YELLOW;
 
-    // claw( OPEN );
-    // follow_left_wall_until_end( 200, 6.0 );
-    // sleep(2);
-    // follow_right_wall_until_end( 200, 6.0 );
-    // sleep(2);
+    // claw(CLOSE);
+    // usleep(500*1000);
+    // claw(RAISE);
 
-    claw(CLOSE);
-    usleep(500*1000);
-    claw(RAISE);
+    // poll_sensors();
+    // sleep(1);
+    // poll_sensors();
+    
+    // test_follow_left_wall_until_end( 210, 4.0 );
 
-    follow_left_wall_until_end( 210, 5.0 );
-    claw(LOWER);
-    cp_to_red();
-
-    // var_turn( FULL_RIGHT_TURN, 2 );
-    // sleep(2);
 
     // retrieve_victim_1();
 
-    // while( 1 )
-    // {
-    //     poll_sensors();
-    //     sleep(1);
-    // }
+    while( 1 )
+    {
+        poll_sensors();
+        sleep(1);
+    }
 
     return 0;
 }

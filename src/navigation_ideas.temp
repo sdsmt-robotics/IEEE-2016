@@ -13,16 +13,15 @@
 #include <stdio.h>
 
 
-
 /*
 * This version of the left wall following function should damp the "sine wave"
 * pattern we have been noticing. This should reduce irregularities in the
 * performance of the robot while pathing. If this method works well we should
 * be able to apply this to the right wall following function as well.
 */
-follow_left_wall_until_end (unsigned char speed, int target)
+void follow_left_wall_until_end (unsigned char speed, int target)
 {
-    set WheelSpeed(BOTH, speed); //start moving forward
+    setWheelSpeed(BOTH, speed); //start moving forward
     double left_value = left_sensor(); // poll sensor
     char buffer[512] = "";
     char speed_mod = speed/10; // one tenth of given speed

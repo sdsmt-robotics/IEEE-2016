@@ -41,6 +41,7 @@ void temporary_sensor_request()
     int n = 0;
 
     int nothing = write( serial_port, &flag, 1);
+    nothing += 1;
     while ( n <= 6 )
     {
         usleep(SENSOR_PROC_DELAY_US);
@@ -71,6 +72,7 @@ void poll_sensors()
     unsigned char right_byte = 0;
 
     int nothing = write( serial_port, &flag, 1);
+    nothing += 1;
     while ( n < 6 )
     {
         usleep(SENSOR_PROC_DELAY_US);
@@ -121,6 +123,7 @@ int poll_left_sensor()
     unsigned char right_byte = 0;
 
     int nothing = write( serial_port, &request_flag, 1 );
+    nothing += 1;
     while ( n < 2 )
     {
         usleep(SENSOR_PROC_DELAY_US);
@@ -147,6 +150,7 @@ int poll_right_sensor()
     unsigned char right_byte = 0;
 
     int nothing = write( serial_port, &request_flag, 1 );
+    nothing += 1;
 
     while ( n < 2 )
     {
@@ -175,6 +179,7 @@ int poll_front_sensor()
     unsigned char right_byte = 0;
 
     int nothing = write( serial_port, &request_flag, 1 );
+    nothing += 1;
     while ( n < 2 )
     {
         usleep(SENSOR_PROC_DELAY_US);
@@ -201,6 +206,7 @@ int poll_back_sensor()
     unsigned char right_byte = 0;
 
     int nothing = write( serial_port, &request_flag, 1 );
+    nothing += 1;
     while ( n < 2 )
     {
         usleep(SENSOR_PROC_DELAY_US);
