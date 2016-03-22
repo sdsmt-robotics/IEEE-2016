@@ -22,22 +22,10 @@ int main( int argc, char* argv[] )
     receive_port = receive_init();
     victim_color = YELLOW;
 
-    // claw(CLOSE);
-    // usleep(500*1000);
-    // claw(RAISE);
-
-    // poll_sensors();
-    // sleep(1);
-    // poll_sensors();
-    
-    // test_follow_left_wall_until_end( 210, 4.0 );
-
-
-    // retrieve_victim_1();
-
     while ( 1 )
     {
-        printf("left: %.1f\n", left_sensor() );
+        // printf("left: %.1f\n", left_sensor() );
+        poll_sensors();
         sleep(1);
     }
     return 0;

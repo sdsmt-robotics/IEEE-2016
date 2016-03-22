@@ -378,6 +378,7 @@ void test_follow_left_wall_until_end (unsigned char speed, int target)
     char buffer[512] = "";
     char speed_mod = speed/10;
     int bytes_read = 0;
+    double divis_val = 2;
     setWheelSpeed(BOTH, speed);
     printf("left: %.1f\n", left_value );
     while ( left_value < 6.5 ) // while the wall is there, 6.5 is "infinite"
@@ -389,7 +390,7 @@ void test_follow_left_wall_until_end (unsigned char speed, int target)
             setWheelSpeed( RIGHT, speed + speed_mod );
             left_value = left_sensor();
             printf("left: %.1f.\n", left_value);
-            speed_mod /= 2; //play with this value, 2 seems high if this is going to loop repeatedly
+            speed_mod /= divis_val; //play with this value, 2 seems high if this is going to loop repeatedly
         }
         while( left_value < target - WALL_FOLLOW_TOLERANCE )
         {
@@ -398,7 +399,7 @@ void test_follow_left_wall_until_end (unsigned char speed, int target)
             setWheelSpeed( RIGHT, speed - speed_mod );
             left_value = left_sensor();
             printf("left: %.1f.\n", left_value);
-            speed_mod /= 2; //play with this value, 2 seems high if this is going to loop repeatedly
+            speed_mod /= divis_val; //play with this value, 2 seems high if this is going to loop repeatedly
         }
         left_value = left_sensor();
         printf("left: %.1f.\n", left_value);

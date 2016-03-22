@@ -45,7 +45,7 @@ void temporary_sensor_request()
     while ( n <= 6 )
     {
         usleep(SENSOR_PROC_DELAY_US);
-        n = read( receive_port, &buffer, sizeof(buffer) );
+        n += read( receive_port, &buffer, sizeof(buffer) );
     }
 
     if( n > 0 )
@@ -76,7 +76,7 @@ void poll_sensors()
     while ( n < 6 )
     {
         usleep(SENSOR_PROC_DELAY_US);
-        n = read( receive_port, &buffer, sizeof(buffer) );
+        n += read( receive_port, &buffer, sizeof(buffer) );
     }
 
     //Odroid is little-Endian as well.
@@ -127,7 +127,7 @@ int poll_left_sensor()
     while ( n < 2 )
     {
         usleep(SENSOR_PROC_DELAY_US);
-        n = read( receive_port, &buffer, sizeof(buffer) );
+        n += read( receive_port, &buffer, sizeof(buffer) );
     }
 
     left_byte = (unsigned char) buffer[0];
@@ -155,7 +155,7 @@ int poll_right_sensor()
     while ( n < 2 )
     {
         usleep(SENSOR_PROC_DELAY_US);
-        n = read( receive_port, &buffer, sizeof(buffer) );
+        n += read( receive_port, &buffer, sizeof(buffer) );
         
     }
 
@@ -183,7 +183,7 @@ int poll_front_sensor()
     while ( n < 2 )
     {
         usleep(SENSOR_PROC_DELAY_US);
-        n = read( receive_port, &buffer, sizeof(buffer) );
+        n += read( receive_port, &buffer, sizeof(buffer) );
     }
 
     left_byte = (unsigned char) buffer[0];
@@ -210,7 +210,7 @@ int poll_back_sensor()
     while ( n < 2 )
     {
         usleep(SENSOR_PROC_DELAY_US);
-        n = read( receive_port, &buffer, sizeof(buffer) );
+        n += read( receive_port, &buffer, sizeof(buffer) );
     }
 
     left_byte = (unsigned char) buffer[0];
