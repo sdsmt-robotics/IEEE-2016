@@ -218,7 +218,7 @@ void follow_left_wall_until_end( unsigned char speed, int target )
     double left_value = left_sensor();
     char buffer[512] = "";
 
-    while ( left_value < 6.75 )
+    while ( left_value < INF_DISTANCE )
     {
         if ( left_value > target + WALL_FOLLOW_TOLERANCE )
         {
@@ -255,7 +255,7 @@ void follow_right_wall_until_end( unsigned char speed, int target )
     double right_value = right_sensor();
     char buffer[512] = "";
 
-    while ( right_value < 10.0 )
+    while ( right_value < INF_DISTANCE )
     {
         
         if ( right_value > target + WALL_FOLLOW_TOLERANCE )
@@ -376,30 +376,43 @@ void test_follow_left_wall_until_end (unsigned char speed, int target)
 {
     double left_value = left_sensor();
     char buffer[512] = "";
-    char speed_mod = speed/10;
+    unsigned char speed_mod = speed/10;
     int bytes_read = 0;
-    double divis_val = 2;
+    double divis_val = 1;
+    int i = 0;
     setWheelSpeed(BOTH, speed);
     printf("left: %.1f\n", left_value );
-    while ( left_value < 6.5 ) // while the wall is there, 6.5 is "infinite"
+    while ( left_value < INF_DISTANCE ) // while the wall is there, 6.5 is "infinite"
     {
-        while( left_value > target + WALL_FOLLOW_TOLERANCE )
+        while( (left_value > target + WALL_FOLLOW_TOLERANCE) && (left_value < INF_DISTANCE) )
         {
             printf("Too far away from left wall.\n");
             // increase speed of right wheel
             setWheelSpeed( RIGHT, speed + speed_mod );
             left_value = left_sensor();
             printf("left: %.1f.\n", left_value);
-            speed_mod /= divis_val; //play with this value, 2 seems high if this is going to loop repeatedly
+            i++;
+            if ( i % 10 )
+            {
+                speed_mod -= divis_val; //play with this value, 2 seems high if this is going to loop repeatedly    
+            }
+            
         }
-        while( left_value < target - WALL_FOLLOW_TOLERANCE )
+        i = 0;
+        speed_mod = speed/10;
+        while( (left_value < target - WALL_FOLLOW_TOLERANCE) && (left_value < INF_DISTANCE) )
         {
             printf("Too close to left wall.\n");
             // decrease speed of right wheel
             setWheelSpeed( RIGHT, speed - speed_mod );
             left_value = left_sensor();
             printf("left: %.1f.\n", left_value);
-            speed_mod /= divis_val; //play with this value, 2 seems high if this is going to loop repeatedly
+            i++;
+            if ( i % 10 )
+            {
+                speed_mod -= divis_val; //play with this value, 2 seems high if this is going to loop repeatedly    
+            }
+            
         }
         left_value = left_sensor();
         printf("left: %.1f.\n", left_value);

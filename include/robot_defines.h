@@ -43,7 +43,7 @@
 #define LEFT_180 -180
 
 //communication defines
-#define ROBOT_BAUDRATE 57600
+#define ROBOT_BAUDRATE 115200
 #define ARDUINO_COMM_LOCATION "/dev/robot/arduino"
 #define SENSORS_COMM_LOCATION "/dev/robot/sensors"
 #define ARDUINO_RECEIVED_BYTE 0x13
@@ -59,7 +59,7 @@
 #define IR_LEFT_TAG   0x73
 #define IR_PACKET_END 0x74
 
-#define SENSOR_PROC_DELAY_US 100000
+#define SENSOR_PROC_DELAY_US 50000
 //For blue paint
 #define IR_DISTANCE_SCALAR 0.5
 
