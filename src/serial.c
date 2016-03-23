@@ -118,3 +118,14 @@ int s_read_until(int fd, char* buf, char until)
   buf[i] = '\0';  // null terminate the string
   return strlen(buf);
 }
+
+void clear_buffer()
+{
+    int bytes_read = read( receive_port, &buffer, sizeof(buffer) );
+    if ( bytes_read > 0 )
+    {
+        buffer[bytes_read] = '\0';
+        printf("buffer (%d bytes): %s\n", bytes_read, buffer );
+        fflush(stdout);
+    }
+}

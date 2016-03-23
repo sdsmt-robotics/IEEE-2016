@@ -2,17 +2,18 @@
 #include "../include/robot_defines.h"
 #include "../include/logger.h"
 #include "../include/sensors.h"
+#include "../include/serial.h"
 
 #include <stdio.h>
 #include <unistd.h>
 #include <math.h>
 
-//#define printf LOG
+#define printf LOG
 
 void setWheelSpeed( int wheel, unsigned char speed )
 {
-    unsigned char motor_flag = 0;
-    int bytes = 0; // To make gcc shut up about ignoring the return value
+    unsigned char motor_flag;
+    int bytes; // To make gcc shut up about ignoring the return value
 
     if ( wheel == RIGHT )
     {
@@ -53,9 +54,7 @@ void driveWheelSteps( int wheel, int steps, int runtime )
 {
     //printf("Driving wheel %d %d steps in %d seconds\n", wheel, steps, runtime);
     int n = 0;
-    //int m = 0;
     unsigned char motor_flag = 0;
-    //char buffer[512] = "";
 
     if ( wheel == RIGHT )
     {
@@ -105,22 +104,15 @@ void var_turn( int angle, int runtime )
     //printf("Turning %d degrees in %d seconds. arc length = %f and %d steps.\n", angle, runtime, arc_length, steps );
     stop();
     if ( angle < 0 ) // turning left
-    {
         driveWheelSteps( RIGHT, steps, runtime );
-    } else if ( angle > 0 ) // turning right
-    {
+    else if ( angle > 0 ) // turning right
         driveWheelSteps( LEFT, steps, runtime );
-    } else
-    {
-        stop();
-    }
     stop();
 }
 
 void drive( float distance, int runtime )
 {
     int steps = round( STEPS_PER_CM * distance );
-
     driveWheelSteps( BOTH, steps, runtime );
 }
 
@@ -171,23 +163,25 @@ void claw( int state )
 
 void forward_until_obstacle( unsigned char speed, int tolerance )
 {
-    setWheelSpeed( BOTH, speed );
     double front_value = front_sensor();
+    setWheelSpeed( BOTH, speed );
 
     while ( front_value > SIX_INCHES + tolerance )
     {
         printf("Not hitting wall yet.\n");
-        printf("front: %.2f\n", front_value );
+        printf("front: %.1f\n", front_value );
         usleep( TWENTY_MS );
         front_value = front_sensor();
     }
     stop();
+
+    clear_buffer();
 }
 
 void forward_until_left_end( unsigned char speed )
 {
-    setWheelSpeed( BOTH, speed );
     double left_value = 0;
+    setWheelSpeed( BOTH, speed );
 
     while ( left_value < INF_DISTANCE )
     {
@@ -196,12 +190,14 @@ void forward_until_left_end( unsigned char speed )
         usleep( TWENTY_MS );
     }
     stop();
+
+    clear_buffer();
 }
 
 void forward_until_right_end( unsigned char speed )
 {
-    setWheelSpeed( BOTH, speed );
     double right_value = 0;
+    setWheelSpeed( BOTH, speed );
 
     while ( right_value < INF_DISTANCE )
     {
@@ -210,13 +206,14 @@ void forward_until_right_end( unsigned char speed )
         usleep( TWENTY_MS );
     }
     stop();
+
+    clear_buffer();
 }
 
 void follow_left_wall_until_end( unsigned char speed, int target )
 {
-    setWheelSpeed( BOTH, speed );
     double left_value = left_sensor();
-    char buffer[512] = "";
+    setWheelSpeed( BOTH, speed );
 
     while ( left_value < INF_DISTANCE )
     {
@@ -236,28 +233,21 @@ void follow_left_wall_until_end( unsigned char speed, int target )
             setWheelSpeed( BOTH, speed );
         }
         left_value = left_sensor();
-        printf("Sensor value: %.2f.\n",left_value);
+        printf("Sensor value: %.1f.\n",left_value);
     }
     setWheelSpeed( BOTH, speed );
     stop();
-    int bytes = read( receive_port, &buffer, sizeof(buffer) );
-    if ( bytes > 0 )
-    {
-        buffer[bytes] = '\0';
-        printf("buffer (%d bytes): %s\n", bytes, buffer );
-        fflush(stdout);
-    }
+
+    clear_buffer();
 }
 
 void follow_right_wall_until_end( unsigned char speed, int target )
 {
-    setWheelSpeed( BOTH, speed );
     double right_value = right_sensor();
-    char buffer[512] = "";
+    setWheelSpeed( BOTH, speed );
 
     while ( right_value < INF_DISTANCE )
     {
-        
         if ( right_value > target + WALL_FOLLOW_TOLERANCE )
         {
             printf("Too far away from wall.\n");
@@ -274,24 +264,18 @@ void follow_right_wall_until_end( unsigned char speed, int target )
             setWheelSpeed( BOTH, speed );
         }
         right_value = right_sensor();
-        printf("right: %.2f\n", right_value);
+        printf("right: %.1f\n", right_value);
     }
     stop();
-    int bytes = read( receive_port, &buffer, sizeof(buffer) );
-    if ( bytes > 0 )
-    {
-        buffer[bytes] = '\0';
-        printf("buffer (%d bytes): %s\n", bytes, buffer );
-        fflush(stdout);
-    }
+
+    clear_buffer();
 }
 
 void follow_left_wall_until_obstacle( unsigned char speed, int target, int tolerance )
 {
-    setWheelSpeed( BOTH, speed );
     double front_value = front_sensor();
     double left_value = left_sensor();
-    char buffer[512] = "";
+    setWheelSpeed( BOTH, speed );
 
     while ( front_value > SIX_INCHES + tolerance )
     {
@@ -313,25 +297,19 @@ void follow_left_wall_until_obstacle( unsigned char speed, int target, int toler
         front_value = front_sensor();
         left_value = left_sensor();
         // With no delay in here, it's possible that front_value could actually hold left_value, and vise versa
-        printf("front_value: %.2f\n", front_value);
-        printf("left_value: %.2f\n", left_value);
+        printf("front_value: %.1f\n", front_value);
+        printf("left_value: %.1f\n", left_value);
     }
     stop();
-    int bytes = read( receive_port, &buffer, sizeof(buffer) );
-    if ( bytes > 0 )
-    {
-        buffer[bytes] = '\0';
-        printf("buffer (%d bytes): %s\n", bytes, buffer );
-        fflush(stdout);
-    }
+
+    clear_buffer();
 }
 
 void follow_right_wall_until_obstacle( unsigned char speed, int target, int tolerance )
 {
-    setWheelSpeed( BOTH, speed );
     double front_value = front_sensor();
     double right_value = right_sensor();
-    char buffer[512] = "";
+    setWheelSpeed( BOTH, speed );
 
     while ( front_value > SIX_INCHES + tolerance )
     {
@@ -353,17 +331,12 @@ void follow_right_wall_until_obstacle( unsigned char speed, int target, int tole
         front_value = front_sensor();
         right_value = right_sensor();
         // With no delay in here, it's possible that front_value could actually hold left_value, and vise versa
-        printf("front: %.2f\n", front_value );
-        printf("right: %.2f\n", right_value );
+        printf("front: %.1f\n", front_value );
+        printf("right: %.1f\n", right_value );
     }
     stop();
-    int bytes = read( receive_port, &buffer, sizeof(buffer) );
-    if ( bytes > 0 )
-    {
-        buffer[bytes] = '\0';
-        printf("buffer (%d bytes): %s\n", bytes, buffer );
-        fflush(stdout);
-    }
+
+    clear_buffer();
 }
 
 /*
@@ -375,44 +348,38 @@ void follow_right_wall_until_obstacle( unsigned char speed, int target, int tole
 void test_follow_left_wall_until_end (unsigned char speed, int target)
 {
     double left_value = left_sensor();
-    char buffer[512] = "";
     unsigned char speed_mod = speed/10;
+    int divis_val = 1;
     int bytes_read = 0;
-    double divis_val = 1;
     int i = 0;
+
     setWheelSpeed(BOTH, speed);
-    printf("left: %.1f\n", left_value );
-    while ( left_value < INF_DISTANCE ) // while the wall is there, 6.5 is "infinite"
+    while ( left_value < INF_DISTANCE )
     {
         while( (left_value > target + WALL_FOLLOW_TOLERANCE) && (left_value < INF_DISTANCE) )
         {
             printf("Too far away from left wall.\n");
             // increase speed of right wheel
             setWheelSpeed( RIGHT, speed + speed_mod );
-            left_value = left_sensor();
-            printf("left: %.1f.\n", left_value);
             i++;
             if ( i % 10 )
-            {
-                speed_mod -= divis_val; //play with this value, 2 seems high if this is going to loop repeatedly    
-            }
-            
+                speed_mod -= divis_val;
+            left_value = left_sensor();
+            printf("left: %.1f.\n", left_value);
         }
         i = 0;
         speed_mod = speed/10;
+
         while( (left_value < target - WALL_FOLLOW_TOLERANCE) && (left_value < INF_DISTANCE) )
         {
             printf("Too close to left wall.\n");
             // decrease speed of right wheel
             setWheelSpeed( RIGHT, speed - speed_mod );
-            left_value = left_sensor();
-            printf("left: %.1f.\n", left_value);
             i++;
             if ( i % 10 )
-            {
-                speed_mod -= divis_val; //play with this value, 2 seems high if this is going to loop repeatedly    
-            }
-            
+                speed_mod -= divis_val;
+            left_value = left_sensor();
+            printf("left: %.1f.\n", left_value);
         }
         left_value = left_sensor();
         printf("left: %.1f.\n", left_value);
@@ -420,11 +387,5 @@ void test_follow_left_wall_until_end (unsigned char speed, int target)
     setWheelSpeed( BOTH, speed );
     stop();
 
-    bytes_read = read( receive_port, &buffer, sizeof(buffer) );
-    if ( bytes_read > 0 )
-    {
-        buffer[bytes_read] = '\0';
-        printf("buffer (%d bytes): %s\n", bytes_read, buffer );
-        fflush(stdout);
-    }
+    clear_buffer();
 }

@@ -11,6 +11,8 @@
 double map_voltage_to_distance( int voltage )
 {
     // https://acroname.com/articles/linearizing-sharp-ranger-data
+    // We had to divide the function the above link gives by two to
+    // properly characterize the sensor output.
     return IR_DISTANCE_SCALAR * ( (6787.0)/(voltage - 3.0) - 4.0 );
 }
 
@@ -34,31 +36,8 @@ double back_sensor()
     return map_voltage_to_distance( poll_back_sensor() );
 }
 
-void temporary_sensor_request()
-{
-    unsigned char flag = SENSOR_REQUEST;
-    char buffer[512] = "";
-    int n = 0;
-
-    int nothing = write( send_port, &flag, 1);
-    nothing += 1;
-    while ( n <= 6 )
-    {
-        usleep(SENSOR_PROC_DELAY_US);
-        n += read( receive_port, &buffer, sizeof(buffer) );
-    }
-
-    if( n > 0 )
-    {
-        buffer[n] = '\0';
-        printf( "Buffer (%d bytes):\n=======\n%s\n=======\n", n, buffer );
-        fflush(stdout);
-    }
-}
-
 void poll_sensors()
 {
-    //Arduino Mega is little-Endian
     char buffer[8] = "";
     unsigned char flag = SENSOR_REQUEST;
     int n = 0;
@@ -72,14 +51,14 @@ void poll_sensors()
     unsigned char right_byte = 0;
 
     int nothing = write( send_port, &flag, 1);
-    nothing += 1;
-    while ( n < 6 )
+    nothing += 1; // to make gcc stfu
+    while ( n < 8 )
     {
         usleep(SENSOR_PROC_DELAY_US);
+        //will overwrite first few bytes in buffer, but won't leave unclaimed bytes hanging in memory...
         n += read( receive_port, &buffer, sizeof(buffer) );
     }
 
-    //Odroid is little-Endian as well.
     left_byte = (unsigned char) buffer[0];
     right_byte = (unsigned char) buffer[1];
     left = left | left_byte;
@@ -109,7 +88,8 @@ void poll_sensors()
     printf("left (V): %d left (cm): %.1f\n", left, map_voltage_to_distance(left) );
     printf("right (V): %d right (cm): %.1f\n", right, map_voltage_to_distance(right) );
     printf("===========================\n");
-   
+
+    clear_buffer();
 }
 
 int poll_left_sensor()
@@ -136,6 +116,7 @@ int poll_left_sensor()
     value = value << 8;
     value = value | right_byte;
 
+    clear_buffer();
     return value;
 }
 
@@ -156,7 +137,6 @@ int poll_right_sensor()
     {
         usleep(SENSOR_PROC_DELAY_US);
         n += read( receive_port, &buffer, sizeof(buffer) );
-        
     }
 
     left_byte = (unsigned char) buffer[0];
@@ -165,6 +145,7 @@ int poll_right_sensor()
     value = value << 8;
     value = value | right_byte;
 
+    clear_buffer();
     return value;
 }
 
@@ -192,6 +173,7 @@ int poll_front_sensor()
     value = value << 8;
     value = value | right_byte;
 
+    clear_buffer();
     return value;
 }
 
@@ -218,6 +200,7 @@ int poll_back_sensor()
     value = value | left_byte;
     value = value << 8;
     value = value | right_byte;
-    
+
+    clear_buffer();
     return value;
 }

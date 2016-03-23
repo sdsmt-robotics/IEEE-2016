@@ -10,7 +10,7 @@
 #include <stdbool.h>
 #include <unistd.h>
 
-//#define printf LOG //To log to logfile AND console
+//#define printf LOG
 
 int send_port;
 int receive_port;
@@ -25,7 +25,6 @@ int main( int argc, char* argv[] )
     test_follow_left_wall_until_end( 200, 6.0 );
     // while ( 1 )
     // {
-    //     // printf("left: %.1f\n", left_sensor() );
     //     poll_sensors();
     //     sleep(1);
     // }
