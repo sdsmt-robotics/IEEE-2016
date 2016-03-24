@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 
+#define ROBOT_NAME "Anne Droid"
 // right/left defines. Doesn't matter what these values are as long as they're unique
 #define LEFT 0
 #define RIGHT 1
