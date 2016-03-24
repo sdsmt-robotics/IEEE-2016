@@ -75,13 +75,13 @@
 //#define STEPS_PER_MM 3.5
 
 //Sensor Stuff
-#define INF_DISTANCE 15.0
+#define INF_DISTANCE 18.0
 #define SIX_INCHES 15.0
 //Stopping tolerance depends on paint color
 #define FRONT_STOPPING_TOLERANCE 0
 //want to be 6 cm away from wall
 #define WALL_FOLLOW_TARGET 6.0
-#define WALL_FOLLOW_TOLERANCE 0.05
+#define WALL_FOLLOW_TOLERANCE 0.2
 
 //Timing delays
 #define TEN_MS 10000

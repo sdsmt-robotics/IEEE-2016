@@ -121,6 +121,7 @@ int s_read_until(int fd, char* buf, char until)
 
 void clear_buffer()
 {
+    char buffer[512] = "";
     int bytes_read = read( receive_port, &buffer, sizeof(buffer) );
     if ( bytes_read > 0 )
     {

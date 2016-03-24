@@ -22,7 +22,7 @@ int main( int argc, char* argv[] )
     receive_port = receive_init();
     victim_color = YELLOW;
 
-    test_follow_left_wall_until_end( 200, 6.0 );
+    var_test_follow_left_wall_until_end( 200, 6.0 );
     // while ( 1 )
     // {
     //     poll_sensors();
