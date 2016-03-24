@@ -403,6 +403,8 @@ void test_follow_left_wall_until_end (unsigned char speed, float target)
     clear_buffer();
 }
 
+// This version is essentially a copy of https://www.cs.hmc.edu/~dodds/projects/RobS01/Assignment2/Fixed_HTML/wfcode.html
+// Modified slightly for our use case.
 void var_test_follow_left_wall_until_end( unsigned char speed, float target )
 {
     // float error = 0;
@@ -426,14 +428,15 @@ void var_test_follow_left_wall_until_end( unsigned char speed, float target )
 
         if ( left_value < target + WALL_FOLLOW_TOLERANCE ) //too close
         {
-            printf("Too close to left wall.\n");
+            printf("Too close to left wall. Go away.\n");
             if ( left_value < target/2.0 )
             {
-                //something more extreme 
+                //In danger zone, do something more extreme 
                 speed_mod = speed/10;
                 setWheelSpeed( RIGHT, speed-speed_mod );
             } else 
             {
+                //Between danger zone and target zone
                 speed_mod = speed/10 - 12;
                 setWheelSpeed( RIGHT, speed-speed_mod );
             }
@@ -442,14 +445,15 @@ void var_test_follow_left_wall_until_end( unsigned char speed, float target )
             //setWheelSpeed( LEFT, temp );
         } else if ( left_value > target - WALL_FOLLOW_TOLERANCE ) // too far away
         {
-            printf("Too far away from left wall.\n");
+            printf("Too far away from left wall. </3\n");
             if ( left_value > (target*2.0 - 0.5*10*WHEEL_BASE_MM) ) // Shift the right danger zone boundary by one half the wheel base
             {
-                //something more extreme
+                //In danger zone, do something more extreme
                 speed_mod = speed/10;
                 setWheelSpeed( RIGHT, speed+speed_mod );
             } else
             {
+                //Between danger zone and target zone
                 speed_mod = speed/10 - 12;
                 setWheelSpeed( RIGHT, speed+speed_mod );
             }
