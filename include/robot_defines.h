@@ -82,7 +82,7 @@
 #define FRONT_STOPPING_TOLERANCE 0
 //want to be 6 cm away from wall
 #define WALL_FOLLOW_TARGET 6.0
-#define WALL_FOLLOW_TOLERANCE 0.2
+#define WALL_FOLLOW_TOLERANCE 0.5
 
 //Timing delays
 #define TEN_MS 10000

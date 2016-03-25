@@ -22,12 +22,15 @@ int main( int argc, char* argv[] )
     receive_port = receive_init();
     victim_color = YELLOW;
 
-    var_test_follow_left_wall_until_end( 200, 6.0 );
-    // while ( 1 )
-    // {
-    //     poll_sensors();
-    //     sleep(1);
-    // }
+    // var_test_follow_left_wall_until_end( 190, 6.0 );
+    // retrieve_victim_1();
+    // cp_to_yellow();
+    // setWheelSpeed( RIGHT, 150 );
+    while ( 1 )
+    {
+        poll_sensors();
+        sleep(1);
+    }
     return 0;
 }
 

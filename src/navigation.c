@@ -108,22 +108,22 @@ bool retrieve_victim_1()
     start_to_cp();
     drive( 18, 3 );
     sleep(3);
-    follow_right_wall_until_obstacle( 210, 6.0, 6 );
+    follow_right_wall_until_obstacle( 200, 6.0, 10.0 );
     claw( CLOSE );
     usleep(500*1000); //0.5 sec
     claw( RAISE );
     turn( LEFT_180, 4 );
     sleep(4);
-    follow_left_wall_until_end( 210, 5.0 );
+    follow_left_wall_until_end( 200, 5.0 );
     claw( LOWER );
     stop();
 
     if ( victim_color == YELLOW )
     {
-        // cp_to_yellow();
+        cp_to_yellow();
     } else if ( victim_color == RED )
     {
-        // cp_to_red();
+        cp_to_red();
     } else 
     {
         printf("crap\n");
