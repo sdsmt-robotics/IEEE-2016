@@ -10,22 +10,21 @@
 #include <stdbool.h>
 #include <unistd.h>
 
-//#define printf LOG
+#define printf LOG
 
 int send_port;
 int receive_port;
-bool victim_color;
+int victim_color;
 
 int main( int argc, char* argv[] )
 {
-    send_port = send_init();
-    receive_port = receive_init();
+    send_port = sys_init(ARDUINO_COMM_LOCATION);
+    receive_port = sys_init(SENSORS_COMM_LOCATION);
     victim_color = YELLOW;
 
     // var_test_follow_left_wall_until_end( 190, 6.0 );
     // retrieve_victim_1();
-    // cp_to_yellow();
-    // setWheelSpeed( RIGHT, 150 );
+
     while ( 1 )
     {
         poll_sensors();
@@ -34,42 +33,19 @@ int main( int argc, char* argv[] )
     return 0;
 }
 
-int send_init()
+int sys_init( const char* serialport )
 {
-    int serial_file = serial_init(ARDUINO_COMM_LOCATION, ROBOT_BAUDRATE); // attempts to open the connection to the arduino with the BAUDRATE specified in the ROBOT_DEFINITIONS.h
+    int serial_file_handle = serial_init(serialport, ROBOT_BAUDRATE); // attempts to open the connection to the arduino with the BAUDRATE specified in the ROBOT_DEFINITIONS.h
 
-    if(serial_file < 0)
+    while(serial_file_handle < 0)
     {
-        while(serial_file < 0)
-        {
-            printf("Can't open serial port, trying again in 1 sec.\n"); // arduino not located, please stop breaking things
-            sleep(1);
-            serial_file = serial_init(ARDUINO_COMM_LOCATION, ROBOT_BAUDRATE);
-        }
+        printf("Can't open serial port %s, trying again in 1 sec.\n", serialport); // arduino not located, please stop breaking things
+        sleep(1);
+        serial_file_handle = serial_init(serialport, ROBOT_BAUDRATE);
     }
 
-    clearPort(serial_file);
-    printf("Serial successfully initialized. File handle: %d\n", serial_file );
+    clearPort(serial_file_handle);
+    printf("Serial successfully initialized. File handle: %d\n", serial_file_handle );
     sleep(2); //wait for serial to initialize properly
-    return serial_file;
-}
-
-int receive_init()
-{
-    int serial_file = serial_init(SENSORS_COMM_LOCATION, ROBOT_BAUDRATE); // attempts to open the connection to the arduino with the BAUDRATE specified in the ROBOT_DEFINITIONS.h
-
-    if(serial_file < 0)
-    {
-        while(serial_file < 0)
-        {
-            printf("Can't open serial port, trying again in 1 sec.\n"); // arduino not located, please stop breaking things
-            sleep(1);
-            serial_file = serial_init(SENSORS_COMM_LOCATION, ROBOT_BAUDRATE);
-        }
-    }
-
-    clearPort(serial_file);
-    printf("Serial successfully initialized. File handle: %d\n", serial_file );
-    sleep(2); //wait for serial to initialize properly
-    return serial_file;
+    return serial_file_handle;
 }

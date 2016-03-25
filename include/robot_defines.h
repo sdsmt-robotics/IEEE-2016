@@ -11,8 +11,9 @@
 #define FRONT 3
 #define BACK 4
 
-#define YELLOW true
-#define RED false
+#define YELLOW 1
+#define RED 2
+#define UNKNOWN_COLOR 3
 
 // motor defines
 #define LEFT_MOTOR_FLAG  0x4C
@@ -96,6 +97,6 @@
 //correct number of arguments? Seriouslly, wtf?
 extern int send_port;
 extern int receive_port;
-extern bool victim_color;
+extern int victim_color;
 
 #endif

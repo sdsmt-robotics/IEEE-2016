@@ -2,10 +2,13 @@
 #include "../include/locomotion.h"
 #include "../include/robot_defines.h"
 #include "../include/sensors.h"
+#include "../include/logger.h"
 
 #include <stdbool.h>
 #include <unistd.h>
 #include <stdio.h>
+
+#define printf LOG
 
 void start_to_cp( )
 {
@@ -124,12 +127,13 @@ bool retrieve_victim_1()
     } else if ( victim_color == RED )
     {
         cp_to_red();
-    } else 
+    } else if ( victim_color == UNKNOWN_COLOR )
     {
-        printf("crap\n");
+        printf("Crap. UNKNOWN_COLOR. What are you, blind?\n");
+        cp_to_yellow();
     }
     stop();
-   
+
     return true;
 }
 

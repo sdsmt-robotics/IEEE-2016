@@ -94,10 +94,45 @@ void log_print(char* filename, int line, const char* function, char *fmt,...)
                 printf( "%f", f );
                 continue;
             }
+            /* float precision setting specifiers */
+            case '.':
+            {
+                f = va_arg( list, double );
+                switch ( *++p )
+                {
+                    case '1':
+                    {
+                        fprintf(fp, "%.1f", f );
+                        printf( "%.1f", f );
+                        p++;
+                        break;
+                    }
+                    case '2':
+                    {
+                        fprintf(fp, "%.2f", f );
+                        printf( "%.2f", f );
+                        p++;
+                        break;
+                    }
+                    case '3':
+                    {
+                        fprintf(fp, "%.3f", f );
+                        printf( "%.3f", f );
+                        p++;
+                        break;
+                    }
+                    default:
+                    {
+                        fprintf(fp, "%f", f );
+                        printf( "%f", f );
+                    }
+                }
+                continue;
+            }
 
             default:
-                fprintf( fp, "\n\tLogger doesn't support the \%%c format specifier yet.", *p);
-                printf("\n\t\tLogger doesn't support the \%%c format specifier yet", *p);
+                fprintf( fp, "\n\tLogger doesn't support the %%%c format specifier yet.\n", *p);
+                printf("\n\t\tLogger doesn't support the %%%c format specifier yet\n", *p);
                 //fputc( *p, fp );
                 //printf( "%c", *p );
             }

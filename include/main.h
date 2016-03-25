@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 
-int send_init();
-int receive_init();
+int sys_init( const char* serialport );
 
 #endif

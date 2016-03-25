@@ -8,7 +8,7 @@
 #include <unistd.h>
 #include <math.h>
 
-//#define printf LOG
+#define printf LOG
 
 void setWheelSpeed( int wheel, unsigned char speed )
 {
@@ -172,10 +172,8 @@ void forward_until_obstacle( unsigned char speed, float tolerance )
 
     while ( front_value > SIX_INCHES + tolerance )
     {
-        printf("Not hitting wall yet.\n");
-        printf("front: %.1f\n", front_value );
-        usleep( TWENTY_MS );
         front_value = front_sensor();
+        printf("Not hitting wall yet. Front: %.1f\n", front_value);
     }
     stop();
     clear_buffer();
@@ -188,9 +186,8 @@ void forward_until_left_end( unsigned char speed )
 
     while ( left_value < INF_DISTANCE )
     {
-        printf("Following left wall.\n");
         left_value = left_sensor();
-        usleep( TWENTY_MS );
+        printf("Following left wall.\n");
     }
     stop();
     clear_buffer();
@@ -198,14 +195,13 @@ void forward_until_left_end( unsigned char speed )
 
 void forward_until_right_end( unsigned char speed )
 {
-    double right_value = 0;
+    double right_value = right_sensor();
     setWheelSpeed( BOTH, speed );
 
     while ( right_value < INF_DISTANCE )
     {
-        printf("Following right wall.\n");
         right_value = right_sensor();
-        usleep( TWENTY_MS );
+        printf("Following right wall.\n");
     }
     stop();
     clear_buffer();
@@ -288,7 +284,7 @@ void follow_right_wall_until_end( unsigned char speed, float target )
 
         if ( right_value < target - WALL_FOLLOW_TOLERANCE ) //too close
         {
-            printf("Too close to left wall. Go away.\n");
+            printf("Too close to right wall. Go away.\n");
             if ( right_value < target/2.0 )
             {
                 //In danger zone, do something more extreme 
@@ -302,7 +298,7 @@ void follow_right_wall_until_end( unsigned char speed, float target )
             }
         } else if ( right_value > target + WALL_FOLLOW_TOLERANCE ) // too far away
         {
-            printf("Too far away from left wall. </3\n");
+            printf("Too far away from right wall. </3\n");
             if ( right_value > (target*2.0 - 0.5*10*WHEEL_BASE_MM) ) // Shift the right danger zone boundary by one half the wheel base
             {
                 //In danger zone, do something more extreme
@@ -416,7 +412,7 @@ void follow_right_wall_until_obstacle( unsigned char speed, float target, float 
 
         if ( right_value < target - WALL_FOLLOW_TOLERANCE ) //too close
         {
-            printf("Too close to left wall. Go away.\n");
+            printf("Too close to right wall. Go away.\n");
             if ( right_value < target/2.0 )
             {
                 //In danger zone, do something more extreme 
@@ -430,7 +426,7 @@ void follow_right_wall_until_obstacle( unsigned char speed, float target, float 
             }
         } else if ( right_value > target + WALL_FOLLOW_TOLERANCE ) // too far away
         {
-            printf("Too far away from left wall. </3\n");
+            printf("Too far away from right wall. </3\n");
             if ( right_value > (target*2.0 - 0.5*10*WHEEL_BASE_MM) ) // Shift the right danger zone boundary by one half the wheel base
             {
                 //In danger zone, do something more extreme
@@ -521,9 +517,7 @@ void test_follow_left_wall_until_end (unsigned char speed, float target)
         i = 0;
         speed_mod = speed/10 - 10;
     }
-    setWheelSpeed( BOTH, speed );
     stop();
-
     clear_buffer();
 }
 
