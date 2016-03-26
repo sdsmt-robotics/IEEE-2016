@@ -666,8 +666,8 @@ void var_test_follow_left_wall_until_end( unsigned char speed, float target )
     clear_buffer();
 }
 
-// Follows wall until the new Front Sensor detects a victim 
-void follow_right_wall_until_FS( unsigned char speed, float target )
+// Follows wall until the new vic Sensor detects a victim 
+void follow_right_wall_until_VS( unsigned char speed, float target )
 {
     double right_value = right_sensor();
     double last_pos = 0;
