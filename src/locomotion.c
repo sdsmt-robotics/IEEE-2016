@@ -331,6 +331,72 @@ void follow_right_wall_until_end( unsigned char speed, float target )
     clear_buffer();
 }
 
+void follow_right_wall_until_left_open( unsigned char speed, float target )
+{
+    double right_value = right_sensor();
+    double last_pos = 0;
+    unsigned char speed_mod = 0;
+    setWheelSpeed( BOTH, speed );
+
+    while ( left_sensor() < INF_DISTANCE )
+    {
+        last_pos = right_value;
+        right_value = right_sensor();
+        printf("right: %.1f\n", right_value );
+
+        if ( right_value < target - WALL_FOLLOW_TOLERANCE ) //too close
+        {
+            printf("Too close to right wall. Go away.\n");
+            if ( right_value < target/2.0 )
+            {
+                //In danger zone, do something more extreme 
+                speed_mod = speed/10 + 10;
+                setWheelSpeed( LEFT, speed-speed_mod );
+            } else 
+            {
+                //Between danger zone and target zone
+                speed_mod = speed/10;
+                setWheelSpeed( LEFT, speed-speed_mod );
+            }
+        } else if ( right_value > target + WALL_FOLLOW_TOLERANCE ) // too far away
+        {
+            printf("Too far away from right wall. </3\n");
+            if ( right_value > (target*2.0 - 0.5*10*WHEEL_BASE_MM) ) // Shift the right danger zone boundary by one half the wheel base
+            {
+                //In danger zone, do something more extreme
+                speed_mod = speed/10 + 10;
+                setWheelSpeed( LEFT, speed+speed_mod );
+            } else
+            {
+                //Between danger zone and target zone
+                speed_mod = speed/10;
+                setWheelSpeed( LEFT, speed+speed_mod );
+            }
+        } else 
+        {
+            printf("Goldilocks *would* love you if she was real, but she's not, so she doesn't.\n");
+            if ( (last_pos-right_value) < 0 && (abs(last_pos-right_value) > 0.05) ) // approaching goldilocks zone from the left
+            {
+                // LEFT wheel will be going speed-speed_mod coming into the goldilocks zone, speed it up
+                setWheelSpeed( LEFT, speed+speed_mod-5 );
+            } else if ( (last_pos-right_value) > 0 && (abs(last_pos-right_value) > 0.05) ) // approaching goldilocks zone from the right
+            {
+                // LEFT wheel will be going speed+speed_mod coming into the goldilocks zone, slow it down
+                setWheelSpeed( LEFT, speed-speed_mod+5 );
+            } else // change in direction wasn't very severe, just go straight
+            {
+                setWheelSpeed( BOTH, speed );
+            }
+        }
+    }
+    stop();
+    clear_buffer();
+}
+
+
+
+
+
 void follow_left_wall_until_obstacle( unsigned char speed, float target, float tolerance )
 {
     double front_value = front_sensor();

@@ -171,13 +171,109 @@ bool retreive_victim_2()
 
 bool retreive_victim_3()
 {
-    //forward 24 in
-    //rotate -90
-    //forward 12.5 in
-    //rotate 90
-    //forward 25 in
-    //rotate -90
-    //
+    // Start following right wall until Left gap
+    sleep(2);
+    follow_right_wall_until_left_open( 210, 6.0 );
+
+    // drive across the gap
+    sleep(2);
+    drive( 35, 3 );
+
+    // Start following right wall until Left gap
+    sleep(2);
+    follow_right_wall_until_left_open( 210, 6.0 );
+
+    // 90 degrees left
+    sleep(2);
+    turn( FULL_LEFT_TURN, 2 );    
+
+    // Drive forward towards grass
+    sleep(2);
+    drive( 40, 3 );   
+
+    // 45 degrees to the right
+    sleep(3);
+    turn(HALF_RIGHT_TURN, 2);
+
+    // Drive forward 
+    sleep(2);
+    drive( 40, 3 );   
+
+    // 45 degrees to the left
+    sleep(3);
+    turn(HALF_LEFT_TURN, 2); 
+
+    // Set victim location (A or B)
+    sleep(2);
+    SetVictimLocation();
+
+
+    sleep(2);
+    if (A)
+    {
+        // Follow right wall until a victim is in front of us
+        getVictim();
+    }
+    else
+    {
+        // Running to the end of the map
+        follow_right_wall_until_obstacle(( 200, 6.0, 10.0 );
+
+        // 90 degree left
+        sleep(2);
+        turn( FULL_LEFT_TURN, 2 ); 
+
+        // Follow right wall until a victim is in front of us
+        sleep(2);
+        getVictim();
+    }
+
+    ////////////////////// RETURNING //////////////////////
+
+    // Flip around
+    sleep(2);
+    turn( LEFT_180, 2 );
+
+    // Running to the end of the map
+    sleep(2);
+    follow_left_wall_until_obstacle( 200, 6.0, 10.0 );
+
+    // 90 degree right turn
+    sleep(2);
+    turn( FULL_RIGHT_TURN, 2 );
+
+    // Running to the end of the map
+    sleep(2);
+    follow_left_wall_until_obstacle( 200, 6.0, 10.0 );   
+
+    // 90 degree right turn
+    sleep(2);
+    turn( FULL_RIGHT_TURN, 2 );  
+
+    // Forward 12"
+    sleep(2);
+    drive(31, 3);
+
+    // Set victim 4's location
+    sleep(3);
+    SetVictimLocation();
+
+    // 90 degree left turn
+    sleep(2);
+    turn( FULL_LEFT_TURN, 2 );  
+
+    // forward_until_obstacle
+
+
+
+
+
+
+
+
+
+
+
     return false;
 }
 
