@@ -12,6 +12,7 @@
 
 void start_to_cp( )
 {
+    claw( OPEN );
     drive( 32, 4 );
     sleep(5);
     turn( FULL_LEFT_TURN, 2 );
@@ -124,8 +125,6 @@ void cp_to_yellow()
 
 bool retrieve_victim_1()
 {
-    claw( OPEN );
-    start_to_cp();
     drive( 18, 3 );
     sleep(3);
     follow_right_wall_until_obstacle( 200, 6.0, 10.0 );
@@ -156,17 +155,51 @@ bool retrieve_victim_1()
 
 bool retreive_victim_2()
 {
-    //get to person 2:
-        //62cm from cp
-        //rotate -90
-        //forward 30 cm
-        //rotate -90
-        //forward 91 cm
-    //grab person 2
-    //go to cp
-    //call appropriate cp_to_hospital() (this function will peek at the global color var)
-    //return to cp
-    return false;
+    follow_left_wall_until_end( 190, WALL_FOLLOW_TARGET );
+    drive( 15, 2 );
+    sleep(2);
+    turn( FULL_LEFT_TURN, 2 );
+    sleep(2);
+    drive( 30, 4 );
+    sleep(4);
+    turn( FULL_LEFT_TURN, 2 );
+    sleep(2);
+    drive( 10, 2 );
+    sleep(2);
+    follow_left_wall_until_obstacle( 190, 5.0, 10.0 );
+    claw( CLOSE );
+    usleep( 500*1000 );
+    claw( RAISE );
+    turn( RIGHT_180, 4 );
+    sleep(4);
+    follow_right_wall_until_end( 190, 5.0 );
+    drive( 15, 2 );
+    sleep(2);
+    turn( FULL_RIGHT_TURN, 2 );
+    claw( LOWER );
+    sleep(2);
+    forward_until_obstacle( 190, 10 );
+    turn( FULL_RIGHT_TURN, 2 );
+    claw( RAISE );
+    sleep(2);
+    follow_left_wall_until_end( 190, WALL_FOLLOW_TARGET );
+    claw( LOWER );
+    stop();
+
+    if ( victim_color == YELLOW )
+    {
+        cp_to_yellow();
+    } else if ( victim_color == RED )
+    {
+        cp_to_red();
+    } else if ( victim_color == UNKNOWN_COLOR )
+    {
+        printf("Crap. UNKNOWN_COLOR. What are you, blind?\n");
+        cp_to_yellow();
+    }
+    stop();
+
+    return true;
 }
 
 bool retreive_victim_3()
