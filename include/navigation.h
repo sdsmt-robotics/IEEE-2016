@@ -2,7 +2,6 @@
 #define __NAV_DEFINES_
 
 void start_to_cp();
-void get_to_cp();
 void cp_to_start();
 
 void cp_to_red();

@@ -7,7 +7,6 @@
 #include "../include/sensors.h"
 
 #include <stdio.h>
-#include <stdbool.h>
 #include <unistd.h>
 
 #define printf LOG

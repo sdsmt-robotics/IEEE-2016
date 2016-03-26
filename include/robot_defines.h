@@ -1,8 +1,6 @@
 #ifndef __ROBOT_DEFINES_
 #define __ROBOT_DEFINES_
 
-#include <stdbool.h>
-
 #define ROBOT_NAME "Anne Droid"
 // right/left defines. Doesn't matter what these values are as long as they're unique
 #define LEFT 0
@@ -63,7 +61,7 @@
 #define IR_PACKET_END 0x74
 
 #define SENSOR_PROC_DELAY_US 50000
-//For blue paint
+//For blue, black paint
 #define IR_DISTANCE_SCALAR 0.5
 
 //Physical information

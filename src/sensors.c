@@ -5,7 +5,7 @@
 
 #include <stdio.h>
 #include <unistd.h>
-//#define printf LOG
+#define printf LOG
 
 
 double map_voltage_to_distance( int voltage )
@@ -43,7 +43,7 @@ double vic_sensor()
 
 void poll_sensors()
 {
-    char buffer[8] = "";
+    char buffer[10] = "";
     unsigned char flag = SENSOR_REQUEST;
     int n = 0;
 
@@ -58,7 +58,7 @@ void poll_sensors()
 
     int nothing = write( send_port, &flag, 1);
     nothing += 1; // to make gcc stfu
-    while ( n < 8 )
+    while ( n < 10 )
     {
         usleep(SENSOR_PROC_DELAY_US);
         //will overwrite first few bytes in buffer, but won't leave unclaimed bytes hanging in memory...
@@ -88,6 +88,12 @@ void poll_sensors()
     back = back | left_byte;
     back = back << 8;
     back = back | right_byte;
+
+    left_byte = (unsigned char) buffer[8];
+    right_byte = (unsigned char) buffer[9];
+    vic = vic | left_byte;
+    vic = vic << 8;
+    vic = vic | right_byte;
 
     printf("front (V): %d front (cm): %.1f\n", front, map_voltage_to_distance(front) );
     printf("back (V): %d back (cm): %.1f\n", back, map_voltage_to_distance(back) );
@@ -242,5 +248,5 @@ int poll_vic_sensor()
 
 void SetVictimLocation()
 {
-    
+    printf("You've called SetVictimLocation(), but it doesn't do anything...\n");
 }

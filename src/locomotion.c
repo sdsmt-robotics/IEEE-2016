@@ -393,10 +393,6 @@ void follow_right_wall_until_left_open( unsigned char speed, float target )
     clear_buffer();
 }
 
-
-
-
-
 void follow_left_wall_until_obstacle( unsigned char speed, float target, float tolerance )
 {
     double front_value = front_sensor();
@@ -674,7 +670,7 @@ void follow_right_wall_until_VS( unsigned char speed, float target )
     unsigned char speed_mod = 0;
     setWheelSpeed( BOTH, speed );
 
-    while ( front_sensor() < VIC_DISTANCE )
+    while ( vic_sensor() < VIC_DISTANCE )
     {
         last_pos = right_value;
         right_value = right_sensor();
@@ -733,7 +729,6 @@ void follow_right_wall_until_VS( unsigned char speed, float target )
 // Follows the right wall until the NEW front sensor detects a victim
 void getVictim()
 {
-
 
     stop();
     clear_buffer();
