@@ -665,3 +665,9 @@ void var_test_follow_left_wall_until_end( unsigned char speed, float target )
     stop();
     clear_buffer();
 }
+
+// Follows the right wall until the NEW front sensor detects a victim
+void getVictim()
+{
+
+}
