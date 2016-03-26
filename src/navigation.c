@@ -339,53 +339,134 @@ bool retreive_victim_4()
     * turn left and approach the fourth victim
     * grab victim and turn aroiund
     * retrace steps to CP
-    * determine color
-    * call the appropriate drop off function
     */
-    follow_left_wall_until_end( 190, WALL_FOLLOW_TARGET );
-    turn( FULL_LEFT_TURN, 2 );
-    sleep(2);
-    drive(64, 8);
-    sleep(8);
-    turn( FULL_LEFT_TURN, 2);
-    sleep(2);
-    drive(72.5, 10);
-    sleep(10);
-    claw(CLOSE);
-    claw(RAISE);
-    turn(RIGHT_180, 4);
-    sleep(4);
-    drive (72.5, 10);
-    sleep(10);
-    turn( FULL_RIGHT_TURN, 2);
-    sleep(2);
-    drive(64, 8);
-    sleep(8);
-    turn( FULL_RIGHT_TURN, 2);
-    sleep(2);
-    drive(60, 8);
-    sleep(8);
-    //call relevant color detection and movement functions here or break and
-    //call them elsewhere.
+    if ( FOURTH_VICTIM_POSITION == POSITION_A)
+    {
+        //wall follow from CP to the first break in the left wall
+        follow_left_wall_until_end ( 190, WALL_FOLLOW_TARGET );
+        //turn left 90 degrees
+        turn ( FULL_LEFT_TURN, 2 );
+        sleep (2);
+        //drive forward to the green area
+        drive (64, 8);
+        sleep (8);
+        //turn left 90 degrees
+        turn ( FULL_LEFT_TURN, 2);
+        sleep (2);
+        //drive forward to the victim
+        drive (72.5, 10);
+        sleep (10);
+        //grab the victim and lift it up
+        claw (CLOSE);
+        claw (RAISE);
+        //turn around
+        turn (RIGHT_180, 4);
+        sleep (4);
+        //drive back the way we came
+        drive (72.5, 10);
+        sleep (10);
+        //turn right 90 degrees
+        turn ( FULL_RIGHT_TURN, 2);
+        sleep (2);
+        //drive back into the city area
+        drive (64, 8);
+        sleep (8);
+        //turn right 90 degrees
+        turn ( FULL_RIGHT_TURN, 2);
+        sleep (2);
+        //return to the CP
+        follow_left_wall_until_end ( 190, WALL_FOLLOW_TARGET);
+    }
     
     /*
     * instructions for if the fourth person is on the far side of the river:
-    * wall follow left until break in wall
-    * wall follow right until we can read the left wall again
-    * read left until break* turn left and move forward to the point marked on the blue tape
+    * wall follow right until left gap
+    * wall follow right until left gap
+    * turn left and move forward to the point marked on the blue tape
     * make dead reckoning angled turn to get to the second marked point
     * wall follow right until the corner is reached
     * turn left and wall follow right until corner
     * turn left and move forward until victim 4 is reached
     * grab victim 4 and turn around.
     * retrace steps to CP
-    * determine color
-    * call the appropriate drop off function
     */
+    else
+    {
+        //navigate past the first left break
+        follow_right_wall_until_left_open ( 190, WALL_FOLLOW_TARGET );
+        //get past the break, should now be able to read the left wall
+        drive (35, 3);
+        sleep (3);
+        //navigate to the second left break
+        follow_right_wall_until_left_open ( 190, WALL_FOLLOW_TARGET );
+        //turn 90 degrees to the left
+        turn ( FULL_LEFT_TURN, 2);
+        sleep (2);
+        //drive forward to the edge of the green area
+        drive ( 51, 8);
+        sleep (8);
+        //turn at a 45 degree angle to get past the blocks
+        turn ( HALF_RIGHT_TURN, 1);
+        sleep (1);
+        //drive towards the wall.
+        drive (43.2, 6);
+        sleep (6);
+        //turn to be parallel with the wall
+        turn ( HALF_LEFT_TURN, 1);
+        sleep (1);
+        //wall follow until the corner is reached
+        follow_right_wall_until_obstacle ( 190, WALL_FOLLOW_TARGET );
+        //turn 90 degrees at the corner
+        turn ( FULL_LEFT_TURN, 2);
+        sleep (2);
+        //wall follow until the corner is reached
+        follow_right_wall_until_obstacle ( 190, WALL_FOLLOW_TARGET );
+        //turn 90 degrees at the corner
+        turn ( FULL_LEFT_TURN, 2);
+        //drive to the victim
+        drive ( 17.8, 2);
+        sleep (2);
+        //grab and lift the victim
+        claw (CLOSE);
+        claw (RAISE);
+        //turn around
+        turn ( LEFT_180, 4);
+        sleep (4);
+        //wall follow to the corner again
+        follow_left_wall_until_obstacle ( 190, WALL_FOLLOW_TARGET );
+        //turn 90 degrees at the corner
+        turn ( FULL_RIGHT_TURN, 2);
+        sleep (2);
+        //wall follow until the corner is reached
+        follow_left_wall_until_obstacle ( 190, WALL_FOLLOW_TARGET );
+        //turn 90 degrees at the corner
+        turn ( FULL_RIGHT_TURN, 2);
+        sleep (2);
+        //drive back to the point where the obstacles were avoided
+        drive ( 94, 7);
+        //make a 45 degree turn right
+        turn ( HALF_RIGHT_TURN, 1);
+        //drive off of the green area
+        drive ( 43.2, 6);
+        sleep (6);
+        //turn left 45 degrees
+        turn ( HALF_LEFT_TURN, 1);
+        sleep (1);
+        //drive back into the city section
+        drive (51, 8);
+        sleep (8);
+        //turn right 90 degrees
+        turn ( FULL_RIGHT_TURN, 2);
+        sleep (2);
+        //wall follow back to CP
+        follow_left_wall_until_end (190, WALL_FOLLOW_TARGET);
+    }
     
     
     /*
-    * instructions for after drop off, if necessary and are not called externally
+    * instructions for after reaching CP:
+    * determine color
+    * call the appropriate drop off function
     * After the victim has been dropped off, return to CP
     * After returning to CP, return to initial zone
     * power off.
