@@ -295,11 +295,31 @@ bool retreive_victim_3()
     sleep(2);
     turn( FULL_LEFT_TURN, 2 );  
 
-    // forward_until_obstacle
+    // Forward until the wall
+    sleep(2);
+    forward_until_obstacle( 190, 1 );
 
+    // 90 degree right turn
+    sleep(2);
+    turn( FULL_RIGHT_TURN, 2 );  
 
+    // Follow wall till CP
+    sleep(2);
+    follow_left_wall_until_end( 200, 5.0 );
 
-
+    sleep(5);
+    if ( victim_color == YELLOW )
+    {
+        cp_to_yellow();
+    } else if ( victim_color == RED )
+    {
+        cp_to_red();
+    } else if ( victim_color == UNKNOWN_COLOR )
+    {
+        printf("Crap. UNKNOWN_COLOR. What are you, blind?\n");
+        cp_to_yellow();
+    }
+    stop();
 
 
 
