@@ -20,10 +20,11 @@ void forward_until_right_end( unsigned char speed );
 void forward_until_obstacle( unsigned char speed, float tolerance );
 
 void follow_left_wall_until_end( unsigned char speed, float target );
+void follow_left_wall_until_obstacle( unsigned char speed, float target, float tolerance );
 void test_follow_left_wall_until_end( unsigned char speed, float target );
 void var_test_follow_left_wall_until_end( unsigned char speed, float target );
+
 void follow_right_wall_until_end( unsigned char speed, float target );
-void follow_left_wall_until_obstacle( unsigned char speed, float target, float tolerance );
 void follow_right_wall_until_obstacle( unsigned char speed, float target, float tolerance );
 void follow_right_wall_until_left_open( unsigned char speed, float target );
 void follow_right_wall_until_VS( unsigned char speed, float target );
