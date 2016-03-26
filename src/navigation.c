@@ -217,6 +217,42 @@ bool retreive_victim_3()
 bool retreive_victim_4()
 {
     /*
+    * instructions for if the fourth person is on the near side of the river:
+    * wall follow left until break in wall
+    * turn left and move forward until the green section has been reached
+    * turn left and approach the fourth victim
+    * grab victim and turn aroiund
+    * retrace steps to CP
+    * determine color
+    * call the appropriate drop off function
+    */
+    follow_left_wall_until_end( 190, WALL_FOLLOW_TARGET );
+    turn( FULL_LEFT_TURN, 2 );
+    sleep(2);
+    drive(64, 8);
+    sleep(8);
+    turn( FULL_LEFT_TURN, 2);
+    sleep(2);
+    drive(72.5, 10);
+    sleep(10);
+    claw(CLOSE);
+    claw(RAISE);
+    turn(RIGHT_180, 4);
+    sleep(4);
+    drive (72.5, 10);
+    sleep(10);
+    turn( FULL_RIGHT_TURN, 2);
+    sleep(2);
+    drive(64, 8);
+    sleep(8);
+    turn( FULL_RIGHT_TURN, 2);
+    sleep(2);
+    drive(60, 8);
+    sleep(8);
+    //call relevant color detection and movement functions here or break and
+    //call them elsewhere.
+    
+    /*
     * instructions for if the fourth person is on the far side of the river:
     * wall follow left until break in wall
     * wall follow right until we can read the left wall again
@@ -231,16 +267,6 @@ bool retreive_victim_4()
     * call the appropriate drop off function
     */
     
-    /*
-    * instructions for if the fourth person is on the near side of the river:
-    * wall follow left until break in wall
-    * turn left and move forward until the green section has been reached
-    * turn left and approach the fourth victim
-    * grab victim and turn aroiund
-    * retrace steps to CP
-    * determine color
-    * call the appropriate drop off function
-    */
     
     /*
     * instructions for after drop off, if necessary and are not called externally
