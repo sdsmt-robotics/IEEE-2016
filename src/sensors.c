@@ -36,6 +36,11 @@ double back_sensor()
     return map_voltage_to_distance( poll_back_sensor() );
 }
 
+double vic_sensor()
+{
+    return map_voltage_to_distance( poll_vic_sensor() );
+}
+
 void poll_sensors()
 {
     char buffer[8] = "";
@@ -46,6 +51,7 @@ void poll_sensors()
     unsigned short right = 0;
     unsigned short front = 0;
     unsigned short back = 0;
+    unsigned short vic = 0;
 
     unsigned char left_byte = 0;
     unsigned char right_byte = 0;
@@ -87,6 +93,7 @@ void poll_sensors()
     printf("back (V): %d back (cm): %.1f\n", back, map_voltage_to_distance(back) );
     printf("left (V): %d left (cm): %.1f\n", left, map_voltage_to_distance(left) );
     printf("right (V): %d right (cm): %.1f\n", right, map_voltage_to_distance(right) );
+    printf("vic (V): %d vic (cm): %.1f\n", vic, map_voltage_to_distance(vic) );
     printf("===========================\n");
 
     clear_buffer();
@@ -180,6 +187,34 @@ int poll_front_sensor()
 int poll_back_sensor()
 {
     unsigned char request_flag = BACK_SENSOR_REQUEST;
+    char buffer[2] = "";
+    int n = 0;
+
+    unsigned short value = 0;
+    unsigned char left_byte = 0;
+    unsigned char right_byte = 0;
+
+    int nothing = write( send_port, &request_flag, 1 );
+    nothing += 1;
+    while ( n < 2 )
+    {
+        usleep(SENSOR_PROC_DELAY_US);
+        n += read( receive_port, &buffer, sizeof(buffer) );
+    }
+
+    left_byte = (unsigned char) buffer[0];
+    right_byte = (unsigned char) buffer[1];
+    value = value | left_byte;
+    value = value << 8;
+    value = value | right_byte;
+
+    clear_buffer();
+    return value;
+}
+
+int poll_vic_sensor()
+{
+    unsigned char request_flag = VIC_SENSOR_REQUEST;
     char buffer[2] = "";
     int n = 0;
 

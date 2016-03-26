@@ -79,6 +79,7 @@
 //Sensor Stuff
 #define INF_DISTANCE 18.0
 #define SIX_INCHES 15.0
+#define VIC_DISTANCE 4.0 	// UNKNOWN, will be based on where the sensor is
 //Stopping tolerance depends on paint color
 #define FRONT_STOPPING_TOLERANCE 0
 //want to be 6 cm away from wall
