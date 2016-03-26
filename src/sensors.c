@@ -239,3 +239,8 @@ int poll_vic_sensor()
     clear_buffer();
     return value;
 }
+
+void SetVictimLocation()
+{
+    
+}

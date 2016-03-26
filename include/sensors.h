@@ -21,5 +21,8 @@ int poll_front_sensor();
 int poll_back_sensor();
 int poll_vic_sensor();
 
+//This wille eventually move to a camera code file
+void SetVictimLocation();
+
 
 #endif

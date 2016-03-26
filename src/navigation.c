@@ -4,7 +4,6 @@
 #include "../include/sensors.h"
 #include "../include/logger.h"
 
-#include <stdbool.h>
 #include <unistd.h>
 #include <stdio.h>
 
@@ -123,7 +122,7 @@ void cp_to_yellow()
     claw( CLOSE );
 }
 
-bool retrieve_victim_1()
+void retrieve_victim_1()
 {
     drive( 18, 3 );
     sleep(3);
@@ -149,11 +148,9 @@ bool retrieve_victim_1()
         cp_to_yellow();
     }
     stop();
-
-    return true;
 }
 
-bool retreive_victim_2()
+void retreive_victim_2()
 {
     follow_left_wall_until_end( 190, WALL_FOLLOW_TARGET );
     drive( 15, 2 );
@@ -198,11 +195,9 @@ bool retreive_victim_2()
         cp_to_yellow();
     }
     stop();
-
-    return true;
 }
 
-bool retreive_victim_3()
+void retreive_victim_3()
 {
     // Start following right wall until Left gap
     sleep(2);
@@ -238,11 +233,11 @@ bool retreive_victim_3()
 
     // Set victim location (A or B)
     sleep(2);
-    SetVictimLocation();
+    //SetVictimLocation(); //This is a void function that determines whether there is a victim in front of us or not
 
 
     sleep(2);
-    if (A)
+    if (true/*A*/)
     {
         // Follow right wall until a victim is in front of us
         getVictim();
@@ -250,7 +245,7 @@ bool retreive_victim_3()
     else
     {
         // Running to the end of the map
-        follow_right_wall_until_obstacle(( 200, 6.0, 10.0 );
+        follow_right_wall_until_obstacle( 200, 6.0, 10.0 );
 
         // 90 degree left
         sleep(2);
@@ -320,17 +315,9 @@ bool retreive_victim_3()
         cp_to_yellow();
     }
     stop();
-
-
-
-
-
-
-
-    return false;
 }
 
-bool retreive_victim_4()
+void retreive_victim_4()
 {
     /*
     * instructions for if the fourth person is on the near side of the river:
@@ -340,7 +327,7 @@ bool retreive_victim_4()
     * grab victim and turn aroiund
     * retrace steps to CP
     */
-    if ( FOURTH_VICTIM_POSITION == POSITION_A)
+    if ( true /*A*/)
     {
         //wall follow from CP to the first break in the left wall
         follow_left_wall_until_end ( 190, WALL_FOLLOW_TARGET );
@@ -415,12 +402,12 @@ bool retreive_victim_4()
         turn ( HALF_LEFT_TURN, 1);
         sleep (1);
         //wall follow until the corner is reached
-        follow_right_wall_until_obstacle ( 190, WALL_FOLLOW_TARGET );
+        follow_right_wall_until_obstacle ( 190, WALL_FOLLOW_TARGET, 10.0 );
         //turn 90 degrees at the corner
         turn ( FULL_LEFT_TURN, 2);
         sleep (2);
         //wall follow until the corner is reached
-        follow_right_wall_until_obstacle ( 190, WALL_FOLLOW_TARGET );
+        follow_right_wall_until_obstacle ( 190, WALL_FOLLOW_TARGET, 10.0 );
         //turn 90 degrees at the corner
         turn ( FULL_LEFT_TURN, 2);
         //drive to the victim
@@ -433,12 +420,12 @@ bool retreive_victim_4()
         turn ( LEFT_180, 4);
         sleep (4);
         //wall follow to the corner again
-        follow_left_wall_until_obstacle ( 190, WALL_FOLLOW_TARGET );
+        follow_left_wall_until_obstacle ( 190, WALL_FOLLOW_TARGET, 10.0 );
         //turn 90 degrees at the corner
         turn ( FULL_RIGHT_TURN, 2);
         sleep (2);
         //wall follow until the corner is reached
-        follow_left_wall_until_obstacle ( 190, WALL_FOLLOW_TARGET );
+        follow_left_wall_until_obstacle ( 190, WALL_FOLLOW_TARGET, 10.0 );
         //turn 90 degrees at the corner
         turn ( FULL_RIGHT_TURN, 2);
         sleep (2);
@@ -471,7 +458,6 @@ bool retreive_victim_4()
     * After returning to CP, return to initial zone
     * power off.
     */
-    return false;
 }
 
 void get_to_cp(   )
