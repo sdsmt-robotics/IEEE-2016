@@ -41,47 +41,64 @@ void cp_to_start()
 
 void cp_to_red()
 {
+    // Forward 6"
     drive( 15, 2 );
     sleep(2);
+
+    // 90 degree turn left
     turn( FULL_LEFT_TURN, 2 );
     sleep(2);
 
+    // Forward until 6" from the wall
     drive( 35, 3);
     sleep(3);
     forward_until_obstacle( 210, 8 );
 
+    // 90 degree turn left
     turn( FULL_LEFT_TURN, 2 );
     sleep(2);
 
+    // Drive until in the "hospital"
     drive( 20, 3 );
     sleep(3);
     follow_left_wall_until_obstacle( 210, 5.5, 4 );
 
+    // Dropoff victim
     claw(OPEN);
     claw(RAISE);
 
+    // Reverse out and close the claw
     drive( -35, 3 );
     sleep(3);
     claw(CLOSE);
 
+    // Rotate 90 degrees about right wheel then turn the other 90 like normal
     var_turn( FULL_RIGHT_TURN, 3 );
     sleep(3);
     turn( FULL_RIGHT_TURN, 2 );
     sleep(2);
 
+    // Returning to CP now...
     follow_right_wall_until_end( 210, 6.0 );
 
+    // After passing end of the right wall, move forward 6"
     drive( SIX_INCHES, 2 );
     sleep(2);
 
+    // Turn 90 degrees right
     turn( FULL_RIGHT_TURN, 2 );
     sleep(2);
 
+    // Drive forward until we hit a wall
     drive( SIX_INCHES, 2);
     sleep(2);
     forward_until_obstacle( 210, 0 );
+
+    // Make a right turn
     turn( FULL_RIGHT_TURN, 2 );
     sleep(2);
+
+    // We are now back in CP
 }
 
 
