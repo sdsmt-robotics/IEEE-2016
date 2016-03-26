@@ -216,7 +216,38 @@ bool retreive_victim_3()
 
 bool retreive_victim_4()
 {
-
+    /*
+    * instructions for if the fourth person is on the far side of the river:
+    * wall follow left until break in wall
+    * wall follow right until we can read the left wall again
+    * read left until break* turn left and move forward to the point marked on the blue tape
+    * make dead reckoning angled turn to get to the second marked point
+    * wall follow right until the corner is reached
+    * turn left and wall follow right until corner
+    * turn left and move forward until victim 4 is reached
+    * grab victim 4 and turn around.
+    * retrace steps to CP
+    * determine color
+    * call the appropriate drop off function
+    */
+    
+    /*
+    * instructions for if the fourth person is on the near side of the river:
+    * wall follow left until break in wall
+    * turn left and move forward until the green section has been reached
+    * turn left and approach the fourth victim
+    * grab victim and turn aroiund
+    * retrace steps to CP
+    * determine color
+    * call the appropriate drop off function
+    */
+    
+    /*
+    * instructions for after drop off, if necessary and are not called externally
+    * After the victim has been dropped off, return to CP
+    * After returning to CP, return to initial zone
+    * power off.
+    */
     return false;
 }
 
