@@ -12,6 +12,7 @@
 
 void start_to_cp( )
 {
+    claw( OPEN );
     drive( 32, 4 );
     sleep(5);
     turn( FULL_LEFT_TURN, 2 );
@@ -124,8 +125,6 @@ void cp_to_yellow()
 
 bool retrieve_victim_1()
 {
-    claw( OPEN );
-    start_to_cp();
     drive( 18, 3 );
     sleep(3);
     follow_right_wall_until_obstacle( 200, 6.0, 10.0 );
@@ -156,17 +155,51 @@ bool retrieve_victim_1()
 
 bool retreive_victim_2()
 {
-    //get to person 2:
-        //62cm from cp
-        //rotate -90
-        //forward 30 cm
-        //rotate -90
-        //forward 91 cm
-    //grab person 2
-    //go to cp
-    //call appropriate cp_to_hospital() (this function will peek at the global color var)
-    //return to cp
-    return false;
+    follow_left_wall_until_end( 190, WALL_FOLLOW_TARGET );
+    drive( 15, 2 );
+    sleep(2);
+    turn( FULL_LEFT_TURN, 2 );
+    sleep(2);
+    drive( 30, 4 );
+    sleep(4);
+    turn( FULL_LEFT_TURN, 2 );
+    sleep(2);
+    drive( 10, 2 );
+    sleep(2);
+    follow_left_wall_until_obstacle( 190, 5.0, 10.0 );
+    claw( CLOSE );
+    usleep( 500*1000 );
+    claw( RAISE );
+    turn( RIGHT_180, 4 );
+    sleep(4);
+    follow_right_wall_until_end( 190, 5.0 );
+    drive( 15, 2 );
+    sleep(2);
+    turn( FULL_RIGHT_TURN, 2 );
+    claw( LOWER );
+    sleep(2);
+    forward_until_obstacle( 190, 10 );
+    turn( FULL_RIGHT_TURN, 2 );
+    claw( RAISE );
+    sleep(2);
+    follow_left_wall_until_end( 190, WALL_FOLLOW_TARGET );
+    claw( LOWER );
+    stop();
+
+    if ( victim_color == YELLOW )
+    {
+        cp_to_yellow();
+    } else if ( victim_color == RED )
+    {
+        cp_to_red();
+    } else if ( victim_color == UNKNOWN_COLOR )
+    {
+        printf("Crap. UNKNOWN_COLOR. What are you, blind?\n");
+        cp_to_yellow();
+    }
+    stop();
+
+    return true;
 }
 
 bool retreive_victim_3()
@@ -279,7 +312,64 @@ bool retreive_victim_3()
 
 bool retreive_victim_4()
 {
-
+    /*
+    * instructions for if the fourth person is on the near side of the river:
+    * wall follow left until break in wall
+    * turn left and move forward until the green section has been reached
+    * turn left and approach the fourth victim
+    * grab victim and turn aroiund
+    * retrace steps to CP
+    * determine color
+    * call the appropriate drop off function
+    */
+    follow_left_wall_until_end( 190, WALL_FOLLOW_TARGET );
+    turn( FULL_LEFT_TURN, 2 );
+    sleep(2);
+    drive(64, 8);
+    sleep(8);
+    turn( FULL_LEFT_TURN, 2);
+    sleep(2);
+    drive(72.5, 10);
+    sleep(10);
+    claw(CLOSE);
+    claw(RAISE);
+    turn(RIGHT_180, 4);
+    sleep(4);
+    drive (72.5, 10);
+    sleep(10);
+    turn( FULL_RIGHT_TURN, 2);
+    sleep(2);
+    drive(64, 8);
+    sleep(8);
+    turn( FULL_RIGHT_TURN, 2);
+    sleep(2);
+    drive(60, 8);
+    sleep(8);
+    //call relevant color detection and movement functions here or break and
+    //call them elsewhere.
+    
+    /*
+    * instructions for if the fourth person is on the far side of the river:
+    * wall follow left until break in wall
+    * wall follow right until we can read the left wall again
+    * read left until break* turn left and move forward to the point marked on the blue tape
+    * make dead reckoning angled turn to get to the second marked point
+    * wall follow right until the corner is reached
+    * turn left and wall follow right until corner
+    * turn left and move forward until victim 4 is reached
+    * grab victim 4 and turn around.
+    * retrace steps to CP
+    * determine color
+    * call the appropriate drop off function
+    */
+    
+    
+    /*
+    * instructions for after drop off, if necessary and are not called externally
+    * After the victim has been dropped off, return to CP
+    * After returning to CP, return to initial zone
+    * power off.
+    */
     return false;
 }
 
