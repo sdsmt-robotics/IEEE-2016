@@ -21,14 +21,17 @@ int main( int argc, char* argv[] )
     receive_port = sys_init(SENSORS_COMM_LOCATION);
     victim_color = YELLOW;
 
-    // var_test_follow_left_wall_until_end( 190, 6.0 );
-    // retrieve_victim_1();
+    // follow_left_wall_until_end( 190, 6.0 );
+    start_to_cp();
+    
+    retrieve_victim_1();
 
-    while ( 1 )
-    {
-        poll_sensors();
-        sleep(1);
-    }
+    // while ( 1 )
+    // {
+    //     poll_sensors();
+    //     sleep(1);
+    // }
+
     return 0;
 }
 

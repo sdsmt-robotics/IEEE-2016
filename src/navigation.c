@@ -14,12 +14,12 @@ void start_to_cp( )
 {
     claw( OPEN );
     drive( 32, 4 );
-    sleep(5);
+    sleep(4);
     turn( FULL_LEFT_TURN, 2 );
-    sleep(3);
+    sleep(2);
     forward_until_obstacle( 190, 1 );
     turn( FULL_RIGHT_TURN, 2 );
-    sleep(3);
+    sleep(2);
 }
 
 void cp_to_start()
