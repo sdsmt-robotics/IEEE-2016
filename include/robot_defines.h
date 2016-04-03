@@ -84,7 +84,7 @@
 //#define STEPS_PER_MM 18.2
 
 //Sensor Stuff
-#define INF_DISTANCE 18.0
+#define INF_DISTANCE 15.0
 #define SIX_INCHES 15.0
 #define VIC_DISTANCE 4.0 	// UNKNOWN, will be based on where the sensor is
 //Stopping tolerance depends on paint color

@@ -37,7 +37,7 @@ void cp_to_start()
 
     claw( OPEN );
     claw( LOWER );
-
+    stop();
 }
 
 void cp_to_red()
@@ -100,12 +100,14 @@ void cp_to_red()
     sleep(2);
 
     // We are now back in CP
+    stop();
 }
 
 
 void cp_to_yellow()
 {
-    forward_until_obstacle(190, 10.0);
+    drive( 34, 3 );
+    sleep(3);
     claw( OPEN );
     claw( RAISE );
     drive( -25, 3 );
@@ -120,6 +122,7 @@ void cp_to_yellow()
     claw( OPEN );
     sleep(1);
     claw( CLOSE );
+    stop();
 }
 
 void retrieve_victim_1()
@@ -135,6 +138,8 @@ void retrieve_victim_1()
     var_test_follow_left_wall_until_end( 200, 5.0 );
     claw( LOWER );
     stop();
+    //a debug sleep
+    sleep(2);
 
     if ( victim_color == YELLOW )
     {
