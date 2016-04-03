@@ -14,6 +14,7 @@ double vic_sensor();	// Detects victim
 double map_voltage_to_distance( int voltage );
 
 void poll_sensors();
+void sensors( double *vic, double *back, double *front, double *left, double *right );
 
 int poll_left_sensor();
 int poll_right_sensor();

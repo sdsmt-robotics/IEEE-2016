@@ -21,16 +21,28 @@ int main( int argc, char* argv[] )
     receive_port = sys_init(SENSORS_COMM_LOCATION);
     victim_color = YELLOW;
 
-    // follow_left_wall_until_end( 190, 6.0 );
-    start_to_cp();
-    
-    retrieve_victim_1();
+    double left = 0;
+    double right = 0;
+    double back = 0;
+    double vic = 0;
+    double front = 0;
 
-    // while ( 1 )
-    // {
-    //     poll_sensors();
-    //     sleep(1);
-    // }
+    // follow_left_wall_until_end( 190, 6.0 );
+    // start_to_cp();
+    
+    // retrieve_victim_1();
+
+    while ( 1 )
+    {
+        sensors( &vic, &back, &front, &left, &right );
+        printf("front (cm): %.1f\n", front);
+        printf("back (cm): %.1f\n", back);
+        printf("left (cm): %.1f\n", left);
+        printf("right (cm): %.1f\n", right);
+        printf("vic (cm): %.1f\n", vic);
+        printf("===========================\n");
+        sleep(1);
+    }
 
     return 0;
 }

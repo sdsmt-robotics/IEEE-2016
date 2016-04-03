@@ -105,6 +105,69 @@ void poll_sensors()
     clear_buffer();
 }
 
+void sensors( double *vic, double *back, double *front, double *left, double *right )
+{
+    char buffer[10] = "";
+    unsigned char flag = SENSOR_REQUEST;
+    int n = 0;
+
+    unsigned short left_v = 0;
+    unsigned short right_v = 0;
+    unsigned short front_v = 0;
+    unsigned short back_v = 0;
+    unsigned short vic_v = 0;
+
+    unsigned char left_byte = 0;
+    unsigned char right_byte = 0;
+
+    int nothing = write( send_port, &flag, 1);
+    nothing += 1; // to make gcc stfu
+    while ( n < 10 )
+    {
+        usleep(SENSOR_PROC_DELAY_US);
+        //will overwrite first few bytes in buffer, but won't leave unclaimed bytes hanging in memory...
+        n += read( receive_port, &buffer, sizeof(buffer) );
+    }
+
+    left_byte = (unsigned char) buffer[0];
+    right_byte = (unsigned char) buffer[1];
+    left_v = left_v | left_byte;
+    left_v = left_v << 8;
+    left_v = left_v | right_byte;
+
+    left_byte = (unsigned char) buffer[2];
+    right_byte = (unsigned char) buffer[3];
+    right_v = right_v | left_byte;
+    right_v = right_v << 8;
+    right_v = right_v | right_byte;
+
+    left_byte = (unsigned char) buffer[4];
+    right_byte = (unsigned char) buffer[5];
+    front_v = front_v | left_byte;
+    front_v = front_v << 8;
+    front_v = front_v | right_byte;
+
+    left_byte = (unsigned char) buffer[6];
+    right_byte = (unsigned char) buffer[7];
+    back_v = back_v | left_byte;
+    back_v = back_v << 8;
+    back_v = back_v | right_byte;
+
+    left_byte = (unsigned char) buffer[8];
+    right_byte = (unsigned char) buffer[9];
+    vic_v = vic_v | left_byte;
+    vic_v = vic_v << 8;
+    vic_v = vic_v | right_byte;
+
+    clear_buffer();
+
+    *vic = map_voltage_to_distance( vic_v );
+    *back = map_voltage_to_distance( back_v );
+    *front = map_voltage_to_distance( front_v );
+    *left = map_voltage_to_distance( left_v );
+    *right = map_voltage_to_distance( right_v );
+}
+
 int poll_left_sensor()
 {
     unsigned char request_flag = LEFT_SENSOR_REQUEST;
