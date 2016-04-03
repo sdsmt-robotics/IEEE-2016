@@ -606,7 +606,7 @@ void var_test_follow_left_wall_until_end( unsigned char speed, float target )
 
     setWheelSpeed( BOTH, speed );
 
-    while ( left_value < INF_DISTANCE )
+    while ( abs(left_value - last_pos) > 3.5 ) //if the distance drops too much, stop
     {
         last_pos = left_value;
         sensors( &vic, &back, &front, &left_value, &right );
