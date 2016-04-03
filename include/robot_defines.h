@@ -65,15 +65,23 @@
 #define IR_DISTANCE_SCALAR 0.5
 
 //Physical information
-#define WHEEL_BASE_MM 151.0
+#define WHEEL_BASE_MM 153.0
 
-//Blue Wheels:
-#define STEPS_PER_CM 26
-#define STEPS_PER_MM 2.6
+//Blue Wheels with wimpy-ass steppers:
+//#define STEPS_PER_CM 26
+//#define STEPS_PER_MM 2.6
 
-//Green Wheels:
+//Blue Wheels with geared steppers:
+#define STEPS_PER_CM 135
+#define STEPS_PER_MM 13.5
+
+//Green Wheels with wimpy-ass steppers:
 //#define STEPS_PER_CM 35
 //#define STEPS_PER_MM 3.5
+
+//Green Wheels with gears steppers:
+//#define STEPS_PER_CM 182
+//#define STEPS_PER_MM 18.2
 
 //Sensor Stuff
 #define INF_DISTANCE 18.0
@@ -83,7 +91,7 @@
 #define FRONT_STOPPING_TOLERANCE 0
 //want to be 6 cm away from wall
 #define WALL_FOLLOW_TARGET 6.0
-#define WALL_FOLLOW_TOLERANCE 0.5
+#define WALL_FOLLOW_TOLERANCE 0.3
 
 //Timing delays
 #define TEN_MS 10000
