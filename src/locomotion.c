@@ -589,8 +589,14 @@ void var_test_follow_left_wall_until_end( unsigned char speed, float target )
 {
     // float error = 0;
     // float error_last = 0;
-    float left_value = left_sensor();
-    float last_pos = left_value;
+    double vic = 0;
+    double back = 0;
+    double front = 0;
+    double left_value = 0;
+    double right = 0;
+
+    sensors( &vic, &back, &front, &left_value, &right );
+    double last_pos = left_value;
 
     // float kp = 0;
     // float kd = 0;
@@ -603,7 +609,7 @@ void var_test_follow_left_wall_until_end( unsigned char speed, float target )
     while ( left_value < INF_DISTANCE )
     {
         last_pos = left_value;
-        left_value = left_sensor();
+        sensors( &vic, &back, &front, &left_value, &right );
         printf("left: %.1f\n", left_value );
 
         if ( left_value < target - WALL_FOLLOW_TOLERANCE ) //too close
