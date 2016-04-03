@@ -105,8 +105,7 @@ void cp_to_red()
 
 void cp_to_yellow()
 {
-    drive( 34, 3 );
-    sleep(3);
+    forward_until_obstacle(190, 10.0);
     claw( OPEN );
     claw( RAISE );
     drive( -25, 3 );
@@ -127,7 +126,7 @@ void retrieve_victim_1()
 {
     drive( 18, 3 );
     sleep(3);
-    follow_right_wall_until_obstacle( 200, 6.0, 10.0 );
+    follow_right_wall_until_obstacle( 200, 6.0, 4.0 );
     claw( CLOSE );
     usleep(500*1000); //0.5 sec
     claw( RAISE );
