@@ -48,8 +48,9 @@ int main( int argc, char* argv[] )
     sleep(1);
     int driveit = 1;
     int OG = 32;
+    int stepsize = OG/4;
     int accel = driveit;
-    int sleepytime = 100000;
+    int sleepytime = 50000;
 
 
     while (OG/(driveit) > 1)
@@ -57,7 +58,8 @@ int main( int argc, char* argv[] )
         //      32/1, 32/3, 32/5...
         drive(OG/(driveit), OG/2);
         usleep(sleepytime);
-        driveit +=1;
+        driveit = stepsize;
+        stepsize += stepsize;
     }
 
 
