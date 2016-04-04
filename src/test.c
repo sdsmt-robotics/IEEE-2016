@@ -50,7 +50,7 @@ int main( int argc, char* argv[] )
     int OG = 32;
     int stepsize = OG/4;
     int accel = driveit;
-    int sleepytime = 50000;
+    int sleepytime = 125000;
 
 
     while (OG/(driveit) > 1)
