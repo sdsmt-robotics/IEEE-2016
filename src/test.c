@@ -56,7 +56,7 @@ int main( int argc, char* argv[] )
     while (OG/(driveit) > 1)
     {
         //      32/1, 32/3, 32/5...
-        drive(OG/(driveit), OG/driveit);
+        drive(OG/(driveit), OG/driveit*4);
         usleep(sleepytime);
         driveit = stepsize;
         stepsize += stepsize;
