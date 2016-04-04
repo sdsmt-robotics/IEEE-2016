@@ -597,6 +597,7 @@ void var_test_follow_left_wall_until_end( unsigned char speed, float target )
 
     sensors( &vic, &back, &front, &left_value, &right );
     double last_pos = left_value;
+    double delta = abs(left_value - last_pos);
 
     // float kp = 0;
     // float kd = 0;
@@ -606,12 +607,13 @@ void var_test_follow_left_wall_until_end( unsigned char speed, float target )
 
     setWheelSpeed( BOTH, speed );
 
-    while ( abs(left_value - last_pos) < 2.0 ) //if the distance drops too much, stop
+    while ( delta < 1.5 ) //if the distance drops too much, stop
     {
-        sensors( &vic, &back, &front, &left_value, &right );
         last_pos = left_value;
+        sensors( &vic, &back, &front, &left_value, &right );
+        delta = abs(left_value - last_pos);
         printf("left: %.1f\n", left_value );
-        printf("delta: %.2f\n", abs(left_value - last_pos));
+        printf("delta: %.2f\n", delta);
 
         if ( left_value < target - WALL_FOLLOW_TOLERANCE ) //too close
         {
