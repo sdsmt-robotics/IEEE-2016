@@ -45,6 +45,7 @@ int main( int argc, char* argv[] )
     // }
 
     drive(16, 2);
+    sleep(1);
     int driveit = 28;
     int accel = driveit/2;
     int sleepytime = 4000;
