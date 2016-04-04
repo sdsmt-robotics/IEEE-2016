@@ -52,7 +52,7 @@ int main( int argc, char* argv[] )
     int sleepytime = 4000;
 
 
-    while (OG/(driveit) > OG/2)
+    while (OG/(driveit) > 1)
     {
         //      32/1, 32/3, 32/5...
         drive(OG/(driveit), accel/10);
