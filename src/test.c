@@ -54,7 +54,7 @@ int main( int argc, char* argv[] )
         drive(driveit, accel/10);
         usleep(sleepytime);
         sleepytime *= 1.5;
-        driveit /=2;
+        driveit -=4;
     }
 
 
