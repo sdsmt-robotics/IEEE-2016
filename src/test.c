@@ -28,9 +28,9 @@ int main( int argc, char* argv[] )
     // double front = 0;
 
     // follow_left_wall_until_end( 190, 6.0 );
-    start_to_cp();
+    // start_to_cp();
     
-    retrieve_victim_1();
+    // retrieve_victim_1();
 
     // while ( 1 )
     // {
@@ -43,6 +43,14 @@ int main( int argc, char* argv[] )
     //     printf("===========================\n");
     //     sleep(1);
     // }
+
+    drive(8, 1);
+    sleep(1);
+    drive(16, 1);
+    sleep(1);
+    drive(8, 1);
+    sleep(1);
+
 
     return 0;
 }
