@@ -5,7 +5,8 @@
 
 #include <stdio.h>
 #include <unistd.h>
-#define printf LOG
+
+//#define printf LOG
 
 
 double map_voltage_to_distance( int voltage )

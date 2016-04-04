@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#define printf LOG
+//#define printf LOG
 
 int send_port;
 int receive_port;

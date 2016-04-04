@@ -3,13 +3,13 @@ SRC = $(wildcard src/*.c)
 #make an object file for every .c file
 OBJ = $(SRC:.c=.o)
 
-CC = gcc
+CC = g++
 #have to use g++ to link
 LINK = g++
 
 #VPATH = src
 
-CFLAGS = -Wall -O -g -std=gnu99
+CFLAGS = -Wall -O -g 
 CXXFLAGS = $(CFLAGS)
 
 TARGET = test_locomote
