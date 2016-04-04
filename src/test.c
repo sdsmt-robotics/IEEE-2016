@@ -59,7 +59,7 @@ int main( int argc, char* argv[] )
         drive(OG, (int)driveit);
         usleep(sleepytime);
         OG = floor(OG/1.25);
-        driveit *= .9;
+        driveit *= .875;
 
     }
     //drive(0, 0);
