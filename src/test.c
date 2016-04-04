@@ -57,10 +57,12 @@ int main( int argc, char* argv[] )
     while (newspeed > 0)
     {
         drive(newspeed, 2);
-        usleep(sleepytime);
-        stop();
+        
+//        stop();
         ++i;
         newspeed = 32 - (i*i);
+        if (newspeed > 0)
+            usleep(sleepytime);
     }
 
     // while (OG > threshold)
