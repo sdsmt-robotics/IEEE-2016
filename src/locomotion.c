@@ -182,11 +182,15 @@ void forward_until_obstacle( unsigned char speed, float tolerance )
 void forward_until_left_end( unsigned char speed )
 {
     double left_value = 0;
+    double last_pos = 0;
+    double delta = 0;
     setWheelSpeed( BOTH, speed );
 
-    while ( left_value < INF_DISTANCE )
+    while ( delta < WALL_FOLLOW_DELTA )
     {
+        last_pos = left_value;
         left_value = left_sensor();
+        delta = abs(left_value - last_pos);
         printf("Following left wall.\n");
     }
     stop();
@@ -195,12 +199,16 @@ void forward_until_left_end( unsigned char speed )
 
 void forward_until_right_end( unsigned char speed )
 {
-    double right_value = right_sensor();
+    double right_value = 0;
+    double last_pos = 0;
+    double delta = 0;
     setWheelSpeed( BOTH, speed );
 
-    while ( right_value < INF_DISTANCE )
+    while ( delta < WALL_FOLLOW_DELTA )
     {
+        last_pos = right_value;
         right_value = right_sensor();
+        delta = abs(right_value - last_pos);
         printf("Following right wall.\n");
     }
     stop();
@@ -209,16 +217,27 @@ void forward_until_right_end( unsigned char speed )
 
 void follow_left_wall_until_end( unsigned char speed, float target )
 {
-    double left_value = left_sensor();
+    double vic_value = 0;
+    double back_value = 0;
+    double front_value = 0;
+    double left_value = 0;
+    double right_value = 0;
+    
+    sensors( &vic_value, &back_value, &front_value, &left_value, &right_value );
+
     double last_pos = 0;
+    double delta = 0;
+
     unsigned char speed_mod = 0;
     setWheelSpeed( BOTH, speed );
 
-    while ( left_value < INF_DISTANCE )
+    while ( delta < WALL_FOLLOW_DELTA )
     {
         last_pos = left_value;
-        left_value = left_sensor();
+        sensors( &vic_value, &back_value, &front_value, &left_value, &right_value );
+        delta = abs(left_value - last_pos);
         printf("left: %.1f\n", left_value );
+        printf("delta: %.3f\n", delta );
 
         if ( left_value < target - WALL_FOLLOW_TOLERANCE ) //too close
         {
@@ -271,16 +290,28 @@ void follow_left_wall_until_end( unsigned char speed, float target )
 
 void follow_right_wall_until_end( unsigned char speed, float target )
 {
-    double right_value = right_sensor();
+    double vic_value = 0;
+    double back_value = 0;
+    double front_value = 0;
+    double left_value = 0;
+    double right_value = 0;
+    
+    sensors( &vic_value, &back_value, &front_value, &left_value, &right_value );
+
     double last_pos = 0;
+    double delta = 0;
+
     unsigned char speed_mod = 0;
     setWheelSpeed( BOTH, speed );
 
-    while ( right_value < INF_DISTANCE )
+    while ( delta < WALL_FOLLOW_DELTA )
     {
         last_pos = right_value;
-        right_value = right_sensor();
+        sensors( &vic_value, &back_value, &front_value, &left_value, &right_value );
+
+        delta = abs(right_value - last_pos);
         printf("right: %.1f\n", right_value );
+        printf("delta: %.3f\n", delta );
 
         if ( right_value < target - WALL_FOLLOW_TOLERANCE ) //too close
         {
@@ -333,16 +364,29 @@ void follow_right_wall_until_end( unsigned char speed, float target )
 
 void follow_right_wall_until_left_open( unsigned char speed, float target )
 {
-    double right_value = right_sensor();
-    double last_pos = 0;
+    double vic_value = 0;
+    double back_value = 0;
+    double front_value = 0;
+    double left_value = 0;
+    double right_value = 0;
+    
+    sensors( &vic_value, &back_value, &front_value, &left_value, &right_value );
+
+    double last_right_pos = 0;
+    double last_left_pos = 0;
+    double delta = 0;
+
     unsigned char speed_mod = 0;
     setWheelSpeed( BOTH, speed );
 
-    while ( left_sensor() < INF_DISTANCE )
+    while ( delta < WALL_FOLLOW_DELTA )
     {
-        last_pos = right_value;
-        right_value = right_sensor();
+        last_right_pos = right_value;
+        last_left_pos = left_value;
+        sensors( &vic_value, &back_value, &front_value, &left_value, &right_value );
+        delta = abs(left_value - last_left_pos);
         printf("right: %.1f\n", right_value );
+        printf("delta: %.3f\n", delta );
 
         if ( right_value < target - WALL_FOLLOW_TOLERANCE ) //too close
         {
@@ -375,11 +419,11 @@ void follow_right_wall_until_left_open( unsigned char speed, float target )
         } else 
         {
             printf("Goldilocks *would* love you if she was real, but she's not, so she doesn't.\n");
-            if ( (last_pos-right_value) < 0 && (abs(last_pos-right_value) > 0.05) ) // approaching goldilocks zone from the left
+            if ( (last_right_pos-right_value) < 0 && (abs(last_right_pos-right_value) > 0.05) ) // approaching goldilocks zone from the left
             {
                 // LEFT wheel will be going speed-speed_mod coming into the goldilocks zone, speed it up
                 setWheelSpeed( LEFT, speed+speed_mod-5 );
-            } else if ( (last_pos-right_value) > 0 && (abs(last_pos-right_value) > 0.05) ) // approaching goldilocks zone from the right
+            } else if ( (last_right_pos-right_value) > 0 && (abs(last_right_pos-right_value) > 0.05) ) // approaching goldilocks zone from the right
             {
                 // LEFT wheel will be going speed+speed_mod coming into the goldilocks zone, slow it down
                 setWheelSpeed( LEFT, speed-speed_mod+5 );
@@ -395,16 +439,23 @@ void follow_right_wall_until_left_open( unsigned char speed, float target )
 
 void follow_left_wall_until_obstacle( unsigned char speed, float target, float tolerance )
 {
-    double front_value = front_sensor();
-    double left_value = left_sensor();
+    double vic_value = 0;
+    double back_value = 0;
+    double front_value = 0;
+    double left_value = 0;
+    double right_value = 0;
+    
+    sensors( &vic_value, &back_value, &front_value, &left_value, &right_value );
+
     double last_pos = 0;
+
     unsigned char speed_mod = 0;
     setWheelSpeed( BOTH, speed );
 
     while ( front_value > SIX_INCHES + tolerance )
     {
         last_pos = left_value;
-        left_value = left_sensor();
+        sensors( &vic_value, &back_value, &front_value, &left_value, &right_value );
         printf("left: %.1f\n", left_value );
 
         if ( left_value < target - WALL_FOLLOW_TOLERANCE ) //too close
@@ -458,17 +509,23 @@ void follow_left_wall_until_obstacle( unsigned char speed, float target, float t
 
 void follow_right_wall_until_obstacle( unsigned char speed, float target, float tolerance )
 {
-    double front_value = front_sensor();
-    double right_value = right_sensor();
+    double vic_value = 0;
+    double back_value = 0;
+    double front_value = 0;
+    double left_value = 0;
+    double right_value = 0;
+    
+    sensors( &vic_value, &back_value, &front_value, &left_value, &right_value );
+
     double last_pos = 0;
+
     unsigned char speed_mod = 0;
     setWheelSpeed( BOTH, speed );
 
     while ( front_value > SIX_INCHES + tolerance )
     {
         last_pos = right_value;
-        front_value = front_sensor();
-        right_value = right_sensor();
+        sensors( &vic_value, &back_value, &front_value, &left_value, &right_value );
         printf("right: %.1f\n", right_value );
         printf("front: %.1f\n", front_value );
 
@@ -607,15 +664,15 @@ void var_test_follow_left_wall_until_end( unsigned char speed, float target )
 
     setWheelSpeed( BOTH, speed );
 
-    while ( delta < 1.5 ) //if the distance drops too much, stop
+    while ( delta < WALL_FOLLOW_DELTA ) //if the distance drops too much, stop
     {
         last_pos = left_value;
         sensors( &vic, &back, &front, &left_value, &right );
         delta = abs(left_value - last_pos);
         printf("left: %.1f\n", left_value );
-        printf("delta: %.2f\n", delta);
+        printf("delta: %.3f\n", delta);
 
-        if ( left_value < target - WALL_FOLLOW_TOLERANCE ) //too close
+        if ( left_value < (target - WALL_FOLLOW_TOLERANCE) ) //too close
         {
             printf("Too close to left wall. Go away.\n");
             if ( left_value < target/2.0 )
@@ -632,7 +689,7 @@ void var_test_follow_left_wall_until_end( unsigned char speed, float target )
             //adjust inside wheel, ignore for now
             // temp = kp*error + kd*(error - error_last);
             //setWheelSpeed( LEFT, temp );
-        } else if ( left_value > target + WALL_FOLLOW_TOLERANCE ) // too far away
+        } else if ( left_value > (target + WALL_FOLLOW_TOLERANCE) ) // too far away
         {
             printf("Too far away from left wall. </3\n");
             if ( left_value > (target*2.0 - 0.5*10*WHEEL_BASE_MM) ) // Shift the right danger zone boundary by one half the wheel base

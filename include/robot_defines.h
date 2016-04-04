@@ -89,7 +89,9 @@
 #define VIC_DISTANCE 4.0 	// UNKNOWN, will be based on where the sensor is
 //Stopping tolerance depends on paint color
 #define FRONT_STOPPING_TOLERANCE 0
+
 //want to be 6 cm away from wall
+#define WALL_FOLLOW_DELTA 1.5
 #define WALL_FOLLOW_TARGET 6.0
 #define WALL_FOLLOW_TOLERANCE 0.3
 
