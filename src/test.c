@@ -51,10 +51,10 @@ int main( int argc, char* argv[] )
     int sleepytime = 4000;
     while (driveit)
     {
-        drive(driveit, accel/6);
+        drive(driveit, accel/10);
         usleep(sleepytime);
         sleepytime *= 1.5;
-        --driveit;
+        driveit -=2;
     }
 
 
