@@ -56,7 +56,7 @@ int main( int argc, char* argv[] )
 
     while (newspeed > 0)
     {
-        drive(newspeed, (int)driveit);
+        drive(newspeed, 2);
         ++i;
         newspeed = 32 - (i*i);
         driveit *= .875;
