@@ -51,6 +51,8 @@ int main( int argc, char* argv[] )
     drive(16, 1);
     usleep(500000);
     drive(8, 1);
+    usleep(500000);
+    drive(4, 1);
     usleep(1000000);
 
 
