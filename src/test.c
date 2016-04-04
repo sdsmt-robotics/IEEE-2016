@@ -44,16 +44,27 @@ int main( int argc, char* argv[] )
     //     sleep(1);
     // }
 
-    drive(4, 1);
-    usleep(500000);
-    drive(8, 1);
-    usleep(500000);
-    drive(16, 1);
-    usleep(500000);
-    drive(8, 1);
-    usleep(500000);
-    drive(4, 1);
-    usleep(1000000);
+
+    int driveit = 32;
+    while (driveit)
+    {
+        drive(driveit, driveit*2);
+        usleep(100000);
+        --driveit;
+    }
+
+
+
+    // drive(4, 1);
+    // usleep(500000);
+    // drive(8, 1);
+    // usleep(500000);
+    // drive(16, 1);
+    // usleep(500000);
+    // drive(8, 1);
+    // usleep(500000);
+    // drive(4, 1);
+    // usleep(1000000);
 
 
     return 0;
