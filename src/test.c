@@ -58,6 +58,7 @@ int main( int argc, char* argv[] )
     {
         drive(newspeed, 2);
         usleep(sleepytime);
+        stop();
         ++i;
         newspeed = 32 - (i*i);
     }
