@@ -1,15 +1,12 @@
 #find any .c file in src/
-SRC = $(wildcard src/*.c)
+SRC = $(wildcard src/*.cpp)
 #make an object file for every .c file
-OBJ = $(SRC:.c=.o)
+OBJ = $(SRC:.cpp=.o)
 
 CC = g++
-#have to use g++ to link
 LINK = g++
 
-#VPATH = src
-
-CFLAGS = -Wall -O -g 
+CFLAGS = -Wall -O -g -lopencv_core -lopencv_highgui -lopencv_flann -lopencv_imgproc
 CXXFLAGS = $(CFLAGS)
 
 TARGET = test_locomote
@@ -20,8 +17,8 @@ $(TARGET): $(OBJ)
 	$(LINK) -o $@ $^
 #	rm -rf src/*.o
 
-.c:
-	$(CC) -o $@ $@.c
+.cpp:
+	$(CC) -o $@ $@.cpp
 
 clean:
 	rm -rf $(TARGET) src/*.o

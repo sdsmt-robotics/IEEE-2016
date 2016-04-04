@@ -1,7 +1,7 @@
 #include "../include/main.h"
 #include "../include/serial.h"
 #include "../include/robot_defines.h"
-#include "../include/logger.h"
+//#include "../include/logger.h"
 #include "../include/navigation.h"
 #include "../include/locomotion.h"
 #include "../include/sensors.h"
@@ -10,6 +10,7 @@
 #include <unistd.h>
 
 //#define printf LOG
+//Logging with g++ makes lots of warnings
 
 int send_port;
 int receive_port;
@@ -27,19 +28,10 @@ int main( int argc, char* argv[] )
     // double vic = 0;
     // double front = 0;
 
-    // follow_left_wall_until_end( 190, 6.0 );
-    // start_to_cp();
-    
-    // retrieve_victim_1();
-
     // while ( 1 )
     // {
     //     sensors( &vic, &back, &front, &left, &right );
-    //     printf("front (cm): %.1f\n", front);
-    //     printf("back (cm): %.1f\n", back);
-    //     printf("left (cm): %.1f\n", left);
-    //     printf("right (cm): %.1f\n", right);
-    //     printf("vic (cm): %.1f\n", vic);
+    //     printf("front (cm): %.1f\nback (cm): %.1f\nleft (cm): %.1f\nright (cm): %.1f\nvic (cm): %.1f\n", front, back, left, right, vic);
     //     printf("===========================\n");
     //     sleep(1);
     // }
@@ -47,53 +39,27 @@ int main( int argc, char* argv[] )
     drive(32, 2);
     sleep(1);
     int i = 0;
-//    int threshold = OG/4;
-    //int speedyo = 2;
+    int dist = 32 - (i*i);
+    int sleepytime = 0;
+    int sleepstep = 0;
 
-    int newspeed = 32 - (i*i);
-
-    while (newspeed > 1)
+    while (dist > 1)
     {
-        drive(newspeed, 2);
+        drive(dist, 2);
 
 
         ++i;
-//        sleepytime = sleepytime % 10;
-        newspeed = 32 - (i*i);
-//        sleepytime = 1000000 - sleepstep;
+        sleepytime = sleepytime % 10;
+        dist = 32 - (i*i);
+        sleepytime = 1000000 - sleepstep;
 
-        if (newspeed > 17)
+        if (dist > 17)
         {
             usleep(50000);
             stop();
         }
     }
-
-    // while (OG > threshold)
-    // {
-    //     //      32/1, 32/3, 32/5...
-    //     drive(OG, (int)driveit);
-    //     usleep(sleepytime);
-    //     OG = floor(OG/1.25);
-    //     driveit *= .875;
-
-    // }
-    // //drive(0, 0);
-
-    drive(1, 0);
-
-
-
-    // drive(4, 1);
-    // usleep(500000);
-    // drive(8, 1);
-    // usleep(500000);
-    // drive(16, 1);
-    // usleep(500000);
-    // drive(8, 1);
-    // usleep(500000);
-    // drive(4, 1);
-    // usleep(1000000);
+    stop();
 
 
     return 0;
