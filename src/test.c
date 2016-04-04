@@ -46,11 +46,9 @@ int main( int argc, char* argv[] )
 
     drive(32, 2);
     sleep(1);
-    float driveit = 2.2;
     int i = 0;
 //    int threshold = OG/4;
     //int speedyo = 2;
-    int OG = 32;
     int sleepytime = 2000000;
     int sleepstep = 100;
 
@@ -58,12 +56,15 @@ int main( int argc, char* argv[] )
 
     while (newspeed > 0)
     {
+        printf("newspeed: %d\n", newspeed);
+        printf("sleepytime: %d\n",sleepytime );
         drive(newspeed, sleepytime);
+
+
         ++i;
         sleepstep *= 10;
         newspeed = 32 - (i*i);
         sleepytime = 2000000 - (sleepstep * sleepstep);
-        driveit *= .875;
         if (newspeed > 0)
             usleep(sleepytime);
     }
