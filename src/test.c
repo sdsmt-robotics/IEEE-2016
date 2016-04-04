@@ -66,7 +66,7 @@ int main( int argc, char* argv[] )
         newspeed = 32 - (i*i);
         sleepytime = 1000000 - sleepstep;
 
-        if (sleepytime > 0)
+        if (newspeed > 0)
             usleep(50000);
         printf("newspeed: %d\n", newspeed);
         printf("sleepytime: %d\n",sleepytime );
