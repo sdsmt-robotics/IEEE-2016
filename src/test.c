@@ -53,13 +53,13 @@ int main( int argc, char* argv[] )
     int sleepytime = 125000;
 
 
-    while (OG/(driveit) > 1)
+    while (OG > 1)
     {
         //      32/1, 32/3, 32/5...
-        drive(OG/(driveit), OG/driveit*4);
+        drive(OG, OG/driveit);
         usleep(sleepytime);
-        driveit = stepsize;
-        stepsize += stepsize;
+        OG = floor(OG/2);
+        driveit++;
     }
 
 
