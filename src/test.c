@@ -49,15 +49,14 @@ int main( int argc, char* argv[] )
     int driveit = 1;
     int OG = 32;
     int accel = driveit;
-    int sleepytime = 4000;
+    int sleepytime = 100000;
 
 
     while (OG/(driveit) > 1)
     {
         //      32/1, 32/3, 32/5...
-        drive(OG/(driveit), OG/5);
+        drive(OG/(driveit), OG/2);
         usleep(sleepytime);
-        sleepytime *= 1.5;
         driveit +=1;
     }
 
