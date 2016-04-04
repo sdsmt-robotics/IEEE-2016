@@ -48,8 +48,8 @@ int main( int argc, char* argv[] )
     int driveit = 32;
     while (driveit)
     {
-        drive(driveit, driveit*2);
-        usleep(10000);
+        drive(driveit, driveit/2);
+        usleep(400000);
         --driveit;
     }
 
