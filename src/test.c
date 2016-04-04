@@ -75,7 +75,7 @@ int main( int argc, char* argv[] )
 
     // }
     // //drive(0, 0);
-    stop();
+    drive(0, 0);
 
 
 
