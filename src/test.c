@@ -51,17 +51,20 @@ int main( int argc, char* argv[] )
 //    int threshold = OG/4;
     //int speedyo = 2;
     int OG = 32;
-    int sleepytime = 50000;
+    int sleepytime = 2000000;
+    int sleepstep = 100;
 
     int newspeed = 32 - (i*i);
 
     while (newspeed > 0)
     {
-        drive(newspeed, 2);
+        drive(newspeed, sleepytime);
         ++i;
+        sleepstep *= 10;
         newspeed = 32 - (i*i);
+        sleepytime = 2000000 - (sleepstep * sleepstep);
         driveit *= .875;
-        if (newspeed == OG)
+        if (newspeed > 0)
             usleep(sleepytime);
     }
 
