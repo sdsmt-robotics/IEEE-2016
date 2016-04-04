@@ -47,12 +47,12 @@ int main( int argc, char* argv[] )
 
     int driveit = 32;
     int accel = driveit/2;
-    int sleepytime = 4000;
+    int sleepytime = 400;
     while (driveit)
     {
         drive(driveit, accel/4);
         usleep(sleepytime);
-        sleepytime *= 1.5;
+        sleepytime *= 1.25;
         --driveit;
     }
 
