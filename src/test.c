@@ -46,21 +46,21 @@ int main( int argc, char* argv[] )
 
     drive(32, 2);
     sleep(1);
-    int driveit = 1;
+    int driveit = 2;
     int OG = 32;
-    int stepsize = OG/4;
-    int accel = driveit;
+    int threshold = OG/4;
+    //int accel = driveit;
     int sleepytime = 125000;
 
 
-    while (OG > 1)
+    while (OG > threshold)
     {
         //      32/1, 32/3, 32/5...
-        drive(OG, OG/driveit);
+        drive(OG, driveit);
         usleep(sleepytime);
         OG = floor(OG/2);
-        driveit++;
     }
+    stop();
 
 
 
