@@ -54,8 +54,6 @@ int main( int argc, char* argv[] )
 
     while (newspeed > 1)
     {
-        printf("newspeed: %d\n", newspeed);
-        printf("sleepytime: %d\n",sleepytime );
         drive(newspeed, 2);
 
 
