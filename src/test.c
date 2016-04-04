@@ -54,7 +54,7 @@ int main( int argc, char* argv[] )
 
     int newspeed = 32 - (i*i);
 
-    while (newspeed > 0)
+    while (newspeed > 1)
     {
         printf("newspeed: %d\n", newspeed);
         printf("sleepytime: %d\n",sleepytime );
@@ -66,8 +66,8 @@ int main( int argc, char* argv[] )
         newspeed = 32 - (i*i);
         sleepytime = 1000000 - sleepstep;
 
-        if (newspeed > 0)
-            usleep(sleepytime);
+        if (sleepytime > 0)
+            usleep(50000);
         printf("newspeed: %d\n", newspeed);
         printf("sleepytime: %d\n",sleepytime );
     }
