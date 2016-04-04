@@ -13,8 +13,23 @@
 void start_to_cp( )
 {
     claw( OPEN );
-    drive( 32, 4 );
-    sleep(4);
+    int driveit = 32;
+    while (driveit)
+    {
+        drive(driveit, driveit*2);
+        usleep(100000);
+        --driveit;
+    }
+    /*
+    drive(8, 1);
+    sleep(1);
+    drive(16, 2);
+    sleep(2);
+    drive(8, 1);
+    sleep(1);
+    */
+    //drive( 32, 4 );
+    //sleep(4);
     turn( FULL_LEFT_TURN, 2 );
     sleep(2);
     forward_until_obstacle( 190, 0.0 );
