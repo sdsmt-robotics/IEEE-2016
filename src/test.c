@@ -48,7 +48,7 @@ int main( int argc, char* argv[] )
     sleep(1);
     int driveit = 2;
     int OG = 32;
-    int threshold = OG/4;
+    int threshold = OG/2;
     //int accel = driveit;
     int sleepytime = 50000;
 
@@ -60,7 +60,7 @@ int main( int argc, char* argv[] )
         usleep(sleepytime);
         OG = floor(OG/1.25);
     }
-    drive(0, 0);
+    //drive(0, 0);
     stop();
 
 
