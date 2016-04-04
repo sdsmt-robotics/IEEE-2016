@@ -1,0 +1,6 @@
+Installing dependencies:
+Fedora:
+	sudo dnf install opencv opencv-core opencv-devel opencv-python
+
+Ubuntu:
+	sudo apt-get install libopencv-dev python-opencv
