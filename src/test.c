@@ -58,7 +58,7 @@ int main( int argc, char* argv[] )
     {
         printf("newspeed: %d\n", newspeed);
         printf("sleepytime: %d\n",sleepytime );
-        drive(newspeed, sleepytime);
+        drive(newspeed, 2);
 
 
         ++i;
