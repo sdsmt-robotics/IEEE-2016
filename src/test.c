@@ -49,8 +49,6 @@ int main( int argc, char* argv[] )
     int i = 0;
 //    int threshold = OG/4;
     //int speedyo = 2;
-    useconds_t sleepytime = 1000000;
-    useconds_t sleepstep = 100;
 
     int newspeed = 32 - (i*i);
 
@@ -62,12 +60,12 @@ int main( int argc, char* argv[] )
 
 
         ++i;
-        sleepytime = sleepytime % 10;
+//        sleepytime = sleepytime % 10;
         newspeed = 32 - (i*i);
 //        sleepytime = 1000000 - sleepstep;
 
-        if (sleepytime > 0)
-            usleep(sleepytime);
+        if (newspeed > 1)
+            usleep(50000);
     }
 
     // while (OG > threshold)
