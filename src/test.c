@@ -44,7 +44,7 @@ int main( int argc, char* argv[] )
     //     sleep(1);
     // }
 
-    drive(16, 2);
+    drive(28, 2);
     sleep(1);
     int driveit = 28;
     int accel = driveit/2;
