@@ -55,10 +55,10 @@ int main( int argc, char* argv[] )
     while (OG/(driveit) > 1)
     {
         //      32/1, 32/3, 32/5...
-        drive(OG/(driveit), accel/10);
+        drive(OG/(driveit), OG/5);
         usleep(sleepytime);
         sleepytime *= 1.5;
-        driveit +=2;
+        driveit +=1;
     }
 
 
