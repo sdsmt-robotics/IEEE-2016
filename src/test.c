@@ -21,11 +21,11 @@ int main( int argc, char* argv[] )
     receive_port = sys_init(SENSORS_COMM_LOCATION);
     victim_color = YELLOW;
 
-    double left = 0;
-    double right = 0;
-    double back = 0;
-    double vic = 0;
-    double front = 0;
+    // double left = 0;
+    // double right = 0;
+    // double back = 0;
+    // double vic = 0;
+    // double front = 0;
 
     // follow_left_wall_until_end( 190, 6.0 );
     start_to_cp();
