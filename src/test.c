@@ -46,9 +46,9 @@ int main( int argc, char* argv[] )
 
     drive(32, 2);
     sleep(1);
-    float driveit = 2.2;
+//    float driveit = 2.2;
     int i = 0;
-    int threshold = OG/4;
+//    int threshold = OG/4;
     //int speedyo = 2;
     int sleepytime = 50000;
 
