@@ -49,7 +49,7 @@ int main( int argc, char* argv[] )
     int i = 0;
 //    int threshold = OG/4;
     //int speedyo = 2;
-    int sleepytime = 2000000;
+    useconds_t sleepytime = 1000000;
     int sleepstep = 100;
 
     int newspeed = 32 - (i*i);
@@ -64,11 +64,11 @@ int main( int argc, char* argv[] )
         ++i;
         sleepstep *= 10;
         newspeed = 32 - (i*i);
-        sleepytime = 2000000 - (sleepstep * sleepstep);
+        sleepytime = 1000000 - (sleepstep * sleepstep);
 
         if (newspeed > 0)
             usleep(sleepytime);
-         printf("newspeed: %d\n", newspeed);
+        printf("newspeed: %d\n", newspeed);
         printf("sleepytime: %d\n",sleepytime );
     }
 
