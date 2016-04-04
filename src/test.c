@@ -50,9 +50,9 @@ int main( int argc, char* argv[] )
     int sleepytime = 400000;
     while (driveit)
     {
-        drive(driveit, accel/2);
+        drive(driveit, accel/4);
         usleep(sleepytime);
-        sleepytime /= 1.5;
+        sleepytime *= 1.5;
         --driveit;
     }
 
