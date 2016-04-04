@@ -50,6 +50,7 @@ int main( int argc, char* argv[] )
     int i = 0;
 //    int threshold = OG/4;
     //int speedyo = 2;
+    int OG = 32;
     int sleepytime = 50000;
 
     int newspeed = 32 - (i*i);
@@ -60,7 +61,7 @@ int main( int argc, char* argv[] )
         ++i;
         newspeed = 32 - (i*i);
         driveit *= .875;
-        if (newspeed > 0)
+        if (newspeed == OG)
             usleep(sleepytime);
     }
 
