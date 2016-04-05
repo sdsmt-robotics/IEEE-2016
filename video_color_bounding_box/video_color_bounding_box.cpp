@@ -9,7 +9,7 @@ using namespace cv;
 void cleanThresholdedImage(Mat& thresholdImage)
 {
         //morphological opening (remove small objects from the foreground)
-		erode( thresholdImage, thresholdImage, getStructuringElement(MORPH_ELLIPSE, Size(8, 8)) );
+	erode( thresholdImage, thresholdImage, getStructuringElement(MORPH_ELLIPSE, Size(8, 8)) );
         dilate( thresholdImage, thresholdImage, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)) );
         
 
@@ -36,7 +36,7 @@ Rect largestRectInFrame(vector<Rect> rects)
 int main(int argc, char **argv)
 {
 
-	VideoCapture cam( 1 );
+	VideoCapture cam( 0 );
 	if( !cam.isOpened() )
 	{
 		cout << "Cannot open the external camera, trying the internal\n";
