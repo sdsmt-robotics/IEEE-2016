@@ -36,30 +36,8 @@ int main( int argc, char* argv[] )
     //     sleep(1);
     // }
 
-    drive(32, 2);
-    sleep(1);
-    int i = 0;
-    int dist = 32 - (i*i);
-    int sleepytime = 0;
-    int sleepstep = 0;
-
-    while (dist > 1)
-    {
-        drive(dist, 2);
-
-
-        ++i;
-        sleepytime = sleepytime % 10;
-        dist = 32 - (i*i);
-        sleepytime = 1000000 - sleepstep;
-
-        if (dist > 17)
-        {
-            usleep(50000);
-            stop();
-        }
-    }
-    stop();
+    start_to_cp();
+    retrieve_victim_1();
 
 
     return 0;
