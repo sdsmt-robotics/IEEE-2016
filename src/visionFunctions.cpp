@@ -40,7 +40,8 @@ bool detectVictim ()
     }
       
 
-   
+  
+/* 
     int lowHue = 17;
     int highHue = 40;
         
@@ -49,18 +50,25 @@ bool detectVictim ()
         
     int lowValue = 70;
     int highValue = 199;
-        
-    Scalar lowRed(0, 201, 194);
+*/
+      
+    Scalar lowRed(0, 125, 110);
     Scalar highRed(10, 255, 255);
+
+    Scalar lowRed2(170, 125, 110);
+    Scalar highRed2(180, 255, 255);
         
-    Scalar lowYellow(13, 89, 194);
-    Scalar highYellow(30, 204, 255);
-        
-    Scalar lowBlue(98, 0, 165);
-    Scalar highBlue(118, 255, 255);
+    //Scalar lowYellow(13, 89, 194);
+    //Scalar highYellow(30, 204, 255);
+    
+    Scalar lowYellow(17, 81, 70);
+    Scalar highYellow(40, 255, 199);   
+  
+    //Scalar lowBlue(98, 0, 165);
+    //Scalar highBlue(118, 255, 255);
 
     //Mat cap, frame, threshold, red, blue, yellow;
-    Mat cap, frame, threshold, red, yellow;
+    Mat cap, frame, threshold, red, red2, yellow;
     bool frame_available;
 
 
@@ -72,20 +80,25 @@ bool detectVictim ()
     }
     cvtColor(cap, frame, CV_BGR2HSV); //convert to HSV from RGB
 
-    inRange(frame, Scalar(lowHue, lowSaturation, lowValue), Scalar(highHue, highSaturation, highValue), threshold); //threshold that thang for the "threshold" debug window 
+    //inRange(frame, Scalar(lowHue, lowSaturation, lowValue), Scalar(highHue, highSaturation, highValue), threshold); //threshold that thang for the "threshold" debug window 
     inRange(frame, lowRed, highRed, red);
+    inRange(frame, lowRed2, highRed2, red2);
     //inRange(frame, lowBlue, highBlue, blue);
     inRange(frame, lowYellow, highYellow, yellow);
 
-    cleanThresholdedImage(threshold);
+    //cleanThresholdedImage(threshold);
     //cleanThresholdedImage(blue);
     cleanThresholdedImage(red);
+    cleanThresholdedImage(red2);
     cleanThresholdedImage(yellow);
+    
+    red += red2;
 
     vector<vector<Point> > contours;
     vector<Vec4i> hierarchy;
+    Mat debug = red.clone() + yellow;
 
-    Mat temp = threshold.clone();
+    Mat temp = red.clone() + yellow;
 
     findContours(temp, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
     drawContours(frame, contours, -1, Scalar(150, 127, 200), 1, 8);
@@ -98,20 +111,24 @@ bool detectVictim ()
         bounding_rects[i] = boundingRect( Mat(contours[i]) );
         rectangle( temp, bounding_rects[i], Scalar(150, 127, 200), 1, 8);
     }
+    
+    imshow( "Debug", debug);
+    imshow( "Detection", temp);
+    imshow( "Frame capture", cap);
+    imshow( "Converted Voodoo (rgb -> hsv displayed as rgb)", frame);
+
+    waitKey(100);
 
     if( bounding_rects.size() > 0 )
     {
         rectangle( temp, largestRectInFrame(bounding_rects), Scalar(160, 200, 200), 2, 8);
         rectangle( frame, largestRectInFrame(bounding_rects), Scalar(160, 200, 200), 2, 8);
         rectangle( cap, largestRectInFrame(bounding_rects), Scalar(160, 200, 200), 2, 8);
+
+
         return true;
     }
 
-    cvNamedWindow( "Image", CV_WINDOW_AUTOSIZE);
-    cvShowImage( "Image", cap);
-    cvWaitKey(100);
-    cvReleaseImage( &cap );
-    cvDestroyWindow( "Image" );
 
     return false; 
 }
