@@ -49,7 +49,7 @@ void cleanThresholdedImage(Mat& thresholdImage)
 }
 
 
-int main( int argc, char** argv)
+/*int main( int argc, char** argv)
 {
 	VideoCapture cap( 0 ); //capture from camera
 	if (!cap.isOpened())
@@ -124,4 +124,4 @@ int main( int argc, char** argv)
 	}
 	
 	return 0;
-}
+}*/

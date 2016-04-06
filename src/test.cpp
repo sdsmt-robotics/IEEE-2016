@@ -5,6 +5,7 @@
 #include "../include/navigation.h"
 #include "../include/locomotion.h"
 #include "../include/sensors.h"
+#include "../include/visionFunctions.hpp"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -18,7 +19,7 @@ int victim_color;
 
 int main( int argc, char* argv[] )
 {
-    send_port = sys_init(ARDUINO_COMM_LOCATION);
+    /*send_port = sys_init(ARDUINO_COMM_LOCATION);
     receive_port = sys_init(SENSORS_COMM_LOCATION);
     victim_color = RED;
 
@@ -59,8 +60,15 @@ int main( int argc, char* argv[] )
             stop();
         }
     }
-    stop();
-
+    stop();*/
+    while (true)
+    {
+        if(detectVictim())
+            cout << "success, red or yellow was detected" << endl;
+        else
+            cout << "failure, red or yellow was not detected" << endl;
+        usleep(1000);
+    }
 
     return 0;
 }
