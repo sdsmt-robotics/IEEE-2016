@@ -109,18 +109,12 @@ void cp_to_yellow()
     sleep(3);
     claw( OPEN );
     claw( RAISE );
-    drive( -25, 3 );
+    drive( -22, 3 );
     sleep(3);
     turn( LEFT_180, 4 );
-    claw( CLOSE );
-    sleep(1); //these sleeps add to 4
-    claw( OPEN );
+    sleep(4);
+    drive( 3, 1 );
     sleep(1);
-    claw( CLOSE );
-    sleep(1);
-    claw( OPEN );
-    sleep(1);
-    claw( CLOSE );
     stop();
 }
 
