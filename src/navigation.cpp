@@ -29,7 +29,7 @@ void start_to_cp( )
 void cp_to_start()
 {
     printf("function: %s\n", __func__ );
-    turn( FULL_RIGHT_TURN, 2 );
+    turn( 80, 2 );
     sleep(2);
     forward_until_obstacle( 220, 2.0 );
 
@@ -41,6 +41,18 @@ void cp_to_start()
 
     claw( OPEN );
     claw( LOWER );
+    usleep( 500*1000 );
+    claw( CLOSE ):
+    usleep( 500*1000 );
+    claw( OPEN );
+    usleep( 500*1000 );
+    claw( CLOSE );
+    usleep( 500*1000 );
+    claw( CLOSE ):
+    usleep( 500*1000 );
+    claw( OPEN );
+    usleep( 500*1000 );
+    claw( CLOSE );
     stop();
 }
 
