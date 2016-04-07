@@ -73,11 +73,9 @@ void cp_to_red()
     sleep(3);
     claw(CLOSE);
 
-    // Rotate 90 degrees about right wheel then turn the other 90 like normal
-    var_turn( FULL_RIGHT_TURN, 3 );
+
+    turn( RIGHT_180, 3 );
     sleep(3);
-    turn( FULL_RIGHT_TURN, 2 );
-    sleep(2);
 
     // Returning to CP now...
     follow_right_wall_until_end( 210, 8.0 );
