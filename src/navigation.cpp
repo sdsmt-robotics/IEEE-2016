@@ -62,7 +62,7 @@ void cp_to_red()
     // Drive until in the "hospital"
     drive( 20, 3 );
     sleep(3);
-    follow_left_wall_until_obstacle( 210, 7.5, 4.0 );
+    follow_left_wall_until_obstacle( 210, 9.5, 4.0 );
 
     // Dropoff victim
     claw(OPEN);
@@ -78,7 +78,7 @@ void cp_to_red()
     sleep(3);
 
     // Returning to CP now...
-    follow_right_wall_until_end( 210, 8.0 );
+    follow_right_wall_until_end( 210, 9.5 );
 
     // After passing end of the right wall, move forward 6"
     drive( 17, 2 );
