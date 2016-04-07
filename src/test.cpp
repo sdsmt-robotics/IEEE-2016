@@ -22,26 +22,24 @@ int main( int argc, char* argv[] )
     receive_port = sys_init(SENSORS_COMM_LOCATION);
     victim_color = RED;
 
-    // double left = 0;
-    // double right = 0;
-    // double back = 0;
-    // double vic = 0;
-    // double front = 0;
+    // start_to_cp();
+    // retrieve_victim_1();
 
-    // while ( 1 )
-    // {
-    //     sensors( &vic, &back, &front, &left, &right );
-    //     printf("front (cm): %.1f\nback (cm): %.1f\nleft (cm): %.1f\nright (cm): %.1f\nvic (cm): %.1f\n", front, back, left, right, vic);
-    //     printf("===========================\n");
-    //     sleep(1);
-    // }
+    // victim_color = YELLOW;
+
+    // retrieve_victim_2();
+    // cp_to_start();
 
     start_to_cp();
-    retrieve_victim_1();
-    victim_color = YELLOW;
-    retrieve_victim_2();
-    cp_to_start();
 
+    turn(RIGHT_180, 3);
+    sleep(3);
+
+    cp_to_yellow();
+
+    sleep(1);
+
+    cp_to_start();
 
     return 0;
 }
