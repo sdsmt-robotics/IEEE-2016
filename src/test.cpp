@@ -20,7 +20,7 @@ int main( int argc, char* argv[] )
 {
     send_port = sys_init(ARDUINO_COMM_LOCATION);
     receive_port = sys_init(SENSORS_COMM_LOCATION);
-    victim_color = YELLOW;
+    victim_color = RED;
 
     // double left = 0;
     // double right = 0;
@@ -37,7 +37,10 @@ int main( int argc, char* argv[] )
     // }
 
     start_to_cp();
+    retrieve_victim_1();
+    victim_color = YELLOW;
     retrieve_victim_2();
+    cp_to_start();
 
 
     return 0;

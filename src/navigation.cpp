@@ -111,7 +111,7 @@ void cp_to_yellow()
     claw( RAISE );
     drive( -22, 3 );
     sleep(3);
-    turn( LEFT_180, 4 );
+    turn( RIGHT_180, 4 );
     sleep(4);
     drive( 3, 1 );
     sleep(1);
