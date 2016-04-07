@@ -21,8 +21,9 @@ void start_to_cp( )
     sleep(2);
     forward_until_obstacle( 220, 0.0 );
     turn( FULL_RIGHT_TURN, 2 );
-    claw( LOWER );
+    
     sleep(2);
+    claw( LOWER );
 }
 
 void cp_to_start()
