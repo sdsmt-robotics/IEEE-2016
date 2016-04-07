@@ -34,7 +34,7 @@ int main( int argc, char* argv[] )
 
     turn(RIGHT_180, 3);
     sleep(3);
-
+    claw( CLOSE );
     cp_to_yellow();
 
     sleep(1);
