@@ -115,9 +115,6 @@ void cp_to_yellow()
     turn( RIGHT_180, 3 );
     sleep(3);
 
-    drive( 3, 1 );
-    sleep(1);
-
     stop();
 }
 
