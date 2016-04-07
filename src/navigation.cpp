@@ -42,13 +42,13 @@ void cp_to_start()
     claw( OPEN );
     claw( LOWER );
     usleep( 500*1000 );
-    claw( CLOSE ):
+    claw( CLOSE );
     usleep( 500*1000 );
     claw( OPEN );
     usleep( 500*1000 );
     claw( CLOSE );
     usleep( 500*1000 );
-    claw( CLOSE ):
+    claw( CLOSE );
     usleep( 500*1000 );
     claw( OPEN );
     usleep( 500*1000 );
