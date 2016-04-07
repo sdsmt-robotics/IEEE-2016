@@ -108,7 +108,7 @@ void cp_to_yellow()
 {
     printf("function: %s\n", __func__ );
     claw( LOWER );
-    forward_until_obstacle(220, 4.0);
+    forward_until_obstacle(220, 0.0);
     claw( OPEN );
     claw( RAISE );
 

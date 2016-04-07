@@ -169,6 +169,7 @@ void forward_until_obstacle( unsigned char speed, float tolerance )
 {
     printf("function: %s\n", __func__ );
     double front_value = front_sensor();
+    printf("front: %.1f\n", front_value);
     setWheelSpeed( BOTH, speed );
 
     while ( front_value > SIX_INCHES + tolerance )
