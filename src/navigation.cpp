@@ -121,7 +121,7 @@ void retrieve_victim_1()
 {
     drive( 18, 2 );
     sleep(2);
-    follow_right_wall_until_obstacle( 220, 5.5, 4.0 );
+    follow_right_wall_until_obstacle( 220, 5.5, 5.0 );
 
     claw( CLOSE );
     usleep(500*1000); //0.5 sec
