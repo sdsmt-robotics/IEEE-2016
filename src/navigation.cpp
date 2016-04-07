@@ -62,7 +62,7 @@ void cp_to_red()
     // Drive until in the "hospital"
     drive( 20, 3 );
     sleep(3);
-    follow_left_wall_until_obstacle( 220, 9.5, 4.0 );
+    follow_left_wall_until_obstacle( 220, 11.5, 4.0 );
 
     // Dropoff victim
     claw(OPEN);
@@ -150,6 +150,7 @@ void retrieve_victim_1()
 
 void retrieve_victim_2()
 {
+
     follow_left_wall_until_end( 200, 8.0 );
     drive( 17, 2 );
     sleep(2);
@@ -160,6 +161,7 @@ void retrieve_victim_2()
     turn( FULL_LEFT_TURN, 2 );
     sleep(2);
     drive( 10, 2 );
+    claw( OPEN );
     sleep(2);
     follow_left_wall_until_obstacle( 200, 7.0, 3.0 );
     claw( CLOSE );
