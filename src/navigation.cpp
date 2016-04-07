@@ -14,12 +14,14 @@ void start_to_cp( )
 {
     printf("function: %s\n", __func__ );
     claw( OPEN );
+    claw( RAISE );
     drive( 32, 4 );
     sleep(4);
     turn( FULL_LEFT_TURN, 2 );
     sleep(2);
     forward_until_obstacle( 220, 0.0 );
     turn( FULL_RIGHT_TURN, 2 );
+    claw( LOWER );
     sleep(2);
 }
 
@@ -56,7 +58,7 @@ void cp_to_red()
     drive( 35, 2);
     claw( LOWER );
     sleep(2);
-    forward_until_obstacle( 220, 10.5 );
+    forward_until_obstacle( 220, 12.5 );
 
     // 90 degree turn left
     turn( FULL_LEFT_TURN, 2 );
@@ -108,6 +110,7 @@ void cp_to_yellow()
 {
     printf("function: %s\n", __func__ );
     claw( LOWER );
+    usleep(500*1000); // enough time for the claws to lower before we look at the front sensor
     forward_until_obstacle(220, 0.0);
     claw( OPEN );
     claw( RAISE );
