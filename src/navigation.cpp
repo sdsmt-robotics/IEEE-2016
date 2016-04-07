@@ -90,6 +90,7 @@ void cp_to_red()
 
     // Drive forward until we hit a wall
     drive( SIX_INCHES, 2);
+    claw(LOWER);
     sleep(2);
     forward_until_obstacle( 210, 0 );
 
