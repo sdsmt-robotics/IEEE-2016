@@ -12,7 +12,7 @@
 
 void start_to_cp( )
 {
-    printf("function: %s\n", __function__ );
+    printf("function: %s\n", __func__ );
     claw( OPEN );
     drive( 32, 4 );
     sleep(4);
@@ -25,7 +25,7 @@ void start_to_cp( )
 
 void cp_to_start()
 {
-    printf("function: %s\n", __function__ );
+    printf("function: %s\n", __func__ );
     turn( FULL_RIGHT_TURN, 2 );
     sleep(2);
     forward_until_obstacle( 220, 2.0 );
@@ -43,7 +43,7 @@ void cp_to_start()
 
 void cp_to_red()
 {
-    printf("function: %s\n", __function__ );
+    printf("function: %s\n", __func__ );
     // Forward 6"
     drive( 17, 2 );
     sleep(2);
@@ -106,7 +106,7 @@ void cp_to_red()
 
 void cp_to_yellow()
 {
-    printf("function: %s\n", __function__ );
+    printf("function: %s\n", __func__ );
     claw( LOWER );
     forward_until_obstacle(220, 4.0);
     claw( OPEN );
@@ -123,7 +123,7 @@ void cp_to_yellow()
 
 void retrieve_victim_1()
 {
-    printf("function: %s\n", __function__ );
+    printf("function: %s\n", __func__ );
     drive( 18, 2 );
     sleep(2);
     follow_right_wall_until_obstacle( 220, 5.5, 5.0 );
@@ -154,7 +154,7 @@ void retrieve_victim_1()
 
 void retrieve_victim_2()
 {
-    printf("function: %s\n", __function__ );
+    printf("function: %s\n", __func__ );
     follow_left_wall_until_end( 200, 8.0 );
     drive( 17, 2 );
     sleep(2);
@@ -207,7 +207,7 @@ void retrieve_victim_2()
 
 void retrieve_victim_3()
 {
-    printf("function: %s\n", __function__ );
+    printf("function: %s\n", __func__ );
     // Start following right wall until Left gap
     sleep(2);
     follow_right_wall_until_left_open( 210, 6.0 );
@@ -328,7 +328,7 @@ void retrieve_victim_3()
 
 void retrieve_victim_4()
 {
-    printf("function: %s\n", __function__ );
+    printf("function: %s\n", __func__ );
     /*
     * instructions for if the fourth person is on the near side of the river:
     * wall follow left until break in wall
