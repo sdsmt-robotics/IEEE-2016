@@ -63,10 +63,12 @@ int main( int argc, char* argv[] )
     stop();*/
     while (true)
     {
-        if(detectVictim())
-            cout << "success, red or yellow was detected" << endl;
-        else
-            cout << "failure, red or yellow was not detected" << endl;
+        if(detectVictim() == RED)
+            cout << "success, red was detected" << endl;
+        else if (detectVictim() == YELLOW)
+            cout << "success, yellow was detected" << endl;
+	    else
+            cout << "failure, neither red or yellow were detected alone" << endl;
         usleep(1000);
     }
 

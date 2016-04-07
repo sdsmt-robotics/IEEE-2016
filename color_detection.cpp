@@ -14,9 +14,9 @@
 * Red:
 * low Hue: 0
 * high Hue: 10
-* Low Saturation: 201
+* Low Saturation: 201   / 150
 * High Saturation: 255
-* Low Value: 194
+* Low Value: 194        / 100
 * High Value: 255
 * may need to add second range of hues for red
 * low hue: 170
@@ -51,7 +51,7 @@ void cleanThresholdedImage(Mat& thresholdImage)
 
 int main( int argc, char** argv)
 {
-	VideoCapture cap( 0 ); //capture from camera
+	VideoCapture cap( 1 ); //capture from camera
 	if (!cap.isOpened())
 	{
 		cout << "Cannot open the web cam" << endl;

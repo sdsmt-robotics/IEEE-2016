@@ -31,5 +31,5 @@ Rect largestRectInFrame( vector<Rect> rects);
  * This function takes a frame from the camera and detects the wanted
  * colors in the image. If the colors are detected it will return true.
  */
-bool detectVictim ();
+int detectVictim ();
 #endif
