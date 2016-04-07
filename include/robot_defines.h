@@ -72,8 +72,8 @@
 //#define STEPS_PER_MM 2.6
 
 //Blue Wheels with geared steppers:
-#define STEPS_PER_CM 135
-#define STEPS_PER_MM 13.5
+#define STEPS_PER_CM 132.0
+#define STEPS_PER_MM 13.2
 
 //Green Wheels with wimpy-ass steppers:
 //#define STEPS_PER_CM 35

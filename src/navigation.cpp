@@ -161,7 +161,7 @@ void retrieve_victim_2()
     sleep(2);
     turn( FULL_LEFT_TURN, 2 );
     sleep(2);
-    drive( 29, 4 );
+    drive( 31, 4 );
     sleep(4);
     turn( FULL_LEFT_TURN, 2 );
     sleep(2);
