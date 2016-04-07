@@ -31,8 +31,7 @@ void cp_to_start()
     turn( FULL_LEFT_TURN, 2 );
     sleep(2);
 
-    // Reverse 6.5 inches
-    drive( -30, 2 );
+    drive( -35, 2 );
     sleep(2);
 
     claw( OPEN );

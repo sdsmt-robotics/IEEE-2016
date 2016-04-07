@@ -22,24 +22,24 @@ int main( int argc, char* argv[] )
     receive_port = sys_init(SENSORS_COMM_LOCATION);
     victim_color = RED;
 
-    // start_to_cp();
-    // retrieve_victim_1();
-
-    // victim_color = YELLOW;
-
-    // retrieve_victim_2();
-    // cp_to_start();
-
     start_to_cp();
+    retrieve_victim_1();
 
-    turn(RIGHT_180, 3);
-    sleep(3);
-    claw( CLOSE );
-    cp_to_yellow();
+    victim_color = YELLOW;
 
-    sleep(1);
-
+    retrieve_victim_2();
     cp_to_start();
+
+    // start_to_cp();
+
+    // turn(RIGHT_180, 3);
+    // sleep(3);
+    // claw( CLOSE );
+    // cp_to_yellow();
+
+    // sleep(1);
+
+    // cp_to_start();
 
     return 0;
 }
