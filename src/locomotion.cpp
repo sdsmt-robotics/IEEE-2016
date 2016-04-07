@@ -1,6 +1,6 @@
 #include "../include/locomotion.h"
 #include "../include/robot_defines.h"
-//#include "../include/logger.h"
+#include "../include/logger.h"
 #include "../include/sensors.h"
 #include "../include/serial.h"
 
@@ -8,7 +8,7 @@
 #include <unistd.h>
 #include <math.h>
 
-//#define printf LOG
+#define printf LOG
 
 void setWheelSpeed( int wheel, unsigned char speed )
 {

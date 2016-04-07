@@ -2,13 +2,13 @@
 #include "../include/locomotion.h"
 #include "../include/robot_defines.h"
 #include "../include/sensors.h"
-//#include "../include/logger.h"
+#include "../include/logger.h"
 
 #include <unistd.h>
 #include <stdbool.h>
 #include <stdio.h>
 
-//#define printf LOG
+#define printf LOG
 
 void start_to_cp( )
 {

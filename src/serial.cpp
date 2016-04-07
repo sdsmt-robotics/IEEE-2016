@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-//#define printf LOG
+#define printf LOG
 //#define perror LOG
 
 void serial_write( int port, int val, int bytes) // generic multipurpose write

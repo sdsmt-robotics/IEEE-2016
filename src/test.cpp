@@ -1,7 +1,7 @@
 #include "../include/main.h"
 #include "../include/serial.h"
 #include "../include/robot_defines.h"
-//#include "../include/logger.h"
+#include "../include/logger.h"
 #include "../include/navigation.h"
 #include "../include/locomotion.h"
 #include "../include/sensors.h"
@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-//#define printf LOG
+#define printf LOG
 //Logging with g++ makes lots of warnings
 
 int send_port;
