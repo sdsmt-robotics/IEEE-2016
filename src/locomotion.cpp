@@ -1,6 +1,6 @@
 #include "../include/locomotion.h"
 #include "../include/robot_defines.h"
-#include "../include/logger.h"
+//#include "../include/logger.h"
 #include "../include/sensors.h"
 #include "../include/serial.h"
 
@@ -87,7 +87,7 @@ void turn( int angle, int runtime )
     double arc_length = M_PI * WHEEL_BASE_MM * ( angle / 360.0 );
     int steps = round( STEPS_PER_MM * arc_length );
 
-    //printf("Turning %d degrees in %d seconds. arc length = %f and %d steps per wheel\n", angle, runtime, arc_length, steps );
+    printf("Turning %d degrees in %d seconds. arc length = %f and %d steps per wheel\n", angle, runtime, arc_length, steps );
     driveWheelSteps( RIGHT, -steps, runtime );
     driveWheelSteps( LEFT, steps, runtime );
 }
@@ -101,7 +101,7 @@ void var_turn( int angle, int runtime )
     arc_length = 2 * M_PI * WHEEL_BASE_MM * ( angle / 360.0 );
     steps = round( STEPS_PER_MM * arc_length );
 
-    //printf("Turning %d degrees in %d seconds. arc length = %f and %d steps.\n", angle, runtime, arc_length, steps );
+    printf("Var-turning %d degrees in %d seconds. arc length = %f and %d steps.\n", angle, runtime, arc_length, steps );
     stop();
     if ( angle < 0 ) // turning left
         driveWheelSteps( RIGHT, steps, runtime );
@@ -167,13 +167,14 @@ void claw( int state )
 
 void forward_until_obstacle( unsigned char speed, float tolerance )
 {
+    printf("function: %s\n", __function__ );
     double front_value = front_sensor();
     setWheelSpeed( BOTH, speed );
 
     while ( front_value > SIX_INCHES + tolerance )
     {
         front_value = front_sensor();
-        printf("Not hitting wall yet. Front: %.1f\n", front_value);
+        printf("Not hitting wall yet.\nfront: %.1f\n", front_value);
     }
     stop();
     clear_buffer();
@@ -181,6 +182,7 @@ void forward_until_obstacle( unsigned char speed, float tolerance )
 
 void forward_until_left_end( unsigned char speed )
 {
+    printf("function: %s\n", __function__ );
     double left_value = 0;
     double last_pos = 0;
     double delta = 0;
@@ -192,6 +194,8 @@ void forward_until_left_end( unsigned char speed )
         left_value = left_sensor();
         delta = abs(left_value - last_pos);
         printf("Following left wall.\n");
+        printf("left: %.1f\n", left_value );
+        printf("delta: %.3f\n", delta );
     }
     stop();
     clear_buffer();
@@ -199,6 +203,7 @@ void forward_until_left_end( unsigned char speed )
 
 void forward_until_right_end( unsigned char speed )
 {
+    printf("function: %s\n", __function__ );
     double right_value = 0;
     double last_pos = 0;
     double delta = 0;
@@ -210,6 +215,8 @@ void forward_until_right_end( unsigned char speed )
         right_value = right_sensor();
         delta = abs(right_value - last_pos);
         printf("Following right wall.\n");
+        printf("right: %.1f\n", right_value );
+        printf("delta: %.3f\n", delta );
     }
     stop();
     clear_buffer();
@@ -217,6 +224,7 @@ void forward_until_right_end( unsigned char speed )
 
 void follow_left_wall_until_end( unsigned char speed, float target )
 {
+    printf("function: %s\n", __function__ );
     double vic_value = 0;
     double back_value = 0;
     double front_value = 0;
@@ -290,6 +298,7 @@ void follow_left_wall_until_end( unsigned char speed, float target )
 
 void follow_right_wall_until_end( unsigned char speed, float target )
 {
+    printf("function: %s\n", __function__ );
     double vic_value = 0;
     double back_value = 0;
     double front_value = 0;
@@ -364,6 +373,7 @@ void follow_right_wall_until_end( unsigned char speed, float target )
 
 void follow_right_wall_until_left_open( unsigned char speed, float target )
 {
+    printf("function: %s\n", __function__ );
     double vic_value = 0;
     double back_value = 0;
     double front_value = 0;
@@ -439,6 +449,7 @@ void follow_right_wall_until_left_open( unsigned char speed, float target )
 
 void follow_left_wall_until_obstacle( unsigned char speed, float target, float tolerance )
 {
+    printf("function: %s\n", __function__ );
     double vic_value = 0;
     double back_value = 0;
     double front_value = 0;
@@ -457,6 +468,7 @@ void follow_left_wall_until_obstacle( unsigned char speed, float target, float t
         last_pos = left_value;
         sensors( &vic_value, &back_value, &front_value, &left_value, &right_value );
         printf("left: %.1f\n", left_value );
+        printf("front: %.1f\n", front_value );
 
         if ( left_value < target - WALL_FOLLOW_TOLERANCE ) //too close
         {
@@ -509,6 +521,7 @@ void follow_left_wall_until_obstacle( unsigned char speed, float target, float t
 
 void follow_right_wall_until_obstacle( unsigned char speed, float target, float tolerance )
 {
+    printf("function: %s\n", __function__ );
     double vic_value = 0;
     double back_value = 0;
     double front_value = 0;
@@ -586,6 +599,7 @@ void follow_right_wall_until_obstacle( unsigned char speed, float target, float 
 */
 void test_follow_left_wall_until_end (unsigned char speed, float target)
 {
+    printf("function: %s\n", __function__ );
     double left_value = left_sensor();
     unsigned char speed_mod = speed/10 - 10;
     int divis_val = 1;
@@ -644,6 +658,7 @@ void test_follow_left_wall_until_end (unsigned char speed, float target)
 // Modified slightly for our use case.
 void var_test_follow_left_wall_until_end( unsigned char speed, float target )
 {
+    printf("function: %s\n", __function__ );
     // float error = 0;
     // float error_last = 0;
     double vic = 0;
@@ -731,6 +746,7 @@ void var_test_follow_left_wall_until_end( unsigned char speed, float target )
 // Follows wall until the new vic Sensor detects a victim 
 void follow_right_wall_until_VS( unsigned char speed, float target )
 {
+    printf("function: %s\n", __function__ );
     double right_value = right_sensor();
     double last_pos = 0;
     unsigned char speed_mod = 0;
@@ -795,7 +811,7 @@ void follow_right_wall_until_VS( unsigned char speed, float target )
 // Follows the right wall until the NEW front sensor detects a victim
 void getVictim()
 {
-
+    printf("function: %s\n", __function__ );
     stop();
     clear_buffer();
 }
