@@ -156,7 +156,7 @@ void retrieve_victim_1()
 
 void retreive_victim_2()
 {
-    follow_left_wall_until_end( 190, WALL_FOLLOW_TARGET );
+    follow_left_wall_until_end( 200, WALL_FOLLOW_TARGET );
     drive( 15, 2 );
     sleep(2);
     turn( FULL_LEFT_TURN, 2 );
@@ -167,23 +167,23 @@ void retreive_victim_2()
     sleep(2);
     drive( 10, 2 );
     sleep(2);
-    follow_left_wall_until_obstacle( 190, 5.0, 10.0 );
+    follow_left_wall_until_obstacle( 200, 5.0, 10.0 );
     claw( CLOSE );
     usleep( 500*1000 );
     claw( RAISE );
     turn( RIGHT_180, 4 );
     sleep(4);
-    follow_right_wall_until_end( 190, 5.0 );
+    follow_right_wall_until_end( 200, 5.0 );
     drive( 15, 2 );
     sleep(2);
     turn( FULL_RIGHT_TURN, 2 );
     claw( LOWER );
     sleep(2);
-    forward_until_obstacle( 190, 10 );
+    forward_until_obstacle( 200, 10 );
     turn( FULL_RIGHT_TURN, 2 );
     claw( RAISE );
     sleep(2);
-    follow_left_wall_until_end( 190, WALL_FOLLOW_TARGET );
+    follow_left_wall_until_end( 200, WALL_FOLLOW_TARGET );
     claw( LOWER );
     stop();
 
