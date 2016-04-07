@@ -179,7 +179,7 @@ void retrieve_victim_2()
     turn( FULL_RIGHT_TURN, 2 );
     claw( LOWER );
     sleep(2);
-    forward_until_obstacle( 200, 8.0 );
+    forward_until_obstacle( 200, 2.0 );
     turn( FULL_RIGHT_TURN, 2 );
     claw( RAISE );
     sleep(2);
