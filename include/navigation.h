@@ -8,8 +8,8 @@ void cp_to_red();
 void cp_to_yellow();
 
 void retrieve_victim_1();
-void retreive_victim_2();
-void retreive_victim_3();
-void retreive_victim_4();
+void retrieve_victim_2();
+void retrieve_victim_3();
+void retrieve_victim_4();
 
 #endif

@@ -154,7 +154,7 @@ void retrieve_victim_1()
     stop();
 }
 
-void retreive_victim_2()
+void retrieve_victim_2()
 {
     follow_left_wall_until_end( 200, WALL_FOLLOW_TARGET );
     drive( 15, 2 );
@@ -201,7 +201,7 @@ void retreive_victim_2()
     stop();
 }
 
-void retreive_victim_3()
+void retrieve_victim_3()
 {
     // Start following right wall until Left gap
     sleep(2);
@@ -321,7 +321,7 @@ void retreive_victim_3()
     stop();
 }
 
-void retreive_victim_4()
+void retrieve_victim_4()
 {
     /*
     * instructions for if the fourth person is on the near side of the river:
