@@ -53,7 +53,7 @@ void cp_to_red()
     // Forward until 6" from the wall
     drive( 35, 3);
     sleep(3);
-    forward_until_obstacle( 210, 9.5 );
+    forward_until_obstacle( 220, 9.5 );
 
     // 90 degree turn left
     turn( FULL_LEFT_TURN, 2 );
@@ -62,7 +62,7 @@ void cp_to_red()
     // Drive until in the "hospital"
     drive( 20, 3 );
     sleep(3);
-    follow_left_wall_until_obstacle( 210, 9.5, 4.0 );
+    follow_left_wall_until_obstacle( 220, 9.5, 4.0 );
 
     // Dropoff victim
     claw(OPEN);
@@ -78,7 +78,7 @@ void cp_to_red()
     sleep(3);
 
     // Returning to CP now...
-    follow_right_wall_until_end( 210, 9.5 );
+    follow_right_wall_until_end( 220, 9.5 );
 
     // After passing end of the right wall, move forward 6"
     drive( 17, 2 );
@@ -92,7 +92,7 @@ void cp_to_red()
     drive( SIX_INCHES, 2);
     claw(LOWER);
     sleep(2);
-    forward_until_obstacle( 210, 0 );
+    forward_until_obstacle( 220, 0 );
 
     // Make a right turn
     turn( FULL_RIGHT_TURN, 2 );
@@ -128,13 +128,13 @@ void retrieve_victim_1()
 {
     drive( 18, 3 );
     sleep(3);
-    follow_right_wall_until_obstacle( 200, 5.5, 4.0 );
+    follow_right_wall_until_obstacle( 220, 5.5, 4.0 );
     claw( CLOSE );
     usleep(500*1000); //0.5 sec
     claw( RAISE );
     turn( LEFT_180, 4 );
     sleep(4);
-    var_test_follow_left_wall_until_end( 200, 5.0 );
+    var_test_follow_left_wall_until_end( 220, 5.0 );
     claw( LOWER );
     stop();
     //a debug sleep
@@ -167,7 +167,7 @@ void retrieve_victim_2()
     sleep(2);
     drive( 10, 2 );
     sleep(2);
-    follow_left_wall_until_obstacle( 200, 5.0, 10.0 );
+    follow_left_wall_until_obstacle( 200, 5.0, 2.0 );
     claw( CLOSE );
     usleep( 500*1000 );
     claw( RAISE );
