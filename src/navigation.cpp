@@ -17,7 +17,7 @@ void start_to_cp( )
     sleep(4);
     turn( FULL_LEFT_TURN, 2 );
     sleep(2);
-    forward_until_obstacle( 190, -2.0 );
+    forward_until_obstacle( 190, 0.0 );
     turn( FULL_RIGHT_TURN, 2 );
     sleep(2);
 }
@@ -43,7 +43,7 @@ void cp_to_start()
 void cp_to_red()
 {
     // Forward 6"
-    drive( 15, 2 );
+    drive( 17, 2 );
     sleep(2);
 
     // 90 degree turn left
@@ -53,7 +53,7 @@ void cp_to_red()
     // Forward until 6" from the wall
     drive( 35, 3);
     sleep(3);
-    forward_until_obstacle( 210, 8.5 );
+    forward_until_obstacle( 210, 9.5 );
 
     // 90 degree turn left
     turn( FULL_LEFT_TURN, 2 );
@@ -62,7 +62,7 @@ void cp_to_red()
     // Drive until in the "hospital"
     drive( 20, 3 );
     sleep(3);
-    follow_left_wall_until_obstacle( 210, 5.5, 0.0 );
+    follow_left_wall_until_obstacle( 210, 7.5, 4.0 );
 
     // Dropoff victim
     claw(OPEN);
@@ -80,10 +80,10 @@ void cp_to_red()
     sleep(2);
 
     // Returning to CP now...
-    follow_right_wall_until_end( 210, 6.0 );
+    follow_right_wall_until_end( 210, 8.0 );
 
     // After passing end of the right wall, move forward 6"
-    drive( SIX_INCHES, 2 );
+    drive( 17, 2 );
     sleep(2);
 
     // Turn 90 degrees right
