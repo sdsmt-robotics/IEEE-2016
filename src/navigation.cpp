@@ -94,13 +94,13 @@ void cp_to_red()
 
     // Drive forward until we hit a wall
     drive( SIX_INCHES, 2 );
-    claw(LOWER);
     sleep(2);
     forward_until_obstacle( 220, 0.0 );
 
     // Make a right turn
     turn( FULL_RIGHT_TURN, 2 );
     sleep(2);
+    claw( LOWER );
 
     // We are now back in CP
     stop();
