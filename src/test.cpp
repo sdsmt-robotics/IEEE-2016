@@ -18,10 +18,13 @@ int victim_color;
 
 int main( int argc, char* argv[] )
 {
-    send_port = sys_init(ARDUINO_COMM_LOCATION);
-    receive_port = sys_init(SENSORS_COMM_LOCATION);
-    victim_color = RED;
+    if ( !initialize_all_the_things() )
+    {
+        printf("initialize_all_the_things() failed miserably. You suck at programming. Go get some sleep and try again in a week.\n");
+        return -1;
+    }
 
+    //Start doing all the things.
     start_to_cp();
     retrieve_victim_1();
 
@@ -30,22 +33,13 @@ int main( int argc, char* argv[] )
     retrieve_victim_2();
     cp_to_start();
 
-    // start_to_cp();
-
-    // turn(RIGHT_180, 3);
-    // sleep(3);
-    // claw( CLOSE );
-    // cp_to_yellow();
-
-    // sleep(1);
-
-    // cp_to_start();
 
     return 0;
 }
 
 int sys_init( const char* serialport )
 {
+    printf("function: %s\n", __func__ );
     int serial_file_handle = serial_init(serialport, ROBOT_BAUDRATE); // attempts to open the connection to the arduino with the BAUDRATE specified in the ROBOT_DEFINITIONS.h
 
     while(serial_file_handle < 0)
@@ -56,7 +50,17 @@ int sys_init( const char* serialport )
     }
 
     clearPort(serial_file_handle);
-    printf("Serial successfully initialized. File handle: %d\n", serial_file_handle );
+    printf("%s successfully initialized. File handle: %d\n", serialport, serial_file_handle );
     sleep(2); //wait for serial to initialize properly
     return serial_file_handle;
+}
+
+bool initialize_all_the_things()
+{
+    printf("function: %s\n", __func__ );
+    send_port = sys_init(ARDUINO_COMM_LOCATION);
+    receive_port = sys_init(SENSORS_COMM_LOCATION);
+    victim_color = UNKNOWN_COLOR;
+
+    return true;
 }
