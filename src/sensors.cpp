@@ -44,6 +44,8 @@ double vic_sensor()
 
 void poll_sensors()
 {
+    //requests and prints feedback from all five sensors
+
     char buffer[10] = "";
     unsigned char flag = SENSOR_REQUEST;
     int n = 0;
@@ -108,6 +110,8 @@ void poll_sensors()
 
 void sensors( double *vic, double *back, double *front, double *left, double *right )
 {
+    //"returns" sensor feedback from all five sensors to variables passed by reference
+
     char buffer[10] = "";
     unsigned char flag = SENSOR_REQUEST;
     int n = 0;
@@ -171,6 +175,7 @@ void sensors( double *vic, double *back, double *front, double *left, double *ri
 
 int poll_left_sensor()
 {
+    //grabs the raw left sensor output
     unsigned char request_flag = LEFT_SENSOR_REQUEST;
     char buffer[2] = "";
     int n = 0;
@@ -199,6 +204,7 @@ int poll_left_sensor()
 
 int poll_right_sensor()
 {
+    //grabs the raw right sensor output
     unsigned char request_flag = RIGHT_SENSOR_REQUEST;
     char buffer[2] = "";
     int n = 0;
@@ -228,6 +234,7 @@ int poll_right_sensor()
 
 int poll_front_sensor()
 {
+    //grabs the raw front sensor output
     unsigned char request_flag = FRONT_SENSOR_REQUEST;
     char buffer[2] = "";
     int n = 0;
@@ -256,6 +263,7 @@ int poll_front_sensor()
 
 int poll_back_sensor()
 {
+    //grabs the raw "back" sensor output
     unsigned char request_flag = BACK_SENSOR_REQUEST;
     char buffer[2] = "";
     int n = 0;
@@ -284,6 +292,7 @@ int poll_back_sensor()
 
 int poll_vic_sensor()
 {
+    //grabs the raw "victim sensor" output
     unsigned char request_flag = VIC_SENSOR_REQUEST;
     char buffer[2] = "";
     int n = 0;
@@ -312,5 +321,6 @@ int poll_vic_sensor()
 
 void SetVictimLocation()
 {
+    //does things
     printf("You've called SetVictimLocation(), but it doesn't do anything...\n");
 }

@@ -18,13 +18,16 @@ int victim_color;
 
 int main( int argc, char* argv[] )
 {
+    //initializes all the things. Serial and vision. Also tops off the magic blue smoke tanks.
     if ( !initialize_all_the_things() )
     {
         printf("initialize_all_the_things() failed miserably. You suck at programming. Go get some sleep and try again in a week.\n");
         return -1;
     }
 
-    //Start doing all the things.
+    //Start doing the things.
+    victim_color = RED;
+
     start_to_cp();
     retrieve_victim_1();
 
@@ -33,13 +36,14 @@ int main( int argc, char* argv[] )
     retrieve_victim_2();
     cp_to_start();
 
-
     return 0;
 }
 
 int sys_init( const char* serialport )
 {
-    printf("function: %s\n", __func__ );
+    //opens up a serial connection to the given file
+    printf("function: %s\n", __func__);
+
     int serial_file_handle = serial_init(serialport, ROBOT_BAUDRATE); // attempts to open the connection to the arduino with the BAUDRATE specified in the ROBOT_DEFINITIONS.h
 
     while(serial_file_handle < 0)
@@ -57,9 +61,14 @@ int sys_init( const char* serialport )
 
 bool initialize_all_the_things()
 {
+    //initializes all the things
     printf("function: %s\n", __func__);
+
     send_port = sys_init(ARDUINO_COMM_LOCATION);
     receive_port = sys_init(SENSORS_COMM_LOCATION);
+    clearPort( send_port );
+    clearPort( receive_port );
+
     victim_color = UNKNOWN_COLOR;
 
     return true;

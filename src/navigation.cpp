@@ -12,6 +12,7 @@
 
 void start_to_cp( )
 {
+    //drives the robot from the start point to the central point in front of the yellow hospital
     printf("function: %s\n", __func__);
 
     claw( OPEN );
@@ -34,6 +35,7 @@ void start_to_cp( )
 
 void cp_to_start()
 {
+    //drives the robot from the central point in front of the yellow hospital to the starting point
     printf("function: %s\n", __func__);
 
     turn( 80, 2 );
@@ -67,7 +69,9 @@ void cp_to_start()
 
 void cp_to_red()
 {
+    //drops a victim off in the red hospital and returns to the central point
     printf("function: %s\n", __func__);
+
     // Forward 6"
     drive( 17, 2 );
     sleep(2);
@@ -131,6 +135,7 @@ void cp_to_red()
 
 void cp_to_yellow()
 {
+    //drops a victim off in the yellow hospital and returns to the central point
     printf("function: %s\n", __func__);
 
     claw( LOWER );
@@ -152,6 +157,7 @@ void cp_to_yellow()
 
 void retrieve_victim_1()
 {
+    //goes from the CP, grabs victim one, and returns back to the CP
     printf("function: %s\n", __func__);
 
     drive( 18, 2 );
@@ -185,6 +191,7 @@ void retrieve_victim_1()
 
 void retrieve_victim_2()
 {
+    //grabs victim 2 and returns to the CP
     printf("function: %s\n", __func__);
 
     follow_left_wall_until_end( 200, 8.0 );
@@ -248,6 +255,7 @@ void retrieve_victim_2()
 
 void retrieve_victim_3()
 {
+    //hopefully grabs victim 3 and returns to the CP
     printf("function: %s\n", __func__);
     // Start following right wall until Left gap
 
@@ -360,6 +368,7 @@ void retrieve_victim_3()
 
 void retrieve_victim_4()
 {
+    //definitely grabs victim 4 and returns the poor bastard to the CP
     printf("function: %s\n", __func__);
     /*
     * instructions for if the fourth person is on the near side of the river:

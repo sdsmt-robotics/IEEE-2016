@@ -6,10 +6,11 @@
 #include <unistd.h>
 
 #define printf LOG
-//#define perror LOG
+#define perror LOG
 
-void serial_write( int port, int val, int bytes ) // generic multipurpose write
+void serial_write( int port, int val, int bytes )
 {
+    // generic multipurpose serial write
     if ( write( port, &val, bytes ) )
     {
         printf("%d written to port %d successfully\n", val, port);
@@ -20,6 +21,7 @@ void serial_write( int port, int val, int bytes ) // generic multipurpose write
 
 void clearPort( int port )
 {
+    //clears the serial port
     int n = 1;
     char nothing = 0;
 
@@ -31,6 +33,7 @@ void clearPort( int port )
 
 int serial_init( const char* serialport, int baud )
 {
+    //opens up a serial port with a specified baud rate
     struct termios toptions;
     int fd;
 
@@ -120,6 +123,7 @@ int serial_init( const char* serialport, int baud )
 
 int s_read_until( int fd, char* buf, char until )
 {
+    //reads serial output until a specified character
     unsigned char in = 0;
     int i = 0;
     int n = 0;
@@ -151,6 +155,7 @@ int s_read_until( int fd, char* buf, char until )
 
 void clear_buffer()
 {
+    //clears any hanging values from the Odroid's serial comms buffer
     char buffer[512] = "";
     int bytes_read = read( receive_port, &buffer, sizeof(buffer) );
     if ( bytes_read > 0 )
