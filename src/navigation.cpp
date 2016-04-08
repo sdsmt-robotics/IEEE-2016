@@ -12,25 +12,33 @@
 
 void start_to_cp( )
 {
-    printf("function: %s\n", __func__ );
+    printf("function: %s\n", __func__);
+
     claw( OPEN );
     claw( RAISE );
+
     drive( 32, 4 );
     sleep(4);
+
     turn( FULL_LEFT_TURN, 2 );
     sleep(2);
+
     forward_until_obstacle( 220, 0.0 );
     turn( FULL_RIGHT_TURN, 2 );
     
     sleep(2);
     claw( LOWER );
+
+    stop();
 }
 
 void cp_to_start()
 {
-    printf("function: %s\n", __func__ );
+    printf("function: %s\n", __func__);
+
     turn( 80, 2 );
     sleep(2);
+
     forward_until_obstacle( 220, 2.0 );
 
     turn( FULL_LEFT_TURN, 2 );
@@ -53,12 +61,13 @@ void cp_to_start()
     claw( OPEN );
     usleep( 500*1000 );
     claw( CLOSE );
+
     stop();
 }
 
 void cp_to_red()
 {
-    printf("function: %s\n", __func__ );
+    printf("function: %s\n", __func__);
     // Forward 6"
     drive( 17, 2 );
     sleep(2);
@@ -68,9 +77,10 @@ void cp_to_red()
     sleep(2);
 
     // Forward until 6" from the wall
-    drive( 35, 2);
+    drive( 35, 2 );
     claw( LOWER );
     sleep(2);
+
     forward_until_obstacle( 220, 12.5 );
 
     // 90 degree turn left
@@ -121,10 +131,13 @@ void cp_to_red()
 
 void cp_to_yellow()
 {
-    printf("function: %s\n", __func__ );
+    printf("function: %s\n", __func__);
+
     claw( LOWER );
     usleep(500*1000); // enough time for the claws to lower before we look at the front sensor
-    forward_until_obstacle(220, 0.0);
+
+    forward_until_obstacle( 220, 0.0 );
+
     claw( OPEN );
     claw( RAISE );
 
@@ -139,9 +152,11 @@ void cp_to_yellow()
 
 void retrieve_victim_1()
 {
-    printf("function: %s\n", __func__ );
+    printf("function: %s\n", __func__);
+
     drive( 18, 2 );
     sleep(2);
+
     follow_right_wall_until_obstacle( 220, 5.5, 5.0 );
 
     claw( CLOSE );
@@ -170,34 +185,44 @@ void retrieve_victim_1()
 
 void retrieve_victim_2()
 {
-    printf("function: %s\n", __func__ );
+    printf("function: %s\n", __func__);
+
     follow_left_wall_until_end( 200, 8.0 );
+
     drive( 17, 2 );
     sleep(2);
+
     turn( FULL_LEFT_TURN, 2 );
     sleep(2);
+
     drive( 31, 4 );
     sleep(4);
+
     turn( FULL_LEFT_TURN, 2 );
     sleep(2);
 
     drive( 10, 2 );
     claw( OPEN );
     sleep(2);
+
     follow_left_wall_until_obstacle( 200, 7.0, 3.0 );
+
     claw( CLOSE );
     usleep( 500*1000 );
     claw( RAISE );
 
     turn( RIGHT_180, 4 );
     sleep(4);
+
     follow_right_wall_until_end( 200, 5.0 );
+
     drive( 16, 2 );
     sleep(2);
 
     turn( FULL_RIGHT_TURN, 2 );
     claw( LOWER );
     sleep(2);
+
     forward_until_obstacle( 200, 2.0 );
 
     turn( FULL_RIGHT_TURN, 2 );
@@ -223,45 +248,40 @@ void retrieve_victim_2()
 
 void retrieve_victim_3()
 {
-    printf("function: %s\n", __func__ );
+    printf("function: %s\n", __func__);
     // Start following right wall until Left gap
-    sleep(2);
-    follow_right_wall_until_left_open( 210, 6.0 );
+
+    follow_right_wall_until_left_open( 220, 6.0 );
 
     // drive across the gap
-    sleep(2);
     drive( 35, 3 );
+    sleep(3);
 
     // Start following right wall until Left gap
-    sleep(2);
-    follow_right_wall_until_left_open( 210, 6.0 );
+    follow_right_wall_until_left_open( 220, 6.0 );
 
     // 90 degrees left
+    turn( FULL_LEFT_TURN, 2 );
     sleep(2);
-    turn( FULL_LEFT_TURN, 2 );    
 
     // Drive forward towards grass
-    sleep(2);
-    drive( 40, 3 );   
+    drive( 40, 4 );
+    sleep(4);
 
     // 45 degrees to the right
-    sleep(3);
-    turn(HALF_RIGHT_TURN, 2);
+    turn(HALF_RIGHT_TURN, 1);
+    sleep(1);
 
     // Drive forward 
-    sleep(2);
-    drive( 40, 3 );   
+    drive( 40, 3 );
+    sleep(3);
 
     // 45 degrees to the left
-    sleep(3);
-    turn(HALF_LEFT_TURN, 2); 
+    turn(HALF_LEFT_TURN, 2);
+    sleep(2);
 
     // Set victim location (A or B)
-    sleep(2);
     //SetVictimLocation(); //This is a void function that determines whether there is a victim in front of us or not
-
-
-    sleep(2);
     if (true/*A*/)
     {
         // Follow right wall until a victim is in front of us
@@ -270,64 +290,60 @@ void retrieve_victim_3()
     else
     {
         // Running to the end of the map
-        follow_right_wall_until_obstacle( 200, 6.0, 10.0 );
+        follow_right_wall_until_obstacle( 220, 6.0, 10.0 );
 
         // 90 degree left
-        sleep(2);
         turn( FULL_LEFT_TURN, 2 ); 
+        sleep(2);
 
         // Follow right wall until a victim is in front of us
-        sleep(2);
         getVictim();
     }
 
-    ////////////////////// RETURNING //////////////////////
-
     // Flip around
-    sleep(2);
     turn( LEFT_180, 2 );
+    sleep(2);
 
     // Running to the end of the map
-    sleep(2);
-    follow_left_wall_until_obstacle( 200, 6.0, 10.0 );
+    follow_left_wall_until_obstacle( 220, 6.0, 10.0 );
 
-    // 90 degree right turn
-    sleep(2);
     turn( FULL_RIGHT_TURN, 2 );
+    sleep(2);
 
     // Running to the end of the map
-    sleep(2);
-    follow_left_wall_until_obstacle( 200, 6.0, 10.0 );   
+    follow_left_wall_until_obstacle( 220, 6.0, 10.0 );   
 
     // 90 degree right turn
+    turn( FULL_RIGHT_TURN, 2 );
     sleep(2);
-    turn( FULL_RIGHT_TURN, 2 );  
 
     // Forward 12"
-    sleep(2);
     drive(31, 3);
+    sleep(3);
 
     // Set victim 4's location
-    sleep(3);
     SetVictimLocation();
 
     // 90 degree left turn
-    sleep(2);
+    
     turn( FULL_LEFT_TURN, 2 );  
+    sleep(2);
 
     // Forward until the wall
+    
+    forward_until_obstacle( 220, 1 );
     sleep(2);
-    forward_until_obstacle( 190, 1 );
 
     // 90 degree right turn
-    sleep(2);
+    
     turn( FULL_RIGHT_TURN, 2 );  
+    sleep(2);
 
     // Follow wall till CP
-    sleep(2);
-    follow_left_wall_until_end( 200, 5.0 );
+    
+    follow_left_wall_until_end( 220, 5.0 );
 
-    sleep(5);
+
     if ( victim_color == YELLOW )
     {
         cp_to_yellow();
@@ -344,7 +360,7 @@ void retrieve_victim_3()
 
 void retrieve_victim_4()
 {
-    printf("function: %s\n", __func__ );
+    printf("function: %s\n", __func__);
     /*
     * instructions for if the fourth person is on the near side of the river:
     * wall follow left until break in wall
@@ -356,39 +372,39 @@ void retrieve_victim_4()
     if ( true /*A*/)
     {
         //wall follow from CP to the first break in the left wall
-        follow_left_wall_until_end ( 190, WALL_FOLLOW_TARGET );
+        follow_left_wall_until_end( 220, WALL_FOLLOW_TARGET );
         //turn left 90 degrees
-        turn ( FULL_LEFT_TURN, 2 );
-        sleep (2);
+        turn( FULL_LEFT_TURN, 2 );
+        sleep(2);
         //drive forward to the green area
-        drive (64, 8);
-        sleep (8);
+        drive( 64, 8 );
+        sleep(8);
         //turn left 90 degrees
-        turn ( FULL_LEFT_TURN, 2);
-        sleep (2);
+        turn( FULL_LEFT_TURN, 2 );
+        sleep(2);
         //drive forward to the victim
-        drive (72.5, 10);
-        sleep (10);
+        drive( 72.5, 10 );
+        sleep(10);
         //grab the victim and lift it up
-        claw (CLOSE);
-        claw (RAISE);
+        claw( CLOSE );
+        claw( RAISE );
         //turn around
-        turn (RIGHT_180, 4);
-        sleep (4);
+        turn( RIGHT_180, 4 );
+        sleep(4);
         //drive back the way we came
-        drive (72.5, 10);
-        sleep (10);
+        drive( 72.5, 10 );
+        sleep(10);
         //turn right 90 degrees
-        turn ( FULL_RIGHT_TURN, 2);
-        sleep (2);
+        turn( FULL_RIGHT_TURN, 2 );
+        sleep(2);
         //drive back into the city area
-        drive (64, 8);
-        sleep (8);
+        drive( 64, 8 );
+        sleep(8);
         //turn right 90 degrees
-        turn ( FULL_RIGHT_TURN, 2);
-        sleep (2);
+        turn( FULL_RIGHT_TURN, 2 );
+        sleep(2);
         //return to the CP
-        follow_left_wall_until_end ( 190, WALL_FOLLOW_TARGET);
+        follow_left_wall_until_end( 220, WALL_FOLLOW_TARGET );
     }
     
     /*
@@ -406,76 +422,75 @@ void retrieve_victim_4()
     else
     {
         //navigate past the first left break
-        follow_right_wall_until_left_open ( 190, WALL_FOLLOW_TARGET );
+        follow_right_wall_until_left_open( 220, WALL_FOLLOW_TARGET );
         //get past the break, should now be able to read the left wall
-        drive (35, 3);
-        sleep (3);
+        drive( 35, 3 );
+        sleep(3);
         //navigate to the second left break
-        follow_right_wall_until_left_open ( 190, WALL_FOLLOW_TARGET );
+        follow_right_wall_until_left_open( 220, WALL_FOLLOW_TARGET );
         //turn 90 degrees to the left
-        turn ( FULL_LEFT_TURN, 2);
-        sleep (2);
+        turn( FULL_LEFT_TURN, 2 );
+        sleep(2);
         //drive forward to the edge of the green area
-        drive ( 51, 8);
-        sleep (8);
+        drive( 51, 8 );
+        sleep(8);
         //turn at a 45 degree angle to get past the blocks
-        turn ( HALF_RIGHT_TURN, 1);
-        sleep (1);
+        turn( HALF_RIGHT_TURN, 1 );
+        sleep(1);
         //drive towards the wall.
-        drive (43.2, 6);
-        sleep (6);
+        drive( 43.2, 6 );
+        sleep(6);
         //turn to be parallel with the wall
-        turn ( HALF_LEFT_TURN, 1);
-        sleep (1);
+        turn( HALF_LEFT_TURN, 1 );
+        sleep(1);
         //wall follow until the corner is reached
-        follow_right_wall_until_obstacle ( 190, WALL_FOLLOW_TARGET, 10.0 );
+        follow_right_wall_until_obstacle( 220, WALL_FOLLOW_TARGET, 10.0 );
         //turn 90 degrees at the corner
-        turn ( FULL_LEFT_TURN, 2);
-        sleep (2);
+        turn( FULL_LEFT_TURN, 2 );
+        sleep(2);
         //wall follow until the corner is reached
-        follow_right_wall_until_obstacle ( 190, WALL_FOLLOW_TARGET, 10.0 );
+        follow_right_wall_until_obstacle( 220, WALL_FOLLOW_TARGET, 10.0 );
         //turn 90 degrees at the corner
-        turn ( FULL_LEFT_TURN, 2);
+        turn( FULL_LEFT_TURN, 2 );
         //drive to the victim
-        drive ( 17.8, 2);
-        sleep (2);
+        drive( 17.8, 2 );
+        sleep(2);
         //grab and lift the victim
-        claw (CLOSE);
-        claw (RAISE);
+        claw( CLOSE );
+        claw( RAISE );
         //turn around
-        turn ( LEFT_180, 4);
-        sleep (4);
+        turn( LEFT_180, 4 );
+        sleep(4);
         //wall follow to the corner again
-        follow_left_wall_until_obstacle ( 190, WALL_FOLLOW_TARGET, 10.0 );
+        follow_left_wall_until_obstacle( 220, WALL_FOLLOW_TARGET, 10.0 );
         //turn 90 degrees at the corner
-        turn ( FULL_RIGHT_TURN, 2);
-        sleep (2);
+        turn( FULL_RIGHT_TURN, 2 );
+        sleep(2);
         //wall follow until the corner is reached
-        follow_left_wall_until_obstacle ( 190, WALL_FOLLOW_TARGET, 10.0 );
+        follow_left_wall_until_obstacle( 220, WALL_FOLLOW_TARGET, 10.0 );
         //turn 90 degrees at the corner
-        turn ( FULL_RIGHT_TURN, 2);
-        sleep (2);
+        turn( FULL_RIGHT_TURN, 2 );
+        sleep(2);
         //drive back to the point where the obstacles were avoided
-        drive ( 94, 7);
+        drive( 94, 7);
         //make a 45 degree turn right
-        turn ( HALF_RIGHT_TURN, 1);
+        turn( HALF_RIGHT_TURN, 1 );
         //drive off of the green area
-        drive ( 43.2, 6);
-        sleep (6);
+        drive( 43.2, 6 );
+        sleep(6);
         //turn left 45 degrees
-        turn ( HALF_LEFT_TURN, 1);
-        sleep (1);
+        turn( HALF_LEFT_TURN, 1 );
+        sleep(1);
         //drive back into the city section
-        drive (51, 8);
-        sleep (8);
+        drive( 51, 8 );
+        sleep(8);
         //turn right 90 degrees
-        turn ( FULL_RIGHT_TURN, 2);
-        sleep (2);
+        turn( FULL_RIGHT_TURN, 2 );
+        sleep(2);
         //wall follow back to CP
-        follow_left_wall_until_end (190, WALL_FOLLOW_TARGET);
+        follow_left_wall_until_end( 220, WALL_FOLLOW_TARGET );
     }
-    
-    
+
     /*
     * instructions for after reaching CP:
     * determine color
@@ -484,9 +499,4 @@ void retrieve_victim_4()
     * After returning to CP, return to initial zone
     * power off.
     */
-}
-
-void get_to_cp(   )
-{
-    //stuff here
 }

@@ -1,7 +1,7 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
-//logger.h
+//do #define printf LOG to make this do things
 #define LOG(...) log_print(__FILE__, __LINE__, __FUNCTION__, __VA_ARGS__ )
 
 char* print_time();

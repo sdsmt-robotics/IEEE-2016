@@ -1,4 +1,3 @@
-//logger.c
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -8,7 +7,7 @@
 
 #include "../include/logger.h"
 
-FILE *fp ;
+FILE *fp;
 static int SESSION_TRACKER; //Keeps track of session
 
 char* print_time()

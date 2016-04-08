@@ -2,6 +2,7 @@
 #define __ROBOT_DEFINES_
 
 #define ROBOT_NAME "Anne Droid"
+
 // right/left defines. Doesn't matter what these values are as long as they're unique
 #define LEFT 0
 #define RIGHT 1
@@ -14,8 +15,8 @@
 #define UNKNOWN_COLOR 3
 
 // motor defines
-#define LEFT_MOTOR_FLAG  0x4C
-#define RIGHT_MOTOR_FLAG 0x52
+#define LEFT_MOTOR_FLAG        0x4C
+#define RIGHT_MOTOR_FLAG       0x52
 
 #define LEFT_MOTOR_STEPS_FLAG  0x39
 #define RIGHT_MOTOR_STEPS_FLAG 0x40
@@ -48,23 +49,24 @@
 #define SENSORS_COMM_LOCATION "/dev/robot/sensors"
 #define ARDUINO_RECEIVED_BYTE 0x13
 
-#define SENSOR_REQUEST 0x60
-#define LEFT_SENSOR_REQUEST 0x61
+#define SENSOR_REQUEST       0x60
+#define LEFT_SENSOR_REQUEST  0x61
 #define RIGHT_SENSOR_REQUEST 0x62
 #define FRONT_SENSOR_REQUEST 0x63
-#define BACK_SENSOR_REQUEST 0x64
-#define VIC_SENSOR_REQUEST 0x65
+#define BACK_SENSOR_REQUEST  0x64
+#define VIC_SENSOR_REQUEST   0x65
 
-#define IR_RIGHT_TAG  0x71
-#define IR_FRONT_TAG 0x72
-#define IR_LEFT_TAG   0x73
-#define IR_PACKET_END 0x74
+#define IR_RIGHT_TAG         0x71
+#define IR_FRONT_TAG         0x72
+#define IR_LEFT_TAG          0x73
+#define IR_PACKET_END        0x74
 
 #define SENSOR_PROC_DELAY_US 50000
-//For blue, black paint
+
+//For blue, black paint, to make our voltage mapping function work
 #define IR_DISTANCE_SCALAR 0.5
 
-//Physical information
+//Physical information about the robot
 #define WHEEL_BASE_MM 153.0
 
 //Blue Wheels with wimpy-ass steppers:
@@ -86,12 +88,13 @@
 //Sensor Stuff
 #define INF_DISTANCE 15.0
 #define SIX_INCHES 15.0
+
 #define VIC_DISTANCE 4.0 	// UNKNOWN, will be based on where the sensor is
 //Stopping tolerance depends on paint color
 #define FRONT_STOPPING_TOLERANCE 0
 
 //want to be 6 cm away from wall
-#define WALL_FOLLOW_DELTA 1.5
+#define WALL_FOLLOW_DELTA 0.5
 #define WALL_FOLLOW_TARGET 6.0
 #define WALL_FOLLOW_TOLERANCE 0.3
 
@@ -101,7 +104,7 @@
 
 
 
-//global serial port variable so we can avoid hours of pain when we forget
+//global serial port variables so we can avoid hours of pain when we forget
 //to pass this to a function and wonder wtf is happening.
 //Also, why does `gcc -Wall` compile function calls that don't have the
 //correct number of arguments? Seriouslly, wtf?

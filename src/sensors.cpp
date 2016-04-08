@@ -57,7 +57,7 @@ void poll_sensors()
     unsigned char left_byte = 0;
     unsigned char right_byte = 0;
 
-    int nothing = write( send_port, &flag, 1);
+    int nothing = write( send_port, &flag, 1 );
     nothing += 1; // to make gcc stfu
     while ( n < 10 )
     {
@@ -121,7 +121,7 @@ void sensors( double *vic, double *back, double *front, double *left, double *ri
     unsigned char left_byte = 0;
     unsigned char right_byte = 0;
 
-    int nothing = write( send_port, &flag, 1);
+    int nothing = write( send_port, &flag, 1 );
     nothing += 1; // to make gcc stfu
     while ( n < 10 )
     {
