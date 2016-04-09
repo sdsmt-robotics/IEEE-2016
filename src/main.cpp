@@ -39,22 +39,15 @@ int main( int argc, char* argv[] )
     }
 
     //Start doing the things.
-
-    // while(1)
-    // {
-    //     int color =  checkColor();
-    //     printf("color: %i\n", color);
-    //     sleep(1);
-    // }
         
     start_to_cp();
     retrieve_victim_1();
 
     retrieve_victim_2();
 
-    retrieve_victim_3();
+    // retrieve_victim_3();
 
-    retrieve_victim_4();
+    // retrieve_victim_4();
 
     cp_to_start();
 
@@ -91,7 +84,7 @@ bool initialize_all_the_things()
     clearPort( send_port );
     clearPort( receive_port );
 
-   victim_color = UNKNOWN_COLOR;
+    victim_color = UNKNOWN_COLOR;
 
     while ( !init_camera() )
     {
