@@ -40,6 +40,13 @@ int main( int argc, char* argv[] )
 
     //Start doing the things.
 
+    while(1)
+    {
+        int color =  checkColor();
+        printf("color: %i\n", color);
+        sleep(1);
+    }
+        
     start_to_cp();
 //    retrieve_victim_1();
 

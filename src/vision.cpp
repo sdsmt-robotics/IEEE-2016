@@ -44,8 +44,9 @@ bool init_camera()
 
 	if( !camera.isOpened() )
 	{
-		cout << "Cannot open video1 (laptop), trying video0 (webcam)\n";
 		camera.open( 0 );
+		cout << "Cannot open video1 (laptop), trying video0 (webcam)\n";
+        cout << "Success: " << camera.isOpened();
 		return 1;
 	}
 	return 0;
@@ -174,10 +175,9 @@ bool grabFrame()
 
 int checkColor()
 {
-    for(int i = 0; i < 20; i++)
+    for(int i = 0; i < 10; i++)
     {
         grabFrame();
-        usleep(50000);
     }
     if(yellow_object_seen)
         return YELLOW;
