@@ -39,16 +39,15 @@ int main( int argc, char* argv[] )
     }
 
     //Start doing the things.
-    victim_color = RED;
 
     start_to_cp();
-//    retrieve_victim_1();
+    retrieve_victim_1();
 
-    victim_color = YELLOW;
-
-//    retrieve_victim_2();
+    retrieve_victim_2();
 
     retrieve_victim_3();
+
+    retrieve_victim_4();
 
     cp_to_start();
 
