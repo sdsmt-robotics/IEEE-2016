@@ -19,6 +19,8 @@ int send_port;
 int receive_port;
 int victim_color;
 
+using namespace cv;
+
 int main( int argc, char* argv[] )
 {
     //initializes all the things. Serial and vision. Also tops off the magic blue smoke tanks.

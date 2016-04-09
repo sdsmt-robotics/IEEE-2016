@@ -13,6 +13,7 @@
 #include "opencv2/highgui/highgui.hpp"
 
 #define printf LOG
+using namespace cv;
 
 void start_to_cp( )
 {
