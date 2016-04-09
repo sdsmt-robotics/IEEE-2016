@@ -1,8 +1,12 @@
+#ifndef VISION_H
+#define VISION_H
+
 #include <iostream>
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/highgui/highgui.hpp"
 #include <vector>
 #include <unistd.h>
+#include "robot_defines.h"
 
 #define AREA_THRESHOLD 1200
 
@@ -25,6 +29,12 @@ Scalar highYellow(45, 255, 255);
 	
 Scalar lowBlue(98, 0, 165);
 Scalar highBlue(118, 255, 255);
+
+void clear_objects_in_frame()
+{
+    red_object_seen = false;
+    yellow_object_seen = false;
+}
 
 bool red_object_in_frame()
 {
@@ -171,6 +181,21 @@ bool grabFrame()
 	return 0;
 }
 
+int checkColor()
+{
+    for(int i = 0; i < 20; i++)
+    {
+        grabFrame();
+    }
+    if(yellow_object_seen)
+        return YELLOW;
+    else if(red_object_seen)
+        return RED;
+    else
+        return UNKNOWN_COLOR;
+}
+    
+
 /*int main (int argc, char **argv)
 {
 	init_camera();
@@ -311,3 +336,5 @@ bool grabFrame()
 	return 0;
 }
 */
+
+#endif
