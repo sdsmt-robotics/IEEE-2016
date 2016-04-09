@@ -6,7 +6,9 @@ OBJ = $(SRC:.c=.o)
 CC = gcc
 LINK = g++
 
+
 CFLAGS =  -O -Wall
+
 CXXFLAGS = $(CFLAGS)
 
 TARGET = main_exec

@@ -81,7 +81,3 @@ int sys_init( const char* serialport )
 
 //     return true;
 // }
-
-
-
-
