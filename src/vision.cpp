@@ -1,6 +1,13 @@
 #include "../include/vision.h"
 #include "../include/robot_defines.h"
 
+#include <iostream>
+#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/highgui/highgui.hpp"
+#include <vector>
+#include <unistd.h>
+#include "robot_defines.h"
+
 using namespace std;
 using namespace cv;
 
