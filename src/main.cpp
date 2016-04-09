@@ -41,9 +41,9 @@ int main( int argc, char* argv[] )
     //Start doing the things.
 
     start_to_cp();
-    retrieve_victim_1();
+//    retrieve_victim_1();
 
-    retrieve_victim_2();
+//    retrieve_victim_2();
 
     retrieve_victim_3();
 
