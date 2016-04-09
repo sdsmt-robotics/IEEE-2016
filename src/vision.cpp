@@ -44,7 +44,7 @@ bool init_camera()
 
 	if( !camera.isOpened() )
 	{
-		cout << "Cannot open the external camera, trying the internal\n";
+		cout << "Cannot open video1 (laptop), trying video0 (webcam)\n";
 		camera.open( 0 );
 		return 1;
 	}
