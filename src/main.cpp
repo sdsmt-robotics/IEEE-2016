@@ -45,7 +45,7 @@ int main( int argc, char* argv[] )
 
     retrieve_victim_2();
 
-    // retrieve_victim_3();
+    retrieve_victim_3();
 
     // retrieve_victim_4();
 

@@ -89,6 +89,8 @@ void cp_to_red()
     sleep(2);
 
     forward_until_obstacle( 220, 12.5 );
+    drive( -1, 1 );
+    sleep(1);
 
     // 90 degree turn left
     turn( FULL_LEFT_TURN, 2 );
@@ -310,17 +312,11 @@ void retrieve_victim_3()
 
     // Push victim around
     claw( OPEN );
-    sleep(2);
+    claw( LOWER );
 
-    // Set victim location (A or B)
-    //SetVictimLocation(); //This is a void function that determines whether there is a victim in front of us or not
-    // if (true/*A*/)
-    // {
-    //     // Follow right wall until a victim is in front of us
-    //     getVictim();
-    // }
-    // else
-    // Drive to first victim spot
+    //check for color
+
+
     drive(42, 3);
     sleep(3);
 
