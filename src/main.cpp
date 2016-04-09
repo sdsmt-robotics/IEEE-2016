@@ -74,11 +74,11 @@ bool initialize_all_the_things()
 
     victim_color = UNKNOWN_COLOR;
 
-    while ( !init_camera() )
-    {
-        init_camera();
-        sleep(1);
-    }
+    // while ( !init_camera() )
+    // {
+    //     init_camera();
+    //     sleep(1);
+    // }
 
     return true;
 }
