@@ -14,11 +14,11 @@ double map_voltage_to_distance( int voltage, int flag )
     // https://acroname.com/articles/linearizing-sharp-ranger-data
     // We had to divide the function the above link gives by two to
     // properly characterize the sensor output.
-    static double last_left = 0;
-    static double last_right = 0;
-    static double last_front = 0;
-    static double last_back = 0;
-    static double last_vic = 0;
+    static double last_left = 1;
+    static double last_right = 1;
+    static double last_front = 1;
+    static double last_back = 1;
+    static double last_vic = 1;
 
     double dist = IR_DISTANCE_SCALAR * ( (6787.0)/(voltage - 3.0) - 4.0);
 
