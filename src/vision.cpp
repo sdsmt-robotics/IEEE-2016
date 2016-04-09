@@ -40,15 +40,15 @@ bool yellow_object_in_frame()
 
 bool init_camera()
 {
-	camera.open( "/dev/video0" );
+	camera.open( 1 );
 
 	if( !camera.isOpened() )
 	{
 		cout << "Cannot open the external camera, trying the internal\n";
 		camera.open( 0 );
-		return 0;
+		return 1;
 	}
-	return 1;
+	return 0;
 }
 
 void cleanThresholdedImage(Mat& thresholdImage)
