@@ -170,7 +170,9 @@ void retrieve_victim_1()
 
     drive( -10, 2 );
     sleep(2);
-    //color check here
+    
+    victim_color = checkColor();
+
     drive( 10, 2 );
     sleep(2);
 
@@ -226,7 +228,7 @@ void retrieve_victim_2()
     drive( -10, 2 );
     sleep(2);
 
-    // check color
+    victim_color = checkColor();
 
     drive( 10, 2 );
     sleep(2);
