@@ -9,6 +9,7 @@
 #define BOTH 2
 #define FRONT 3
 #define BACK 4
+#define VIC 5
 
 #define YELLOW 1
 #define RED 2

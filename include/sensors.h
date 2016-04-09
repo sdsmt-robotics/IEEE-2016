@@ -11,7 +11,7 @@ double vic_sensor();
 //return average voltage, in units that are really hard to work with.
 //0 to 1023 "steps" to represent 0 to 5 volts. That corresponds to
 //4.9 mV per "step", or 205 "steps" per volt.
-double map_voltage_to_distance( int voltage );
+double map_voltage_to_distance( int voltage, int flag );
 
 void poll_sensors();
 void sensors( double *vic, double *back, double *front, double *left, double *right );

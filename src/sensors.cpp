@@ -14,15 +14,62 @@ double map_voltage_to_distance( int voltage, int flag )
     // https://acroname.com/articles/linearizing-sharp-ranger-data
     // We had to divide the function the above link gives by two to
     // properly characterize the sensor output.
-    static double last = 0;
+    static double last_left = 0;
+    static double last_right = 0;
+    static double last_front = 0;
+    static double last_back = 0;
+    static double last_vic = 0;
+
     double dist = IR_DISTANCE_SCALAR * ( (6787.0)/(voltage - 3.0) - 4.0);
- 
-    if ( isinf(dist) || dist < 0 )
+
+    switch(flag)
     {
-        dist = last;
-    }
-    last = dist;
-    return dist;
+        case LEFT:
+        {
+            if ( isinf(dist) || dist < 0 )
+            {
+                dist = last_left;
+            }
+            last_left = dist;
+            return dist;
+        }
+        case RIGHT:
+        {
+            if ( isinf(dist) || dist < 0 )
+            {
+                dist = last_right;
+            }
+            last_right = dist;
+            return dist;
+        }
+        case FRONT:
+        {
+            if ( isinf(dist) || dist < 0 )
+            {
+                dist = last_front;
+            }
+            last_front = dist;
+            return dist;
+        }
+        case BACK:
+        {
+            if ( isinf(dist) || dist < 0 )
+            {
+                dist = last_back;
+            }
+            last_back = dist;
+            return dist;
+        }
+        case VIC:
+        {
+            if ( isinf(dist) || dist < 0 )
+            {
+                dist = last_vic;
+            }
+            last_vic = dist;
+            return dist;
+        }
+    } 
 }
 
 double left_sensor()
@@ -106,11 +153,11 @@ void poll_sensors()
     vic = vic << 8;
     vic = vic | right_byte;
 
-    printf("front (V): %d front (cm): %.1f\n", front, map_voltage_to_distance(front) );
-    printf("back (V): %d back (cm): %.1f\n", back, map_voltage_to_distance(back) );
-    printf("left (V): %d left (cm): %.1f\n", left, map_voltage_to_distance(left) );
-    printf("right (V): %d right (cm): %.1f\n", right, map_voltage_to_distance(right) );
-    printf("vic (V): %d vic (cm): %.1f\n", vic, map_voltage_to_distance(vic) );
+    printf("front (V): %d front (cm): %.1f\n", front, map_voltage_to_distance(front, FRONT ));
+    printf("back (V): %d back (cm): %.1f\n", back, map_voltage_to_distance(back, BACK ));
+    printf("left (V): %d left (cm): %.1f\n", left, map_voltage_to_distance(left, LEFT ));
+    printf("right (V): %d right (cm): %.1f\n", right, map_voltage_to_distance(right, RIGHT ));
+    printf("vic (V): %d vic (cm): %.1f\n", vic, map_voltage_to_distance(vic, VIC ));
     printf("===========================\n");
 
     clear_buffer();
