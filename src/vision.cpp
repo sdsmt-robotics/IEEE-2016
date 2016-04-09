@@ -177,6 +177,7 @@ int checkColor()
     for(int i = 0; i < 20; i++)
     {
         grabFrame();
+        usleep(50000);
     }
     if(yellow_object_seen)
         return YELLOW;
