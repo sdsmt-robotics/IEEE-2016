@@ -173,7 +173,23 @@ void retrieve_victim_1()
     drive( -10, 2 );
     sleep(2);
 
-    set_global_colors();
+    for (int i = 0; i < 20; i++ )
+    {
+        grabFrame();
+    }
+
+    if ( yellow_object_in_frame() )
+    {
+        victim_color = YELLOW;
+    }
+    else if ( red_object_in_frame() )
+    {
+        victim_color = RED;
+    }
+    else
+    {
+        victim_color = UNKNOWN_COLOR;
+    }
 
     drive( 10, 2 );
     sleep(2);
@@ -200,7 +216,7 @@ void retrieve_victim_1()
         cp_to_red();
     }
 
-    clear_global_colors();
+    // clear_global_colors();
     stop();
 }
 
@@ -232,7 +248,7 @@ void retrieve_victim_2()
     drive( -10, 2 );
     sleep(2);
 
-    set_global_colors();
+    // set_global_colors();
 
     drive( 10, 2 );
     sleep(2);
@@ -274,7 +290,7 @@ void retrieve_victim_2()
         cp_to_red();
     }
 
-    clear_global_colors();
+    // clear_global_colors();
     stop();
 }
 

@@ -174,33 +174,33 @@ bool grabFrame()
 	return 0;
 }
 
-void set_global_colors()
-{
-	for (int i = 0; i < 20; i++ )
-	{
-		grabFrame();
-	}
+// void set_global_colors()
+// {
+// 	for (int i = 0; i < 20; i++ )
+// 	{
+// 		grabFrame();
+// 	}
 
-	if ( yellow_object_in_frame() )
-	{
-		victim_color = YELLOW;
-	}
-	else if ( red_object_in_frame() )
-	{
-		victim_color = RED;
-	}
-	else
-	{
-		victim_color = UNKNOWN_COLOR;
-	}
-}
+// 	if ( yellow_object_in_frame() )
+// 	{
+// 		victim_color = YELLOW;
+// 	}
+// 	else if ( red_object_in_frame() )
+// 	{
+// 		victim_color = RED;
+// 	}
+// 	else
+// 	{
+// 		victim_color = UNKNOWN_COLOR;
+// 	}
+// }
 
-void clear_global_colors()
-{
-	yellow_object_seen = false;
-	red_object_seen = false;
+// void clear_global_colors()
+// {
+// 	yellow_object_seen = false;
+// 	red_object_seen = false;
 
-	victim_color = UNKNOWN_COLOR;
-}
+// 	victim_color = UNKNOWN_COLOR;
+// }
 
 #endif
