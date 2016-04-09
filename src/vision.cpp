@@ -180,6 +180,7 @@ int checkColor()
     for(int i = 0; i < 40; i++)
     {
         grabFrame();
+        usleep(33000);
     }
     if(yellow_object_seen)
         return YELLOW;

@@ -39,11 +39,6 @@ int main( int argc, char* argv[] )
     }
 
     //Start doing the things.
-    while( 1 )
-    {
-        poll_sensors();
-        sleep(1);
-    }
         
     start_to_cp();
     retrieve_victim_1();
