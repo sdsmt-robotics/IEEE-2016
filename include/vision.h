@@ -1,9 +1,10 @@
 #include <iostream>
-#include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/highgui/highgui.hpp"
 #include <vector>
+#include <unistd.h>
 
-#define AREA_THRESHOLD 2400
+#define AREA_THRESHOLD 1200
 
 using namespace std;
 using namespace cv;
@@ -13,11 +14,14 @@ VideoCapture camera;
 bool yellow_object_seen = false;
 bool red_object_seen    = false;
 
-Scalar lowRed(0, 119, 117);
-Scalar highRed(179, 255, 255);
+Scalar lowLowerRed(0, 119, 117);
+Scalar highLowerRed(12, 255, 255);
+
+Scalar lowUpperRed(165, 119, 117);
+Scalar highUpperRed(179, 255, 255);
 	
-Scalar lowYellow(17, 50, 70);
-Scalar highYellow(50, 255, 255);
+Scalar lowYellow(15, 50, 118);
+Scalar highYellow(45, 255, 255);
 	
 Scalar lowBlue(98, 0, 165);
 Scalar highBlue(118, 255, 255);
@@ -75,7 +79,7 @@ Rect largestRectInFrame(vector<Rect> rects)
 
 bool grabFrame()
 {	
-	Mat cap, frame, red, yellow;
+	Mat cap, frame, red, red_lower, red_upper, yellow;
 	bool frame_available;
 
 	frame_available = camera.read(cap);
@@ -86,10 +90,12 @@ bool grabFrame()
 	}
 	cvtColor(cap, frame, CV_BGR2HSV); //convert to HSV from RGB
 
-	inRange(frame, lowRed, highRed, red);	
+	inRange(frame, lowLowerRed, highLowerRed, red_lower);	
+	inRange(frame, lowUpperRed, highUpperRed, red_upper);
 	inRange(frame, lowYellow, highYellow, yellow);
 
-	cleanThresholdedImage(red);
+	cleanThresholdedImage(red_lower);
+	cleanThresholdedImage(red_upper);
 	cleanThresholdedImage(yellow);
 
 	vector<vector<Point> > contours;
@@ -129,6 +135,8 @@ bool grabFrame()
 	bounding_rects.clear();
 
 	//same thing for the red
+
+	red = red_lower + red_upper;
 	findContours(red, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE);
 	for( int i = 0; i < contours.size(); i++ )
 	{
@@ -168,11 +176,11 @@ bool grabFrame()
 	init_camera();
 	while(1)
 	{
-		waitKey(33);
+		usleep(33000);
 		grabFrame();
 	}
-}
-*/
+}*/
+
 
 /*int main(int argc, char **argv)
 {
