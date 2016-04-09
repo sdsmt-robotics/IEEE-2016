@@ -170,6 +170,9 @@ void retrieve_victim_1()
 
     set_global_colors();
 
+    drive( 10, 1 );
+    sleep(1);
+
     claw( CLOSE );
     usleep(500*1000); //0.5 sec
     claw( RAISE );
@@ -189,8 +192,10 @@ void retrieve_victim_1()
     } else if ( victim_color == UNKNOWN_COLOR )
     {
         printf("Crap. UNKNOWN_COLOR. What are you, blind?\n");
-        cp_to_yellow();
+        cp_to_red();
     }
+
+    clear_global_colors();
     stop();
 }
 
@@ -218,6 +223,11 @@ void retrieve_victim_2()
     sleep(2);
 
     follow_left_wall_until_obstacle( 200, 7.0, 3.0 );
+
+    drive( -10, 1 );
+    sleep(1);
+
+    set_global_colors();
 
     claw( CLOSE );
     usleep( 500*1000 );
@@ -253,8 +263,10 @@ void retrieve_victim_2()
     } else if ( victim_color == UNKNOWN_COLOR )
     {
         printf("Crap. UNKNOWN_COLOR. What are you, blind?\n");
-        cp_to_yellow();
+        cp_to_red();
     }
+
+    clear_global_colors();
     stop();
 }
 
