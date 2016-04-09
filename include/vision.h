@@ -6,6 +6,7 @@
 #include "opencv2/highgui/highgui.hpp"
 #include <vector>
 #include <unistd.h>
+#include "robot_defines.h"
 
 #define AREA_THRESHOLD 1200
 
