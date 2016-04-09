@@ -40,7 +40,7 @@ bool yellow_object_in_frame()
 
 bool init_camera()
 {
-	camera.open( 1 );
+	camera.open( "/dev/video0" );
 
 	if( !camera.isOpened() )
 	{
