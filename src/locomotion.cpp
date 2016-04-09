@@ -84,10 +84,14 @@ void driveWheelSteps( int wheel, int steps, int runtime )
 
 void turn( int angle, int runtime )
 {
+    //Turns the robot a given number of degrees from the axis sticking out of its face
+    //A positive angle is a right turn, negative is a left turn
+
     double arc_length = M_PI * WHEEL_BASE_MM * ( angle / 360.0 );
     int steps = round( STEPS_PER_MM * arc_length );
 
-    printf("Turning %d degrees in %d seconds. arc length = %f and %d steps per wheel\n", angle, runtime, arc_length, steps );
+    printf("Turning %d degrees in %d seconds. arc length = %.3f and %d steps per wheel\n", angle, runtime, arc_length, steps );
+
     driveWheelSteps( RIGHT, -steps, runtime );
     driveWheelSteps( LEFT, steps, runtime );
 }
@@ -95,13 +99,16 @@ void turn( int angle, int runtime )
 void var_turn( int angle, int runtime )
 {
     //pivots on one wheel. If turning right, pivot on right wheel, etc
+    //A positive angle is a right turn, negative is a left turn
+
     double arc_length;
     unsigned int steps;
 
     arc_length = 2 * M_PI * WHEEL_BASE_MM * ( angle / 360.0 );
     steps = round( STEPS_PER_MM * arc_length );
 
-    printf("Var-turning %d degrees in %d seconds. arc length = %f and %d steps.\n", angle, runtime, arc_length, steps );
+    printf("Var-turning %d degrees in %d seconds. arc length = %.3f and %d steps.\n", angle, runtime, arc_length, steps );
+
     stop();
     if ( angle < 0 ) // turning left
         driveWheelSteps( RIGHT, steps, runtime );
@@ -112,17 +119,20 @@ void var_turn( int angle, int runtime )
 
 void drive( float distance, int runtime )
 {
+    //drives robot forward for `distance` cm in `runtime` seconds
     int steps = round( STEPS_PER_CM * distance );
     driveWheelSteps( BOTH, steps, runtime );
 }
 
 void stop()
 {
+    //stops the robot in its tracks
     setWheelSpeed( BOTH, 127 );
 }
 
 void claw( int state )
 {
+    //does the claw things
     unsigned char motor_flag;
     int bytes = 0;
     unsigned char value;
@@ -155,21 +165,27 @@ void claw( int state )
         motor_flag = SERVO_CLAW_CLOSE_TAG;
         bytes = write( send_port, &motor_flag, 1 );
         bytes = bytes + write( send_port, &value, 1 );
-    } else {
+    } else
+    {
         printf("I don't know what you mean by that.\n");
-        printf("Attempting to send state: %d defined in robot_defines under claw state.\n", state );
+        printf("Attempting to send state: %d defined in robot_defines under claw state.\n", state);
     }
 }
 
-//////////////////////////////////////////////////
-// Here's the wall following locomotion code
-//////////////////////////////////////////////////
+//////////////////////////////////////////////
+//////////////////////////////////////////////
+//// Begin wall following locomotion code ////
+//////////////////////////////////////////////
+//////////////////////////////////////////////
 
 void forward_until_obstacle( unsigned char speed, float tolerance )
 {
-    printf("function: %s\n", __func__ );
+    //Drives robot forward until it detects an obstacle in front of the front sensor
+    printf("function: %s\n", __func__);
+
     double front_value = front_sensor();
     printf("front: %.1f\n", front_value);
+
     setWheelSpeed( BOTH, speed );
 
     while ( front_value > SIX_INCHES + tolerance )
@@ -177,16 +193,20 @@ void forward_until_obstacle( unsigned char speed, float tolerance )
         front_value = front_sensor();
         printf("Not hitting wall yet.\nfront: %.1f\n", front_value);
     }
+
     stop();
     clear_buffer();
 }
 
 void forward_until_left_end( unsigned char speed )
 {
-    printf("function: %s\n", __func__ );
+    //Drives robot forward until the left sensor rapidly drops off
+    printf("function: %s\n", __func__);
+
     double left_value = 0;
     double last_pos = 0;
     double delta = 0;
+
     setWheelSpeed( BOTH, speed );
 
     while ( delta < WALL_FOLLOW_DELTA )
@@ -194,20 +214,25 @@ void forward_until_left_end( unsigned char speed )
         last_pos = left_value;
         left_value = left_sensor();
         delta = abs(left_value - last_pos);
+
         printf("Following left wall.\n");
-        printf("left: %.1f\n", left_value );
-        printf("delta: %.3f\n", delta );
+        printf("left: %.1f\n", left_value);
+        printf("delta: %.3f\n", delta);
     }
+
     stop();
     clear_buffer();
 }
 
 void forward_until_right_end( unsigned char speed )
 {
-    printf("function: %s\n", __func__ );
+    //drives the robot forward until it detects a gap in the right wall.
+    printf("function: %s\n", __func__);
+
     double right_value = 0;
     double last_pos = 0;
     double delta = 0;
+
     setWheelSpeed( BOTH, speed );
 
     while ( delta < WALL_FOLLOW_DELTA )
@@ -215,17 +240,21 @@ void forward_until_right_end( unsigned char speed )
         last_pos = right_value;
         right_value = right_sensor();
         delta = abs(right_value - last_pos);
+
         printf("Following right wall.\n");
-        printf("right: %.1f\n", right_value );
-        printf("delta: %.3f\n", delta );
+        printf("right: %.1f\n", right_value);
+        printf("delta: %.3f\n", delta);
     }
+
     stop();
     clear_buffer();
 }
 
 void follow_left_wall_until_end( unsigned char speed, float target )
 {
-    printf("function: %s\n", __func__ );
+    //follows the left wall until it ends
+    printf("function: %s\n", __func__);
+
     double vic_value = 0;
     double back_value = 0;
     double front_value = 0;
@@ -245,8 +274,9 @@ void follow_left_wall_until_end( unsigned char speed, float target )
         last_pos = left_value;
         sensors( &vic_value, &back_value, &front_value, &left_value, &right_value );
         delta = abs(left_value - last_pos);
-        printf("left: %.1f\n", left_value );
-        printf("delta: %.3f\n", delta );
+
+        printf("left: %.1f\n", left_value);
+        printf("delta: %.3f\n", delta);
 
         if ( left_value < target - WALL_FOLLOW_TOLERANCE ) //too close
         {
@@ -299,7 +329,9 @@ void follow_left_wall_until_end( unsigned char speed, float target )
 
 void follow_right_wall_until_end( unsigned char speed, float target )
 {
-    printf("function: %s\n", __func__ );
+    //follows the right wall until it ends
+    printf("function: %s\n", __func__);
+
     double vic_value = 0;
     double back_value = 0;
     double front_value = 0;
@@ -320,8 +352,9 @@ void follow_right_wall_until_end( unsigned char speed, float target )
         sensors( &vic_value, &back_value, &front_value, &left_value, &right_value );
 
         delta = abs(right_value - last_pos);
-        printf("right: %.1f\n", right_value );
-        printf("delta: %.3f\n", delta );
+
+        printf("right: %.1f\n", right_value);
+        printf("delta: %.3f\n", delta);
 
         if ( right_value < target - WALL_FOLLOW_TOLERANCE ) //too close
         {
@@ -368,13 +401,16 @@ void follow_right_wall_until_end( unsigned char speed, float target )
             }
         }
     }
+
     stop();
     clear_buffer();
 }
 
 void follow_right_wall_until_left_open( unsigned char speed, float target )
 {
-    printf("function: %s\n", __func__ );
+    //follows the right wall until it sees a gap in the left wall
+    printf("function: %s\n", __func__);
+
     double vic_value = 0;
     double back_value = 0;
     double front_value = 0;
@@ -396,8 +432,9 @@ void follow_right_wall_until_left_open( unsigned char speed, float target )
         last_left_pos = left_value;
         sensors( &vic_value, &back_value, &front_value, &left_value, &right_value );
         delta = abs(left_value - last_left_pos);
-        printf("right: %.1f\n", right_value );
-        printf("delta: %.3f\n", delta );
+
+        printf("right: %.1f\n", right_value);
+        printf("delta: %.3f\n", delta);
 
         if ( right_value < target - WALL_FOLLOW_TOLERANCE ) //too close
         {
@@ -444,13 +481,16 @@ void follow_right_wall_until_left_open( unsigned char speed, float target )
             }
         }
     }
+
     stop();
     clear_buffer();
 }
 
 void follow_left_wall_until_obstacle( unsigned char speed, float target, float tolerance )
 {
-    printf("function: %s\n", __func__ );
+    //follows the left wall until there's a wall in front of the robot
+    printf("function: %s\n", __func__);
+
     double vic_value = 0;
     double back_value = 0;
     double front_value = 0;
@@ -468,8 +508,9 @@ void follow_left_wall_until_obstacle( unsigned char speed, float target, float t
     {
         last_pos = left_value;
         sensors( &vic_value, &back_value, &front_value, &left_value, &right_value );
-        printf("left: %.1f\n", left_value );
-        printf("front: %.1f\n", front_value );
+
+        printf("left: %.1f\n", left_value);
+        printf("front: %.1f\n", front_value);
 
         if ( left_value < target - WALL_FOLLOW_TOLERANCE ) //too close
         {
@@ -516,13 +557,16 @@ void follow_left_wall_until_obstacle( unsigned char speed, float target, float t
             }
         }
     }
+
     stop();
     clear_buffer();
 }
 
 void follow_right_wall_until_obstacle( unsigned char speed, float target, float tolerance )
 {
-    printf("function: %s\n", __func__ );
+    //follows the right wall until it sees a wall in front of the robot
+    printf("function: %s\n", __func__);
+
     double vic_value = 0;
     double back_value = 0;
     double front_value = 0;
@@ -540,8 +584,9 @@ void follow_right_wall_until_obstacle( unsigned char speed, float target, float 
     {
         last_pos = right_value;
         sensors( &vic_value, &back_value, &front_value, &left_value, &right_value );
-        printf("right: %.1f\n", right_value );
-        printf("front: %.1f\n", front_value );
+
+        printf("right: %.1f\n", right_value);
+        printf("front: %.1f\n", front_value);
 
         if ( right_value < target - WALL_FOLLOW_TOLERANCE ) //too close
         {
@@ -588,6 +633,7 @@ void follow_right_wall_until_obstacle( unsigned char speed, float target, float 
             }
         }
     }
+
     stop();
     clear_buffer();
 }
@@ -600,7 +646,9 @@ void follow_right_wall_until_obstacle( unsigned char speed, float target, float 
 */
 void test_follow_left_wall_until_end (unsigned char speed, float target)
 {
-    printf("function: %s\n", __func__ );
+    //testing wall following
+    printf("function: %s\n", __func__);
+
     double left_value = left_sensor();
     unsigned char speed_mod = speed/10 - 10;
     int divis_val = 1;
@@ -651,6 +699,7 @@ void test_follow_left_wall_until_end (unsigned char speed, float target)
         i = 0;
         speed_mod = speed/10 - 10;
     }
+
     stop();
     clear_buffer();
 }
@@ -659,7 +708,9 @@ void test_follow_left_wall_until_end (unsigned char speed, float target)
 // Modified slightly for our use case.
 void var_test_follow_left_wall_until_end( unsigned char speed, float target )
 {
-    printf("function: %s\n", __func__ );
+    //another test version of wall following
+    printf("function: %s\n", __func__);
+
     // float error = 0;
     // float error_last = 0;
     double vic = 0;
@@ -685,6 +736,7 @@ void var_test_follow_left_wall_until_end( unsigned char speed, float target )
         last_pos = left_value;
         sensors( &vic, &back, &front, &left_value, &right );
         delta = abs(left_value - last_pos);
+
         printf("left: %.1f\n", left_value );
         printf("delta: %.3f\n", delta);
 
@@ -740,6 +792,7 @@ void var_test_follow_left_wall_until_end( unsigned char speed, float target )
             }
         }
     }
+
     stop();
     clear_buffer();
 }
@@ -747,7 +800,9 @@ void var_test_follow_left_wall_until_end( unsigned char speed, float target )
 // Follows wall until the new vic Sensor detects a victim 
 void follow_right_wall_until_VS( unsigned char speed, float target )
 {
-    printf("function: %s\n", __func__ );
+    //a wall following function we probably will never use
+    printf("function: %s\n", __func__);
+
     double right_value = right_sensor();
     double last_pos = 0;
     unsigned char speed_mod = 0;
@@ -757,7 +812,8 @@ void follow_right_wall_until_VS( unsigned char speed, float target )
     {
         last_pos = right_value;
         right_value = right_sensor();
-        printf("right: %.1f\n", right_value );
+
+        printf("right: %.1f\n", right_value);
 
         if ( right_value < target - WALL_FOLLOW_TOLERANCE ) //too close
         {
@@ -804,15 +860,16 @@ void follow_right_wall_until_VS( unsigned char speed, float target )
             }
         }
     }
+
     stop();
     clear_buffer();
 }
 
-
-// Follows the right wall until the NEW front sensor detects a victim
 void getVictim()
 {
-    printf("function: %s\n", __func__ );
+    printf("function: %s\n", __func__);
+
+
     stop();
     clear_buffer();
 }
