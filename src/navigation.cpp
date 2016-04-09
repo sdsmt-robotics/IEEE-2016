@@ -304,24 +304,33 @@ void retrieve_victim_3()
     turn(HALF_LEFT_TURN, 2);
     sleep(2);
 
+    // Push victim around
+    claw( OPEN );
+    sleep(2);
+
     // Set victim location (A or B)
     //SetVictimLocation(); //This is a void function that determines whether there is a victim in front of us or not
-    if (true/*A*/)
-    {
-        // Follow right wall until a victim is in front of us
-        getVictim();
-    }
-    else
+    // if (true/*A*/)
+    // {
+    //     // Follow right wall until a victim is in front of us
+    //     getVictim();
+    // }
+    // else
     {
         // Running to the end of the map
-        follow_right_wall_until_obstacle( 220, 6.0, 10.0 );
+        follow_right_wall_until_obstacle( 150, 6.0, 10.0 );
 
         // 90 degree left
         turn( FULL_LEFT_TURN, 2 ); 
         sleep(2);
 
+        drive(52, 3);
+        sleep(3);
+
+        claw(CLOSE);
+
         // Follow right wall until a victim is in front of us
-        getVictim();
+        //getVictim();
     }
 
     // Flip around

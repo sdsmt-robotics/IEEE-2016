@@ -1,3 +1,9 @@
+#include <iostream>
+#include <vector>
+#include <unistd.h>
+
+#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/highgui/highgui.hpp"
 #include "../include/serial.h"
 #include "../include/robot_defines.h"
 #include "../include/logger.h"
@@ -9,6 +15,8 @@
 #include <stdio.h>
 #include <unistd.h>
 
+using namespace std;
+using namespace cv;
 
 // #define printf LOG
 //Logging with g++ makes lots of warnings
@@ -34,11 +42,14 @@ int main( int argc, char* argv[] )
     victim_color = RED;
 
     start_to_cp();
-    retrieve_victim_1();
+//    retrieve_victim_1();
 
     victim_color = YELLOW;
 
-    retrieve_victim_2();
+//    retrieve_victim_2();
+
+    retrieve_victim_3();
+
     cp_to_start();
 
     return 0;
@@ -84,3 +95,7 @@ bool initialize_all_the_things()
 
     return true;
 }
+
+
+
+
