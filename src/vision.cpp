@@ -175,6 +175,8 @@ bool grabFrame()
 
 int checkColor()
 {
+	yellow_object_seen = false;
+	red_object_seen = false;
     for(int i = 0; i < 10; i++)
     {
         grabFrame();
