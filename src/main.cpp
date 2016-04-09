@@ -9,8 +9,7 @@
 
 #include <stdio.h>
 #include <unistd.h>
-#include "opencv2/imgproc/imgproc.hpp"
-#include "opencv2/highgui/highgui.hpp"
+
 
 // #define printf LOG
 //Logging with g++ makes lots of warnings
@@ -19,7 +18,6 @@ int send_port;
 int receive_port;
 int victim_color;
 
-using namespace cv;
 
 int main( int argc, char* argv[] )
 {

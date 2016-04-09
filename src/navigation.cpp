@@ -5,13 +5,12 @@
 #include "../include/logger.h"
 
 
-
 #include <unistd.h>
 #include <stdbool.h>
 #include <stdio.h>
 
 // #define printf LOG
-// using namespace cv;
+
 
 void start_to_cp( )
 {
