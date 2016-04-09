@@ -1,11 +1,10 @@
-#include "../include/main.h"
 #include "../include/serial.h"
 #include "../include/robot_defines.h"
 #include "../include/logger.h"
 #include "../include/navigation.h"
 #include "../include/locomotion.h"
 #include "../include/sensors.h"
-// #include "../include/vision.h"
+#include "../include/vision.h"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -17,6 +16,9 @@
 int send_port;
 int receive_port;
 int victim_color;
+
+int sys_init( const char* serialport );
+bool initialize_all_the_things();
 
 
 int main( int argc, char* argv[] )
@@ -72,7 +74,7 @@ bool initialize_all_the_things()
     clearPort( send_port );
     clearPort( receive_port );
 
-    victim_color = UNKNOWN_COLOR;
+//    victim_color = UNKNOWN_COLOR;
 
     // while ( !init_camera() )
     // {
