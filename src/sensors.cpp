@@ -221,11 +221,11 @@ void sensors( double *vic, double *back, double *front, double *left, double *ri
 
     clear_buffer();
 
-    *vic = map_voltage_to_distance( vic_v );
-    *back = map_voltage_to_distance( back_v );
-    *front = map_voltage_to_distance( front_v );
-    *left = map_voltage_to_distance( left_v );
-    *right = map_voltage_to_distance( right_v );
+    *vic = map_voltage_to_distance( vic_v, VIC );
+    *back = map_voltage_to_distance( back_v, BACK );
+    *front = map_voltage_to_distance( front_v, FRONT );
+    *left = map_voltage_to_distance( left_v, LEFT );
+    *right = map_voltage_to_distance( right_v, RIGHT );
 }
 
 int poll_left_sensor()
