@@ -311,3 +311,25 @@ bool grabFrame()
 	return 0;
 }
 */
+
+void set_global_colors()
+{
+	for (int i = 0; i < 20; i++ )
+	{
+		grabFrame();
+	}
+
+	if ( yellow_object_in_frame() )
+	{
+		victim_color = YELLOW;
+	}
+	else if ( red_object_in_frame() )
+	{
+		victim_color = RED;
+	}
+	else
+	{
+		victim_color = UNKNOWN_COLOR;
+	}
+}
+
