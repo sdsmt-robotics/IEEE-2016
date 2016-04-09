@@ -203,7 +203,7 @@ void retrieve_victim_2()
     //grabs victim 2 and returns to the CP
     printf("function: %s\n", __func__);
 
-    follow_left_wall_until_end( 200, 8.0 );
+    follow_left_wall_until_end( 220, 8.0 );
 
     drive( 17, 2 );
     sleep(2);
@@ -221,7 +221,7 @@ void retrieve_victim_2()
     claw( OPEN );
     sleep(2);
 
-    follow_left_wall_until_obstacle( 200, 7.0, 3.0 );
+    follow_left_wall_until_obstacle( 220, 7.0, 3.0 );
 
     drive( -10, 2 );
     sleep(2);
@@ -238,7 +238,7 @@ void retrieve_victim_2()
     turn( RIGHT_180, 4 );
     sleep(4);
 
-    follow_right_wall_until_end( 200, 5.0 );
+    follow_right_wall_until_end( 220, 5.0 );
 
     drive( 16, 2 );
     sleep(2);
@@ -247,13 +247,13 @@ void retrieve_victim_2()
     claw( LOWER );
     sleep(2);
 
-    forward_until_obstacle( 200, 2.0 );
+    forward_until_obstacle( 220, 2.0 );
 
     turn( FULL_RIGHT_TURN, 2 );
     claw( RAISE );
     sleep(2);
 
-    follow_left_wall_until_end( 200, 7.5 );
+    follow_left_wall_until_end( 220, 7.5 );
     stop();
 
     if ( victim_color == YELLOW )
@@ -410,142 +410,123 @@ void retrieve_victim_4()
 {
     //definitely grabs victim 4 and returns the poor bastard to the CP
     printf("function: %s\n", __func__);
-    /*
-    * instructions for if the fourth person is on the near side of the river:
-    * wall follow left until break in wall
-    * turn left and move forward until the green section has been reached
-    * turn left and approach the fourth victim
-    * grab victim and turn aroiund
-    * retrace steps to CP
-    */
-    if ( true /*A*/)
+
+    //V4b
+    follow_left_wall_until_end( 220, 8.0 );
+    drive( 18, 2 );
+    sleep(2);
+
+    turn( FULL_LEFT_TURN, 2 );
+    sleep(2);
+
+    drive( 61, 4 );
+    sleep(4);
+
+    turn( FULL_LEFT_TURN, 2 );
+    sleep(2);
+
+    drive( 17, 1 );
+    sleep(1);
+
+    follow_left_wall_until_obstacle( 200, 8.0, 2.0 );
+
+    drive( -10, 1 );
+    sleep(1);
+
+    victim_color = checkColor();
+    if ( victim_color == UNKNOWN_COLOR )
     {
-        //wall follow from CP to the first break in the left wall
-        follow_left_wall_until_end( 220, WALL_FOLLOW_TARGET );
-        //turn left 90 degrees
+        //There's no victim there, go to other place
+        turn( FULL_RIGHT_TURN, 2 );
+        sleep(2);
+        turn( HALF_RIGHT_TURN, 1 );
+        sleep(1);
+
+        forward_until_obstacle( 200, 2.0 );
+
+        turn( HALF_LEFT_TURN, 1 );
+        sleep(1);
         turn( FULL_LEFT_TURN, 2 );
         sleep(2);
-        //drive forward to the green area
-        drive( 64, 8 );
-        sleep(8);
-        //turn left 90 degrees
+
+        follow_right_wall_until_obstacle( 220, 7.5, 5.0 );
+
         turn( FULL_LEFT_TURN, 2 );
         sleep(2);
-        //drive forward to the victim
-        drive( 72.5, 10 );
-        sleep(10);
-        //grab the victim and lift it up
+
+        drive( 20, 3 );
+        sleep(3);
+
         claw( CLOSE );
-        claw( RAISE );
-        //turn around
-        turn( RIGHT_180, 4 );
-        sleep(4);
-        //drive back the way we came
-        drive( 72.5, 10 );
-        sleep(10);
-        //turn right 90 degrees
+
+        turn( LEFT_180, 3 );
+        sleep(3);
+
+        forward_until_obstacle( 200, 4.0 );
         turn( FULL_RIGHT_TURN, 2 );
         sleep(2);
-        //drive back into the city area
-        drive( 64, 8 );
-        sleep(8);
-        //turn right 90 degrees
+
+        follow_left_wall_until_obstacle( 230, 6.5, 3.0 );
         turn( FULL_RIGHT_TURN, 2 );
         sleep(2);
-        //return to the CP
-        follow_left_wall_until_end( 220, WALL_FOLLOW_TARGET );
+
+        follow_left_wall_until_obstacle( 230, 6.5, 3.0 );
+
+        turn( FULL_RIGHT_TURN, 2 );
+        sleep(2);
+
+        follow_left_wall_until_end( 200, 6.5 );
+
+        turn( FULL_LEFT_TURN, 2 );
+        sleep(2);
+
+        forward_until_obstacle( 210, 5.5 );
+
+        turn( FULL_RIGHT_TURN, 2 );
+        sleep(2);
+
+        follow_left_wall_until_end( 230, 6.5 );
+
+        stop();
     }
-    
-    /*
-    * instructions for if the fourth person is on the far side of the river:
-    * wall follow right until left gap
-    * wall follow right until left gap
-    * turn left and move forward to the point marked on the blue tape
-    * make dead reckoning angled turn to get to the second marked point
-    * wall follow right until the corner is reached
-    * turn left and wall follow right until corner
-    * turn left and move forward until victim 4 is reached
-    * grab victim 4 and turn around.
-    * retrace steps to CP
-    */
     else
     {
-        //navigate past the first left break
-        follow_right_wall_until_left_open( 220, WALL_FOLLOW_TARGET );
-        //get past the break, should now be able to read the left wall
-        drive( 35, 3 );
-        sleep(3);
-        //navigate to the second left break
-        follow_right_wall_until_left_open( 220, WALL_FOLLOW_TARGET );
-        //turn 90 degrees to the left
-        turn( FULL_LEFT_TURN, 2 );
-        sleep(2);
-        //drive forward to the edge of the green area
-        drive( 51, 8 );
-        sleep(8);
-        //turn at a 45 degree angle to get past the blocks
-        turn( HALF_RIGHT_TURN, 1 );
-        sleep(1);
-        //drive towards the wall.
-        drive( 43.2, 6 );
-        sleep(6);
-        //turn to be parallel with the wall
-        turn( HALF_LEFT_TURN, 1 );
-        sleep(1);
-        //wall follow until the corner is reached
-        follow_right_wall_until_obstacle( 220, WALL_FOLLOW_TARGET, 10.0 );
-        //turn 90 degrees at the corner
-        turn( FULL_LEFT_TURN, 2 );
-        sleep(2);
-        //wall follow until the corner is reached
-        follow_right_wall_until_obstacle( 220, WALL_FOLLOW_TARGET, 10.0 );
-        //turn 90 degrees at the corner
-        turn( FULL_LEFT_TURN, 2 );
-        //drive to the victim
-        drive( 17.8, 2 );
-        sleep(2);
-        //grab and lift the victim
         claw( CLOSE );
+        usleep(500*1000);
         claw( RAISE );
-        //turn around
+
+        drive( -17, 2 );
+        sleep(2);
+
         turn( LEFT_180, 4 );
         sleep(4);
-        //wall follow to the corner again
-        follow_left_wall_until_obstacle( 220, WALL_FOLLOW_TARGET, 10.0 );
-        //turn 90 degrees at the corner
+
+        follow_right_wall_until_end( 220, 7.0 );
+
+        drive( 17.0, 2 );
+        sleep(2);
+
+        forward_until_obstacle( 200, 2.0 );
+
         turn( FULL_RIGHT_TURN, 2 );
         sleep(2);
-        //wall follow until the corner is reached
-        follow_left_wall_until_obstacle( 220, WALL_FOLLOW_TARGET, 10.0 );
-        //turn 90 degrees at the corner
-        turn( FULL_RIGHT_TURN, 2 );
-        sleep(2);
-        //drive back to the point where the obstacles were avoided
-        drive( 94, 7);
-        //make a 45 degree turn right
-        turn( HALF_RIGHT_TURN, 1 );
-        //drive off of the green area
-        drive( 43.2, 6 );
-        sleep(6);
-        //turn left 45 degrees
-        turn( HALF_LEFT_TURN, 1 );
-        sleep(1);
-        //drive back into the city section
-        drive( 51, 8 );
-        sleep(8);
-        //turn right 90 degrees
-        turn( FULL_RIGHT_TURN, 2 );
-        sleep(2);
-        //wall follow back to CP
-        follow_left_wall_until_end( 220, WALL_FOLLOW_TARGET );
+
+        follow_left_wall_until_end( 220, 7.5 );
+        stop();
     }
 
-    /*
-    * instructions for after reaching CP:
-    * determine color
-    * call the appropriate drop off function
-    * After the victim has been dropped off, return to CP
-    * After returning to CP, return to initial zone
-    * power off.
-    */
+    if ( victim_color == YELLOW )
+    {
+        cp_to_yellow();
+    } else if ( victim_color == RED )
+    {
+        cp_to_red();
+    } else if ( victim_color == UNKNOWN_COLOR )
+    {
+        printf("Crap. UNKNOWN_COLOR. What are you, blind?\n");
+        cp_to_red();
+    }
+    stop();
+
+
 }
