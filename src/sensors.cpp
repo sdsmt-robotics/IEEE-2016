@@ -26,7 +26,7 @@ double map_voltage_to_distance( int voltage, int flag )
     {
         case LEFT:
         {
-            if ( isinf(dist) || dist < 0 )
+            if ( isinf(dist) || dist < 0 || dist > 100 )
             {
                 dist = last_left;
             }
@@ -35,7 +35,7 @@ double map_voltage_to_distance( int voltage, int flag )
         }
         case RIGHT:
         {
-            if ( isinf(dist) || dist < 0 )
+            if ( isinf(dist) || dist < 0 || dist > 100 )
             {
                 dist = last_right;
             }
@@ -44,7 +44,7 @@ double map_voltage_to_distance( int voltage, int flag )
         }
         case FRONT:
         {
-            if ( isinf(dist) || dist < 0 )
+            if ( isinf(dist) || dist < 0 || dist > 100 )
             {
                 dist = last_front;
             }
@@ -53,7 +53,7 @@ double map_voltage_to_distance( int voltage, int flag )
         }
         case BACK:
         {
-            if ( isinf(dist) || dist < 0 )
+            if ( isinf(dist) || dist < 0 || dist > 100 )
             {
                 dist = last_back;
             }
@@ -62,7 +62,7 @@ double map_voltage_to_distance( int voltage, int flag )
         }
         case VIC:
         {
-            if ( isinf(dist) || dist < 0 )
+            if ( isinf(dist) || dist < 0 || dist > 100 )
             {
                 dist = last_vic;
             }
