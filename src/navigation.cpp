@@ -11,7 +11,7 @@
 #include <stdio.h>
 
 // #define printf LOG
-using namespace cv;
+// using namespace cv;
 
 void start_to_cp( )
 {
