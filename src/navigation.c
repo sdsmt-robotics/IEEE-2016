@@ -9,7 +9,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-#define printf LOG
+// #define printf LOG
 
 
 void start_to_cp( )

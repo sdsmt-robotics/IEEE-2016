@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#define printf LOG
+// #define printf LOG
 //Logging with g++ makes lots of warnings
 
 int send_port;
