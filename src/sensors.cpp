@@ -5,41 +5,49 @@
 
 #include <stdio.h>
 #include <unistd.h>
-
+#include <math.h>
 // #define printf LOG
 
 
-double map_voltage_to_distance( int voltage )
+double map_voltage_to_distance( int voltage, int flag )
 {
     // https://acroname.com/articles/linearizing-sharp-ranger-data
     // We had to divide the function the above link gives by two to
     // properly characterize the sensor output.
-    return IR_DISTANCE_SCALAR * ( (6787.0)/(voltage - 3.0) - 4.0 );
+    static double last = 0;
+    double dist = IR_DISTANCE_SCALAR * ( (6787.0)/(voltage - 3.0) - 4.0);
+ 
+    if ( isinf(dist) || dist < 0 )
+    {
+        dist = last;
+    }
+    last = dist;
+    return dist;
 }
 
 double left_sensor()
 {
-    return map_voltage_to_distance( poll_left_sensor() );
+    return map_voltage_to_distance( poll_left_sensor(), LEFT );
 }
 
 double right_sensor()
 {
-    return map_voltage_to_distance( poll_right_sensor() );
+    return map_voltage_to_distance( poll_right_sensor(), RIGHT );
 }
 
 double front_sensor()
 {
-    return map_voltage_to_distance( poll_front_sensor() );
+    return map_voltage_to_distance( poll_front_sensor(), FRONT );
 }
 
 double back_sensor()
 {
-    return map_voltage_to_distance( poll_back_sensor() );
+    return map_voltage_to_distance( poll_back_sensor(), BACK );
 }
 
 double vic_sensor()
 {
-    return map_voltage_to_distance( poll_vic_sensor() );
+    return map_voltage_to_distance( poll_vic_sensor(), VIC );
 }
 
 void poll_sensors()
