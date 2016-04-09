@@ -1,3 +1,6 @@
+#ifndef VISION_H
+#define VISION_H
+
 #include <iostream>
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/highgui/highgui.hpp"
@@ -198,3 +201,5 @@ void clear_global_colors()
 
 	victim_color = UNKNOWN_COLOR;
 }
+
+#endif
