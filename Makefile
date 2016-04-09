@@ -9,7 +9,7 @@ LINK = g++
 CFLAGS = -Wall -O -g -lopencv_core -lopencv_highgui -lopencv_flann -lopencv_imgproc
 CXXFLAGS = $(CFLAGS)
 
-TARGET = test_locomote
+TARGET = main_exec
 
 all: $(TARGET)
 

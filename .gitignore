@@ -8,6 +8,8 @@ logs/
 *.zip
 *.txt
 test_locomote
+main_exec
+
 #############################
 #Default GitHub Python gitignore
 #############################
