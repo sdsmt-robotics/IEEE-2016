@@ -8,7 +8,7 @@
 #include <unistd.h>
 #include <math.h>
 
-#define printf LOG
+// #define printf LOG
 
 void setWheelSpeed( int wheel, unsigned char speed )
 {

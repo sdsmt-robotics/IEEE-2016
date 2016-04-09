@@ -10,10 +10,6 @@
 
 #define AREA_THRESHOLD 1200
 
-
-
-
-
 bool red_object_in_frame();
 
 bool yellow_object_in_frame();

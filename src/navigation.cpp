@@ -12,7 +12,7 @@
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/highgui/highgui.hpp"
 
-#define printf LOG
+// #define printf LOG
 using namespace cv;
 
 void start_to_cp( )
