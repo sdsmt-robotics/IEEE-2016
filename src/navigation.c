@@ -3,14 +3,13 @@
 #include "../include/robot_defines.h"
 #include "../include/sensors.h"
 #include "../include/logger.h"
-#include "../include/vision.h"
 
 
 #include <unistd.h>
 #include <stdbool.h>
 #include <stdio.h>
 
-// #define printf LOG
+#define printf LOG
 
 
 void start_to_cp( )
@@ -165,19 +164,13 @@ void retrieve_victim_1()
     //goes from the CP, grabs victim one, and returns back to the CP
     printf("function: %s\n", __func__);
 
+    claw( LOWER );
     drive( 18, 2 );
     sleep(2);
 
-    follow_right_wall_until_obstacle( 220, 5.5, 5.0 );
-
-    drive( -20, 2 );
-    claw( LOWER );
-    sleep(2);
+    follow_right_wall_until_obstacle( 220, 5.5, 2.0 );
     
-    victim_color = checkColor();
-
-    drive( 20, 2 );
-    sleep(2);
+    victim_color = YELLOW;
 
     claw( CLOSE );
     usleep(500*1000); //0.5 sec
@@ -229,12 +222,7 @@ void retrieve_victim_2()
 
     follow_left_wall_until_obstacle( 220, 7.0, 2.0 );
 
-    drive( -20, 2 );
-    sleep(2);
-
-    victim_color = checkColor();
-
-    forward_until_obstacle( 180, 3.0 );
+    victim_color = YELLOW;
 
     claw( CLOSE );
     usleep( 500*1000 );
@@ -284,8 +272,8 @@ void retrieve_victim_3()
 //    follow_right_wall_until_left_open( 180, 6.0 );
 
     // drive across the gap
-    drive( 50, 3 );
-    sleep(3);
+    drive( 50, 4 );
+    sleep(4);
 
     // Start following right wall until Left gap
     follow_right_wall_until_left_open( 220, 6.0 );
@@ -299,8 +287,8 @@ void retrieve_victim_3()
     sleep(4);
 
     // 45 degrees to the right
-    turn(HALF_RIGHT_TURN, 1);
-    sleep(1);
+    turn(HALF_RIGHT_TURN, 2);
+    sleep(2);
 
     // Drive forward 
     drive( 40, 3 );
@@ -317,91 +305,65 @@ void retrieve_victim_3()
     //check for color
 
 
-    drive(42, 3);
-    sleep(3);
+    drive(54, 4);
+    sleep(4);
 
-    victim_color = checkColor();
+    victim_color = YELLOW;
 
-    if (victim_color == UNKNOWN_COLOR)
-    {
-        follow_right_wall_until_obstacle( 230, 6.0, 10.0 );
 
-        turn( FULL_LEFT_TURN, 2 ); 
-        sleep(2);
-
-        drive(42, 3);
-        sleep(3);
-        victim_color = checkColor();
-
-        drive(10, 2);
-        sleep(2);
-
-        claw(CLOSE);
-        // Flip around
-        turn( LEFT_180, 2 );
-        sleep(2);
-
-        follow_left_wall_until_obstacle( 230, 6.0, 10.0 );
-
-        turn(FULL_RIGHT_TURN, 2);
-        sleep (2);
-    }
-    else
-    {
-        drive(10, 2);
-        sleep(2);
-
-        claw(CLOSE);
-        // Flip around
-        turn( LEFT_180, 2 );
-        sleep(2);
-
-        follow_left_wall_until_obstacle( 230, 6.0, 10.0 );
-        turn(FULL_RIGHT_TURN, 2);
-        sleep (2);
-
-    }
+    claw(CLOSE);
     
-    follow_left_wall_until_obstacle( 230, 6.0, 10.0 );
-    // Running to the end of the map
-    
+    forward_until_obstacle( 220, 10.0 );
+    drive(-1, 1);
+    sleep(1);
 
-    // 90 degree left
-
-
-    drive(30, 3);
-    sleep(3);
-
-
-    // Follow right wall until a victim is in front of us
-    //getVictim();
-    
-
-    // Flip around
-    turn( FULL_LEFT_TURN, 2);
+    turn( FULL_LEFT_TURN, 2 );
     sleep(2);
 
+    claw(OPEN);
+
+
+    drive(48, 4);
+    sleep(4);
+
+    claw(CLOSE);
+
     // Running to the end of the map
+    turn( LEFT_180, 2 );
+    sleep(2);
+    
+
     forward_until_obstacle( 220, 10.0 );
+    drive(-1, 1);
+    sleep(1);
 
     turn( FULL_RIGHT_TURN, 2 );
     sleep(2);
 
-    // Running to the end of the map
-    follow_left_wall_until_end( 220, 6.0 );   
+    forward_until_obstacle( 220, 10.0 );
+    drive(-1, 1);
+    sleep(1);
 
-    // 90 degree right turn
-    if ( victim_color == YELLOW )
-    {
-        cp_to_yellow();
-    } else if ( victim_color == RED )
-    {
-        cp_to_red();
-    } else if ( victim_color == UNKNOWN_COLOR )
-    {
-        printf("Crap. UNKNOWN_COLOR. What are you, blind?\n");
-        cp_to_yellow();
-    }
+    turn( FULL_RIGHT_TURN, 2 );
+    sleep(2);
+
+    drive(30, 3);
+    sleep(3);
+
+    turn( FULL_LEFT_TURN, 2 );
+    sleep(2);
+
+    forward_until_obstacle( 220, 10.0 );
+    drive(-1, 1);
+    sleep(1);
+
+    turn( FULL_RIGHT_TURN, 2 );
+    sleep(2);
+
+    follow_left_wall_until_end( 220, 6.0 );
+
+    cp_to_yellow();
+    
     stop();
 }
 
@@ -418,7 +380,7 @@ void retrieve_victim_4()
     turn( FULL_LEFT_TURN, 2 );
     sleep(2);
 
-    drive( 61, 4 );
+    drive( 62, 4 );
     sleep(4);
 
     turn( FULL_LEFT_TURN, 2 );
@@ -427,104 +389,39 @@ void retrieve_victim_4()
     drive( 17, 1 );
     sleep(1);
 
+    claw(OPEN);
+    claw(LOWER);
     follow_left_wall_until_obstacle( 200, 8.0, 2.0 );
 
-    drive( -10, 1 );
+    claw(CLOSE);
+    victim_color = YELLOW;
+    
+    usleep(500*1000);
+    claw( RAISE );
+
+    turn( RIGHT_180, 4 );
+    sleep(4);
+
+    follow_right_wall_until_end( 220, 7.0 );
+
+    drive( 17.0, 2 );
+    sleep(2);
+
+    turn( FULL_RIGHT_TURN, 2 );
+    sleep(2);
+
+    forward_until_obstacle( 220, 10.0 );
+    drive(-1, 1);
     sleep(1);
 
-    victim_color = checkColor();
-    if ( victim_color == UNKNOWN_COLOR )
-    {
-        //There's no victim there, go to other place
-        turn( FULL_RIGHT_TURN, 2 );
-        sleep(2);
-        turn( HALF_RIGHT_TURN, 1 );
-        sleep(1);
+    turn( FULL_RIGHT_TURN, 2 );
+    sleep(2);
 
-        forward_until_obstacle( 200, 2.0 );
+    follow_left_wall_until_end( 220, 7.5 );
+    stop();
+    
 
-        turn( HALF_LEFT_TURN, 1 );
-        sleep(1);
-        turn( FULL_LEFT_TURN, 2 );
-        sleep(2);
-
-        follow_right_wall_until_obstacle( 220, 7.5, 5.0 );
-
-        turn( FULL_LEFT_TURN, 2 );
-        sleep(2);
-
-        drive( 20, 3 );
-        sleep(3);
-
-        claw( CLOSE );
-
-        turn( LEFT_180, 3 );
-        sleep(3);
-
-        forward_until_obstacle( 200, 4.0 );
-        turn( FULL_RIGHT_TURN, 2 );
-        sleep(2);
-
-        follow_left_wall_until_obstacle( 230, 6.5, 3.0 );
-        turn( FULL_RIGHT_TURN, 2 );
-        sleep(2);
-
-        follow_left_wall_until_obstacle( 230, 6.5, 3.0 );
-
-        turn( FULL_RIGHT_TURN, 2 );
-        sleep(2);
-
-        follow_left_wall_until_end( 200, 6.5 );
-
-        turn( FULL_LEFT_TURN, 2 );
-        sleep(2);
-
-        forward_until_obstacle( 210, 5.5 );
-
-        turn( FULL_RIGHT_TURN, 2 );
-        sleep(2);
-
-        follow_left_wall_until_end( 230, 6.5 );
-
-        stop();
-    }
-    else
-    {
-        claw( CLOSE );
-        usleep(500*1000);
-        claw( RAISE );
-
-        drive( -17, 2 );
-        sleep(2);
-
-        turn( LEFT_180, 4 );
-        sleep(4);
-
-        follow_right_wall_until_end( 220, 7.0 );
-
-        drive( 17.0, 2 );
-        sleep(2);
-
-        forward_until_obstacle( 200, 2.0 );
-
-        turn( FULL_RIGHT_TURN, 2 );
-        sleep(2);
-
-        follow_left_wall_until_end( 220, 7.5 );
-        stop();
-    }
-
-    if ( victim_color == YELLOW )
-    {
-        cp_to_yellow();
-    } else if ( victim_color == RED )
-    {
-        cp_to_red();
-    } else if ( victim_color == UNKNOWN_COLOR )
-    {
-        printf("Crap. UNKNOWN_COLOR. What are you, blind?\n");
-        cp_to_red();
-    }
+    cp_to_yellow();
     stop();
 
 

@@ -1,24 +1,14 @@
-#include <iostream>
-#include <vector>
-#include <unistd.h>
-
-#include "opencv2/imgproc/imgproc.hpp"
-#include "opencv2/highgui/highgui.hpp"
 #include "../include/serial.h"
 #include "../include/robot_defines.h"
 #include "../include/logger.h"
 #include "../include/navigation.h"
 #include "../include/locomotion.h"
 #include "../include/sensors.h"
-#include "../include/vision.h"
 
 #include <stdio.h>
 #include <unistd.h>
 
-using namespace std;
-using namespace cv;
-
-// #define printf LOG
+#define printf LOG
 //Logging with g++ makes lots of warnings
 
 int send_port;
@@ -26,17 +16,14 @@ int receive_port;
 int victim_color;
 
 int sys_init( const char* serialport );
-bool initialize_all_the_things();
+// bool initialize_all_the_things();
 
 
 int main( int argc, char* argv[] )
 {
     //initializes all the things. Serial and vision. Also tops off the magic blue smoke tanks.
-    if ( !initialize_all_the_things() )
-    {
-        printf("initialize_all_the_things() failed miserably. You suck at programming. Go get some sleep and try again in a week.\n");
-        return -1;
-    }
+    sys_init( ARDUINO_COMM_LOCATION );
+    sys_init( SENSORS_COMM_LOCATION );
 
     //Start doing the things.
         
@@ -74,26 +61,26 @@ int sys_init( const char* serialport )
     return serial_file_handle;
 }
 
-bool initialize_all_the_things()
-{
-    //initializes all the things
-    printf("function: %s\n", __func__);
+// bool initialize_all_the_things()
+// {
+//     //initializes all the things
+//     printf("function: %s\n", __func__);
 
-    send_port = sys_init(ARDUINO_COMM_LOCATION);
-    receive_port = sys_init(SENSORS_COMM_LOCATION);
-    clearPort( send_port );
-    clearPort( receive_port );
+//     send_port = sys_init(ARDUINO_COMM_LOCATION);
+//     receive_port = sys_init(SENSORS_COMM_LOCATION);
+//     clearPort( send_port );
+//     clearPort( receive_port );
 
-    victim_color = UNKNOWN_COLOR;
+//     victim_color = UNKNOWN_COLOR;
 
-    while ( !init_camera() )
-    {
-        init_camera();
-        sleep(1);
-    }
+//     while ( !init_camera() )
+//     {
+//         init_camera();
+//         sleep(1);
+//     }
 
-    return true;
-}
+//     return true;
+// }
 
 
 

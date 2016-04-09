@@ -1,15 +1,15 @@
 #find any .c file in src/
-SRC = $(wildcard src/*.cpp)
+SRC = $(wildcard src/*.c)
 #make an object file for every .c file
-OBJ = $(SRC:.cpp=.o)
+OBJ = $(SRC:.c=.o)
 
-CC = g++
+CC = gcc
 LINK = g++
 
-CFLAGS =  -O -g -lopencv_core -lopencv_highgui -lopencv_imgproc -std=c++11 #-Wall
+CFLAGS =  -O -Wall
 CXXFLAGS = $(CFLAGS)
 
-TARGET = main_exec
+TARGET = c_main_exec
 
 all: $(TARGET)
 
@@ -17,8 +17,8 @@ $(TARGET): $(OBJ)
 	$(LINK) -o $@ $^ $(CFLAGS)
 #	rm -rf src/*.o
 
-.cpp:
-	$(CC) -o $@ $@.cpp
+.c:
+	$(CC) -o $@ $@.c
 
 clean:
 	rm -rf $(TARGET) src/*.o
