@@ -3,14 +3,12 @@
 #include "../include/robot_defines.h"
 #include "../include/sensors.h"
 #include "../include/logger.h"
-#include "../include/vision.h"
+
 
 
 #include <unistd.h>
 #include <stdbool.h>
 #include <stdio.h>
-#include "opencv2/imgproc/imgproc.hpp"
-#include "opencv2/highgui/highgui.hpp"
 
 // #define printf LOG
 using namespace cv;
