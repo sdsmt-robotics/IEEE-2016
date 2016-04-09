@@ -165,13 +165,13 @@ void retrieve_victim_1()
 
     follow_right_wall_until_obstacle( 220, 5.5, 5.0 );
 
-    drive( -10, 1 );
-    sleep(1);
+    drive( -10, 2 );
+    sleep(2);
 
     set_global_colors();
 
-    drive( 10, 1 );
-    sleep(1);
+    drive( 10, 2 );
+    sleep(2);
 
     claw( CLOSE );
     usleep(500*1000); //0.5 sec
@@ -224,10 +224,13 @@ void retrieve_victim_2()
 
     follow_left_wall_until_obstacle( 200, 7.0, 3.0 );
 
-    drive( -10, 1 );
-    sleep(1);
+    drive( -10, 2 );
+    sleep(2);
 
     set_global_colors();
+
+    drive( 10, 2 );
+    sleep(2);
 
     claw( CLOSE );
     usleep( 500*1000 );
