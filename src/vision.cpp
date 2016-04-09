@@ -4,6 +4,23 @@
 using namespace std;
 using namespace cv;
 
+VideoCapture camera;
+
+bool yellow_object_seen = false;
+bool red_object_seen    = false;
+
+Scalar lowLowerRed(0, 119, 117);
+Scalar highLowerRed(12, 255, 255);
+
+Scalar lowUpperRed(165, 119, 117);
+Scalar highUpperRed(179, 255, 255);
+    
+Scalar lowYellow(15, 50, 118);
+Scalar highYellow(45, 255, 255);
+    
+Scalar lowBlue(98, 0, 165);
+Scalar highBlue(118, 255, 255);
+
 bool red_object_in_frame()
 {
     return red_object_seen;
