@@ -9,7 +9,7 @@ LINK = g++
 CFLAGS =  -O -Wall
 CXXFLAGS = $(CFLAGS)
 
-TARGET = c_main_exec
+TARGET = main_exec
 
 all: $(TARGET)
 
