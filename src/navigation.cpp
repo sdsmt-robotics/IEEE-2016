@@ -172,25 +172,7 @@ void retrieve_victim_1()
 
     drive( -10, 2 );
     sleep(2);
-
-    for (int i = 0; i < 20; i++ )
-    {
-        grabFrame();
-    }
-
-    if ( yellow_object_in_frame() )
-    {
-        victim_color = YELLOW;
-    }
-    else if ( red_object_in_frame() )
-    {
-        victim_color = RED;
-    }
-    else
-    {
-        victim_color = UNKNOWN_COLOR;
-    }
-
+    //color check here
     drive( 10, 2 );
     sleep(2);
 
@@ -215,8 +197,6 @@ void retrieve_victim_1()
         printf("Crap. UNKNOWN_COLOR. What are you, blind?\n");
         cp_to_red();
     }
-
-    // clear_global_colors();
     stop();
 }
 
@@ -248,7 +228,7 @@ void retrieve_victim_2()
     drive( -10, 2 );
     sleep(2);
 
-    // set_global_colors();
+    // check color
 
     drive( 10, 2 );
     sleep(2);
@@ -289,8 +269,6 @@ void retrieve_victim_2()
         printf("Crap. UNKNOWN_COLOR. What are you, blind?\n");
         cp_to_red();
     }
-
-    // clear_global_colors();
     stop();
 }
 
