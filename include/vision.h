@@ -10,8 +10,7 @@
 
 #define AREA_THRESHOLD 1200
 
-using namespace std;
-using namespace cv;
+
 
 VideoCapture camera;
 
