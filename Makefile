@@ -14,7 +14,7 @@ TARGET = main_exec
 all: $(TARGET)
 
 $(TARGET): $(OBJ)
-	$(LINK) -o $@ $^
+	$(LINK) -o $@ $^ $(CFLAGS)
 #	rm -rf src/*.o
 
 .cpp:

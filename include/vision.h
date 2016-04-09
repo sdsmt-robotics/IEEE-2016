@@ -26,6 +26,7 @@ using namespace cv;
 void clear_objects_in_frame();
 bool red_object_in_frame();
 bool yellow_object_in_frame();
+bool init_camera();
 void cleanThresholdedImage(cv::Mat& thresholdImage);
 cv::Rect largestRectInFrame(std::vector<cv::Rect> rects);
 bool grabFrame();

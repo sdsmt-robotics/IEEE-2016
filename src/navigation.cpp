@@ -3,6 +3,7 @@
 #include "../include/robot_defines.h"
 #include "../include/sensors.h"
 #include "../include/logger.h"
+#include "../include/vision.h"
 
 
 #include <unistd.h>
@@ -316,67 +317,81 @@ void retrieve_victim_3()
     //     getVictim();
     // }
     // else
-    {
-        // Running to the end of the map
-        follow_right_wall_until_obstacle( 150, 6.0, 10.0 );
+    // Drive to first victim spot
+    drive(42, 3);
+    sleep(3);
 
-        // 90 degree left
+    victim_color = checkColor();
+
+    if (victim_color == UNKNOWN_COLOR)
+    {
+        follow_right_wall_until_obstacle( 230, 6.0, 10.0 );
+
         turn( FULL_LEFT_TURN, 2 ); 
         sleep(2);
 
-        drive(52, 3);
+        drive(42, 3);
         sleep(3);
+        victim_color = checkColor();
+
+        drive(10, 2);
+        sleep(2);
 
         claw(CLOSE);
+        // Flip around
+        turn( LEFT_180, 2 );
+        sleep(2);
 
-        // Follow right wall until a victim is in front of us
-        //getVictim();
+        follow_left_wall_until_obstacle( 230, 6.0, 10.0 );
+
+        turn(FULL_RIGHT_TURN, 2);
+        sleep (2);
     }
+    else
+    {
+        drive(10, 2);
+        sleep(2);
 
-    // Flip around
-    turn( LEFT_180, 2 );
-    sleep(2);
+        claw(CLOSE);
+        // Flip around
+        turn( LEFT_180, 2 );
+        sleep(2);
 
+        follow_left_wall_until_obstacle( 230, 6.0, 10.0 );
+        turn(FULL_RIGHT_TURN, 2);
+        sleep (2);
+
+    }
+    
+    follow_left_wall_until_obstacle( 230, 6.0, 10.0 );
     // Running to the end of the map
-    follow_left_wall_until_obstacle( 220, 6.0, 10.0 );
+    
 
-    turn( FULL_RIGHT_TURN, 2 );
-    sleep(2);
+    // 90 degree left
 
-    // Running to the end of the map
-    follow_left_wall_until_obstacle( 220, 6.0, 10.0 );   
 
-    // 90 degree right turn
-    turn( FULL_RIGHT_TURN, 2 );
-    sleep(2);
-
-    // Forward 12"
-    drive(31, 3);
+    drive(30, 3);
     sleep(3);
 
-    // Set victim 4's location
-    SetVictimLocation();
 
-    // 90 degree left turn
+    // Follow right wall until a victim is in front of us
+    //getVictim();
     
-    turn( FULL_LEFT_TURN, 2 );  
+
+    // Flip around
+    turn( FULL_LEFT_TURN, 2);
     sleep(2);
 
-    // Forward until the wall
-    
-    forward_until_obstacle( 220, 1 );
+    // Running to the end of the map
+    forward_until_obstacle( 220, 10.0 );
+
+    turn( FULL_RIGHT_TURN, 2 );
     sleep(2);
+
+    // Running to the end of the map
+    follow_left_wall_until_end( 220, 6.0 );   
 
     // 90 degree right turn
-    
-    turn( FULL_RIGHT_TURN, 2 );  
-    sleep(2);
-
-    // Follow wall till CP
-    
-    follow_left_wall_until_end( 220, 5.0 );
-
-
     if ( victim_color == YELLOW )
     {
         cp_to_yellow();
