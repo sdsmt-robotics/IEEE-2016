@@ -46,9 +46,9 @@ bool init_camera()
 	{
 		cout << "Cannot open the external camera, trying the internal\n";
 		camera.open( 0 );
-		return 1;
+		return 0;
 	}
-	return 0;
+	return 1;
 }
 
 void cleanThresholdedImage(Mat& thresholdImage)
