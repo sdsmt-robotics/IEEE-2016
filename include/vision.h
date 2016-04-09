@@ -194,71 +194,7 @@ int checkColor()
     else
         return UNKNOWN_COLOR;
 }
-    
 
-/*int main (int argc, char **argv)
-{
-	init_camera();
-	while(1)
-	{
-		usleep(33000);
-		grabFrame();
-	}
-}*/
-
-
-/*int main(int argc, char **argv)
-{
-
-	init_camera();
-
-	namedWindow("Control", CV_WINDOW_AUTOSIZE);
-
-	int lowHue = 17;
-	int highHue = 40;
-	
-	int lowSaturation = 81;
-	int highSaturation = 255;
-	
-	int lowValue = 70;
-	int highValue = 199;
-	
-	Scalar lowRed(46, 81, 255);
-	Scalar highRed(0, 0, 255);
-	
-	Scalar lowYellow(13, 89, 194);
-	Scalar highYellow(30, 204, 255);
-	
-	Scalar lowBlue(98, 0, 165);
-	Scalar highBlue(118, 255, 255);
-
-	//Create Track bars in window
-	cvCreateTrackbar("Low Hue", "Control", &lowHue, 255); //Hue (0 - 179)
-	cvCreateTrackbar("High Hue", "Control", &highHue, 255);
-	cvCreateTrackbar("Low Saturation", "Control", &lowSaturation, 255); //Saturation (0 - 255)
-	cvCreateTrackbar("High Saturation", "Control", &highSaturation, 255);
-	cvCreateTrackbar("Low Value", "Control", &lowValue, 255); //Value (0 - 255)
-	cvCreateTrackbar("High Value", "Control", &highValue, 255);
-
-	Mat cap, frame, threshold, red, yellow;
-	bool frame_available;
-
-	while(1)
-	{
-		frame_available = camera.read(cap);
-		if(!frame_available)
-		{
-			cout << "You broke some stuff, cutting out\n";
-			return 1;
-		}
-		cvtColor(cap, frame, CV_BGR2HSV); //convert to HSV from RGB
-	
-		inRange(frame, Scalar(lowHue, lowSaturation, lowValue), Scalar(highHue, highSaturation, highValue), threshold); //threshold that thang for the "threshold" debug window	
-		inRange(frame, lowRed, highRed, red);	
-		inRange(frame, lowYellow, highYellow, yellow);
-	return 0;
-}
-*/
 
 #endif
 
