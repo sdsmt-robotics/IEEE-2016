@@ -9,7 +9,7 @@ LINK = g++
 CFLAGS =  -O -g -lopencv_core -lopencv_highgui -lopencv_imgproc -std=c++11 #-Wall
 CXXFLAGS = $(CFLAGS)
 
-TARGET = cam_test
+TARGET = main_exec
 
 all: $(TARGET)
 
