@@ -168,13 +168,13 @@ void retrieve_victim_1()
 
     follow_right_wall_until_obstacle( 220, 5.5, 5.0 );
 
-    drive( -20, 2 );
+    drive( -30, 2 );
     claw( LOWER );
     sleep(2);
     
     victim_color = checkColor();
 
-    drive( 20, 2 );
+    drive( 30, 2 );
     sleep(2);
 
     claw( CLOSE );
@@ -225,11 +225,14 @@ void retrieve_victim_2()
     claw( OPEN );
     sleep(2);
 
-    follow_left_wall_until_obstacle( 220, 7.0, 12.0 );
+    follow_left_wall_until_obstacle( 220, 7.0, 2.0 );
+
+    drive( -30, 2 );
+    sleep(2);
 
     victim_color = checkColor();
 
-    forward_until_obstacle( 180, 2.0 );
+    forward_until_obstacle( 180, 3.0 );
 
     claw( CLOSE );
     usleep( 500*1000 );
