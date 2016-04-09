@@ -272,10 +272,10 @@ void retrieve_victim_3()
     printf("function: %s\n", __func__);
     // Start following right wall until Left gap
 
-    follow_right_wall_until_left_open( 220, 6.0 );
+//    follow_right_wall_until_left_open( 180, 6.0 );
 
     // drive across the gap
-    drive( 35, 3 );
+    drive( 50, 3 );
     sleep(3);
 
     // Start following right wall until Left gap
